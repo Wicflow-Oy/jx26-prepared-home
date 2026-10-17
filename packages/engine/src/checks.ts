@@ -1,5 +1,5 @@
 // The 14 fixed checks (docs/CONTRACTS.md §4). Criteria are judged by the vision model (visibility, condition)
-// or answered by the customer (user). Verdicts are decided in code (rules.ts), never by the model.
+// or answered by the customer (user). Verdicts are decided in code (verdict.ts), never by the model.
 
 import type { CheckDefinition, ClauseFit, HomeType, Localized, Owner } from "./types";
 
@@ -624,7 +624,7 @@ export const CHECKS: CheckDefinition[] = [
           "Ingen slang är ansluten",
           "No hose is attached",
         ),
-        // 5.5.4: the hose must come off "during the cold season" (rules.ts COLD_SEASON_MONTHS).
+        // 5.5.4: the hose must come off "during the cold season" (COLD_SEASON_MONTHS in verdict.ts).
         coldSeasonOnly: true,
       },
       {

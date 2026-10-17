@@ -6,7 +6,8 @@ import type {
   Lang,
   VisionAssessment,
 } from "@prepared-home/engine";
-import type { VisionImage } from "./types";
+import { isPlainObject } from "../validate";
+import type { VisionEffort, VisionImage } from "./types";
 
 export const TOOL_NAME = "record_assessment";
 
@@ -138,7 +139,7 @@ export function buildUserText(
 
 export interface RequestOptions {
   model: string;
-  effort?: "low" | "medium" | "high" | "xhigh" | "max" | null;
+  effort?: VisionEffort | null;
   maxTokens?: number;
 }
 
@@ -190,10 +191,6 @@ export function allNull(
   };
 }
 
-function isRecord(v: unknown): v is Record<string, unknown> {
-  return typeof v === "object" && v !== null && !Array.isArray(v);
-}
-
 function cleanText(v: unknown): string | null {
   if (typeof v !== "string") return null;
   const t = v.replace(/\s+/g, " ").trim();
@@ -205,7 +202,7 @@ function cleanBoxes(raw: unknown, width: number, height: number): Box[] {
   if (!Array.isArray(raw)) return [];
   const out: Box[] = [];
   for (const b of raw) {
-    if (!isRecord(b)) continue;
+    if (!isPlainObject(b)) continue;
     const coords = [b.x0, b.y0, b.x1, b.y1];
     if (!coords.every((n) => typeof n === "number" && Number.isFinite(n))) continue;
     let [x0, y0, x1, y1] = (coords as number[]).map((n) => Math.round(n));
@@ -228,13 +225,13 @@ export function parseAssessment(
   image: { width: number; height: number },
   model: string,
 ): VisionAssessment {
-  if (!isRecord(input) || !isRecord(input.criteria)) return allNull(check, model);
+  if (!isPlainObject(input) || !isPlainObject(input.criteria)) return allNull(check, model);
   const criteria = modelCriteria(check);
   const keys = criterionKeys(criteria);
   const results: VisionAssessment["criteria"] = [];
   for (let i = 0; i < criteria.length; i++) {
     const entry = input.criteria[keys[i]] ?? input.criteria[criteria[i].id];
-    if (!isRecord(entry)) return allNull(check, model);
+    if (!isPlainObject(entry)) return allNull(check, model);
     const met = entry.met;
     if (met !== true && met !== false && met !== null) return allNull(check, model);
     const note = cleanText(entry.note);

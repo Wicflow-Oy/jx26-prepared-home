@@ -3,7 +3,7 @@
 
 import { promises as fs } from "node:fs";
 import { parseArgs } from "node:util";
-import { gate, isReport, type EvalReport } from "./runner";
+import { gate, isReport, type EvalReport } from "./report";
 
 async function read(file: string): Promise<EvalReport> {
   const parsed: unknown = JSON.parse(await fs.readFile(file, "utf8"));

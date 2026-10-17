@@ -89,10 +89,10 @@ export interface CheckOutcome {
   boxes: Box[];
 }
 
-/** What the server stores per check. Never image bytes. */
 /** How the photo was taken. Only in-app camera photos count toward the lower deductible. */
 export type CaptureSource = "camera" | "library" | "sample";
 
+/** What is kept per check (on the device, or by the server in file mode). Never image bytes. */
 export interface CheckRecord {
   homeId: string;
   checkId: string;

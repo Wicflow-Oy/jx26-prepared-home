@@ -12,5 +12,6 @@ release
 deploy
 app/android
 app/ios
+landing/.screens
 server/data
 server/eval/reports

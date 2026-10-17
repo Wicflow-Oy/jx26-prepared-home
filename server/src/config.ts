@@ -1,5 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { VISION_EFFORTS, type VisionEffort } from "./vision/types";
 
 // Set to true by scripts/bundle.mjs (esbuild define). Undefined when run from source with tsx.
 declare const __PH_BUNDLED__: boolean | undefined;
@@ -28,7 +29,7 @@ export interface ServerConfig {
   webDist: string;
   apiKey: string | null;
   visionModel: string;
-  visionEffort: "low" | "medium" | "high" | "xhigh" | "max" | null;
+  visionEffort: VisionEffort | null;
   trustProxy: number | false;
   ratePerIp10Min: number;
   dailyLiveLimit: number;
@@ -36,7 +37,6 @@ export interface ServerConfig {
   estCostPerCallUsd: number;
   corsOrigin: string;
   logSalt: string | null;
-  production: boolean;
 }
 
 export const DEFAULT_VISION_MODEL = "claude-sonnet-5-5";
@@ -60,8 +60,6 @@ function resolvePath(
   return path.resolve(base, value);
 }
 
-const EFFORTS = new Set(["low", "medium", "high", "xhigh", "max"]);
-
 export function loadConfig(env: NodeJS.ProcessEnv = process.env): ServerConfig {
   const key = env.ANTHROPIC_API_KEY?.trim();
   const effort = env.VISION_EFFORT?.trim();
@@ -81,7 +79,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): ServerConfig {
     webDist: resolvePath(env, "WEB_DIST", "../app/dist", "./web"),
     apiKey: key ? key : null,
     visionModel: env.VISION_MODEL?.trim() || DEFAULT_VISION_MODEL,
-    visionEffort: effort && EFFORTS.has(effort) ? (effort as ServerConfig["visionEffort"]) : null,
+    visionEffort: VISION_EFFORTS.find((e) => e === effort) ?? null,
     trustProxy,
     ratePerIp10Min: num(env, "RATE_PER_IP_10MIN", 12),
     dailyLiveLimit: num(env, "DAILY_LIVE_LIMIT", 400),
@@ -89,6 +87,5 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): ServerConfig {
     estCostPerCallUsd: num(env, "EST_COST_PER_CALL_USD", 0.05),
     corsOrigin: env.CORS_ORIGIN?.trim() || "*",
     logSalt: env.LOG_SALT?.trim() || null,
-    production: env.NODE_ENV === "production",
   };
 }

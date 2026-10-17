@@ -1,6 +1,6 @@
 # Native builds: iOS (TestFlight) and Android (APK)
 
-For the team lead. **Every login below is yours.** Nobody else handles Expo or Apple credentials. Run the commands in a terminal in `builds/prepared-home/app/`. The EAS CLI is installed (`eas-cli/24.13.0`, `C:\Users\user\AppData\Roaming\npm\eas`); `eas whoami` currently says "Not logged in".
+For the team lead. **Every login below is yours.** Nobody else handles Expo or Apple credentials. Run the commands in a terminal in `app/`. They need the EAS CLI (`npm install -g eas-cli`; built with 24.13.0).
 
 Bundle id and package: `fi.wicflow.preparedhome`. Display name: "Prepared Home". The app shows a "Prototype" note on the start screen and in settings.
 

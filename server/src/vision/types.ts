@@ -1,5 +1,8 @@
 import type { CheckDefinition, Lang, VisionAssessment } from "@prepared-home/engine";
 
+export const VISION_EFFORTS = ["low", "medium", "high", "xhigh", "max"] as const;
+export type VisionEffort = (typeof VISION_EFFORTS)[number];
+
 export interface VisionImage {
   base64: string;
   mediaType: "image/jpeg";

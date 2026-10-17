@@ -2,7 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { DEFAULT_VISION_MODEL } from "../config";
 import { MAX_LONG_EDGE } from "../jpeg";
 import { allNull, buildRequest, extractToolInput, parseAssessment } from "./prompt";
-import type { LiveAssessment, VisionInput, VisionProvider } from "./types";
+import type { LiveAssessment, VisionEffort, VisionInput, VisionProvider } from "./types";
 
 /** The slice of the SDK client we use; tests pass a fake. */
 export interface MessagesClient {
@@ -15,7 +15,7 @@ export interface AnthropicProviderOptions {
   apiKey?: string;
   client?: MessagesClient;
   model?: string;
-  effort?: "low" | "medium" | "high" | "xhigh" | "max" | null;
+  effort?: VisionEffort | null;
   timeoutMs?: number;
 }
 
@@ -32,7 +32,7 @@ export class AnthropicVisionProvider implements VisionProvider {
   private readonly effort: AnthropicProviderOptions["effort"];
 
   constructor(opts: AnthropicProviderOptions = {}) {
-    this.model = opts.model?.trim() || process.env.VISION_MODEL?.trim() || DEFAULT_VISION_MODEL;
+    this.model = opts.model?.trim() || DEFAULT_VISION_MODEL;
     this.effort = opts.effort ?? null;
     if (opts.client) {
       this.client = opts.client;

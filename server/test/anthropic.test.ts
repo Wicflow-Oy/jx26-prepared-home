@@ -134,26 +134,20 @@ describe("AnthropicVisionProvider with a fake client", () => {
   const l5 = check("L5");
 
   it("defaults to claude-sonnet-5-5 and returns the parsed assessment with usage", async () => {
-    const prev = process.env.VISION_MODEL;
-    delete process.env.VISION_MODEL;
-    try {
-      const { client, calls } = fakeClient(() =>
-        fakeMessage([
-          { type: "text", text: "Looking." },
-          toolUse(toolInput(l5, true, false, { urgent: true })),
-        ]),
-      );
-      const provider = new AnthropicVisionProvider({ client });
-      expect(provider.model).toBe("claude-sonnet-5-5");
-      const a = await provider.assess({ check: l5, lang: "en", image });
-      expect(calls).toHaveLength(1);
-      expect(calls[0].model).toBe("claude-sonnet-5-5");
-      expect(a.criteria.some((c) => c.met === false)).toBe(true);
-      expect(a.urgent).toBe(true);
-      expect(a.usage).toEqual({ inputTokens: 2000, outputTokens: 500 });
-    } finally {
-      if (prev !== undefined) process.env.VISION_MODEL = prev;
-    }
+    const { client, calls } = fakeClient(() =>
+      fakeMessage([
+        { type: "text", text: "Looking." },
+        toolUse(toolInput(l5, true, false, { urgent: true })),
+      ]),
+    );
+    const provider = new AnthropicVisionProvider({ client });
+    expect(provider.model).toBe("claude-sonnet-5-5");
+    const a = await provider.assess({ check: l5, lang: "en", image });
+    expect(calls).toHaveLength(1);
+    expect(calls[0].model).toBe("claude-sonnet-5-5");
+    expect(a.criteria.some((c) => c.met === false)).toBe(true);
+    expect(a.urgent).toBe(true);
+    expect(a.usage).toEqual({ inputTokens: 2000, outputTokens: 500 });
   });
 
   it("uses the model override", async () => {

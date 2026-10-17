@@ -21,11 +21,14 @@ COPY app/package.json app/package-lock.json app/
 RUN cd app && npm ci --no-audit --no-fund
 COPY app/ app/
 RUN cd app && EXPO_PUBLIC_API_BASE_URL=/api npx expo export --platform web --output-dir dist
+COPY landing/ landing/
 
-# Runtime layout: server.mjs, web/, samples/ (licensed photos + attribution), cache/assessments/ (recorded results).
-RUN mkdir -p /out/samples /out/cache/assessments \
+# Runtime layout, the same as deploy/pack.sh: server.mjs, web/ (landing page at /, app at /app),
+# samples/ (licensed photos + attribution), cache/assessments/ (recorded results).
+RUN mkdir -p /out/web /out/samples /out/cache/assessments \
  && cp /src/release/artifact/server.mjs /out/server.mjs \
- && cp -r /src/app/dist /out/web \
+ && cp -r /src/app/dist /out/web/app \
+ && (cd /src/landing && cp index.html styles.css main.js robots.txt favicon.svg if-logo.svg manifest.webmanifest /out/web/) \
  && cp /src/server/eval/photos/*.jpg /src/server/eval/photos/README.md /out/samples/ \
  && (cp /src/server/cache/assessments/*.json /out/cache/assessments/ 2>/dev/null || true)
 

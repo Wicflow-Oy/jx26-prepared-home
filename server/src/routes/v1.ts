@@ -7,7 +7,7 @@ import { sampleView } from "../samples";
 import {
   bad,
   hashShared,
-  isRecord,
+  isPlainObject,
   parseHome,
   parseHomeType,
   parseId,
@@ -63,7 +63,7 @@ export function v1Router(deps: AppDeps): Router {
 
   r.post("/check", async (req, res) => {
     const body: unknown = req.body;
-    if (!isRecord(body)) throw bad("JSON body required");
+    if (!isPlainObject(body)) throw bad("JSON body required");
     const homeId = parseId(body.homeId, "homeId");
     const homeType = parseHomeType(body.homeType);
     const check = checkForHome(body.checkId, homeType);
@@ -84,7 +84,7 @@ export function v1Router(deps: AppDeps): Router {
 
   r.post("/claims", (req, res) => {
     const body: unknown = req.body;
-    if (!isRecord(body)) throw bad("JSON body required");
+    if (!isPlainObject(body)) throw bad("JSON body required");
     const home = parseHome(body.home);
     if (!Array.isArray(body.records) || body.records.length > 200)
       throw bad("records must be an array (at most 200)");

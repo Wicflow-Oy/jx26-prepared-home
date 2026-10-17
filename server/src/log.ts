@@ -18,6 +18,13 @@ export const consoleLogger: Logger = {
   warn: (message) => console.warn(line({ kind: "warn", message })),
 };
 
+/** An error's name and HTTP status, for logs. Never its message, which can carry API or request details. */
+export function errorTag(err: unknown): string {
+  const e = err as { name?: unknown; status?: unknown } | null | undefined;
+  const name = typeof e?.name === "string" ? e.name : "Error";
+  return typeof e?.status === "number" ? `${name} ${e.status}` : name;
+}
+
 export const silentLogger: Logger = {
   request: () => {},
   check: () => {},

@@ -51,7 +51,8 @@ function qrSvg(modules, label) {
 }
 
 // QR code encoder (ISO/IEC 18004): byte mode, error correction level M, versions 1 to 40.
-// Returns the symbol as rows of booleans, true for a dark module.
+// Returns the symbol as rows of booleans, true for a dark module. It is generated in the page, so the
+// landing page needs no build step, loads no third-party script and sends its URL to no QR service.
 
 // For error correction level M, indexed by version - 1.
 const EC_CODEWORDS_PER_BLOCK = [

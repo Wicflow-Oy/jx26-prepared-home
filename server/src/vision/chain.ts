@@ -1,6 +1,6 @@
 import type { VisionAssessment } from "@prepared-home/engine";
 import { costUsd, type LiveGuard } from "../limits";
-import { silentLogger, type Logger } from "../log";
+import { errorTag, silentLogger, type Logger } from "../log";
 import { note } from "../notes";
 import type { CachedVisionProvider } from "./cached";
 import { MockVisionProvider } from "./mock";
@@ -23,15 +23,6 @@ export interface ChainOptions {
   guard?: LiveGuard | null;
   clock?: () => Date;
   logger?: Logger;
-}
-
-function errorTag(err: unknown): string {
-  if (err && typeof err === "object") {
-    const status = (err as { status?: unknown }).status;
-    const name = (err as { name?: unknown }).name;
-    return `${typeof name === "string" ? name : "Error"}${typeof status === "number" ? ` ${status}` : ""}`;
-  }
-  return "Error";
 }
 
 /**

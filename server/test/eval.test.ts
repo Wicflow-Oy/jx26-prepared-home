@@ -2,16 +2,8 @@ import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import {
-  gate,
-  isReport,
-  loadEvalImage,
-  loadManifest,
-  runEval,
-  toMarkdown,
-  writeReport,
-  type EvalReport,
-} from "../eval/runner";
+import { gate, isReport, toMarkdown, writeReport, type EvalReport } from "../eval/report";
+import { loadEvalImage, loadManifest, runEval } from "../eval/runner";
 import { FakeProvider, photosDir, scriptedAssessment, serverDir, tempDir } from "./helpers";
 
 const manifestPath = path.join(serverDir, "eval", "manifest.json");

@@ -17,9 +17,9 @@ export const bad = (message: string) => new HttpError(400, "bad_request", messag
 const LANGS: Lang[] = ["fi", "sv", "en"];
 const HOME_TYPES: HomeType[] = ["flat", "house", "cottage"];
 const PERILS: Peril[] = ["leak", "fire", "freeze", "storm_water"];
-const VERDICTS: Verdict[] = ["verified", "retake", "fix_first", "not_applicable"];
+export const VERDICTS: Verdict[] = ["verified", "retake", "fix_first", "not_applicable"];
 
-export function isRecord(v: unknown): v is Record<string, unknown> {
+export function isPlainObject(v: unknown): v is Record<string, unknown> {
   return typeof v === "object" && v !== null && !Array.isArray(v);
 }
 
@@ -64,7 +64,7 @@ function parseIsoDateTime(v: unknown, name: string): string {
 
 export function parseUserAnswers(v: unknown): Record<string, boolean> {
   if (v === undefined || v === null) return {};
-  if (!isRecord(v)) throw bad("userAnswers must be an object of booleans");
+  if (!isPlainObject(v)) throw bad("userAnswers must be an object of booleans");
   const out: Record<string, boolean> = {};
   for (const [k, val] of Object.entries(v).slice(0, 50)) {
     if (typeof val === "boolean" && k.length <= 80) out[k] = val;
@@ -73,7 +73,7 @@ export function parseUserAnswers(v: unknown): Record<string, boolean> {
 }
 
 export function parseHome(v: unknown): Home {
-  if (!isRecord(v)) throw bad("home must be an object");
+  if (!isPlainObject(v)) throw bad("home must be an object");
   const label = typeof v.label === "string" ? v.label.slice(0, 120) : "Home";
   if (typeof v.hasLeakAlarm !== "boolean") throw bad("home.hasLeakAlarm must be a boolean");
   const home: Home = {
@@ -88,7 +88,7 @@ export function parseHome(v: unknown): Home {
 }
 
 export function parseRecord(v: unknown, homeId: string): CheckRecord {
-  if (!isRecord(v)) throw bad("each record must be an object");
+  if (!isPlainObject(v)) throw bad("each record must be an object");
   if (typeof v.verdict !== "string" || !(VERDICTS as string[]).includes(v.verdict))
     throw bad("record.verdict is invalid");
   const sha = v.photoSha256;
@@ -152,7 +152,7 @@ export function hashShared(shared: unknown, max = 20): { checkId: string; sha256
   if (!Array.isArray(shared)) throw bad("shared must be an array");
   if (shared.length > max) throw bad(`shared may hold at most ${max} photos`);
   return shared.map((item) => {
-    if (!isRecord(item)) throw bad("each shared item must be an object");
+    if (!isPlainObject(item)) throw bad("each shared item must be an object");
     const checkId = parseId(item.checkId, "shared.checkId");
     const bytes = decodeBase64(item.imageBase64);
     if (!bytes) throw bad("shared.imageBase64 must be base64");

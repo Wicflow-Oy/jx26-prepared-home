@@ -6,9 +6,9 @@ Prepared Home is a voluntary moving-day check-up inside the home insurance app. 
 | Part | State | Where |
 |---|---|---|
 | Check catalogue: 14 checks (flat 11, house 14, cottage 13) with fixed criteria; each check shows the related clause of If's home terms OMA 200.27, quoted verbatim in Finnish, Swedish and If's official English (protective instructions, one exclusion, and If's home guide where the terms are silent) | Built, unit-tested | `packages/engine/src/checks.ts`, `packages/engine/src/data/clauses.ts` |
-| Rules: verdicts (Verified / Retake / Fix first), due dates, status per risk, reminders, Home Card, the claim-time decision | Built, unit-tested (63 tests) | `packages/engine/src/rules.ts` |
+| Rules: verdicts (Verified / Retake / Fix first), due dates, status per risk, reminders, Home Card, the claim-time decision | Built, unit-tested (79 tests) | `packages/engine/src/` (`verdict.ts`, `status.ts`, `reminders.ts`, `homeCard.ts`, `adjuster.ts`) |
 | Vision check behind one interface, with a fixed photo eval that gates every model change | Built, measured | `server/src/vision/`, `server/eval/` |
-| API with per-IP and daily spend limits, recorded-result fallback, no storage of photos | Built, tested (64 tests) | `server/src/` |
+| API with per-IP and daily spend limits, recorded-result fallback, no storage of photos | Built, tested (65 tests) | `server/src/` |
 | App in fi, sv and en | Built and running on the web and in Expo Go on Android; the same code builds for iOS and Android with EAS (native store builds pending) | `app/` |
 
 **Measured on 17 Oct 2026** (24 licensed photos; a small set, so treat it as a smoke test, not a benchmark):

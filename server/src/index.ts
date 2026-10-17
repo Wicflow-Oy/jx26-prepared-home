@@ -1,7 +1,7 @@
 import { createApp } from "./app";
 import { IS_BUNDLED, loadConfig } from "./config";
+import { buildDeps } from "./deps";
 import { consoleLogger } from "./log";
-import { buildDeps } from "./server";
 
 const config = loadConfig();
 const deps = await buildDeps(config);

@@ -7,7 +7,7 @@ import { createApp } from "../src/app";
 import type { ServerConfig } from "../src/config";
 import type { FetchLike } from "../src/fmi";
 import type { Logger } from "../src/log";
-import { buildDeps } from "../src/server";
+import { buildDeps } from "../src/deps";
 import type { VisionProvider } from "../src/vision/types";
 import {
   fakeJpeg,

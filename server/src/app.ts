@@ -3,7 +3,7 @@ import type { ServerResponse } from "node:http";
 import path from "node:path";
 import express, { type NextFunction, type Request, type Response } from "express";
 import type { AppDeps } from "./deps";
-import { legacyRouter } from "./routes/legacy";
+import { fileModeRouter } from "./routes/fileMode";
 import { v1Router } from "./routes/v1";
 import { HttpError } from "./validate";
 
@@ -88,7 +88,7 @@ export function createApp(deps: AppDeps): express.Express {
 
   app.use("/api", express.json({ limit: BODY_LIMIT }));
   app.use("/api/v1", v1Router(deps));
-  if (config.storeMode === "file" && deps.store) app.use("/api", legacyRouter(deps, deps.store));
+  if (config.storeMode === "file" && deps.store) app.use("/api", fileModeRouter(deps, deps.store));
   app.use("/api", (_req, res) => {
     res.status(404).json({ error: "not_found", message: "Unknown API route" });
   });

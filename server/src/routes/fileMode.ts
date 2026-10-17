@@ -1,4 +1,5 @@
-// CONTRACTS §5 home-based routes. Mounted only when STORE_MODE=file ("the insurer holds status, date and hash").
+// CONTRACTS §5 home-based routes. Mounted only when STORE_MODE=file: the server keeps homes and records,
+// modelling an insurer that holds each check's status, date and photo hash. The public demo is stateless (v1.ts).
 
 import {
   adjusterView,
@@ -19,7 +20,7 @@ import {
   bad,
   hashShared,
   HttpError,
-  isRecord,
+  isPlainObject,
   parseHomeType,
   parseId,
   parseIsoDate,
@@ -31,7 +32,7 @@ import {
 } from "../validate";
 import { checkForHome, checksView, clientKey, healthBase, runCheck } from "./common";
 
-export function legacyRouter(deps: AppDeps, store: FileStore): Router {
+export function fileModeRouter(deps: AppDeps, store: FileStore): Router {
   const r = Router();
   const claims = new Map<string, AdjusterView>(); // in memory only
 
@@ -55,7 +56,7 @@ export function legacyRouter(deps: AppDeps, store: FileStore): Router {
 
   r.post("/homes", async (req, res) => {
     const body: unknown = req.body;
-    if (!isRecord(body)) throw bad("JSON body required");
+    if (!isPlainObject(body)) throw bad("JSON body required");
     if (typeof body.hasLeakAlarm !== "boolean") throw bad("hasLeakAlarm must be a boolean");
     const home: Home = {
       homeId: deps.newId("home"),
@@ -90,7 +91,7 @@ export function legacyRouter(deps: AppDeps, store: FileStore): Router {
     const home = homeOr404(req.params.homeId);
     const check = checkForHome(req.params.checkId, home.homeType);
     const body: unknown = req.body;
-    if (!isRecord(body)) throw bad("JSON body required");
+    if (!isPlainObject(body)) throw bad("JSON body required");
     if (body.photoSha256 === undefined) throw bad("photoSha256 is required");
     const image = receiveImage(body.imageBase64, body.photoSha256);
     const result = await runCheck(deps, {
@@ -135,7 +136,7 @@ export function legacyRouter(deps: AppDeps, store: FileStore): Router {
 
   r.post("/claims", (req, res) => {
     const body: unknown = req.body;
-    if (!isRecord(body)) throw bad("JSON body required");
+    if (!isPlainObject(body)) throw bad("JSON body required");
     const home = homeOr404(parseId(body.homeId, "homeId"));
     const peril = parsePeril(body.peril);
     const lossDate = parseIsoDate(body.lossDate, "lossDate");

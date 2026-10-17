@@ -4,7 +4,7 @@
 import type { CheckRecord, Home, Verdict } from "./types";
 import { getCheck } from "./checks";
 import { toDay } from "./dates";
-import { dueDateFor } from "./rules";
+import { dueDateFor } from "./verdict";
 
 const DEMO_HASHES: Record<string, string> = {
   "demo-turku-flat:L1": "9e5e1a8ee40d7f85ccc4eb1ab5891ad73691933265f26f4ab4c93b09da5164b8",

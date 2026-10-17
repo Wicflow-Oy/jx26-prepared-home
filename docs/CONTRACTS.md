@@ -1,5 +1,7 @@
 # Prepared Home (Valmis koti): build contracts
 
+> **Design history.** This is the build spec as it was agreed during the event. Where it and the code differ, the code, the [README](../README.md) and [ARCHITECTURE.md](ARCHITECTURE.md) are current (for example, the vision call uses `tool_choice: auto` with a strict tool, and the If branding was added later). Paths under `../../context/` are the team's research notes, which are not in this repo.
+
 Frozen Sat 17 Oct 2026, 19:40. The engine, server and app build against this file and `packages/engine/src/types.ts`. Additive changes are fine; breaking changes need a joint decision. Product context: `../../context/dossier-if.md` (★ section, §9.0) and `../../context/if-brainstorm-research.md` §8.
 
 **The product in one line:** a voluntary moving-day check-up in the home insurance app. A dozen guided photo checks, each checked by a vision model against fixed criteria. While a risk's checks are current, its deductible is lower (**a concept; If decides the amounts**). The adjuster sees the dated checks at claim time. Photos stay on the device.
@@ -134,7 +136,7 @@ Clause ids must exist in the clause data. "Section" = the clause covers the area
 
 ## 7. Eval (gates any model swap)
 - **Photo set:** `server/eval/photos/`, the 24 licensed photos from `../../context/analysis/if/vision-test-24/` (copy them **with** their README attribution), plus the team's own photos later.
-- **Manifest:** `server/eval/manifest.json` with `{ file, checkId, expectedVerdict, note }`. Map the old missions: A → L1, B → L2/L3/L5 by content, C → F2. Expected verdicts come from `lead-vision-pretest-24.md`, translated to the new rules.
+- **Manifest:** `server/eval/manifest.json` with `{ file, checkId, expectedVerdict, note }`. Map the photo groups: A → L1, B → L2/L3/L5 by content, C → F2. Expected verdicts come from the team's earlier pre-test of the same 24 photos, translated to the new rules.
 - **Runner:** `npm run eval -- --model <id>` writes `server/eval/reports/<timestamp>-<model>.{json,md}` with accuracy, a confusion matrix, false "verified" count and per-photo rows.
 - **Gate:** a model may replace the current default only if accuracy is at least the baseline's and false-verified is not higher. `npm run eval:gate -- --candidate <report> --baseline <report>` exits non-zero on failure.
 - **Without a key** the runner prints "ANTHROPIC_API_KEY not set" and exits 2. Unit tests cover the runner with a mock provider.

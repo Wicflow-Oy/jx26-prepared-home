@@ -93,6 +93,7 @@ describe("config", () => {
       STORE_MODE: "file",
       CACHE_WRITE: "1",
       ANTHROPIC_API_KEY: " k ",
+      VISION_EFFORT: "high",
     });
     expect(c).toMatchObject({
       ratePerIp10Min: 3,
@@ -101,7 +102,9 @@ describe("config", () => {
       storeMode: "file",
       cacheWrite: true,
       apiKey: "k",
+      visionEffort: "high",
     });
+    expect(loadConfig({ VISION_EFFORT: "turbo" }).visionEffort).toBeNull();
   });
 });
 

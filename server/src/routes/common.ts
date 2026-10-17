@@ -2,7 +2,7 @@ import {
   type CaptureSource,
   CHECKS,
   checksFor,
-  clauseText,
+  clauseRefs,
   decideVerdict,
   getCheck,
   isCheckId,
@@ -33,13 +33,9 @@ export function checkForHome(checkId: unknown, homeType: HomeType): CheckDefinit
   return check;
 }
 
-export function clausesFor(check: CheckDefinition, lang: Lang): { id: string; text: string }[] {
-  return check.clauseIds.map((id) => ({ id, text: clauseText(id, lang) }));
-}
-
 export function checksView(homeType: HomeType | null, lang: Lang) {
   const list = homeType ? checksFor(homeType) : CHECKS;
-  return list.map((check) => ({ ...check, clause: clausesFor(check, lang) }));
+  return list.map((check) => ({ ...check, clause: clauseRefs(check, lang) }));
 }
 
 export function clientKey(deps: AppDeps, req: Request): string {
@@ -106,7 +102,7 @@ export async function runCheck(
     record,
     source: result.source,
     model: result.model,
-    clause: clausesFor(check, lang),
+    clause: clauseRefs(check, lang),
   };
   if (result.sourceNote) response.sourceNote = result.sourceNote;
   return response;

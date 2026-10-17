@@ -4,9 +4,10 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
-import { DEFAULT_VISION_MODEL } from "../src/config";
+import { loadConfig } from "../src/config";
 import { AnthropicVisionProvider } from "../src/vision/anthropic";
-import { loadManifest, runEval, writeReport } from "./runner";
+import { writeReport } from "./report";
+import { loadManifest, runEval } from "./runner";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 
@@ -23,23 +24,22 @@ async function main(): Promise<number> {
     allowPositionals: false,
   });
 
-  const apiKey = process.env.ANTHROPIC_API_KEY?.trim();
-  if (!apiKey) {
+  const config = loadConfig();
+  if (!config.apiKey) {
     console.error(
       "ANTHROPIC_API_KEY not set. The eval calls the live model; set the key and run again.",
     );
     return 2;
   }
 
-  const model = values.model?.trim() || process.env.VISION_MODEL?.trim() || DEFAULT_VISION_MODEL;
-  const effort = process.env.VISION_EFFORT?.trim() as
-    "low" | "medium" | "high" | "xhigh" | "max" | undefined;
+  const model = values.model?.trim() || config.visionModel;
+  const effort = config.visionEffort;
   let rows = await loadManifest(values.manifest!);
   if (values.only) {
     const only = new Set(values.only.split(",").map((s) => s.trim().replace(/\.jpe?g$/i, "")));
     rows = rows.filter((r) => only.has(r.file.replace(/\.jpe?g$/i, "")));
   }
-  const provider = new AnthropicVisionProvider({ apiKey, model, effort: effort || null });
+  const provider = new AnthropicVisionProvider({ apiKey: config.apiKey, model, effort });
   console.log(
     `Eval: ${rows.length} photos, model ${model}${effort ? `, effort ${effort}` : ""}. This makes ${rows.length} paid API calls.`,
   );

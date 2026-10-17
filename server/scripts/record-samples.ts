@@ -43,7 +43,7 @@ async function main(): Promise<number> {
     const check = getCheck(s.def.checkId, "flat");
     const bytes = await fs.readFile(s.path);
     const started = Date.now();
-    const result = await provider.assess({
+    const assessment = await provider.assess({
       check,
       lang: "en",
       image: {
@@ -53,7 +53,6 @@ async function main(): Promise<number> {
         height: s.height,
       },
     });
-    const assessment = result; // store() keeps only the assessment fields, never usage
     await cache.store(s.sha256, s.def.checkId, assessment, new Date());
     recorded += 1;
     const answers = Object.fromEntries(

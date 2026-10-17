@@ -49,7 +49,7 @@ docker compose version
   If it is, pick another port with `PH_PORT` in `.env`.
 
 ## 1. Get the code
-Repo URL: [TEAM: the private Wicflow-Oy repo, once the team lead creates it].
+Repo URL: https://github.com/Wicflow-Oy/jx26-prepared-home (private; use your own GitHub access).
 ```bash
 sudo mkdir -p /opt/jx && sudo chown "$USER" /opt/jx && git clone <repo-url> /opt/jx/preparedhome
 ```

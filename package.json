@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "setup": "npm ci && npm --prefix packages/engine ci && npm --prefix server ci && npm --prefix app ci",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint . && npm --prefix app run lint",

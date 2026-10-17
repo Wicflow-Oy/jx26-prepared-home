@@ -13,3 +13,5 @@ app/dist/
 !.env.example
 !**/.env.example
 .review/
+# Large eval set: images are re-downloaded from Wikimedia Commons by server/eval/large/fetch.mjs
+server/eval/large/photos/

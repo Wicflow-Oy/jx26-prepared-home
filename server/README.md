@@ -103,12 +103,15 @@ Reports give strict and lenient accuracy, a confusion matrix, the false "verifie
 
 | Path | Contents |
 |---|---|
+| `src/index.ts` | Entry point: config, dependencies, listen, graceful shutdown |
+| `src/config.ts`, `src/deps.ts` | Environment variables (the only place they are read), and the dependencies built from them |
 | `src/app.ts` | Routes, headers, static files, error handling |
-| `src/routes/` | `v1.ts` (stateless API), `legacy.ts` (file mode), `common.ts` (a check from photo to record) |
+| `src/routes/` | `v1.ts` (stateless API), `fileMode.ts` (home-based routes, `STORE_MODE=file`), `common.ts` (a check from photo to record) |
+| `src/validate.ts`, `src/hash.ts`, `src/jpeg.ts` | Request validation, SHA-256 and base64, the JPEG size reader |
 | `src/vision/` | The provider interface, the Claude provider and its prompt, the cache, the offline mock and the chain |
 | `src/limits.ts` | Per-IP and daily limits |
 | `src/fmi.ts` | Frost forecast |
 | `src/samples.ts` | Sample photo list and credits |
-| `eval/` | Photos, manifest, runner, gate and reports |
+| `eval/` | Photos, manifest, runner (`run.ts`, `runner.ts`), scoring and gate (`report.ts`, `gate.ts`) and reports |
 | `scripts/` | `bundle.mjs`, `record-samples.ts` |
 | `test/` | Vitest suites (mocked vision provider, fake FMI) |
