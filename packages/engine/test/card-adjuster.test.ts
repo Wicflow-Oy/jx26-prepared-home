@@ -20,7 +20,17 @@ describe("homeCard", () => {
       { peril: "leak", state: "in_progress", preparedUntil: null },
       { peril: "fire", state: "in_progress", preparedUntil: null },
     ]);
-    expect(card.records.map((r) => r.checkId)).toEqual(["L1", "L2", "L3", "L4", "L5", "L6", "F1", "F2", "F3"]);
+    expect(card.records.map((r) => r.checkId)).toEqual([
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "L6",
+      "F1",
+      "F2",
+      "F3",
+    ]);
     const l1 = card.records[0]!;
     expect(l1).toEqual({
       checkId: "L1",
@@ -49,8 +59,12 @@ describe("homeCard", () => {
 });
 
 describe("adjusterView", () => {
-  const claim = (records = demoRecords(FLAT), shared: { checkId: string; sha256: string }[] = [], peril: Peril = DEMO_CLAIM.peril, lossDate = DEMO_CLAIM.lossDate) =>
-    adjusterView({ claimId: "c-1", home: demoHome(FLAT), records, peril, lossDate, shared });
+  const claim = (
+    records = demoRecords(FLAT),
+    shared: { checkId: string; sha256: string }[] = [],
+    peril: Peril = DEMO_CLAIM.peril,
+    lossDate = DEMO_CLAIM.lossDate,
+  ) => adjusterView({ claimId: "c-1", home: demoHome(FLAT), records, peril, lossDate, shared });
 
   it("demo claim before L4 is fixed: bonus not applied, says why", () => {
     const v = claim();
@@ -58,20 +72,34 @@ describe("adjusterView", () => {
     expect(v.perilStateAtLoss).toBe("in_progress");
     expect(v.deductible).toEqual({ standard: 300, prepared: 100, current: 300, label: "concept" });
     expect(v.reasons).toContain("L4 was fix_first and never re-taken before the loss date.");
-    expect(v.note).toBe("Cover is unchanged either way; only the deductible relief depends on the checks. A person decides.");
-    expect(v.records.find((r) => r.checkId === "L4")).toMatchObject({ verdict: "fix_first", validAtLoss: false, photoShared: false, hashMatches: null });
+    expect(v.note).toBe(
+      "Cover is unchanged either way; only the deductible relief depends on the checks. A person decides.",
+    );
+    expect(v.records.find((r) => r.checkId === "L4")).toMatchObject({
+      verdict: "fix_first",
+      validAtLoss: false,
+      photoShared: false,
+      hashMatches: null,
+    });
   });
 
   it("after a verified L4 with a matching shared photo: relief applies", () => {
     const l4Hash = "0123456789abcdef".repeat(4);
-    const records = [...demoRecords(FLAT), rec(FLAT, "L4", "verified", "2026-10-17T10:00:00Z", l4Hash)];
+    const records = [
+      ...demoRecords(FLAT),
+      rec(FLAT, "L4", "verified", "2026-10-17T10:00:00Z", l4Hash),
+    ];
     const v = claim(records, [{ checkId: "L4", sha256: l4Hash.toUpperCase() }]);
     expect(v.decision).toBe("relief_applies");
     expect(v.perilStateAtLoss).toBe("prepared");
     expect(v.deductible.current).toBe(100);
     expect(v.records).toHaveLength(6);
     expect(v.records.every((r) => r.validAtLoss)).toBe(true);
-    expect(v.records.find((r) => r.checkId === "L4")).toMatchObject({ verdict: "verified", photoShared: true, hashMatches: true });
+    expect(v.records.find((r) => r.checkId === "L4")).toMatchObject({
+      verdict: "verified",
+      photoShared: true,
+      hashMatches: true,
+    });
     expect(v.reasons[0]).toBe("Leak was prepared on 2027-02-03: all 6 checks were current.");
     expect(v.reasons).toContain("The shared photo matches the stored hash.");
   });
@@ -90,7 +118,10 @@ describe("adjusterView", () => {
     expect(v.decision).toBe("bonus_not_applied");
     expect(v.deductible.current).toBe(300);
     expect(v.reasons).toContain("The shared photo for L2 does not match the stored hash.");
-    expect(v.records.find((r) => r.checkId === "L2")).toMatchObject({ photoShared: true, hashMatches: false });
+    expect(v.records.find((r) => r.checkId === "L2")).toMatchObject({
+      photoShared: true,
+      hashMatches: false,
+    });
   });
 
   it("an unprepared peril means the bonus is not applied, naming the missing checks", () => {
@@ -105,7 +136,11 @@ describe("adjusterView", () => {
   });
 
   it("checks done after the loss date do not count", () => {
-    const records = [...demoRecords(FLAT), rec(FLAT, "F4", "verified", "2027-02-04T10:00:00Z"), rec(FLAT, "F5", "verified", "2026-10-20T10:00:00Z")];
+    const records = [
+      ...demoRecords(FLAT),
+      rec(FLAT, "F4", "verified", "2027-02-04T10:00:00Z"),
+      rec(FLAT, "F5", "verified", "2026-10-20T10:00:00Z"),
+    ];
     const v = claim(records, [], "fire");
     expect(v.decision).toBe("bonus_not_applied");
     expect(v.reasons).toContain("F4 was first checked after the loss date (2027-02-04).");
@@ -124,14 +159,28 @@ describe("adjusterView", () => {
     const records = [...demoRecords(FLAT), rec(FLAT, "L4", "verified", "2026-10-17T10:00:00Z")];
     const v = claim(records, [{ checkId: "F5", sha256: "a".repeat(64) }]);
     expect(v.decision).toBe("bonus_not_applied");
-    expect(v.reasons).toContain("The shared photo for F5 has no check record from before the loss date.");
+    expect(v.reasons).toContain(
+      "The shared photo for F5 has no check record from before the loss date.",
+    );
   });
 
   it("storm water on a house uses the leak checks and its own deductible", () => {
     const house = demoHome("demo-house");
     const v = adjusterView(
-      { claimId: "c-2", home: house, records: DEMO.records, peril: "storm_water", lossDate: "2026-11-20", shared: [] },
-      { leak: { standard: 300, prepared: 100 }, fire: { standard: 300, prepared: 100 }, freeze: { standard: 300, prepared: 100 }, storm_water: { standard: 400, prepared: 200 } },
+      {
+        claimId: "c-2",
+        home: house,
+        records: DEMO.records,
+        peril: "storm_water",
+        lossDate: "2026-11-20",
+        shared: [],
+      },
+      {
+        leak: { standard: 300, prepared: 100 },
+        fire: { standard: 300, prepared: 100 },
+        freeze: { standard: 300, prepared: 100 },
+        storm_water: { standard: 400, prepared: 200 },
+      },
     );
     expect(v.decision).toBe("relief_applies");
     expect(v.records.map((r) => r.checkId)).toContain("S1");

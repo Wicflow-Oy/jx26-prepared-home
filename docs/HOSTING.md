@@ -2,7 +2,7 @@
 
 **Decided Sat 17 Oct: the team lead's UpCloud server in Helsinki**, behind the box's existing Traefik. Vercel is off.
 
-- **Runbook:** `DEPLOY.md` at the repo root, for the operator. He deploys from GitHub; build sessions never SSH in. It covers a read-only preflight, both proxy cases (Traefik labels, or Caddy/nginx with `127.0.0.1:8787`), verify and rollback.
+- **Runbook:** `DEPLOY.md` at the repo root, for the operator. He deploys from GitHub; nobody else SSHes in. It covers a read-only preflight, both proxy cases (Traefik labels, or Caddy/nginx with `127.0.0.1:8787`), verify and rollback.
 - **Shared conventions for all three JunctionX demos:** `../HOSTING.md`.
 - **Compose:** `deploy/compose.yml` plus `compose.traefik.yml` or `compose.port.yml` (project `jx-preparedhome`, 1 GB, `noindex` headers). Secrets template: `.env.example` (every variable, none filled in). the team lead's local key: `.env.local` (gitignored).
 - **The box never builds heavy images.** `deploy/pack.sh` bundles the server and exports the web app on the dev PC into `release/artifact/` (committed); the Dockerfile only copies it.

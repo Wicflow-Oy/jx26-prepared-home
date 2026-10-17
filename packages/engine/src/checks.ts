@@ -21,12 +21,20 @@ export const CHECKS: CheckDefinition[] = [
       {
         id: "L1.valve_visible",
         kind: "visibility",
-        text: t("Veden sulkuventtiili näkyy", "En avstängningsventil för vattnet syns", "A water shut-off valve is visible"),
+        text: t(
+          "Veden sulkuventtiili näkyy",
+          "En avstängningsventil för vattnet syns",
+          "A water shut-off valve is visible",
+        ),
       },
       {
         id: "L1.handle_visible",
         kind: "visibility",
-        text: t("Sen kahva tai vipu näkyy", "Dess handtag eller spak syns", "Its handle or lever is visible"),
+        text: t(
+          "Sen kahva tai vipu näkyy",
+          "Dess handtag eller spak syns",
+          "Its handle or lever is visible",
+        ),
       },
       {
         id: "L1.no_leak",
@@ -58,7 +66,11 @@ export const CHECKS: CheckDefinition[] = [
     id: "L2",
     peril: "leak",
     homeTypes: ["flat", "house", "cottage"],
-    title: t("Pesukoneen letku ja oma hana", "Tvättmaskinens slang och egen kran", "Washing-machine hose and its own tap"),
+    title: t(
+      "Pesukoneen letku ja oma hana",
+      "Tvättmaskinens slang och egen kran",
+      "Washing-machine hose and its own tap",
+    ),
     coach: t(
       "Vedä konetta tarvittaessa hieman esiin. Kuvaa letku hanasta koneeseen sekä hana.",
       "Dra vid behov ut maskinen lite. Fotografera slangen från kranen till maskinen, och kranen.",
@@ -77,7 +89,11 @@ export const CHECKS: CheckDefinition[] = [
       {
         id: "L2.tap_visible",
         kind: "visibility",
-        text: t("Koneen oma sulkuhana näkyy", "Maskinens egen avstängningskran syns", "The machine's own shut-off tap is visible"),
+        text: t(
+          "Koneen oma sulkuhana näkyy",
+          "Maskinens egen avstängningskran syns",
+          "The machine's own shut-off tap is visible",
+        ),
       },
       {
         id: "L2.hose_ok",
@@ -104,7 +120,11 @@ export const CHECKS: CheckDefinition[] = [
     id: "L3",
     peril: "leak",
     homeTypes: ["flat", "house", "cottage"],
-    title: t("Astianpesukoneen letku ja hana", "Diskmaskinens slang och kran", "Dishwasher hose and tap"),
+    title: t(
+      "Astianpesukoneen letku ja hana",
+      "Diskmaskinens slang och kran",
+      "Dishwasher hose and tap",
+    ),
     coach: t(
       "Avaa altaan alakaappi tai astianpesukoneen vieressä oleva sokkeli. Kuvaa vesiliitäntä.",
       "Öppna skåpet under diskbänken eller sockeln bredvid diskmaskinen. Fotografera vattenanslutningen.",
@@ -114,7 +134,11 @@ export const CHECKS: CheckDefinition[] = [
       {
         id: "L3.connection_visible",
         kind: "visibility",
-        text: t("Astianpesukoneen vesiliitäntä näkyy", "Diskmaskinens vattenanslutning syns", "The dishwasher's water connection is visible"),
+        text: t(
+          "Astianpesukoneen vesiliitäntä näkyy",
+          "Diskmaskinens vattenanslutning syns",
+          "The dishwasher's water connection is visible",
+        ),
       },
       {
         id: "L3.tap_present",
@@ -169,7 +193,11 @@ export const CHECKS: CheckDefinition[] = [
       {
         id: "L4.floor_visible",
         kind: "visibility",
-        text: t("Lattia laitteen alla näkyy", "Golvet under apparaten syns", "The floor under the appliance is visible"),
+        text: t(
+          "Lattia laitteen alla näkyy",
+          "Golvet under apparaten syns",
+          "The floor under the appliance is visible",
+        ),
       },
       {
         id: "L4.tray_or_drain",
@@ -215,7 +243,11 @@ export const CHECKS: CheckDefinition[] = [
       {
         id: "L5.drain_visible",
         kind: "visibility",
-        text: t("Lattiakaivo tai vesilukko näkyy", "En golvbrunn eller ett vattenlås syns", "A floor drain or a sink trap is visible"),
+        text: t(
+          "Lattiakaivo tai vesilukko näkyy",
+          "En golvbrunn eller ett vattenlås syns",
+          "A floor drain or a sink trap is visible",
+        ),
       },
       {
         id: "L5.clear",
@@ -292,7 +324,11 @@ export const CHECKS: CheckDefinition[] = [
       "Photograph the smoke alarm on the ceiling. Then press its test button.",
     ),
     criteria: [
-      { id: "F1.alarm_visible", kind: "visibility", text: t("Palovaroitin näkyy", "En brandvarnare syns", "A smoke alarm is visible") },
+      {
+        id: "F1.alarm_visible",
+        kind: "visibility",
+        text: t("Palovaroitin näkyy", "En brandvarnare syns", "A smoke alarm is visible"),
+      },
       {
         id: "F1.mounted",
         kind: "condition",
@@ -305,7 +341,11 @@ export const CHECKS: CheckDefinition[] = [
       {
         id: "F1.beeped",
         kind: "user",
-        text: t("Painoin testinappia ja se piippasi", "Jag tryckte på testknappen och den pep", "I pressed the test button and it beeped"),
+        text: t(
+          "Painoin testinappia ja se piippasi",
+          "Jag tryckte på testknappen och den pep",
+          "I pressed the test button and it beeped",
+        ),
       },
     ],
     clauseIds: ["OMA-5.2.6"],
@@ -333,7 +373,11 @@ export const CHECKS: CheckDefinition[] = [
       {
         id: "F2.board_visible",
         kind: "visibility",
-        text: t("Sähkökeskus tai ryhmäkeskus näkyy", "Elcentralen eller gruppcentralen syns", "The fuse box or distribution board is visible"),
+        text: t(
+          "Sähkökeskus tai ryhmäkeskus näkyy",
+          "Elcentralen eller gruppcentralen syns",
+          "The fuse box or distribution board is visible",
+        ),
       },
       {
         id: "F2.no_damage",
@@ -406,7 +450,11 @@ export const CHECKS: CheckDefinition[] = [
       {
         id: "F3.cords_ok",
         kind: "condition",
-        text: t("Johdot ja pistokkeet ovat ehjät", "Sladdar och stickproppar är hela", "Cords and plugs undamaged"),
+        text: t(
+          "Johdot ja pistokkeet ovat ehjät",
+          "Sladdar och stickproppar är hela",
+          "Cords and plugs undamaged",
+        ),
       },
     ],
     clauseIds: ["OMA-5.2.7"],
@@ -431,7 +479,11 @@ export const CHECKS: CheckDefinition[] = [
       "Photograph the whole stove top from above, as it usually is.",
     ),
     criteria: [
-      { id: "F4.stove_visible", kind: "visibility", text: t("Liesitaso näkyy", "Spishällen syns", "The stove top is visible") },
+      {
+        id: "F4.stove_visible",
+        kind: "visibility",
+        text: t("Liesitaso näkyy", "Spishällen syns", "The stove top is visible"),
+      },
       {
         id: "F4.nothing_stored",
         kind: "condition",
@@ -505,7 +557,11 @@ export const CHECKS: CheckDefinition[] = [
     id: "Z1",
     peril: "freeze",
     homeTypes: ["house", "cottage"],
-    title: t("Lämmitys kylmänä vuodenaikana", "Uppvärmning under den kalla årstiden", "Heating for the cold season"),
+    title: t(
+      "Lämmitys kylmänä vuodenaikana",
+      "Uppvärmning under den kalla årstiden",
+      "Heating for the cold season",
+    ),
     coach: t(
       "Kuvaa termostaatti, lämmityksen säädin tai patterin asetus.",
       "Fotografera termostaten, värmeregleringen eller ett elements inställning.",
@@ -553,8 +609,16 @@ export const CHECKS: CheckDefinition[] = [
       "Photograph the outdoor tap so it shows whether a hose is attached.",
     ),
     criteria: [
-      { id: "Z2.tap_visible", kind: "visibility", text: t("Ulkohana näkyy", "Utekranen syns", "The outdoor tap is visible") },
-      { id: "Z2.no_hose", kind: "condition", text: t("Hanaan ei ole kiinnitetty letkua", "Ingen slang är ansluten", "No hose attached") },
+      {
+        id: "Z2.tap_visible",
+        kind: "visibility",
+        text: t("Ulkohana näkyy", "Utekranen syns", "The outdoor tap is visible"),
+      },
+      {
+        id: "Z2.no_hose",
+        kind: "condition",
+        text: t("Hanaan ei ole kiinnitetty letkua", "Ingen slang är ansluten", "No hose attached"),
+      },
       {
         id: "Z2.indoor_valve_closed",
         kind: "user",
@@ -592,7 +656,11 @@ export const CHECKS: CheckDefinition[] = [
       {
         id: "S1.gutter_visible",
         kind: "visibility",
-        text: t("Räystäskouru tai syöksytorvi näkyy", "En hängränna eller ett stuprör syns", "A gutter or downpipe is visible"),
+        text: t(
+          "Räystäskouru tai syöksytorvi näkyy",
+          "En hängränna eller ett stuprör syns",
+          "A gutter or downpipe is visible",
+        ),
       },
       {
         id: "S1.clear_and_away",
@@ -711,7 +779,10 @@ function specialize(check: CheckDefinition, homeType: HomeType): CheckDefinition
     ...(check.guideNote ? { guideNote: { ...check.guideNote } } : {}),
     defaultOwner: { ...check.defaultOwner },
     fixHint: { ...(v?.fixHint ?? check.fixHint) },
-    recheck: check.recheck.kind === "seasonal" ? { kind: "seasonal", months: [...check.recheck.months] } : { ...check.recheck },
+    recheck:
+      check.recheck.kind === "seasonal"
+        ? { kind: "seasonal", months: [...check.recheck.months] }
+        : { ...check.recheck },
   };
 }
 
@@ -738,7 +809,11 @@ export function ownerFor(check: CheckDefinition, homeType: HomeType): Owner {
 }
 
 /** Criterion text in a language for a home type (falls back to the check's own text). */
-export function criterionText(check: CheckDefinition, criterionId: string, homeType: HomeType): Localized | undefined {
+export function criterionText(
+  check: CheckDefinition,
+  criterionId: string,
+  homeType: HomeType,
+): Localized | undefined {
   const variant = VARIANTS[check.id]?.[homeType]?.criteria?.[criterionId];
   return variant ?? check.criteria.find((c) => c.id === criterionId)?.text;
 }

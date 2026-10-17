@@ -7,547 +7,547 @@ import type { Clause, Lang } from "../types";
 
 export const CLAUSES: Record<string, Clause> = {
   "OMA-5-intro-valvonta": {
-    "id": "OMA-5-intro-valvonta",
-    "section": "5 (johdanto)",
-    "topic": {
-      "fi": "Rakennuksen valvonnan määritelmä",
-      "sv": "Definition av övervakning av byggnad",
-      "en": "Definition of supervision of a building"
+    id: "OMA-5-intro-valvonta",
+    section: "5 (johdanto)",
+    topic: {
+      fi: "Rakennuksen valvonnan määritelmä",
+      sv: "Definition av övervakning av byggnad",
+      en: "Definition of supervision of a building",
     },
-    "text": {
-      "fi": "Suojeluohjeissa rakennuksen valvonnalla tarkoitetaan käyntiä rakennuksessa vähintään kerran kuukaudessa.",
-      "sv": "Egendomen ska övervakas. I säkerhetsföreskrifterna avses med övervakning av lösöre ständig uppsikt. I säkerhetsföreskrifterna avses med övervakning av byggnad besök i byggnaden minst en gång i månaden.",
-      "en": "Furthermore, in the precautions the surveillance of a building refers to visiting the building at least once a month."
+    text: {
+      fi: "Suojeluohjeissa rakennuksen valvonnalla tarkoitetaan käyntiä rakennuksessa vähintään kerran kuukaudessa.",
+      sv: "Egendomen ska övervakas. I säkerhetsföreskrifterna avses med övervakning av lösöre ständig uppsikt. I säkerhetsföreskrifterna avses med övervakning av byggnad besök i byggnaden minst en gång i månaden.",
+      en: "Furthermore, in the precautions the surveillance of a building refers to visiting the building at least once a month.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5-intro-laiminlyonti": {
-    "id": "OMA-5-intro-laiminlyonti",
-    "section": "5 (johdanto)",
-    "topic": {
-      "fi": "Suojeluohjeen laiminlyönnin seuraus",
-      "sv": "Följd av att försumma en säkerhetsföreskrift",
-      "en": "Consequence of breaching a protective instruction"
+    id: "OMA-5-intro-laiminlyonti",
+    section: "5 (johdanto)",
+    topic: {
+      fi: "Suojeluohjeen laiminlyönnin seuraus",
+      sv: "Följd av att försumma en säkerhetsföreskrift",
+      en: "Consequence of breaching a protective instruction",
     },
-    "text": {
-      "fi": "Suojeluohjeen laiminlyönti voi aiheuttaa sen, ettei korvausta makseta tai se maksetaan alennettuna yleisten sopimusehtojen kohdan 5 mukaisesti.",
-      "sv": "Försäkringstagaren, den försäkrade och med honom eller henne jämställbar person ska iaktta säkerhetsföreskrifterna. Om säkerhetsföreskrifterna försummas, kan detta leda till att ersättning inte utbetalas eller att ersättningen sänks i enlighet med punkt 5 i de allmänna avtalsvillkoren.",
-      "en": "Negligence in heeding the precautions may cause the compensation to be reduced or completely denied in accordance with clause 5 of the General Terms and Conditions."
+    text: {
+      fi: "Suojeluohjeen laiminlyönti voi aiheuttaa sen, ettei korvausta makseta tai se maksetaan alennettuna yleisten sopimusehtojen kohdan 5 mukaisesti.",
+      sv: "Försäkringstagaren, den försäkrade och med honom eller henne jämställbar person ska iaktta säkerhetsföreskrifterna. Om säkerhetsföreskrifterna försummas, kan detta leda till att ersättning inte utbetalas eller att ersättningen sänks i enlighet med punkt 5 i de allmänna avtalsvillkoren.",
+      en: "Negligence in heeding the precautions may cause the compensation to be reduced or completely denied in accordance with clause 5 of the General Terms and Conditions.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-4.1-vesieriste": {
-    "id": "OMA-4.1-vesieriste",
-    "section": "4 (item 1)",
-    "topic": {
-      "fi": "Rajoitus: vesi vesieristeen läpi tai vesieriste puuttuu",
-      "sv": "Undantag: vatten genom fuktbarriären eller fuktbarriär saknas",
-      "en": "Exclusion: water through or without a waterproofing layer"
+    id: "OMA-4.1-vesieriste",
+    section: "4 (item 1)",
+    topic: {
+      fi: "Rajoitus: vesi vesieristeen läpi tai vesieriste puuttuu",
+      sv: "Undantag: vatten genom fuktbarriären eller fuktbarriär saknas",
+      en: "Exclusion: water through or without a waterproofing layer",
     },
-    "text": {
-      "fi": "vesi on läpäissyt vesieristeen tai vesieriste on puuttunut kokonaan",
-      "sv": "vatten trängt igenom fuktbarriären eller fuktbarriären helt har saknats",
-      "en": "caused by water penetrating waterproofing, or in cases in which there was no waterproofing"
+    text: {
+      fi: "vesi on läpäissyt vesieristeen tai vesieriste on puuttunut kokonaan",
+      sv: "vatten trängt igenom fuktbarriären eller fuktbarriären helt har saknats",
+      en: "caused by water penetrating waterproofing, or in cases in which there was no waterproofing",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-4.25": {
-    "id": "OMA-4.25",
-    "section": "4 (item 25)",
-    "topic": {
-      "fi": "Rajoitus: vahinko, jonka aikaa tai paikkaa ei voi määrittää",
-      "sv": "Undantag: skada som inte kan tids- eller platsbestämmas",
-      "en": "Exclusion: damage that cannot be dated or placed"
+    id: "OMA-4.25",
+    section: "4 (item 25)",
+    topic: {
+      fi: "Rajoitus: vahinko, jonka aikaa tai paikkaa ei voi määrittää",
+      sv: "Undantag: skada som inte kan tids- eller platsbestämmas",
+      en: "Exclusion: damage that cannot be dated or placed",
     },
-    "text": {
-      "fi": "vahinkoa (esim. varkausvahinkoa), jos vakuutustapahtumaa ei voida määritellä esim. tapahtuma-ajan, -paikan ja muiden vahingon olosuhteiden osalta.",
-      "sv": "skada (t.ex. stöldskada), om försäkringsfallet inte kan fastställas t.ex. i fråga om händelsetiden, händelseplatsen och övriga omständigheter i anslutning till skadan",
-      "en": "loss or damage (such as loss through theft) if the time, place and other circumstances of the event cannot be determined."
+    text: {
+      fi: "vahinkoa (esim. varkausvahinkoa), jos vakuutustapahtumaa ei voida määritellä esim. tapahtuma-ajan, -paikan ja muiden vahingon olosuhteiden osalta.",
+      sv: "skada (t.ex. stöldskada), om försäkringsfallet inte kan fastställas t.ex. i fråga om händelsetiden, händelseplatsen och övriga omständigheter i anslutning till skadan",
+      en: "loss or damage (such as loss through theft) if the time, place and other circumstances of the event cannot be determined.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.2.4": {
-    "id": "OMA-5.2.4",
-    "section": "5.2.4",
-    "topic": {
-      "fi": "Nuohous",
-      "sv": "Sotning",
-      "en": "Chimney sweeping"
+    id: "OMA-5.2.4",
+    section: "5.2.4",
+    topic: {
+      fi: "Nuohous",
+      sv: "Sotning",
+      en: "Chimney sweeping",
     },
-    "text": {
-      "fi": "Tulisijojen ja hormien säännöllisestä nuohouksesta on huolehdittava. Pääsääntöisesti tulisijat hormeineen on nuohottava kerran vuodessa (Pelastuslaki 379/2011). Jos rakennuksen tulisijat ja hormit ovat olleet yli kolme vuotta käyttämättä tai niiden käyttötarkoitus muuttuu, on nuohoojan tarkastettava ja nuohottava ne ennen niiden käyttöönottoa. Nuohouksen saa suorittaa vain ammattipätevyyden saanut nuohooja.",
-      "sv": "Eldstäder och rökkanaler ska sotas regelbundet. I regel ska eldstäder jämte rökkanaler sotas en gång per år (räddningslagen 379/2011). Om eldstäderna och rökkanalerna i en byggnad har varit mer än tre år oanvända eller om deras användningsändamål förändras, ska en sotare inspektera och sota dem innan de tas i bruk. Sotning får endast utföras av en sotare med yrkesbehörighet.",
-      "en": "Fireplaces and flues must be swept regularly. In general, fireplaces and flues must be swept once a year (Act on Rescue Services 379/2011). If the fireplaces and flues of a building have been unused for over three years or their purpose of use changes, they must be inspected and swept by a chimney sweep before being used again. Chimney sweeping may only be performed by a chimney sweep who holds a professional qualification."
+    text: {
+      fi: "Tulisijojen ja hormien säännöllisestä nuohouksesta on huolehdittava. Pääsääntöisesti tulisijat hormeineen on nuohottava kerran vuodessa (Pelastuslaki 379/2011). Jos rakennuksen tulisijat ja hormit ovat olleet yli kolme vuotta käyttämättä tai niiden käyttötarkoitus muuttuu, on nuohoojan tarkastettava ja nuohottava ne ennen niiden käyttöönottoa. Nuohouksen saa suorittaa vain ammattipätevyyden saanut nuohooja.",
+      sv: "Eldstäder och rökkanaler ska sotas regelbundet. I regel ska eldstäder jämte rökkanaler sotas en gång per år (räddningslagen 379/2011). Om eldstäderna och rökkanalerna i en byggnad har varit mer än tre år oanvända eller om deras användningsändamål förändras, ska en sotare inspektera och sota dem innan de tas i bruk. Sotning får endast utföras av en sotare med yrkesbehörighet.",
+      en: "Fireplaces and flues must be swept regularly. In general, fireplaces and flues must be swept once a year (Act on Rescue Services 379/2011). If the fireplaces and flues of a building have been unused for over three years or their purpose of use changes, they must be inspected and swept by a chimney sweep before being used again. Chimney sweeping may only be performed by a chimney sweep who holds a professional qualification.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.2.6": {
-    "id": "OMA-5.2.6",
-    "section": "5.2.6",
-    "topic": {
-      "fi": "Palovaroittimet",
-      "sv": "Brandvarnare",
-      "en": "Smoke alarms"
+    id: "OMA-5.2.6",
+    section: "5.2.6",
+    topic: {
+      fi: "Palovaroittimet",
+      sv: "Brandvarnare",
+      en: "Smoke alarms",
     },
-    "text": {
-      "fi": "Asuinhuoneistossa sekä asuinrakennuksessa ja vapaa-ajan asuinrakennuksessa pitää olla viranomaismääräysten mukaiset toimintakuntoiset palovaroittimet.",
-      "sv": "I bostadslägenheter samt i bostadshus och fritidsbostadshus ska finnas fungerande brandvarnare i enlighet med myndigheternas bestämmelser.",
-      "en": "Residential flats as well as permanent dwellings and leisure-time dwellings must be equipped with functioning fire alarms which meet the authorities’ regulations."
+    text: {
+      fi: "Asuinhuoneistossa sekä asuinrakennuksessa ja vapaa-ajan asuinrakennuksessa pitää olla viranomaismääräysten mukaiset toimintakuntoiset palovaroittimet.",
+      sv: "I bostadslägenheter samt i bostadshus och fritidsbostadshus ska finnas fungerande brandvarnare i enlighet med myndigheternas bestämmelser.",
+      en: "Residential flats as well as permanent dwellings and leisure-time dwellings must be equipped with functioning fire alarms which meet the authorities’ regulations.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.2.7": {
-    "id": "OMA-5.2.7",
-    "section": "5.2.7",
-    "topic": {
-      "fi": "Vialliset sähkölaitteet",
-      "sv": "Trasiga elektriska anordningar",
-      "en": "Faulty electrical equipment"
+    id: "OMA-5.2.7",
+    section: "5.2.7",
+    topic: {
+      fi: "Vialliset sähkölaitteet",
+      sv: "Trasiga elektriska anordningar",
+      en: "Faulty electrical equipment",
     },
-    "text": {
-      "fi": "Vialliset sähkölaitteet ja asennukset on korjattava viipymättä. Niiden käyttö on kielletty ennen korjaamista.",
-      "sv": "Trasiga elektriska anordningar och installationer ska repareras utan dröjsmål. De får inte användas förrän de reparerats.",
-      "en": "Faulty electrical appliances and installations must be repaired without delay. Their use is forbidden before they are repaired."
+    text: {
+      fi: "Vialliset sähkölaitteet ja asennukset on korjattava viipymättä. Niiden käyttö on kielletty ennen korjaamista.",
+      sv: "Trasiga elektriska anordningar och installationer ska repareras utan dröjsmål. De får inte användas förrän de reparerats.",
+      en: "Faulty electrical appliances and installations must be repaired without delay. Their use is forbidden before they are repaired.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.2.8": {
-    "id": "OMA-5.2.8",
-    "section": "5.2.8",
-    "topic": {
-      "fi": "Sähkötyöt vain hyväksytyillä liikkeillä",
-      "sv": "Elarbeten endast av godkända företag",
-      "en": "Only approved firms for electrical work"
+    id: "OMA-5.2.8",
+    section: "5.2.8",
+    topic: {
+      fi: "Sähkötyöt vain hyväksytyillä liikkeillä",
+      sv: "Elarbeten endast av godkända företag",
+      en: "Only approved firms for electrical work",
     },
-    "text": {
-      "fi": "Sähköasennuksia ja sähkölaitteiden korjauksia saavat tehdä vain hyväksytyt asennus- ja huoltoliikkeet.",
-      "sv": "Elinstallationer och reparation av elektriska anordningar får utföras endast av godkända installations- och serviceaffärer.",
-      "en": "Only approved installation and service shops may carry out electrical work and repair electrical appliances."
+    text: {
+      fi: "Sähköasennuksia ja sähkölaitteiden korjauksia saavat tehdä vain hyväksytyt asennus- ja huoltoliikkeet.",
+      sv: "Elinstallationer och reparation av elektriska anordningar får utföras endast av godkända installations- och serviceaffärer.",
+      en: "Only approved installation and service shops may carry out electrical work and repair electrical appliances.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.2.12": {
-    "id": "OMA-5.2.12",
-    "section": "5.2.12",
-    "topic": {
-      "fi": "Tavaroiden kuivaus ja säilytys saunassa",
-      "sv": "Torkning och förvaring av egendom i bastun",
-      "en": "Drying or storing property in the sauna"
+    id: "OMA-5.2.12",
+    section: "5.2.12",
+    topic: {
+      fi: "Tavaroiden kuivaus ja säilytys saunassa",
+      sv: "Torkning och förvaring av egendom i bastun",
+      en: "Drying or storing property in the sauna",
     },
-    "text": {
-      "fi": "Omaisuuden kuivattaminen ja säilyttäminen saunassa on kiellettyä.",
-      "sv": "Det är förbjudet att torka och förvara egendom i bastun.",
-      "en": "Drying and storing property in the sauna is prohibited."
+    text: {
+      fi: "Omaisuuden kuivattaminen ja säilyttäminen saunassa on kiellettyä.",
+      sv: "Det är förbjudet att torka och förvara egendom i bastun.",
+      en: "Drying and storing property in the sauna is prohibited.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.2.17": {
-    "id": "OMA-5.2.17",
-    "section": "5.2.17",
-    "topic": {
-      "fi": "Sähköpyörien ja akkujen lataus",
-      "sv": "Laddning av elcyklar och batterier",
-      "en": "Charging e-bikes and batteries"
+    id: "OMA-5.2.17",
+    section: "5.2.17",
+    topic: {
+      fi: "Sähköpyörien ja akkujen lataus",
+      sv: "Laddning av elcyklar och batterier",
+      en: "Charging e-bikes and batteries",
     },
-    "text": {
-      "fi": "Sähköpolkupyörien, muiden sähköisten kulkuvälineiden, sähkölaitteiden ja niiden akkujen lataus on kielletty palavan materiaalin lähellä, kuten sängyllä, sohvalla tai verhojen ja muiden tekstiilien lähellä. Niitä saa ladata vain kyseiseen laitteeseen tarkoitetulla latauslaitteella ja niitä tulee valvoa latauksen aikana.",
-      "sv": "Det är förbjudet att ladda elcyklar, andra elektriska fortskaffningsmedel, elektriska anordningar och batterier till dem i närheten av brännbara material, såsom på en säng eller soffa eller i närheten av gardiner eller andra textilier. De får endast laddas med laddningsanordning som är avsedd för anordningen i fråga och de ska hållas under uppsikt under laddning.",
-      "en": "Electric bicycles, other electric mobility devices, electrical appliances and their batteries may not be charged near flammable materials, such as on a bed, sofa, or near curtains and other textiles. They may only be charged with a charger intended for that device and they must be monitored while charging."
+    text: {
+      fi: "Sähköpolkupyörien, muiden sähköisten kulkuvälineiden, sähkölaitteiden ja niiden akkujen lataus on kielletty palavan materiaalin lähellä, kuten sängyllä, sohvalla tai verhojen ja muiden tekstiilien lähellä. Niitä saa ladata vain kyseiseen laitteeseen tarkoitetulla latauslaitteella ja niitä tulee valvoa latauksen aikana.",
+      sv: "Det är förbjudet att ladda elcyklar, andra elektriska fortskaffningsmedel, elektriska anordningar och batterier till dem i närheten av brännbara material, såsom på en säng eller soffa eller i närheten av gardiner eller andra textilier. De får endast laddas med laddningsanordning som är avsedd för anordningen i fråga och de ska hållas under uppsikt under laddning.",
+      en: "Electric bicycles, other electric mobility devices, electrical appliances and their batteries may not be charged near flammable materials, such as on a bed, sofa, or near curtains and other textiles. They may only be charged with a charger intended for that device and they must be monitored while charging.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.2.18": {
-    "id": "OMA-5.2.18",
-    "section": "5.2.18",
-    "topic": {
-      "fi": "Sähköauton lataus kiinteistön sähköverkosta",
-      "sv": "Laddning av elbil från fastighetens elnät",
-      "en": "Electric-car charging from the property's supply"
+    id: "OMA-5.2.18",
+    section: "5.2.18",
+    topic: {
+      fi: "Sähköauton lataus kiinteistön sähköverkosta",
+      sv: "Laddning av elbil från fastighetens elnät",
+      en: "Electric-car charging from the property's supply",
     },
-    "text": {
-      "fi": "Jos kiinteistön sähköverkkoa käytetään sähköautojen lataukseen, on ennen toiminnan aloittamista tarkistettava olemassa olevien asennusten soveltuvuus sähköalan ammattilaisen toimesta. Käytä vain sähköauton lataukseen tarkoitettuja johtoja.",
-      "sv": "Om fastighetens elnät används för att ladda elbilar, ska innan verksamheten inleds lämpligheten hos befintliga installationer granskas av en yrkesperson inom elbranschen. Använd endast kablar avsedda för laddning av elbil.",
-      "en": "If the property's electricity network is to be used for charging electric cars, the suitability of the existing installations must be checked by a professional electrician before use. Only cables intended for charging electric cars may be used."
+    text: {
+      fi: "Jos kiinteistön sähköverkkoa käytetään sähköautojen lataukseen, on ennen toiminnan aloittamista tarkistettava olemassa olevien asennusten soveltuvuus sähköalan ammattilaisen toimesta. Käytä vain sähköauton lataukseen tarkoitettuja johtoja.",
+      sv: "Om fastighetens elnät används för att ladda elbilar, ska innan verksamheten inleds lämpligheten hos befintliga installationer granskas av en yrkesperson inom elbranschen. Använd endast kablar avsedda för laddning av elbil.",
+      en: "If the property's electricity network is to be used for charging electric cars, the suitability of the existing installations must be checked by a professional electrician before use. Only cables intended for charging electric cars may be used.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.4.1": {
-    "id": "OMA-5.4.1",
-    "section": "5.4.1",
-    "topic": {
-      "fi": "Sade- ja sulamisvedet pois rakennuksesta",
-      "sv": "Regn- och smältvatten bort från byggnaden",
-      "en": "Keeping rain and melt water away from the building"
+    id: "OMA-5.4.1",
+    section: "5.4.1",
+    topic: {
+      fi: "Sade- ja sulamisvedet pois rakennuksesta",
+      sv: "Regn- och smältvatten bort från byggnaden",
+      en: "Keeping rain and melt water away from the building",
     },
-    "text": {
-      "fi": "Sade- ja sulamisvesien eli hulevesien kulkeutuminen rakennukseen on estettävä vesieristyksin ja näiden vesien poistojärjestelmillä, joita ovat mm. rakennuksesta poispäin olevat pihamaan kallistukset, salaojat, ojat ja sadevesikaivot sekä pumppaamot.",
-      "sv": "Regn- och smältvatten, dvs. dagvatten, ska förhindras att rinna in i byggnaden med hjälp av vattenisoleringar och avledningssystem. Sådana är t.ex. gårdsplan med lutning bort från byggnaden, täckdiken, diken och regnvattenbrunnar samt pumpverk.",
-      "en": "The leakage of rain or melt water (stormwater) into a building must be prevented by waterproofing and implementing specific drainage systems, such as slanting the ground away from the building, subsurface drains, ditches and rainwater sewers as well as pumping stations."
+    text: {
+      fi: "Sade- ja sulamisvesien eli hulevesien kulkeutuminen rakennukseen on estettävä vesieristyksin ja näiden vesien poistojärjestelmillä, joita ovat mm. rakennuksesta poispäin olevat pihamaan kallistukset, salaojat, ojat ja sadevesikaivot sekä pumppaamot.",
+      sv: "Regn- och smältvatten, dvs. dagvatten, ska förhindras att rinna in i byggnaden med hjälp av vattenisoleringar och avledningssystem. Sådana är t.ex. gårdsplan med lutning bort från byggnaden, täckdiken, diken och regnvattenbrunnar samt pumpverk.",
+      en: "The leakage of rain or melt water (stormwater) into a building must be prevented by waterproofing and implementing specific drainage systems, such as slanting the ground away from the building, subsurface drains, ditches and rainwater sewers as well as pumping stations.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.4.2": {
-    "id": "OMA-5.4.2",
-    "section": "5.4.2",
-    "topic": {
-      "fi": "Ojat, salaojat ja hulevesijärjestelmät",
-      "sv": "Diken, täckdiken och dagvattensystem",
-      "en": "Ditches, field drains and storm-water systems"
+    id: "OMA-5.4.2",
+    section: "5.4.2",
+    topic: {
+      fi: "Ojat, salaojat ja hulevesijärjestelmät",
+      sv: "Diken, täckdiken och dagvattensystem",
+      en: "Ditches, field drains and storm-water systems",
     },
-    "text": {
-      "fi": "Tontin ja rakennuspaikan ojat, salaojat ja muut hulevesien poistojärjestelmät on pidettävä toimintakunnossa. Toimintakunto on tarkastettava vähintään vuosittain.",
-      "sv": "Diken, täckdiken och andra system för avledning av dagvatten på tomten och byggplatsen ska hållas i funktionsdugligt skick. Funktionsdugligheten ska granskas minst en gång om året.",
-      "en": "The ditches, subsurface drains and other stormwater removal systems of the lot and the building site must be kept in working condition. Their condition must be inspected at least on an annual basis."
+    text: {
+      fi: "Tontin ja rakennuspaikan ojat, salaojat ja muut hulevesien poistojärjestelmät on pidettävä toimintakunnossa. Toimintakunto on tarkastettava vähintään vuosittain.",
+      sv: "Diken, täckdiken och andra system för avledning av dagvatten på tomten och byggplatsen ska hållas i funktionsdugligt skick. Funktionsdugligheten ska granskas minst en gång om året.",
+      en: "The ditches, subsurface drains and other stormwater removal systems of the lot and the building site must be kept in working condition. Their condition must be inspected at least on an annual basis.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.5.1": {
-    "id": "OMA-5.5.1",
-    "section": "5.5.1",
-    "topic": {
-      "fi": "Riittävä lämmitys kylmänä vuodenaikana",
-      "sv": "Tillräcklig uppvärmning under den kalla årstiden",
-      "en": "Adequate heating in the cold season"
+    id: "OMA-5.5.1",
+    section: "5.5.1",
+    topic: {
+      fi: "Riittävä lämmitys kylmänä vuodenaikana",
+      sv: "Tillräcklig uppvärmning under den kalla årstiden",
+      en: "Adequate heating in the cold season",
     },
-    "text": {
-      "fi": "Kylmänä vuodenaikana rakennuksen riittävästä lämmityksestä on huolehdittava.",
-      "sv": "Under den kalla årstiden ska en tillräcklig uppvärmning av byggnaden ombesörjas.",
-      "en": "The adequate heating of the building must be ensured during the cold season."
+    text: {
+      fi: "Kylmänä vuodenaikana rakennuksen riittävästä lämmityksestä on huolehdittava.",
+      sv: "Under den kalla årstiden ska en tillräcklig uppvärmning av byggnaden ombesörjas.",
+      en: "The adequate heating of the building must be ensured during the cold season.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.5.2": {
-    "id": "OMA-5.5.2",
-    "section": "5.5.2",
-    "topic": {
-      "fi": "Kylmäksi jätetty rakennus: putket tyhjiksi, lämmitys tarkistettava viikoittain",
-      "sv": "Byggnad som lämnas kall: töm rören, kontrollera värmen varje vecka",
-      "en": "Building left cold: drain pipes and check heating weekly"
+    id: "OMA-5.5.2",
+    section: "5.5.2",
+    topic: {
+      fi: "Kylmäksi jätetty rakennus: putket tyhjiksi, lämmitys tarkistettava viikoittain",
+      sv: "Byggnad som lämnas kall: töm rören, kontrollera värmen varje vecka",
+      en: "Building left cold: drain pipes and check heating weekly",
     },
-    "text": {
-      "fi": "Jos rakennus jätetään kylmänä vuodenaikana ilman riittävää peruslämpöä, LVI-laitteet ja johtoverkko on tyhjennettävä vedestä. Tällöinkin vesimittaritilan riittävästä peruslämmöstä on huolehdittava, ja lämmityksen riittävyys on käytävä tarkastamassa vähintään kerran viikossa.",
-      "sv": "Om byggnaden under den kalla årstiden lämnas utan tillräcklig grundvärme, ska VVS-anordningar och ledningsnät tömmas på vatten. Även då ska en tillräcklig grundvärme i det utrymme där vattenmätaren är belägen säkerställas, och uppvärmningens tillräcklighet ska kontrolleras minst en gång i veckan.",
-      "en": "HPVAC appliances and pipes must be emptied of water if the building is left without sufficient basic heating during the cold season. Even in this case, sufficient basic heating in the space containing the water meter must be ensured, and the sufficiency of heating must be checked at least once a week."
+    text: {
+      fi: "Jos rakennus jätetään kylmänä vuodenaikana ilman riittävää peruslämpöä, LVI-laitteet ja johtoverkko on tyhjennettävä vedestä. Tällöinkin vesimittaritilan riittävästä peruslämmöstä on huolehdittava, ja lämmityksen riittävyys on käytävä tarkastamassa vähintään kerran viikossa.",
+      sv: "Om byggnaden under den kalla årstiden lämnas utan tillräcklig grundvärme, ska VVS-anordningar och ledningsnät tömmas på vatten. Även då ska en tillräcklig grundvärme i det utrymme där vattenmätaren är belägen säkerställas, och uppvärmningens tillräcklighet ska kontrolleras minst en gång i veckan.",
+      en: "HPVAC appliances and pipes must be emptied of water if the building is left without sufficient basic heating during the cold season. Even in this case, sufficient basic heating in the space containing the water meter must be ensured, and the sufficiency of heating must be checked at least once a week.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.5.3": {
-    "id": "OMA-5.5.3",
-    "section": "5.5.3",
-    "topic": {
-      "fi": "Yli viikon asumatta: pääsulkuventtiili kiinni ja pumppu pois",
-      "sv": "Obebodd över en vecka: stäng huvudventilen och koppla från pumpen",
-      "en": "Unoccupied for more than a week: close main valve and pump off"
+    id: "OMA-5.5.3",
+    section: "5.5.3",
+    topic: {
+      fi: "Yli viikon asumatta: pääsulkuventtiili kiinni ja pumppu pois",
+      sv: "Obebodd över en vecka: stäng huvudventilen och koppla från pumpen",
+      en: "Unoccupied for more than a week: close main valve and pump off",
     },
-    "text": {
-      "fi": "Jos rakennus on asumattomana yli viikon, pääsulkuventtiili rakennuksen sisällä on suljettava ja käyttövesipumppu on kytkettävä pois käytöstä. Mikäli rakennuksessa on vesimittari, sulkuventtiili on suljettava ennen vesimittaria.",
-      "sv": "Om byggnaden står obebodd i mer än en vecka, ska huvudavstängningsventilen inne i byggnaden stängas och bruksvattenpumpen kopplas från. Om det finns en vattenmätare i byggnaden, ska avstängningsventilen stängas före vattenmätaren.",
-      "en": "If the building is unoccupied for longer than a week, the main water valve inside the building must be closed and the water pump switched off. If the building has a water meter, the shut-off valve must be closed before the water meter."
+    text: {
+      fi: "Jos rakennus on asumattomana yli viikon, pääsulkuventtiili rakennuksen sisällä on suljettava ja käyttövesipumppu on kytkettävä pois käytöstä. Mikäli rakennuksessa on vesimittari, sulkuventtiili on suljettava ennen vesimittaria.",
+      sv: "Om byggnaden står obebodd i mer än en vecka, ska huvudavstängningsventilen inne i byggnaden stängas och bruksvattenpumpen kopplas från. Om det finns en vattenmätare i byggnaden, ska avstängningsventilen stängas före vattenmätaren.",
+      en: "If the building is unoccupied for longer than a week, the main water valve inside the building must be closed and the water pump switched off. If the building has a water meter, the shut-off valve must be closed before the water meter.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.5.4": {
-    "id": "OMA-5.5.4",
-    "section": "5.5.4",
-    "topic": {
-      "fi": "Ulkohanojen letkut",
-      "sv": "Slangar på utekranar",
-      "en": "Outdoor tap hoses"
+    id: "OMA-5.5.4",
+    section: "5.5.4",
+    topic: {
+      fi: "Ulkohanojen letkut",
+      sv: "Slangar på utekranar",
+      en: "Outdoor tap hoses",
     },
-    "text": {
-      "fi": "Vesipisteen sulkuventtiili johon vesiletku on kiinnitetty, on suljettava aina käytön jälkeen. Ulkona olevaan vesipisteeseen liitetty vesiletku on poistettava kylmänä vuodenaikana.",
-      "sv": "Avstängningsventil i tappställe till vilket vattenslang har kopplats ska alltid stängas efter användning. Vattenslang som kopplats till tappställe utomhus ska avlägsnas under den kalla årstiden.",
-      "en": "The shut-off valve of the water supply point to which a water hose is attached must always be turned off after use. A water hose attached to an outdoor water supply point must be removed during the cold season."
+    text: {
+      fi: "Vesipisteen sulkuventtiili johon vesiletku on kiinnitetty, on suljettava aina käytön jälkeen. Ulkona olevaan vesipisteeseen liitetty vesiletku on poistettava kylmänä vuodenaikana.",
+      sv: "Avstängningsventil i tappställe till vilket vattenslang har kopplats ska alltid stängas efter användning. Vattenslang som kopplats till tappställe utomhus ska avlägsnas under den kalla årstiden.",
+      en: "The shut-off valve of the water supply point to which a water hose is attached must always be turned off after use. A water hose attached to an outdoor water supply point must be removed during the cold season.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.5.5": {
-    "id": "OMA-5.5.5",
-    "section": "5.5.5",
-    "topic": {
-      "fi": "Pumppaamon hälytin",
-      "sv": "Larm för pumpverk",
-      "en": "Sump pumping station alarm"
+    id: "OMA-5.5.5",
+    section: "5.5.5",
+    topic: {
+      fi: "Pumppaamon hälytin",
+      sv: "Larm för pumpverk",
+      en: "Sump pumping station alarm",
     },
-    "text": {
-      "fi": "Kuivanapito- tai jätevesijärjestelmän pumppaamo on varustettava asianmukaisella hälyttimellä, joka hälyttää, mikäli vedenpinta pumppaamossa nousee liian korkealle.",
-      "sv": "Pumpverk för torkanläggnings- eller avloppsvattensystem ska förses med ändamålsenligt larm, som slår larm om vattenytan i pumpverket stiger för högt.",
-      "en": "The pumping station of a drainage or wastewater system must be equipped with an appropriate alarm, with the alarm sounding if the water surface in the pumping station rises too high."
+    text: {
+      fi: "Kuivanapito- tai jätevesijärjestelmän pumppaamo on varustettava asianmukaisella hälyttimellä, joka hälyttää, mikäli vedenpinta pumppaamossa nousee liian korkealle.",
+      sv: "Pumpverk för torkanläggnings- eller avloppsvattensystem ska förses med ändamålsenligt larm, som slår larm om vattenytan i pumpverket stiger för högt.",
+      en: "The pumping station of a drainage or wastewater system must be equipped with an appropriate alarm, with the alarm sounding if the water surface in the pumping station rises too high.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.5.6": {
-    "id": "OMA-5.5.6",
-    "section": "5.5.6",
-    "topic": {
-      "fi": "Pesukone: oma sulkuventtiili, hyväksytty letku, valvonta",
-      "sv": "Tvättmaskin: egen ventil, godkänd slang, övervakning",
-      "en": "Washing machine: own valve, approved hose, supervision"
+    id: "OMA-5.5.6",
+    section: "5.5.6",
+    topic: {
+      fi: "Pesukone: oma sulkuventtiili, hyväksytty letku, valvonta",
+      sv: "Tvättmaskin: egen ventil, godkänd slang, övervakning",
+      en: "Washing machine: own valve, approved hose, supervision",
     },
-    "text": {
-      "fi": "Pesukone on aina liitettävä omalla sulkuventtiilillä ja hyväksytyllä paineenkestävällä täyttöletkulla vesijohtoverkostoon. Pesukoneen poistoletku tulee asentaa kiinteästi viemäriverkostoon ja pesukoneen toimintaa tulee valvoa. Pesukoneen sulkuventtiili tulee olla suljettuna, kun pesukonetta ei käytetä.",
-      "sv": "Tvättmaskinen ska alltid anslutas till vattenledningsnätet med egen avstängningsventil och med godkänt trycksäkert påfyllningsrör. Tvättmaskinens avledningsrör ska vara fast installerat till avloppsnätet och tvättmaskinens funktion ska övervakas. Tvättmaskinens avstängningsventil ska vara stängd då tvättmaskinen inte används.",
-      "en": "Washing machines must always be connected to the water mains with a separate shut-off valve and an approved pressure-proof inlet hose. Washing machine outlet hoses must be connected to the sewage system and the machine monitored during operation. The washing machine’s shut-off valve must be turned off when the machine is not in use."
+    text: {
+      fi: "Pesukone on aina liitettävä omalla sulkuventtiilillä ja hyväksytyllä paineenkestävällä täyttöletkulla vesijohtoverkostoon. Pesukoneen poistoletku tulee asentaa kiinteästi viemäriverkostoon ja pesukoneen toimintaa tulee valvoa. Pesukoneen sulkuventtiili tulee olla suljettuna, kun pesukonetta ei käytetä.",
+      sv: "Tvättmaskinen ska alltid anslutas till vattenledningsnätet med egen avstängningsventil och med godkänt trycksäkert påfyllningsrör. Tvättmaskinens avledningsrör ska vara fast installerat till avloppsnätet och tvättmaskinens funktion ska övervakas. Tvättmaskinens avstängningsventil ska vara stängd då tvättmaskinen inte används.",
+      en: "Washing machines must always be connected to the water mains with a separate shut-off valve and an approved pressure-proof inlet hose. Washing machine outlet hoses must be connected to the sewage system and the machine monitored during operation. The washing machine’s shut-off valve must be turned off when the machine is not in use.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.5.7": {
-    "id": "OMA-5.5.7",
-    "section": "5.5.7",
-    "topic": {
-      "fi": "Lattiakaivot ja hajulukot",
-      "sv": "Golvbrunnar och vattenlås",
-      "en": "Floor drains and traps"
+    id: "OMA-5.5.7",
+    section: "5.5.7",
+    topic: {
+      fi: "Lattiakaivot ja hajulukot",
+      sv: "Golvbrunnar och vattenlås",
+      en: "Floor drains and traps",
     },
-    "text": {
-      "fi": "Lattiakaivot ja hajulukot on puhdistettava niin usein, ettei niihin pääse muodostumaan veden virtaamista haittaavia tukoksia",
-      "sv": "Golvbrunnar och vattenlås ska rengöras så ofta att det inte kommer åt att bildas stockningar som förhindrar vattenflödet.",
-      "en": "Floor drains and drain traps must be cleaned sufficiently often to prevent the forming of blockages which obstruct the flow of water."
+    text: {
+      fi: "Lattiakaivot ja hajulukot on puhdistettava niin usein, ettei niihin pääse muodostumaan veden virtaamista haittaavia tukoksia",
+      sv: "Golvbrunnar och vattenlås ska rengöras så ofta att det inte kommer åt att bildas stockningar som förhindrar vattenflödet.",
+      en: "Floor drains and drain traps must be cleaned sufficiently often to prevent the forming of blockages which obstruct the flow of water.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.5.8": {
-    "id": "OMA-5.5.8",
-    "section": "5.5.8",
-    "topic": {
-      "fi": "Turvakaukalo pesukoneen ja kylmälaitteiden alle ilman lattiakaivoa",
-      "sv": "Tråg under tvättmaskin och kylanordningar utan golvbrunn",
-      "en": "Drip tray under washing machine and fridges without floor drain"
+    id: "OMA-5.5.8",
+    section: "5.5.8",
+    topic: {
+      fi: "Turvakaukalo pesukoneen ja kylmälaitteiden alle ilman lattiakaivoa",
+      sv: "Tråg under tvättmaskin och kylanordningar utan golvbrunn",
+      en: "Drip tray under washing machine and fridges without floor drain",
     },
-    "text": {
-      "fi": "Pesukoneen ja kylmälaitteiden alle on laitettava turvakaukalo, jos tilassa ei ole lattiakaivoa tai lattian rakenne on sellainen, ettei mahdollinen vuoto tule välittömästi näkyviin.",
-      "sv": "Under tvättmaskin och kylanordningar ska placeras ett tråg, om utrymmet inte har golvbrunn eller om golvets konstruktion är sådant att en eventuell läcka inte genast uppdagas.",
-      "en": "A container must be placed under washing machines and refrigerating appliances if the room is not equipped with a floor drain or the floor structure prevents the immediate detection of a possible leak."
+    text: {
+      fi: "Pesukoneen ja kylmälaitteiden alle on laitettava turvakaukalo, jos tilassa ei ole lattiakaivoa tai lattian rakenne on sellainen, ettei mahdollinen vuoto tule välittömästi näkyviin.",
+      sv: "Under tvättmaskin och kylanordningar ska placeras ett tråg, om utrymmet inte har golvbrunn eller om golvets konstruktion är sådant att en eventuell läcka inte genast uppdagas.",
+      en: "A container must be placed under washing machines and refrigerating appliances if the room is not equipped with a floor drain or the floor structure prevents the immediate detection of a possible leak.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.5.9": {
-    "id": "OMA-5.5.9",
-    "section": "5.5.9",
-    "topic": {
-      "fi": "Viemärijärjestelmä ja viemäripumput",
-      "sv": "Avloppssystem och avloppspumpar",
-      "en": "Drain system and sewage pumps"
+    id: "OMA-5.5.9",
+    section: "5.5.9",
+    topic: {
+      fi: "Viemärijärjestelmä ja viemäripumput",
+      sv: "Avloppssystem och avloppspumpar",
+      en: "Drain system and sewage pumps",
     },
-    "text": {
-      "fi": "Viemärijärjestelmä on pidettävä toimintakunnossa ja viemäripumppujen kunnossapidosta on huolehdittava.",
-      "sv": "Avloppssystem ska hållas i funktionsdugligt skick och avloppspumparnas underhåll ska ombesörjas.",
-      "en": "The sewer system must be kept in working condition and the proper maintenance of sewage pumps must be ensured."
+    text: {
+      fi: "Viemärijärjestelmä on pidettävä toimintakunnossa ja viemäripumppujen kunnossapidosta on huolehdittava.",
+      sv: "Avloppssystem ska hållas i funktionsdugligt skick och avloppspumparnas underhåll ska ombesörjas.",
+      en: "The sewer system must be kept in working condition and the proper maintenance of sewage pumps must be ensured.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-5.5.10": {
-    "id": "OMA-5.5.10",
-    "section": "5.5.10",
-    "topic": {
-      "fi": "Öljysäiliöt ja niiden putkistot",
-      "sv": "Oljecisterner och deras rör",
-      "en": "Oil tanks and their pipes"
+    id: "OMA-5.5.10",
+    section: "5.5.10",
+    topic: {
+      fi: "Öljysäiliöt ja niiden putkistot",
+      sv: "Oljecisterner och deras rör",
+      en: "Oil tanks and their pipes",
     },
-    "text": {
-      "fi": "Öljysäiliöt ja niihin liittyvät putkistot on tarkastettava vähintään 10 vuoden välein. Asiantuntijaliikkeen on tarkastettava vähintään viiden (5) vuoden välein pohjavesialueilla sijaitsevien rakennusten öljysäiliöt ja niihin liittyvät putkistot. Öljysäiliö, joka ei ole säiliöstandardin mukainen, tulee poistaa käytöstä. Ylitäytön estimessä tai itse öljysäiliössä havaitut viat on välittömästi korjattava.",
-      "sv": "Oljecisterner och rör till dessa ska granskas minst vart tionde (10) år. Oljecisterner som hör till byggnader på grundvattenområden samt rör till dessa ska granskas minst vart femte (5) år av ett sakkunnigt företag. Oljecisterner som inte fyller standarden för cisterner, ska tas ur bruk. Skada som upptäcks på överfyllningsskyddet i en oljecistern eller själva oljecisternen ska omedelbart repareras.",
-      "en": "Oil storage tanks and the related pipework must be inspected at least every ten (10) years. Oil storage tanks of buildings located in groundwater areas and the related pipework must be inspected at least every five (5) years by an expert service shop. Any oil tank that is not according to tank standards must be removed from usage. Any defects in the overfill protector or the oil storage tank itself must be repaired immediately."
+    text: {
+      fi: "Öljysäiliöt ja niihin liittyvät putkistot on tarkastettava vähintään 10 vuoden välein. Asiantuntijaliikkeen on tarkastettava vähintään viiden (5) vuoden välein pohjavesialueilla sijaitsevien rakennusten öljysäiliöt ja niihin liittyvät putkistot. Öljysäiliö, joka ei ole säiliöstandardin mukainen, tulee poistaa käytöstä. Ylitäytön estimessä tai itse öljysäiliössä havaitut viat on välittömästi korjattava.",
+      sv: "Oljecisterner och rör till dessa ska granskas minst vart tionde (10) år. Oljecisterner som hör till byggnader på grundvattenområden samt rör till dessa ska granskas minst vart femte (5) år av ett sakkunnigt företag. Oljecisterner som inte fyller standarden för cisterner, ska tas ur bruk. Skada som upptäcks på överfyllningsskyddet i en oljecistern eller själva oljecisternen ska omedelbart repareras.",
+      en: "Oil storage tanks and the related pipework must be inspected at least every ten (10) years. Oil storage tanks of buildings located in groundwater areas and the related pipework must be inspected at least every five (5) years by an expert service shop. Any oil tank that is not according to tank standards must be removed from usage. Any defects in the overfill protector or the oil storage tank itself must be repaired immediately.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-6.2.1.3": {
-    "id": "OMA-6.2.1.3",
-    "section": "6.2.1.3",
-    "topic": {
-      "fi": "Putkiston iän mukainen vähennys rakennuksen vuotovahingoissa",
-      "sv": "Avdrag enligt rörnätets ålder vid läckageskador på byggnaden",
-      "en": "Pipe-age deduction on leak damage to the building"
+    id: "OMA-6.2.1.3",
+    section: "6.2.1.3",
+    topic: {
+      fi: "Putkiston iän mukainen vähennys rakennuksen vuotovahingoissa",
+      sv: "Avdrag enligt rörnätets ålder vid läckageskador på byggnaden",
+      en: "Pipe-age deduction on leak damage to the building",
     },
-    "text": {
-      "fi": "Vuodosta aiheutuneen vahingon määrä lasketaan tekemällä korvattavista rakennuksen korjauskustannuksista vuotaneen putkiston iän mukaan määräytyvä vähennys seuraavasti, ellei vakuutuskirjaan ole muuta merkitty. Putkiston ikä Vähennys korvattavan vahingon korjauskustannuksista 0 - 29 vuotta 0 % 30 - 50 vuotta 25 % yli 50 50 % Vähennys lasketaan vakuutuksen korvauspiiriin kuuluvan vahingon määrästä. Putkiston ikä lasketaan kalenterivuosina rakennuksen käyttöönotosta tai putkiston uusimisesta. Ensimmäinen käyttöönottovuosi päättyy kalenterivuoden vaihtuessa riippumatta siitä, mihin aikaan vuodesta putkisto on otettu käyttöön. LVIS-laitteiden vahingon määrä lasketaan kuitenkin aina kohdan 6.2.1.4 ikävähennysten mukaisesti.",
-      "sv": "Vid läckageskador uträknas skadebeloppet på så sätt att från de kostnader för byggnadens reparation som ersätts görs följande avdrag enligt åldern på det rörnät som sprungit läck, såvida inte annat antecknats i försäkringsbrevet. Rörnätets ålder Avdrag från reparationskostnaderna för den skada som ersätts 0–29 år 0 % 30–50 år 25 % över 50 år 50 % Avdraget görs från det skadebelopp som omfattas av försäkringens ersättningsområde. Rörnätets ålder räknas i kalenderår från det att byggnaden tagits i bruk eller rörnätet förnyats. Det första användningsåret upphör vid kalenderårets slut, oberoende av vilken tid på året rörnätet har tagits i bruk. Vid skador på VVSE-anordningar uträknas skadebeloppet emellertid alltid i enlighet med åldersavdragen i punkt 6.2.1.4.",
-      "en": "In cases of loss where the pipework of a building breaks down and results in water damage caused by leakage, the amount of loss or damage is calculated by making an annual deduction based on the useful life of the leaked pipework from the repair expenses of the building covered, unless otherwise agreed on in the Policy Document. Age of pipework Deduction of the repair costs for the compensable loss 0–29 years 0% 30–50 years 25% over 50 years 50% The deduction is calculated on the basis of the amount of damage falling within the scope of cover of the Insurance. The age of the pipework is calculated in calendar years from the year when the property was first used or the pipework renewed. The first year of commissioning ends at the turn of the calendar year, regardless of the time of year at which the pipework began to be used. However, the amount of damage to HPVAC and electrical equipment is always calculated according to the age reductions in section 6.2.1.4."
+    text: {
+      fi: "Vuodosta aiheutuneen vahingon määrä lasketaan tekemällä korvattavista rakennuksen korjauskustannuksista vuotaneen putkiston iän mukaan määräytyvä vähennys seuraavasti, ellei vakuutuskirjaan ole muuta merkitty. Putkiston ikä Vähennys korvattavan vahingon korjauskustannuksista 0 - 29 vuotta 0 % 30 - 50 vuotta 25 % yli 50 50 % Vähennys lasketaan vakuutuksen korvauspiiriin kuuluvan vahingon määrästä. Putkiston ikä lasketaan kalenterivuosina rakennuksen käyttöönotosta tai putkiston uusimisesta. Ensimmäinen käyttöönottovuosi päättyy kalenterivuoden vaihtuessa riippumatta siitä, mihin aikaan vuodesta putkisto on otettu käyttöön. LVIS-laitteiden vahingon määrä lasketaan kuitenkin aina kohdan 6.2.1.4 ikävähennysten mukaisesti.",
+      sv: "Vid läckageskador uträknas skadebeloppet på så sätt att från de kostnader för byggnadens reparation som ersätts görs följande avdrag enligt åldern på det rörnät som sprungit läck, såvida inte annat antecknats i försäkringsbrevet. Rörnätets ålder Avdrag från reparationskostnaderna för den skada som ersätts 0–29 år 0 % 30–50 år 25 % över 50 år 50 % Avdraget görs från det skadebelopp som omfattas av försäkringens ersättningsområde. Rörnätets ålder räknas i kalenderår från det att byggnaden tagits i bruk eller rörnätet förnyats. Det första användningsåret upphör vid kalenderårets slut, oberoende av vilken tid på året rörnätet har tagits i bruk. Vid skador på VVSE-anordningar uträknas skadebeloppet emellertid alltid i enlighet med åldersavdragen i punkt 6.2.1.4.",
+      en: "In cases of loss where the pipework of a building breaks down and results in water damage caused by leakage, the amount of loss or damage is calculated by making an annual deduction based on the useful life of the leaked pipework from the repair expenses of the building covered, unless otherwise agreed on in the Policy Document. Age of pipework Deduction of the repair costs for the compensable loss 0–29 years 0% 30–50 years 25% over 50 years 50% The deduction is calculated on the basis of the amount of damage falling within the scope of cover of the Insurance. The age of the pipework is calculated in calendar years from the year when the property was first used or the pipework renewed. The first year of commissioning ends at the turn of the calendar year, regardless of the time of year at which the pipework began to be used. However, the amount of damage to HPVAC and electrical equipment is always calculated according to the age reductions in section 6.2.1.4.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-6.2.1.4": {
-    "id": "OMA-6.2.1.4",
-    "section": "6.2.1.4",
-    "topic": {
-      "fi": "Vuotuiset ikävähennykset LVIS- ja sähkölaitteista",
-      "sv": "Årliga åldersavdrag för VVSE- och elanordningar",
-      "en": "Annual age deductions on building services and electrical equipment"
+    id: "OMA-6.2.1.4",
+    section: "6.2.1.4",
+    topic: {
+      fi: "Vuotuiset ikävähennykset LVIS- ja sähkölaitteista",
+      sv: "Årliga åldersavdrag för VVSE- och elanordningar",
+      en: "Annual age deductions on building services and electrical equipment",
     },
-    "text": {
-      "fi": "Rakennuksen putkiston sekä lämpö-, vesi-, ilmastointi- (LVI) ja sähkölaitteiden (S) vahingoissa vahingon määrä lasketaan siten, että korvattavista korjauskustannuksista vähennetään vuotuiset ikävähennykset seuraavasti: - rakennuksen putkisto, sähkökaapelit ja sähköjohdot 3 % - ilmalämpöpumput 9 % - muut LVI- ja sähkölaitteet mukaan lukien lämmityskaapelit 6 %. Vähennys lasketaan putkiston sekä LVI- ja sähkölaitteiden uusimis- tai korjauskustannuksista. Näihin lasketaan kuuluvan myös rakenteiden avaamis- ja sulkemiskustannukset sekä maankaivu-, täyttö- ja niihin liittyvät työkustannukset. Laitteen ja putkiston ikä lasketaan kalenterivuosina laitteen tai putkiston käyttöönotosta tai putkiston uusimisesta. Laitteen yksittäisen osan korjaus- ja jälleenhankintakustannuksista tehdään ikävähennys koko laitekokonaisuuden iän mukaan, vaikka yksittäinen osa olisikin nuorempi. Vähennystä ei tehdä käyttöönotto- eikä sitä seuraavalta vuodelta. Ikävähennysten laskennassa ensimmäisenä käyttöönottovuotena pidetään sitä vuotta, jolloin laite tai putkisto on otettu käyttöön. Ensimmäinen käyttöönottovuosi päättyy kalenterivuoden vaihtuessa riippumatta siitä, mihin aikaan vuodesta esine on otettu käyttöön. Ikävähennys tehdään myös vahinkovuodelta. Vähennys lasketaan vuodet x ikävähennysprosentti. Näitä vähennyksiä ei voida poistaa lisämaksullakaan.",
-      "sv": "Vid skador på rörnät samt värme-, ventilations- och sanitetsanordningar (VVS) samt elektriska anordningar (E) i byggnad uträknas skadebeloppet på så sätt, att från de ersättningsbara reparationskostnaderna görs årliga åldersavdrag enligt följande: - byggnadens rörnät, elkablar och elledningar 3 % - luftvärmepumpar 9 % - övriga VVS-anordningar och elektriska anordningar inklusive värmekablar 6 %. Avdraget räknas från förnyelse- eller reparationskostnaderna för rörnätet samt VVS-anordningarna och de elektriska anordningarna. Till dessa räknas också kostnader för uppbrytning och igenläggning av konstruktioner samt grävning och fyllning av jord och arbetskostnader i anslutning därtill. Anordningens och rörnätets ålder räknas i kalenderår från det att anordningen eller rörnätet tagits i bruk eller rörnätet förnyats. På reparations- och återanskaffningskostnader för enskild del i anordningen görs åldersavdrag enligt hela anordningens ålder, även om den enskilda delen skulle vara yngre. Avdraget görs inte för det år anordningen tagits i bruk eller för året därpå. Vid beräkning av åldersavdragen avses med det första användningsåret det år när anordningen eller rörnätet tagits i bruk. Det första användningsåret upphör vid kalenderårets slut, oberoende av vilken tid på året föremålet har tagits i bruk. Åldersavdraget görs också för skadeåret. Åldersavdraget uträknas enligt antalet år multiplicerat med avdragsprocenten. Dessa avdrag kan inte slopas ens mot tilläggspremie.",
-      "en": "In cases of loss where the pipework, heating, plumbing, ventilation, air-conditioning or electricity equipment of a building breaks down, the amount of the loss or damage is calculated by making an annual deduction based on the age of the equipment from the repair expenses covered as follows: - pipework, electric cables and wires of a building 3% - air source heat pumps 9% - other HPVAC and electrical appliances, including heating cables 6%. The deduction is calculated on the basis of the replacement or repair expenses of the pipework and HPVAC and electrical appliances. These also include the expenses for opening and closing constructions as well as excavation and filling expenses and the related labour costs. The age of the appliance or pipework is calculated in calendar years from the year when the appliance or pipework was taken into use or the pipework was renewed. With respect to the repair and replacement expenses of a single part of equipment, the age deduction is calculated on the basis of the age of the entire equipment, even if the single part were newer. No deduction is made for the year the property was taken into use or for the following year. In the calculation of the age deduction, the year the appliance or pipework was taken into use is regarded as the first year of commissioning. The first year of commissioning ends at the turn of the calendar year, regardless of the time of year the item was taken into use. The age deduction is also calculated for the year during which the loss or damage occurred. The deduction is calculated as follows: years x deduction percentage based on age. These deductions cannot be removed by paying an extra premium."
+    text: {
+      fi: "Rakennuksen putkiston sekä lämpö-, vesi-, ilmastointi- (LVI) ja sähkölaitteiden (S) vahingoissa vahingon määrä lasketaan siten, että korvattavista korjauskustannuksista vähennetään vuotuiset ikävähennykset seuraavasti: - rakennuksen putkisto, sähkökaapelit ja sähköjohdot 3 % - ilmalämpöpumput 9 % - muut LVI- ja sähkölaitteet mukaan lukien lämmityskaapelit 6 %. Vähennys lasketaan putkiston sekä LVI- ja sähkölaitteiden uusimis- tai korjauskustannuksista. Näihin lasketaan kuuluvan myös rakenteiden avaamis- ja sulkemiskustannukset sekä maankaivu-, täyttö- ja niihin liittyvät työkustannukset. Laitteen ja putkiston ikä lasketaan kalenterivuosina laitteen tai putkiston käyttöönotosta tai putkiston uusimisesta. Laitteen yksittäisen osan korjaus- ja jälleenhankintakustannuksista tehdään ikävähennys koko laitekokonaisuuden iän mukaan, vaikka yksittäinen osa olisikin nuorempi. Vähennystä ei tehdä käyttöönotto- eikä sitä seuraavalta vuodelta. Ikävähennysten laskennassa ensimmäisenä käyttöönottovuotena pidetään sitä vuotta, jolloin laite tai putkisto on otettu käyttöön. Ensimmäinen käyttöönottovuosi päättyy kalenterivuoden vaihtuessa riippumatta siitä, mihin aikaan vuodesta esine on otettu käyttöön. Ikävähennys tehdään myös vahinkovuodelta. Vähennys lasketaan vuodet x ikävähennysprosentti. Näitä vähennyksiä ei voida poistaa lisämaksullakaan.",
+      sv: "Vid skador på rörnät samt värme-, ventilations- och sanitetsanordningar (VVS) samt elektriska anordningar (E) i byggnad uträknas skadebeloppet på så sätt, att från de ersättningsbara reparationskostnaderna görs årliga åldersavdrag enligt följande: - byggnadens rörnät, elkablar och elledningar 3 % - luftvärmepumpar 9 % - övriga VVS-anordningar och elektriska anordningar inklusive värmekablar 6 %. Avdraget räknas från förnyelse- eller reparationskostnaderna för rörnätet samt VVS-anordningarna och de elektriska anordningarna. Till dessa räknas också kostnader för uppbrytning och igenläggning av konstruktioner samt grävning och fyllning av jord och arbetskostnader i anslutning därtill. Anordningens och rörnätets ålder räknas i kalenderår från det att anordningen eller rörnätet tagits i bruk eller rörnätet förnyats. På reparations- och återanskaffningskostnader för enskild del i anordningen görs åldersavdrag enligt hela anordningens ålder, även om den enskilda delen skulle vara yngre. Avdraget görs inte för det år anordningen tagits i bruk eller för året därpå. Vid beräkning av åldersavdragen avses med det första användningsåret det år när anordningen eller rörnätet tagits i bruk. Det första användningsåret upphör vid kalenderårets slut, oberoende av vilken tid på året föremålet har tagits i bruk. Åldersavdraget görs också för skadeåret. Åldersavdraget uträknas enligt antalet år multiplicerat med avdragsprocenten. Dessa avdrag kan inte slopas ens mot tilläggspremie.",
+      en: "In cases of loss where the pipework, heating, plumbing, ventilation, air-conditioning or electricity equipment of a building breaks down, the amount of the loss or damage is calculated by making an annual deduction based on the age of the equipment from the repair expenses covered as follows: - pipework, electric cables and wires of a building 3% - air source heat pumps 9% - other HPVAC and electrical appliances, including heating cables 6%. The deduction is calculated on the basis of the replacement or repair expenses of the pipework and HPVAC and electrical appliances. These also include the expenses for opening and closing constructions as well as excavation and filling expenses and the related labour costs. The age of the appliance or pipework is calculated in calendar years from the year when the appliance or pipework was taken into use or the pipework was renewed. With respect to the repair and replacement expenses of a single part of equipment, the age deduction is calculated on the basis of the age of the entire equipment, even if the single part were newer. No deduction is made for the year the property was taken into use or for the following year. In the calculation of the age deduction, the year the appliance or pipework was taken into use is regarded as the first year of commissioning. The first year of commissioning ends at the turn of the calendar year, regardless of the time of year the item was taken into use. The age deduction is also calculated for the year during which the loss or damage occurred. The deduction is calculated as follows: years x deduction percentage based on age. These deductions cannot be removed by paying an extra premium.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "OMA-6.4.1": {
-    "id": "OMA-6.4.1",
-    "section": "6.4.1",
-    "topic": {
-      "fi": "Ei omavastuuta, jos hälytinlaite esti tai rajoitti vahinkoa",
-      "sv": "Ingen självrisk om en larmanordning förhindrade eller begränsade skadan",
-      "en": "Deductible not deducted where an alarm device prevented or limited the damage"
+    id: "OMA-6.4.1",
+    section: "6.4.1",
+    topic: {
+      fi: "Ei omavastuuta, jos hälytinlaite esti tai rajoitti vahinkoa",
+      sv: "Ingen självrisk om en larmanordning förhindrade eller begränsade skadan",
+      en: "Deductible not deducted where an alarm device prevented or limited the damage",
     },
-    "text": {
-      "fi": "Omavastuuta ei vähennetä - vahingon torjumis- ja rajoittamiskustannuksista - jos kohde on suojattu hälytyslaitteella ja tämän laitteen toiminta on estänyt vahingon syntymistä tai rajoittanut sen määrää - ehtokohdissa 6.1.3.1, 6.1.3.2 ja 6.1.3.3 mainittuja kustannuksia korvattaessa.",
-      "sv": "Självrisken avdras inte - för kostnader för avvärjning och begränsning av skada - om objektet varit skyddat med en larmanordning och anordningens funktion förhindrat uppkomsten av skada eller begränsat skadans omfattning - från ersättningen för kostnader som nämns i villkorspunkterna 6.1.3.1, 6.1.3.2 och 6.1.3.3.",
-      "en": "No deductible is deducted - from costs arising from the prevention of loss or reduction of its extent - if the Insured Interest is protected by an alarm device and the functioning of this device has prevented the occurrence of loss or restricted the amount of loss - from the compensation for costs specified in Clauses 6.1.3.1, 6.1.3.2. and 6.1.3.3."
+    text: {
+      fi: "Omavastuuta ei vähennetä - vahingon torjumis- ja rajoittamiskustannuksista - jos kohde on suojattu hälytyslaitteella ja tämän laitteen toiminta on estänyt vahingon syntymistä tai rajoittanut sen määrää - ehtokohdissa 6.1.3.1, 6.1.3.2 ja 6.1.3.3 mainittuja kustannuksia korvattaessa.",
+      sv: "Självrisken avdras inte - för kostnader för avvärjning och begränsning av skada - om objektet varit skyddat med en larmanordning och anordningens funktion förhindrat uppkomsten av skada eller begränsat skadans omfattning - från ersättningen för kostnader som nämns i villkorspunkterna 6.1.3.1, 6.1.3.2 och 6.1.3.3.",
+      en: "No deductible is deducted - from costs arising from the prevention of loss or reduction of its extent - if the Insured Interest is protected by an alarm device and the functioning of this device has prevented the occurrence of loss or restricted the amount of loss - from the compensation for costs specified in Clauses 6.1.3.1, 6.1.3.2. and 6.1.3.3.",
     },
-    "source": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
   "YLE-5.1.1": {
-    "id": "YLE-5.1.1",
-    "section": "5.1.1",
-    "topic": {
-      "fi": "Yleinen velvollisuus noudattaa suojeluohjeita (vahinkovakuutus)",
-      "sv": "Allmän skyldighet att följa säkerhetsföreskrifter (skadeförsäkring)",
-      "en": "General duty to follow protective instructions (non-life insurance)"
+    id: "YLE-5.1.1",
+    section: "5.1.1",
+    topic: {
+      fi: "Yleinen velvollisuus noudattaa suojeluohjeita (vahinkovakuutus)",
+      sv: "Allmän skyldighet att följa säkerhetsföreskrifter (skadeförsäkring)",
+      en: "General duty to follow protective instructions (non-life insurance)",
     },
-    "text": {
-      "fi": "Vakuutetun tulee noudattaa suojeluohjeita. Vahingon satuttua vakuutetulle tulevaa korvausta voidaan alentaa tai korvausta ei makseta, jos vakuutettu on laiminlyönyt velvollisuutensa noudattaa suojeluohjeita joko tahallisesti tai huolimattomuudesta, jota ei voida pitää vähäisenä.",
-      "sv": "Den försäkrade ska iaktta säkerhetsföreskrifterna. Om den försäkrade uppsåtligen eller av oaktsamhet, som inte kan anses vara ringa, har åsidosatt sin skyldighet att iaktta säkerhetsföreskrifterna, kan den ersättning som ska utbetalas till den försäkrade när en skada inträffat sänkas eller helt och hållet förvägras.",
-      "en": "The Insured must observe precautions. In the event of loss or damage, compensation payable to the Insured may be reduced or completely refused if the Insured has failed in its duty to observe precautions, either intentionally or due to negligence which cannot be considered slight."
+    text: {
+      fi: "Vakuutetun tulee noudattaa suojeluohjeita. Vahingon satuttua vakuutetulle tulevaa korvausta voidaan alentaa tai korvausta ei makseta, jos vakuutettu on laiminlyönyt velvollisuutensa noudattaa suojeluohjeita joko tahallisesti tai huolimattomuudesta, jota ei voida pitää vähäisenä.",
+      sv: "Den försäkrade ska iaktta säkerhetsföreskrifterna. Om den försäkrade uppsåtligen eller av oaktsamhet, som inte kan anses vara ringa, har åsidosatt sin skyldighet att iaktta säkerhetsföreskrifterna, kan den ersättning som ska utbetalas till den försäkrade när en skada inträffat sänkas eller helt och hållet förvägras.",
+      en: "The Insured must observe precautions. In the event of loss or damage, compensation payable to the Insured may be reduced or completely refused if the Insured has failed in its duty to observe precautions, either intentionally or due to negligence which cannot be considered slight.",
     },
-    "source": "Yleiset sopimusehdot, Ehto YLE 900.14 (voimassa 1.7.2025 alkaen)"
-  }
+    source: "Yleiset sopimusehdot, Ehto YLE 900.14 (voimassa 1.7.2025 alkaen)",
+  },
 };
 
 /** The document each language's text comes from. */
 export const CLAUSE_SOURCES: Record<string, Partial<Record<Lang, string>>> = {
   "OMA-5-intro-valvonta": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5-intro-laiminlyonti": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-4.1-vesieriste": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-4.25": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.2.4": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.2.6": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.2.7": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.2.8": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.2.12": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.2.17": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.2.18": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.4.1": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.4.2": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.5.1": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.5.2": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.5.3": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.5.4": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.5.5": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.5.6": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.5.7": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.5.8": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.5.9": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.5.10": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-6.2.1.3": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-6.2.1.4": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-6.4.1": {
-    "fi": "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
-    "sv": "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
-    "en": "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026"
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "YLE-5.1.1": {
-    "fi": "Yleiset sopimusehdot, Ehto YLE 900.14 (voimassa 1.7.2025 alkaen)",
-    "sv": "Allmänna avtalsvillkor, Villkor YLE 900.14 (gäller från 1.7.2025)",
-    "en": "General terms and conditions, Condition YLE 900.14, valid as of 1 July 2025"
-  }
+    fi: "Yleiset sopimusehdot, Ehto YLE 900.14 (voimassa 1.7.2025 alkaen)",
+    sv: "Allmänna avtalsvillkor, Villkor YLE 900.14 (gäller från 1.7.2025)",
+    en: "General terms and conditions, Condition YLE 900.14, valid as of 1 July 2025",
+  },
 };

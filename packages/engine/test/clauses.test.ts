@@ -15,10 +15,14 @@ describe("clauses", () => {
   });
 
   it("returns the requested language", () => {
-    expect(clauseText("OMA-5.5.6", "fi")).toMatch(/^Pesukone on aina liitettävä omalla sulkuventtiilillä/);
+    expect(clauseText("OMA-5.5.6", "fi")).toMatch(
+      /^Pesukone on aina liitettävä omalla sulkuventtiilillä/,
+    );
     expect(clauseText("OMA-5.5.6", "sv")).toMatch(/^Tvättmaskinen ska alltid anslutas/); // list marker "6) " removed
     expect(clauseText("OMA-5.5.6", "en")).toMatch(/^Washing machines must always be connected/); // official English
-    expect(clauseSource("OMA-5.5.6", "en")).toMatch(/^Home property insurance Terms and Conditions/);
+    expect(clauseSource("OMA-5.5.6", "en")).toMatch(
+      /^Home property insurance Terms and Conditions/,
+    );
   });
 
   it("falls back to fi, then en", () => {

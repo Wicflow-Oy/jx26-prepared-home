@@ -21,9 +21,36 @@ import type {
   ReminderKind,
   VisionAssessment,
 } from "./types";
-import { appliesTo, checksFor, criterionText, fixHintFor, getCheck, isCheckId, ownerFor } from "./checks";
-import { addDays, addMonths, daysBetween, lastJulyFirst, maxDay, minDay, nextMonthStart, nextOctoberFirst, toDay } from "./dates";
-import { ADJUSTER_NOTE, DISCLAIMER, PERIL_LABELS, TEXT, fill, formatDay, localize, quote } from "./i18n";
+import {
+  appliesTo,
+  checksFor,
+  criterionText,
+  fixHintFor,
+  getCheck,
+  isCheckId,
+  ownerFor,
+} from "./checks";
+import {
+  addDays,
+  addMonths,
+  daysBetween,
+  lastJulyFirst,
+  maxDay,
+  minDay,
+  nextMonthStart,
+  nextOctoberFirst,
+  toDay,
+} from "./dates";
+import {
+  ADJUSTER_NOTE,
+  DISCLAIMER,
+  PERIL_LABELS,
+  TEXT,
+  fill,
+  formatDay,
+  localize,
+  quote,
+} from "./i18n";
 
 // ------------------------------------------------------------------ deductibles
 
@@ -64,14 +91,21 @@ function matchCriterionId(check: CheckDefinition, rawId: string): string | null 
   return ids.includes(prefixed) ? prefixed : null;
 }
 
-function answerFor(userAnswers: Record<string, boolean> | undefined, check: CheckDefinition, criterionId: string): boolean | null {
+function answerFor(
+  userAnswers: Record<string, boolean> | undefined,
+  check: CheckDefinition,
+  criterionId: string,
+): boolean | null {
   if (!userAnswers) return null;
-  const short = criterionId.startsWith(`${check.id}.`) ? criterionId.slice(check.id.length + 1) : criterionId;
+  const short = criterionId.startsWith(`${check.id}.`)
+    ? criterionId.slice(check.id.length + 1)
+    : criterionId;
   const value = userAnswers[criterionId] ?? userAnswers[short];
   return typeof value === "boolean" ? value : null;
 }
 
-const nonEmpty = (s: string | null | undefined): string | null => (typeof s === "string" && s.trim() ? s.trim() : null);
+const nonEmpty = (s: string | null | undefined): string | null =>
+  typeof s === "string" && s.trim() ? s.trim() : null;
 
 /**
  * Verdict rules (CONTRACTS §2), in this order:
@@ -92,14 +126,25 @@ export function decideVerdict(
   const fromModel = new Map<string, { met: boolean | null; note?: string }>();
   for (const c of a?.criteria ?? []) {
     const id = c && typeof c.id === "string" ? matchCriterionId(check, c.id) : null;
-    if (id) fromModel.set(id, { met: typeof c.met === "boolean" ? c.met : null, ...(nonEmpty(c.note) ? { note: c.note!.trim() } : {}) });
+    if (id)
+      fromModel.set(id, {
+        met: typeof c.met === "boolean" ? c.met : null,
+        ...(nonEmpty(c.note) ? { note: c.note!.trim() } : {}),
+      });
   }
 
   const criteria: CriterionResult[] = check.criteria.map((c) => {
     const text = (criterionText(check, c.id, homeType) ?? c.text)[lang];
-    if (c.kind === "user") return { id: c.id, kind: c.kind, text, met: answerFor(userAnswers, check, c.id) };
+    if (c.kind === "user")
+      return { id: c.id, kind: c.kind, text, met: answerFor(userAnswers, check, c.id) };
     const m = a ? fromModel.get(c.id) : undefined;
-    return { id: c.id, kind: c.kind, text, met: m?.met ?? null, ...(m?.note ? { note: m.note } : {}) };
+    return {
+      id: c.id,
+      kind: c.kind,
+      text,
+      met: m?.met ?? null,
+      ...(m?.note ? { note: m.note } : {}),
+    };
   });
 
   const base = {
@@ -108,7 +153,12 @@ export function decideVerdict(
     urgent: a?.urgent === true,
     boxes: Array.isArray(a?.boxes) ? a!.boxes : [],
   };
-  const retake = (hint: string): CheckOutcome => ({ ...base, verdict: "retake", retakeHint: hint, fix: null });
+  const retake = (hint: string): CheckOutcome => ({
+    ...base,
+    verdict: "retake",
+    retakeHint: hint,
+    fix: null,
+  });
 
   if (!a) return retake(TEXT.couldNotCheck[lang]);
 
@@ -117,23 +167,32 @@ export function decideVerdict(
   const modelHint = nonEmpty(a.retakeHint);
   const missingAnswers = of("user").filter((c) => c.met === null);
   const answerHint = missingAnswers.length
-    ? fill(TEXT.answerPrompt[lang], { items: missingAnswers.map((c) => quote(c.text, lang)).join(", ") })
+    ? fill(TEXT.answerPrompt[lang], {
+        items: missingAnswers.map((c) => quote(c.text, lang)).join(", "),
+      })
     : null;
   const join = (...hints: (string | null)[]) => hints.filter((h): h is string => !!h).join(" ");
 
   // 1. Visibility
   const notVisible = of("visibility").filter((c) => c.met !== true);
-  if (notVisible.length) return retake(join(modelHint ?? fill(TEXT.retakeVisible[lang], { items: list(notVisible) }), answerHint));
+  if (notVisible.length)
+    return retake(
+      join(modelHint ?? fill(TEXT.retakeVisible[lang], { items: list(notVisible) }), answerHint),
+    );
 
   // 2. Unjudged condition, or a missing answer
   const unjudged = of("condition").filter((c) => c.met === null);
   if (unjudged.length || missingAnswers.length) {
-    const photoHint = unjudged.length ? (modelHint ?? fill(TEXT.retakeCondition[lang], { items: list(unjudged) })) : null;
+    const photoHint = unjudged.length
+      ? (modelHint ?? fill(TEXT.retakeCondition[lang], { items: list(unjudged) }))
+      : null;
     return retake(join(photoHint, answerHint));
   }
 
   // 3. A failed condition or user criterion
-  const failed = criteria.filter((c) => (c.kind === "condition" || c.kind === "user") && c.met === false);
+  const failed = criteria.filter(
+    (c) => (c.kind === "condition" || c.kind === "user") && c.met === false,
+  );
   if (failed.length) {
     return {
       ...base,
@@ -148,8 +207,13 @@ export function decideVerdict(
 }
 
 /** The outcome when the customer marks a check "not applicable". Throws unless the check allows it. */
-export function notApplicableOutcome(check: CheckDefinition, lang: Lang, homeType: HomeType): CheckOutcome {
-  if (!check.notApplicableAllowed) throw new Error(`Check ${check.id} cannot be marked not applicable`);
+export function notApplicableOutcome(
+  check: CheckDefinition,
+  lang: Lang,
+  homeType: HomeType,
+): CheckOutcome {
+  if (!check.notApplicableAllowed)
+    throw new Error(`Check ${check.id} cannot be marked not applicable`);
   return {
     checkId: check.id,
     verdict: "not_applicable",
@@ -196,7 +260,8 @@ export function recordFromOutcome(
   homeType: HomeType,
 ): CheckRecord {
   const check = getCheck(outcome.checkId);
-  if (!appliesTo(check, homeType)) throw new Error(`Check ${check.id} does not apply to a ${homeType}`);
+  if (!appliesTo(check, homeType))
+    throw new Error(`Check ${check.id} does not apply to a ${homeType}`);
   const current = outcome.verdict === "verified" || outcome.verdict === "not_applicable";
   const userAnswers: Record<string, boolean> = {};
   for (const c of outcome.criteria) {
@@ -208,7 +273,8 @@ export function recordFromOutcome(
     verdict: outcome.verdict,
     checkedAt: checkedAt.toISOString(),
     dueAt: current ? dueDateFor(check.recheck, checkedAt) : null,
-    photoSha256: outcome.verdict === "not_applicable" ? null : (nonEmpty(photoSha256)?.toLowerCase() ?? null),
+    photoSha256:
+      outcome.verdict === "not_applicable" ? null : (nonEmpty(photoSha256)?.toLowerCase() ?? null),
     ...(Object.keys(userAnswers).length ? { userAnswers } : {}),
   };
 }
@@ -263,11 +329,18 @@ function groupStatus(
   today: string,
   cfg: DeductibleConfig,
 ): PerilStatus {
-  const lists: Record<Slot, string[]> = { verified: [], notApplicable: [], fixFirst: [], missing: [], overdue: [] };
+  const lists: Record<Slot, string[]> = {
+    verified: [],
+    notApplicable: [],
+    fixFirst: [],
+    missing: [],
+    overdue: [],
+  };
   for (const id of required) lists[slotOf(effective.get(id), today)].push(id);
 
   const touched = own.some((r) => required.includes(r.checkId));
-  const covered = lists.verified.length + lists.notApplicable.length + lists.overdue.length === required.length;
+  const covered =
+    lists.verified.length + lists.notApplicable.length + lists.overdue.length === required.length;
   let state: PerilState;
   if (!touched) state = "not_started";
   else if (covered && lists.overdue.length === 0) state = "prepared";
@@ -305,7 +378,12 @@ export function requiredChecks(homeType: HomeType, group: PerilGroup): string[] 
 }
 
 /** Status per peril group (leak, fire, freeze). Groups without checks for the home type are left out (flats have no freeze). */
-export function perilStatuses(home: Home, records: CheckRecord[], now: Date, deductibles?: DeductibleConfig): PerilStatus[] {
+export function perilStatuses(
+  home: Home,
+  records: CheckRecord[],
+  now: Date,
+  deductibles?: DeductibleConfig,
+): PerilStatus[] {
   const today = toDay(now);
   const cfg = deductibleConfig(deductibles);
   const own = ownRecords(home, records);
@@ -334,7 +412,12 @@ function frostTrigger(frost: FrostForecast, frostDay: string): string {
     : `${where} minimum ${frost.minTempC.toFixed(1)} °C on ${frostDay}`;
 }
 
-export function reminders(home: Home, records: CheckRecord[], now: Date, frost: FrostForecast | null): Reminder[] {
+export function reminders(
+  home: Home,
+  records: CheckRecord[],
+  now: Date,
+  frost: FrostForecast | null,
+): Reminder[] {
   const today = toDay(now);
   const checks = checksFor(home.homeType);
   const effective = effectiveRecords(ownRecords(home, records));
@@ -365,7 +448,10 @@ export function reminders(home: Home, records: CheckRecord[], now: Date, frost: 
   }
 
   // Fix-first and scheduled re-checks.
-  const groups = new Map<string, { kind: ReminderKind; dueAt: string; checks: CheckDefinition[] }>();
+  const groups = new Map<
+    string,
+    { kind: ReminderKind; dueAt: string; checks: CheckDefinition[] }
+  >();
   for (const check of checks) {
     if (frostChecks.has(check.id)) continue;
     const rec = effective.get(check.id);
@@ -390,19 +476,37 @@ export function reminders(home: Home, records: CheckRecord[], now: Date, frost: 
   for (const g of groups.values()) {
     const one = g.checks.length === 1 ? g.checks[0]! : null;
     const title = one
-      ? localize(g.kind === "yearly" ? TEXT.yearlyOne : TEXT.seasonalOne, (l) => ({ title: one.title[l] }))
-      : localize(g.kind === "yearly" ? TEXT.yearlyMany : TEXT.seasonalMany, () => ({ n: g.checks.length }));
-    out.push({ id: `${g.kind}-${g.dueAt}`, kind: g.kind, checkIds: g.checks.map((c) => c.id), dueAt: g.dueAt, title });
+      ? localize(g.kind === "yearly" ? TEXT.yearlyOne : TEXT.seasonalOne, (l) => ({
+          title: one.title[l],
+        }))
+      : localize(g.kind === "yearly" ? TEXT.yearlyMany : TEXT.seasonalMany, () => ({
+          n: g.checks.length,
+        }));
+    out.push({
+      id: `${g.kind}-${g.dueAt}`,
+      kind: g.kind,
+      checkIds: g.checks.map((c) => c.id),
+      dueAt: g.dueAt,
+      title,
+    });
   }
 
-  return out.sort((x, y) => (x.dueAt < y.dueAt ? -1 : x.dueAt > y.dueAt ? 1 : KIND_ORDER[x.kind] - KIND_ORDER[y.kind]));
+  return out.sort((x, y) =>
+    x.dueAt < y.dueAt ? -1 : x.dueAt > y.dueAt ? 1 : KIND_ORDER[x.kind] - KIND_ORDER[y.kind],
+  );
 }
 
 // ------------------------------------------------------------------ Home Card
 
 export const SHA_SHORT_LENGTH = 12;
 
-export function homeCard(home: Home, records: CheckRecord[], now: Date, frost: FrostForecast | null, lang: Lang): HomeCard {
+export function homeCard(
+  home: Home,
+  records: CheckRecord[],
+  now: Date,
+  frost: FrostForecast | null,
+  lang: Lang,
+): HomeCard {
   const effective = effectiveRecords(ownRecords(home, records));
   const checks = checksFor(home.homeType);
 
@@ -420,15 +524,21 @@ export function homeCard(home: Home, records: CheckRecord[], now: Date, frost: F
 
   const l1 = effective.get("L1");
   let shutOffNote: string | null = null;
-  if (l1?.verdict === "verified") shutOffNote = fill(TEXT.shutOffChecked[lang], { date: formatDay(toDay(l1.checkedAt), lang) });
-  else if (l1?.verdict === "fix_first") shutOffNote = fill(TEXT.shutOffFix[lang], { date: formatDay(toDay(l1.checkedAt), lang) });
+  if (l1?.verdict === "verified")
+    shutOffNote = fill(TEXT.shutOffChecked[lang], { date: formatDay(toDay(l1.checkedAt), lang) });
+  else if (l1?.verdict === "fix_first")
+    shutOffNote = fill(TEXT.shutOffFix[lang], { date: formatDay(toDay(l1.checkedAt), lang) });
 
   return {
     homeId: home.homeId,
     label: home.label,
     homeType: home.homeType,
     generatedAt: now.toISOString(),
-    perils: perilStatuses(home, records, now).map((p) => ({ peril: p.peril, state: p.state, preparedUntil: p.preparedUntil })),
+    perils: perilStatuses(home, records, now).map((p) => ({
+      peril: p.peril,
+      state: p.state,
+      preparedUntil: p.preparedUntil,
+    })),
     records: cardRecords,
     shutOffNote,
     nextReminder: reminders(home, records, now, frost)[0] ?? null,
@@ -438,7 +548,8 @@ export function homeCard(home: Home, records: CheckRecord[], now: Date, frost: F
 
 // ------------------------------------------------------------------ adjuster view
 
-const normHash = (h: string | null | undefined) => (typeof h === "string" ? h.trim().toLowerCase() : "");
+const normHash = (h: string | null | undefined) =>
+  typeof h === "string" ? h.trim().toLowerCase() : "";
 
 /**
  * Relief applies only if the peril (its group) was prepared on the loss date, using records checked before
@@ -446,7 +557,14 @@ const normHash = (h: string | null | undefined) => (typeof h === "string" ? h.tr
  * Cover is never affected.
  */
 export function adjusterView(
-  input: { claimId: string; home: Home; records: CheckRecord[]; peril: Peril; lossDate: string; shared: { checkId: string; sha256: string }[] },
+  input: {
+    claimId: string;
+    home: Home;
+    records: CheckRecord[];
+    peril: Peril;
+    lossDate: string;
+    shared: { checkId: string; sha256: string }[];
+  },
   deductibles?: DeductibleConfig,
 ): AdjusterView {
   const { claimId, home, peril } = input;
@@ -460,26 +578,32 @@ export function adjusterView(
   const before = own.filter((r) => toDay(r.checkedAt) < lossDay);
   const effective = effectiveRecords(before);
   const required = requiredChecks(home.homeType, group);
-  const status = required.length ? groupStatus(group, home, required, before, effective, lossDay, cfg) : null;
+  const status = required.length
+    ? groupStatus(group, home, required, before, effective, lossDay, cfg)
+    : null;
   const state: PerilState = status?.state ?? "not_started";
 
   const reasons: string[] = [];
   if (!status) reasons.push(`No checks cover ${perilName.toLowerCase()} for a ${home.homeType}.`);
-  else if (state !== "prepared") reasons.push(`${perilName} was not prepared on ${lossDay} (${state.replace("_", " ")}).`);
+  else if (state !== "prepared")
+    reasons.push(`${perilName} was not prepared on ${lossDay} (${state.replace("_", " ")}).`);
 
   // Per required check
   const view: AdjusterView["records"] = [];
   const listed = new Set<string>();
   const addRecord = (checkId: string, rec: CheckRecord) => {
     const photos = shared.filter((s) => s.checkId === checkId);
-    const current = (rec.verdict === "verified" || rec.verdict === "not_applicable") && dueOf(rec) >= lossDay;
+    const current =
+      (rec.verdict === "verified" || rec.verdict === "not_applicable") && dueOf(rec) >= lossDay;
     view.push({
       checkId,
       verdict: rec.verdict,
       checkedAt: rec.checkedAt,
       validAtLoss: current,
       photoShared: photos.length > 0,
-      hashMatches: photos.length ? photos.every((p) => !!rec.photoSha256 && normHash(p.sha256) === normHash(rec.photoSha256)) : null,
+      hashMatches: photos.length
+        ? photos.every((p) => !!rec.photoSha256 && normHash(p.sha256) === normHash(rec.photoSha256))
+        : null,
     });
     listed.add(checkId);
   };
@@ -489,14 +613,19 @@ export function adjusterView(
     if (!rec) {
       const later = own.filter((r) => r.checkId === id).sort((a, b) => timeOf(a) - timeOf(b))[0];
       reasons.push(
-        later ? `${id} was first checked after the loss date (${toDay(later.checkedAt)}).` : `${id} was never checked before the loss date.`,
+        later
+          ? `${id} was first checked after the loss date (${toDay(later.checkedAt)}).`
+          : `${id} was never checked before the loss date.`,
       );
       continue;
     }
     addRecord(id, rec);
-    if (rec.verdict === "fix_first") reasons.push(`${id} was fix_first and never re-taken before the loss date.`);
-    else if (rec.verdict === "retake") reasons.push(`${id} had only unclear photos (retake) before the loss date.`);
-    else if (dueOf(rec) < lossDay) reasons.push(`${id} was past its due date (${dueOf(rec)}) on the loss date.`);
+    if (rec.verdict === "fix_first")
+      reasons.push(`${id} was fix_first and never re-taken before the loss date.`);
+    else if (rec.verdict === "retake")
+      reasons.push(`${id} had only unclear photos (retake) before the loss date.`);
+    else if (dueOf(rec) < lossDay)
+      reasons.push(`${id} was past its due date (${dueOf(rec)}) on the loss date.`);
   }
 
   // Shared photos
@@ -506,13 +635,17 @@ export function adjusterView(
     const rec = effective.get(s.checkId);
     if (!rec) {
       hashesOk = false;
-      reasons.push(`The shared photo for ${s.checkId} has no check record from before the loss date.`);
+      reasons.push(
+        `The shared photo for ${s.checkId} has no check record from before the loss date.`,
+      );
       continue;
     }
     if (!listed.has(s.checkId)) addRecord(s.checkId, rec);
     if (!rec.photoSha256) {
       hashesOk = false;
-      reasons.push(`The shared photo for ${s.checkId} cannot be compared: that record has no photo.`);
+      reasons.push(
+        `The shared photo for ${s.checkId} cannot be compared: that record has no photo.`,
+      );
     } else if (normHash(s.sha256) !== normHash(rec.photoSha256)) {
       hashesOk = false;
       reasons.push(`The shared photo for ${s.checkId} does not match the stored hash.`);
@@ -523,7 +656,9 @@ export function adjusterView(
 
   const relief = state === "prepared" && hashesOk;
   if (relief) {
-    reasons.unshift(`${perilName} was prepared on ${lossDay}: all ${required.length} checks were current.`);
+    reasons.unshift(
+      `${perilName} was prepared on ${lossDay}: all ${required.length} checks were current.`,
+    );
     reasons.push(
       shared.length
         ? matched === 1

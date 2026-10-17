@@ -1,5 +1,5 @@
 // Shared contract for Prepared Home (Valmis koti). Engine, server and app all import these types.
-// Change only additively; breaking changes need the lead's OK (see docs/CONTRACTS.md).
+// Change only additively; breaking changes need a joint decision (see docs/CONTRACTS.md).
 
 export type Lang = "fi" | "sv" | "en";
 export type HomeType = "flat" | "house" | "cottage";
@@ -152,7 +152,12 @@ export interface HomeCard {
   homeType: HomeType;
   generatedAt: string;
   perils: { peril: Peril; state: PerilState; preparedUntil: string | null }[];
-  records: { checkId: string; verdict: Verdict; checkedAt: string; photoSha256Short: string | null }[];
+  records: {
+    checkId: string;
+    verdict: Verdict;
+    checkedAt: string;
+    photoSha256Short: string | null;
+  }[];
   shutOffNote: string | null; // where the water shuts off, from L1
   nextReminder: Reminder | null;
   disclaimer: string; // "A prompt to check, not an inspection."

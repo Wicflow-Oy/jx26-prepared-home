@@ -1,12 +1,12 @@
 # Native builds: iOS (TestFlight) and Android (APK)
 
-For the team lead. **Every login below is yours.** Agents never handle Expo or Apple credentials. Run the commands in a terminal in `builds/prepared-home/app/`. The EAS CLI is installed (`eas-cli/24.13.0`, `C:\Users\user\AppData\Roaming\npm\eas`); `eas whoami` currently says "Not logged in".
+For the team lead. **Every login below is yours.** Nobody else handles Expo or Apple credentials. Run the commands in a terminal in `builds/prepared-home/app/`. The EAS CLI is installed (`eas-cli/24.13.0`, `C:\Users\user\AppData\Roaming\npm\eas`); `eas whoami` currently says "Not logged in".
 
 Bundle id and package: `fi.wicflow.preparedhome`. Display name: "Prepared Home". The app shows a "Prototype" note on the start screen and in settings.
 
 ## 0. Before the first build
-1. **Set the hosted API URL.** Once hosting is chosen (`HOSTING.md`), replace `https://REPLACE-WITH-HOST/api` in `app/eas.json`, in each profile's `env.EXPO_PUBLIC_API_BASE_URL`. A build bakes this value in; the phones can't use `localhost`.
-2. **Skip the export-compliance question in App Store Connect:** `app.json` should have `"ios": { "config": { "usesNonExemptEncryption": false } }`. The app only uses HTTPS. The lead adds it at integration if it's missing.
+1. **Set the hosted API URL.** `app/eas.json` sets `EXPO_PUBLIC_API_BASE_URL=https://preparedhome.demo.wicflow.com/api` in each profile. A build bakes this value in; the phones can't use `localhost`.
+2. **Skip the export-compliance question in App Store Connect:** `app.json` should have `"ios": { "config": { "usesNonExemptEncryption": false } }`. The app only uses HTTPS.
 
 ## 1. Log in and link the project (once)
 ```bash

@@ -21,33 +21,87 @@ const enFile = readJson("clauses_en_official.json");
 
 // Short topic translations. en comes from topic_en in clauses.json.
 const TOPICS = {
-  "OMA-5-intro-valvonta": { fi: "Rakennuksen valvonnan määritelmä", sv: "Definition av övervakning av byggnad" },
-  "OMA-5-intro-laiminlyonti": { fi: "Suojeluohjeen laiminlyönnin seuraus", sv: "Följd av att försumma en säkerhetsföreskrift" },
-  "OMA-4.1-vesieriste": { fi: "Rajoitus: vesi vesieristeen läpi tai vesieriste puuttuu", sv: "Undantag: vatten genom fuktbarriären eller fuktbarriär saknas" },
-  "OMA-4.25": { fi: "Rajoitus: vahinko, jonka aikaa tai paikkaa ei voi määrittää", sv: "Undantag: skada som inte kan tids- eller platsbestämmas" },
+  "OMA-5-intro-valvonta": {
+    fi: "Rakennuksen valvonnan määritelmä",
+    sv: "Definition av övervakning av byggnad",
+  },
+  "OMA-5-intro-laiminlyonti": {
+    fi: "Suojeluohjeen laiminlyönnin seuraus",
+    sv: "Följd av att försumma en säkerhetsföreskrift",
+  },
+  "OMA-4.1-vesieriste": {
+    fi: "Rajoitus: vesi vesieristeen läpi tai vesieriste puuttuu",
+    sv: "Undantag: vatten genom fuktbarriären eller fuktbarriär saknas",
+  },
+  "OMA-4.25": {
+    fi: "Rajoitus: vahinko, jonka aikaa tai paikkaa ei voi määrittää",
+    sv: "Undantag: skada som inte kan tids- eller platsbestämmas",
+  },
   "OMA-5.2.4": { fi: "Nuohous", sv: "Sotning" },
   "OMA-5.2.6": { fi: "Palovaroittimet", sv: "Brandvarnare" },
   "OMA-5.2.7": { fi: "Vialliset sähkölaitteet", sv: "Trasiga elektriska anordningar" },
-  "OMA-5.2.8": { fi: "Sähkötyöt vain hyväksytyillä liikkeillä", sv: "Elarbeten endast av godkända företag" },
-  "OMA-5.2.12": { fi: "Tavaroiden kuivaus ja säilytys saunassa", sv: "Torkning och förvaring av egendom i bastun" },
+  "OMA-5.2.8": {
+    fi: "Sähkötyöt vain hyväksytyillä liikkeillä",
+    sv: "Elarbeten endast av godkända företag",
+  },
+  "OMA-5.2.12": {
+    fi: "Tavaroiden kuivaus ja säilytys saunassa",
+    sv: "Torkning och förvaring av egendom i bastun",
+  },
   "OMA-5.2.17": { fi: "Sähköpyörien ja akkujen lataus", sv: "Laddning av elcyklar och batterier" },
-  "OMA-5.2.18": { fi: "Sähköauton lataus kiinteistön sähköverkosta", sv: "Laddning av elbil från fastighetens elnät" },
-  "OMA-5.4.1": { fi: "Sade- ja sulamisvedet pois rakennuksesta", sv: "Regn- och smältvatten bort från byggnaden" },
-  "OMA-5.4.2": { fi: "Ojat, salaojat ja hulevesijärjestelmät", sv: "Diken, täckdiken och dagvattensystem" },
-  "OMA-5.5.1": { fi: "Riittävä lämmitys kylmänä vuodenaikana", sv: "Tillräcklig uppvärmning under den kalla årstiden" },
-  "OMA-5.5.2": { fi: "Kylmäksi jätetty rakennus: putket tyhjiksi, lämmitys tarkistettava viikoittain", sv: "Byggnad som lämnas kall: töm rören, kontrollera värmen varje vecka" },
-  "OMA-5.5.3": { fi: "Yli viikon asumatta: pääsulkuventtiili kiinni ja pumppu pois", sv: "Obebodd över en vecka: stäng huvudventilen och koppla från pumpen" },
+  "OMA-5.2.18": {
+    fi: "Sähköauton lataus kiinteistön sähköverkosta",
+    sv: "Laddning av elbil från fastighetens elnät",
+  },
+  "OMA-5.4.1": {
+    fi: "Sade- ja sulamisvedet pois rakennuksesta",
+    sv: "Regn- och smältvatten bort från byggnaden",
+  },
+  "OMA-5.4.2": {
+    fi: "Ojat, salaojat ja hulevesijärjestelmät",
+    sv: "Diken, täckdiken och dagvattensystem",
+  },
+  "OMA-5.5.1": {
+    fi: "Riittävä lämmitys kylmänä vuodenaikana",
+    sv: "Tillräcklig uppvärmning under den kalla årstiden",
+  },
+  "OMA-5.5.2": {
+    fi: "Kylmäksi jätetty rakennus: putket tyhjiksi, lämmitys tarkistettava viikoittain",
+    sv: "Byggnad som lämnas kall: töm rören, kontrollera värmen varje vecka",
+  },
+  "OMA-5.5.3": {
+    fi: "Yli viikon asumatta: pääsulkuventtiili kiinni ja pumppu pois",
+    sv: "Obebodd över en vecka: stäng huvudventilen och koppla från pumpen",
+  },
   "OMA-5.5.4": { fi: "Ulkohanojen letkut", sv: "Slangar på utekranar" },
   "OMA-5.5.5": { fi: "Pumppaamon hälytin", sv: "Larm för pumpverk" },
-  "OMA-5.5.6": { fi: "Pesukone: oma sulkuventtiili, hyväksytty letku, valvonta", sv: "Tvättmaskin: egen ventil, godkänd slang, övervakning" },
+  "OMA-5.5.6": {
+    fi: "Pesukone: oma sulkuventtiili, hyväksytty letku, valvonta",
+    sv: "Tvättmaskin: egen ventil, godkänd slang, övervakning",
+  },
   "OMA-5.5.7": { fi: "Lattiakaivot ja hajulukot", sv: "Golvbrunnar och vattenlås" },
-  "OMA-5.5.8": { fi: "Turvakaukalo pesukoneen ja kylmälaitteiden alle ilman lattiakaivoa", sv: "Tråg under tvättmaskin och kylanordningar utan golvbrunn" },
+  "OMA-5.5.8": {
+    fi: "Turvakaukalo pesukoneen ja kylmälaitteiden alle ilman lattiakaivoa",
+    sv: "Tråg under tvättmaskin och kylanordningar utan golvbrunn",
+  },
   "OMA-5.5.9": { fi: "Viemärijärjestelmä ja viemäripumput", sv: "Avloppssystem och avloppspumpar" },
   "OMA-5.5.10": { fi: "Öljysäiliöt ja niiden putkistot", sv: "Oljecisterner och deras rör" },
-  "OMA-6.2.1.3": { fi: "Putkiston iän mukainen vähennys rakennuksen vuotovahingoissa", sv: "Avdrag enligt rörnätets ålder vid läckageskador på byggnaden" },
-  "OMA-6.2.1.4": { fi: "Vuotuiset ikävähennykset LVIS- ja sähkölaitteista", sv: "Årliga åldersavdrag för VVSE- och elanordningar" },
-  "OMA-6.4.1": { fi: "Ei omavastuuta, jos hälytinlaite esti tai rajoitti vahinkoa", sv: "Ingen självrisk om en larmanordning förhindrade eller begränsade skadan" },
-  "YLE-5.1.1": { fi: "Yleinen velvollisuus noudattaa suojeluohjeita (vahinkovakuutus)", sv: "Allmän skyldighet att följa säkerhetsföreskrifter (skadeförsäkring)" },
+  "OMA-6.2.1.3": {
+    fi: "Putkiston iän mukainen vähennys rakennuksen vuotovahingoissa",
+    sv: "Avdrag enligt rörnätets ålder vid läckageskador på byggnaden",
+  },
+  "OMA-6.2.1.4": {
+    fi: "Vuotuiset ikävähennykset LVIS- ja sähkölaitteista",
+    sv: "Årliga åldersavdrag för VVSE- och elanordningar",
+  },
+  "OMA-6.4.1": {
+    fi: "Ei omavastuuta, jos hälytinlaite esti tai rajoitti vahinkoa",
+    sv: "Ingen självrisk om en larmanordning förhindrade eller begränsade skadan",
+  },
+  "YLE-5.1.1": {
+    fi: "Yleinen velvollisuus noudattaa suojeluohjeita (vahinkovakuutus)",
+    sv: "Allmän skyldighet att följa säkerhetsföreskrifter (skadeförsäkring)",
+  },
 };
 
 // Document names per language, keyed by the Finnish version string in clauses.json.
@@ -65,7 +119,13 @@ const DOCUMENTS = {
 };
 
 // PDF extraction left list markers such as "6) " or "- " at the start of some sv/en strings.
-const clean = (s) => (typeof s === "string" ? s.replace(/^\s*(?:\d+\)\s+|-\s+)/, "").replace(/\s+/g, " ").trim() : "");
+const clean = (s) =>
+  typeof s === "string"
+    ? s
+        .replace(/^\s*(?:\d+\)\s+|-\s+)/, "")
+        .replace(/\s+/g, " ")
+        .trim()
+    : "";
 
 const byId = (rows, field) => {
   const map = new Map();
@@ -82,7 +142,10 @@ const clauses = {};
 const sources = {};
 for (const c of fiFile.clauses) {
   const topic = TOPICS[c.id];
-  if (!topic) throw new Error(`Missing topic translation for ${c.id}; add it to TOPICS in tools/gen-clauses.mjs`);
+  if (!topic)
+    throw new Error(
+      `Missing topic translation for ${c.id}; add it to TOPICS in tools/gen-clauses.mjs`,
+    );
   const doc = DOCUMENTS[c.source?.version];
   if (!doc) throw new Error(`Unknown source version for ${c.id}: ${c.source?.version}`);
 
@@ -123,4 +186,6 @@ export const CLAUSE_SOURCES: Record<string, Partial<Record<Lang, string>>> = ${J
 `;
 
 writeFileSync(outFile, body, "utf8");
-console.log(`Wrote ${Object.keys(clauses).length} clauses to ${path.relative(process.cwd(), outFile)}`);
+console.log(
+  `Wrote ${Object.keys(clauses).length} clauses to ${path.relative(process.cwd(), outFile)}`,
+);

@@ -3,7 +3,16 @@
 
 export * from "./types";
 
-export { CHECKS, checksFor, getCheck, appliesTo, isCheckId, ownerFor, criterionText, fixHintFor } from "./checks";
+export {
+  CHECKS,
+  checksFor,
+  getCheck,
+  appliesTo,
+  isCheckId,
+  ownerFor,
+  criterionText,
+  fixHintFor,
+} from "./checks";
 export { CLAUSES, CLAUSE_SOURCES, clauseText, clauseSource, clauseRefs } from "./clauses";
 export {
   decideVerdict,

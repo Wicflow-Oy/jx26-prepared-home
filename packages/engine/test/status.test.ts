@@ -6,8 +6,17 @@ const FLAT = "demo-turku-flat";
 
 describe("demo data", () => {
   it("has the demo homes and realistic hashes", () => {
-    expect(DEMO.homes.map((h) => h.homeId)).toEqual(["demo-turku-flat", "demo-fresh", "demo-house"]);
-    expect(demoHome(FLAT)).toMatchObject({ homeType: "flat", label: "Demo flat, Turku", moveInDate: "2026-10-10", hasLeakAlarm: false });
+    expect(DEMO.homes.map((h) => h.homeId)).toEqual([
+      "demo-turku-flat",
+      "demo-fresh",
+      "demo-house",
+    ]);
+    expect(demoHome(FLAT)).toMatchObject({
+      homeType: "flat",
+      label: "Demo flat, Turku",
+      moveInDate: "2026-10-10",
+      hasLeakAlarm: false,
+    });
     expect(demoHome("demo-fresh")).toMatchObject({ homeType: "flat", label: "New home" });
     expect(DEMO.records.filter((r) => r.homeId === "demo-fresh")).toEqual([]);
     for (const r of DEMO.records) expect(r.photoSha256).toMatch(/^[0-9a-f]{64}$/);
@@ -63,7 +72,9 @@ describe("perilStatuses", () => {
     expect(fire!.state).toBe("prepared");
 
     // Still prepared on the due date itself...
-    expect(perilStatuses(demoHome(FLAT), records, new Date("2027-10-12T20:00:00Z"))[0]!.state).toBe("prepared");
+    expect(perilStatuses(demoHome(FLAT), records, new Date("2027-10-12T20:00:00Z"))[0]!.state).toBe(
+      "prepared",
+    );
     // ...lapsed the day after.
     const [lapsed] = perilStatuses(demoHome(FLAT), records, new Date("2027-10-13T08:00:00Z"));
     expect(lapsed!.state).toBe("lapsed");
@@ -85,7 +96,11 @@ describe("perilStatuses", () => {
   });
 
   it("does not let a later unclear photo undo a result, and ignores other homes", () => {
-    const records = [...demoRecords(FLAT), rec(FLAT, "L1", "retake", "2026-10-16T10:00:00Z"), rec("other", "L4", "verified", "2026-10-16T10:00:00Z")];
+    const records = [
+      ...demoRecords(FLAT),
+      rec(FLAT, "L1", "retake", "2026-10-16T10:00:00Z"),
+      rec("other", "L4", "verified", "2026-10-16T10:00:00Z"),
+    ];
     const [leak] = perilStatuses(demoHome(FLAT), records, NOW);
     expect(leak!.verified).toContain("L1");
     expect(leak!.fixFirst).toEqual(["L4"]);
@@ -115,7 +130,17 @@ describe("perilStatuses", () => {
     const records = [...demoRecords(FLAT), rec(FLAT, "L4", "verified", "2026-10-17T10:00:00Z")];
     const cfg = { ...DEFAULT_DEDUCTIBLES, leak: { standard: 500, prepared: 150 } };
     const [leak, fire] = perilStatuses(demoHome(FLAT), records, NOW, cfg);
-    expect(leak!.deductible).toEqual({ standard: 500, prepared: 150, current: 150, label: "concept" });
-    expect(fire!.deductible).toEqual({ standard: 300, prepared: 100, current: 300, label: "concept" });
+    expect(leak!.deductible).toEqual({
+      standard: 500,
+      prepared: 150,
+      current: 150,
+      label: "concept",
+    });
+    expect(fire!.deductible).toEqual({
+      standard: 300,
+      prepared: 100,
+      current: 300,
+      label: "concept",
+    });
   });
 });

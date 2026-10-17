@@ -55,26 +55,62 @@ export const ADJUSTER_NOTE =
   "Cover is unchanged either way; only the deductible relief depends on the checks. A person decides.";
 
 export const TEXT = {
-  couldNotCheck: t("Kuvaa ei voitu tarkistaa. Yritä uudelleen.", "Bilden kunde inte kontrolleras. Försök igen.", "Couldn't check the photo. Try again."),
-  retakeVisible: t("Ota uusi kuva. Varmista: {items}.", "Ta en ny bild. Se till att: {items}.", "Take a new photo. Make sure: {items}."),
+  couldNotCheck: t(
+    "Kuvaa ei voitu tarkistaa. Yritä uudelleen.",
+    "Bilden kunde inte kontrolleras. Försök igen.",
+    "Couldn't check the photo. Try again.",
+  ),
+  retakeVisible: t(
+    "Ota uusi kuva. Varmista: {items}.",
+    "Ta en ny bild. Se till att: {items}.",
+    "Take a new photo. Make sure: {items}.",
+  ),
   retakeCondition: t(
     "Ota lähempää ja tarkempi kuva. Emme voineet arvioida: {items}.",
     "Ta en närmare och skarpare bild. Vi kunde inte bedöma: {items}.",
     "Take a closer, sharper photo. We couldn't judge: {items}.",
   ),
-  answerPrompt: t("Vastaa kyllä tai ei: {items}.", "Svara ja eller nej: {items}.", "Please answer yes or no: {items}."),
-  shutOffChecked: t("Veden sulku tarkistettu {date}.", "Vattenavstängningen kontrollerad {date}.", "Water shut-off checked on {date}."),
+  answerPrompt: t(
+    "Vastaa kyllä tai ei: {items}.",
+    "Svara ja eller nej: {items}.",
+    "Please answer yes or no: {items}.",
+  ),
+  shutOffChecked: t(
+    "Veden sulku tarkistettu {date}.",
+    "Vattenavstängningen kontrollerad {date}.",
+    "Water shut-off checked on {date}.",
+  ),
   shutOffFix: t(
     "Veden sulku löydetty {date}, mutta se vaatii korjausta.",
     "Vattenavstängningen hittad {date}, men den behöver åtgärdas.",
     "Water shut-off found on {date}, but it needs a fix.",
   ),
   yearlyOne: t("Vuositarkistus: {title}", "Årlig kontroll: {title}", "Yearly re-check: {title}"),
-  yearlyMany: t("Vuositarkistus: {n} kohdetta", "Årlig kontroll: {n} kontroller", "Yearly re-check: {n} checks"),
-  seasonalOne: t("Kauden tarkistus: {title}", "Säsongskontroll: {title}", "Seasonal check: {title}"),
-  seasonalMany: t("Kauden tarkistus: {n} kohdetta", "Säsongskontroll: {n} kontroller", "Seasonal check: {n} checks"),
-  fixFirst: t("Korjaa ja ota uusi kuva: {title}", "Åtgärda och ta en ny bild: {title}", "Fix it and take a new photo: {title}"),
-  frost: t("Pakkasta luvassa: tarkista ulkohana", "Frost väntas: kontrollera utekranen", "Frost is coming: check the outdoor tap"),
+  yearlyMany: t(
+    "Vuositarkistus: {n} kohdetta",
+    "Årlig kontroll: {n} kontroller",
+    "Yearly re-check: {n} checks",
+  ),
+  seasonalOne: t(
+    "Kauden tarkistus: {title}",
+    "Säsongskontroll: {title}",
+    "Seasonal check: {title}",
+  ),
+  seasonalMany: t(
+    "Kauden tarkistus: {n} kohdetta",
+    "Säsongskontroll: {n} kontroller",
+    "Seasonal check: {n} checks",
+  ),
+  fixFirst: t(
+    "Korjaa ja ota uusi kuva: {title}",
+    "Åtgärda och ta en ny bild: {title}",
+    "Fix it and take a new photo: {title}",
+  ),
+  frost: t(
+    "Pakkasta luvassa: tarkista ulkohana",
+    "Frost väntas: kontrollera utekranen",
+    "Frost is coming: check the outdoor tap",
+  ),
 } satisfies Record<string, Localized>;
 
 const QUOTES: Record<Lang, [string, string]> = { fi: ["”", "”"], sv: ["”", "”"], en: ["“", "”"] };
@@ -86,11 +122,16 @@ export function quote(text: string, lang: Lang): string {
 
 /** Replaces {name} placeholders. */
 export function fill(template: string, vars: Record<string, string | number>): string {
-  return template.replace(/\{(\w+)\}/g, (match, key: string) => (key in vars ? String(vars[key]) : match));
+  return template.replace(/\{(\w+)\}/g, (match, key: string) =>
+    key in vars ? String(vars[key]) : match,
+  );
 }
 
 /** Builds a Localized from a template per language. */
-export function localize(template: Localized, vars: (lang: Lang) => Record<string, string | number>): Localized {
+export function localize(
+  template: Localized,
+  vars: (lang: Lang) => Record<string, string | number>,
+): Localized {
   return {
     fi: fill(template.fi, vars("fi")),
     sv: fill(template.sv, vars("sv")),
@@ -98,7 +139,20 @@ export function localize(template: Localized, vars: (lang: Lang) => Record<strin
   };
 }
 
-const EN_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const EN_MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
 /** "2026-10-12" -> fi/sv "12.10.2026", en "12 Oct 2026". */
 export function formatDay(day: string, lang: Lang): string {

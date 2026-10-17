@@ -2,7 +2,10 @@ import { describe, expect, it } from "vitest";
 import { decideVerdict, getCheck, notApplicableOutcome, recordFromOutcome } from "../src/index";
 import type { VisionAssessment } from "../src/index";
 
-const assess = (met: Record<string, boolean | null>, extra: Partial<VisionAssessment> = {}): VisionAssessment => ({
+const assess = (
+  met: Record<string, boolean | null>,
+  extra: Partial<VisionAssessment> = {},
+): VisionAssessment => ({
   criteria: Object.entries(met).map(([id, m]) => ({ id, met: m })),
   boxes: [],
   model: "mock",
@@ -18,23 +21,46 @@ describe("decideVerdict", () => {
     const o = decideVerdict(L1, null, knows, "en", "house");
     expect(o.verdict).toBe("retake");
     expect(o.retakeHint).toBe("Couldn't check the photo. Try again.");
-    expect(decideVerdict(L1, null, knows, "fi", "house").retakeHint).toBe("Kuvaa ei voitu tarkistaa. Yritä uudelleen.");
+    expect(decideVerdict(L1, null, knows, "fi", "house").retakeHint).toBe(
+      "Kuvaa ei voitu tarkistaa. Yritä uudelleen.",
+    );
     expect(o.fix).toBeNull();
   });
 
   it("retakes when a visibility criterion is false", () => {
-    const o = decideVerdict(L1, assess({ ...allGood, "L1.handle_visible": false }), knows, "en", "house");
+    const o = decideVerdict(
+      L1,
+      assess({ ...allGood, "L1.handle_visible": false }),
+      knows,
+      "en",
+      "house",
+    );
     expect(o.verdict).toBe("retake");
     expect(o.retakeHint).toContain("Its handle or lever is visible");
   });
 
   it("retakes when a visibility criterion is null or missing, even if a condition fails", () => {
-    const o = decideVerdict(L1, assess({ "L1.valve_visible": true, "L1.no_leak": false }), knows, "en", "house");
+    const o = decideVerdict(
+      L1,
+      assess({ "L1.valve_visible": true, "L1.no_leak": false }),
+      knows,
+      "en",
+      "house",
+    );
     expect(o.verdict).toBe("retake");
   });
 
   it("uses the model's retake hint when given", () => {
-    const o = decideVerdict(L1, assess({ ...allGood, "L1.valve_visible": null }, { retakeHint: "Offline demo: no live check" }), knows, "en", "house");
+    const o = decideVerdict(
+      L1,
+      assess(
+        { ...allGood, "L1.valve_visible": null },
+        { retakeHint: "Offline demo: no live check" },
+      ),
+      knows,
+      "en",
+      "house",
+    );
     expect(o.verdict).toBe("retake");
     expect(o.retakeHint).toBe("Offline demo: no live check");
   });
@@ -60,12 +86,24 @@ describe("decideVerdict", () => {
   });
 
   it("gives fix_first when a condition criterion is false, with the owner for the home type", () => {
-    const house = decideVerdict(L1, assess({ ...allGood, "L1.no_leak": false }, { urgent: true }), knows, "en", "house");
+    const house = decideVerdict(
+      L1,
+      assess({ ...allGood, "L1.no_leak": false }, { urgent: true }),
+      knows,
+      "en",
+      "house",
+    );
     expect(house.verdict).toBe("fix_first");
     expect(house.fix?.owner).toBe("me");
     expect(house.urgent).toBe(true);
     expect(house.retakeHint).toBeNull();
-    const flat = decideVerdict(L1, assess({ ...allGood, "L1.no_leak": false }), knows, "fi", "flat");
+    const flat = decideVerdict(
+      L1,
+      assess({ ...allGood, "L1.no_leak": false }),
+      knows,
+      "fi",
+      "flat",
+    );
     expect(flat.fix?.owner).toBe("property_manager");
     expect(flat.fix?.text).toContain("isännöitsijä");
   });
@@ -94,12 +132,20 @@ describe("decideVerdict", () => {
     expect(o.boxes).toEqual([box]);
     expect(o.criteria.map((c) => c.met)).toEqual([true, true, true, true]);
     expect(o.criteria[0]!.note).toBe("Ball valve under the sink");
-    expect(o.criteria[0]!.text).toBe("Lägenhetens avstängningsventil eller en maskins egen ventil syns");
+    expect(o.criteria[0]!.text).toBe(
+      "Lägenhetens avstängningsventil eller en maskins egen ventil syns",
+    );
   });
 
   it("verifies a check with no user criteria without any answers", () => {
     const L4 = getCheck("L4");
-    const o = decideVerdict(L4, assess({ "L4.floor_visible": true, "L4.tray_or_drain": true, "L4.dry": true }), {}, "en", "flat");
+    const o = decideVerdict(
+      L4,
+      assess({ "L4.floor_visible": true, "L4.tray_or_drain": true, "L4.dry": true }),
+      {},
+      "en",
+      "flat",
+    );
     expect(o.verdict).toBe("verified");
   });
 
@@ -125,11 +171,29 @@ describe("recordFromOutcome", () => {
   });
 
   it("has no due date for fix_first or retake, and no hash for not applicable", () => {
-    const fix = recordFromOutcome("h1", decideVerdict(L1, assess(allGood), { "L1.know_how": false }, "en", "flat"), new Date("2026-10-12T09:00:00Z"), "aa", "flat");
+    const fix = recordFromOutcome(
+      "h1",
+      decideVerdict(L1, assess(allGood), { "L1.know_how": false }, "en", "flat"),
+      new Date("2026-10-12T09:00:00Z"),
+      "aa",
+      "flat",
+    );
     expect(fix.dueAt).toBeNull();
-    const retake = recordFromOutcome("h1", decideVerdict(L1, null, {}, "en", "flat"), new Date("2026-10-12T09:00:00Z"), "aa", "flat");
+    const retake = recordFromOutcome(
+      "h1",
+      decideVerdict(L1, null, {}, "en", "flat"),
+      new Date("2026-10-12T09:00:00Z"),
+      "aa",
+      "flat",
+    );
     expect(retake.dueAt).toBeNull();
-    const na = recordFromOutcome("h1", notApplicableOutcome(getCheck("L2"), "en", "flat"), new Date("2026-10-12T09:00:00Z"), "aa", "flat");
+    const na = recordFromOutcome(
+      "h1",
+      notApplicableOutcome(getCheck("L2"), "en", "flat"),
+      new Date("2026-10-12T09:00:00Z"),
+      "aa",
+      "flat",
+    );
     expect(na.dueAt).toBe("2027-10-12");
     expect(na.photoSha256).toBeNull();
   });

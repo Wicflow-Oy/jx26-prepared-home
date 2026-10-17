@@ -3,17 +3,59 @@ import { CHECKS, CLAUSES, checksFor, getCheck, ownerFor } from "../src/index";
 import type { Lang, Localized } from "../src/index";
 
 const LANGS: Lang[] = ["fi", "sv", "en"];
-const filled = (l: Localized) => LANGS.every((lang) => typeof l[lang] === "string" && l[lang].trim().length > 0);
+const filled = (l: Localized) =>
+  LANGS.every((lang) => typeof l[lang] === "string" && l[lang].trim().length > 0);
 
 describe("check definitions", () => {
   it("has the 14 checks in order", () => {
-    expect(CHECKS.map((c) => c.id)).toEqual(["L1", "L2", "L3", "L4", "L5", "L6", "F1", "F2", "F3", "F4", "F5", "Z1", "Z2", "S1"]);
+    expect(CHECKS.map((c) => c.id)).toEqual([
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "L6",
+      "F1",
+      "F2",
+      "F3",
+      "F4",
+      "F5",
+      "Z1",
+      "Z2",
+      "S1",
+    ]);
   });
 
   it("gives 11 checks for a flat, 14 for a house and 13 for a cottage", () => {
-    expect(checksFor("flat").map((c) => c.id)).toEqual(["L1", "L2", "L3", "L4", "L5", "L6", "F1", "F2", "F3", "F4", "F5"]);
+    expect(checksFor("flat").map((c) => c.id)).toEqual([
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "L6",
+      "F1",
+      "F2",
+      "F3",
+      "F4",
+      "F5",
+    ]);
     expect(checksFor("house")).toHaveLength(14);
-    expect(checksFor("cottage").map((c) => c.id)).toEqual(["L1", "L2", "L3", "L4", "L5", "L6", "F1", "F2", "F3", "F4", "F5", "Z1", "Z2"]);
+    expect(checksFor("cottage").map((c) => c.id)).toEqual([
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "L6",
+      "F1",
+      "F2",
+      "F3",
+      "F4",
+      "F5",
+      "Z1",
+      "Z2",
+    ]);
   });
 
   it("uses only clause ids that exist in CLAUSES", () => {
@@ -59,7 +101,10 @@ describe("check definitions", () => {
   });
 
   it("matches the contract's kinds, N/A flags, owners and rechecks", () => {
-    const kinds = (id: string) => getCheck(id).criteria.map((c) => c.kind[0]).join("");
+    const kinds = (id: string) =>
+      getCheck(id)
+        .criteria.map((c) => c.kind[0])
+        .join("");
     expect(kinds("L1")).toBe("vvcu");
     expect(kinds("L2")).toBe("vvc");
     expect(kinds("L3")).toBe("vcc");
@@ -67,7 +112,11 @@ describe("check definitions", () => {
     expect(kinds("F2")).toBe("vccc");
     expect(kinds("Z1")).toBe("vu");
     expect(kinds("Z2")).toBe("vcu");
-    expect(CHECKS.filter((c) => c.notApplicableAllowed).map((c) => c.id)).toEqual(["L2", "L3", "Z2"]);
+    expect(CHECKS.filter((c) => c.notApplicableAllowed).map((c) => c.id)).toEqual([
+      "L2",
+      "L3",
+      "Z2",
+    ]);
     expect(ownerFor(getCheck("L1"), "flat")).toBe("property_manager");
     expect(ownerFor(getCheck("L1"), "house")).toBe("me");
     expect(ownerFor(getCheck("F2"), "flat")).toBe("professional");

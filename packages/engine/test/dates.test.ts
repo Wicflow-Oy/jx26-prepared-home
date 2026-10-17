@@ -26,7 +26,9 @@ describe("due dates", () => {
 
   it("seasonal: at most 12 months away", () => {
     // Checked on the 1 September itself: the next 1 September is exactly 12 months later.
-    expect(dueDateFor({ kind: "seasonal", months: [9] }, "2026-09-01T08:00:00Z")).toBe("2027-09-01");
+    expect(dueDateFor({ kind: "seasonal", months: [9] }, "2026-09-01T08:00:00Z")).toBe(
+      "2027-09-01",
+    );
     expect(dueDateFor({ kind: "seasonal", months: [] }, "2026-09-15T08:00:00Z")).toBe("2027-09-15");
   });
 

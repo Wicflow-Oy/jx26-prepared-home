@@ -13,7 +13,13 @@ export function demoRecords(homeId: string): CheckRecord[] {
   return DEMO.records.filter((r) => r.homeId === homeId).map((r) => ({ ...r }));
 }
 
-export function rec(homeId: string, checkId: string, verdict: Verdict, checkedAt: string, photoSha256: string | null = "f".repeat(64)): CheckRecord {
+export function rec(
+  homeId: string,
+  checkId: string,
+  verdict: Verdict,
+  checkedAt: string,
+  photoSha256: string | null = "f".repeat(64),
+): CheckRecord {
   const current = verdict === "verified" || verdict === "not_applicable";
   return {
     homeId,

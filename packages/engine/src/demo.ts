@@ -39,7 +39,13 @@ export const DEMO_HOUSE_ID = "demo-house";
 /** The demo leak claim on the demo flat (CONTRACTS §6). */
 export const DEMO_CLAIM = { homeId: DEMO_FLAT_ID, peril: "leak" as const, lossDate: "2027-02-03" };
 
-function record(homeId: string, checkId: string, verdict: Verdict, checkedAt: string, userAnswers?: Record<string, boolean>): CheckRecord {
+function record(
+  homeId: string,
+  checkId: string,
+  verdict: Verdict,
+  checkedAt: string,
+  userAnswers?: Record<string, boolean>,
+): CheckRecord {
   const current = verdict === "verified" || verdict === "not_applicable";
   return {
     homeId,
@@ -47,7 +53,8 @@ function record(homeId: string, checkId: string, verdict: Verdict, checkedAt: st
     verdict,
     checkedAt,
     dueAt: current ? dueDateFor(getCheck(checkId).recheck, checkedAt) : null,
-    photoSha256: verdict === "not_applicable" ? null : (DEMO_HASHES[`${homeId}:${checkId}`] ?? null),
+    photoSha256:
+      verdict === "not_applicable" ? null : (DEMO_HASHES[`${homeId}:${checkId}`] ?? null),
     ...(userAnswers ? { userAnswers } : {}),
   };
 }
@@ -55,9 +62,30 @@ function record(homeId: string, checkId: string, verdict: Verdict, checkedAt: st
 /** Fresh copies of the demo data. `today` sets the move-in date of "demo-fresh". */
 export function makeDemo(today: Date = new Date()): { homes: Home[]; records: CheckRecord[] } {
   const homes: Home[] = [
-    { homeId: DEMO_FLAT_ID, homeType: "flat", label: "Demo flat, Turku", moveInDate: "2026-10-10", hasLeakAlarm: false, demo: true },
-    { homeId: DEMO_FRESH_ID, homeType: "flat", label: "New home", moveInDate: toDay(today), hasLeakAlarm: false, demo: true },
-    { homeId: DEMO_HOUSE_ID, homeType: "house", label: "Demo house, Turku", moveInDate: "2026-06-01", hasLeakAlarm: true, demo: true },
+    {
+      homeId: DEMO_FLAT_ID,
+      homeType: "flat",
+      label: "Demo flat, Turku",
+      moveInDate: "2026-10-10",
+      hasLeakAlarm: false,
+      demo: true,
+    },
+    {
+      homeId: DEMO_FRESH_ID,
+      homeType: "flat",
+      label: "New home",
+      moveInDate: toDay(today),
+      hasLeakAlarm: false,
+      demo: true,
+    },
+    {
+      homeId: DEMO_HOUSE_ID,
+      homeType: "house",
+      label: "Demo house, Turku",
+      moveInDate: "2026-06-01",
+      hasLeakAlarm: true,
+      demo: true,
+    },
   ];
 
   const F = DEMO_FLAT_ID;

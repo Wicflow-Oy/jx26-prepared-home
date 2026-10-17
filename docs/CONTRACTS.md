@@ -1,6 +1,6 @@
 # Prepared Home (Valmis koti): build contracts
 
-Frozen Sat 17 Oct 2026, 19:40, by the lead. Every workstream builds against this file and `packages/engine/src/types.ts`. Additive changes are fine; anything breaking needs the lead's OK. Product context: `../../context/dossier-if.md` (★ section, §9.0) and `../../context/if-brainstorm-research.md` §8.
+Frozen Sat 17 Oct 2026, 19:40. The engine, server and app build against this file and `packages/engine/src/types.ts`. Additive changes are fine; breaking changes need a joint decision. Product context: `../../context/dossier-if.md` (★ section, §9.0) and `../../context/if-brainstorm-research.md` §8.
 
 **The product in one line:** a voluntary moving-day check-up in the home insurance app. A dozen guided photo checks, each checked by a vision model against fixed criteria. While a risk's checks are current, its deductible is lower (**a concept; If decides the amounts**). The adjuster sees the dated checks at claim time. Photos stay on the device.
 
@@ -9,16 +9,16 @@ Frozen Sat 17 Oct 2026, 19:40, by the lead. Every workstream builds against this
 ## 1. Layout and ownership
 ```
 builds/prepared-home/
-  docs/CONTRACTS.md          lead
-  packages/engine/           W-ENGINE: pure TypeScript, no dependencies, used by server and app
-  server/                    W-SERVER: Node 24 + TypeScript (tsx), Express, Anthropic SDK behind one interface
-  server/eval/               W-SERVER: photo eval set, runner and reports
-  app/                       W-APP: Expo SDK 58, expo-router, Android + web from one codebase
+  docs/CONTRACTS.md          this spec
+  packages/engine/           pure TypeScript, no dependencies, used by server and app
+  server/                    Node 24 + TypeScript (tsx), Express, Anthropic SDK behind one interface
+  server/eval/               photo eval set, runner and reports
+  app/                       Expo SDK 58, expo-router, Android + web from one codebase
 ```
-**Rules for every workstream:**
+**Rules for every part:**
 - **Separate installs:** each package has its own `package.json` and `node_modules`, with no root workspace. Server and app depend on the engine via `"@prepared-home/engine": "file:../packages/engine"` (the app may use Metro `watchFolders` instead).
 - **Engine source:** TypeScript only (`"type": "module"`), extensionless relative imports. No JSON imports in the engine (data lives in `.ts` modules), and no Node APIs. It must run in Node, Metro (Android) and the browser.
-- **Git:** **don't commit** and don't push; the lead commits. Don't create GitHub repos or deploy.
+- **Git:** only green commits go to `main` (tests pass, lint is clean, it builds). No deploys from a dev machine; the operator deploys from GitHub (`DEPLOY.md`).
 - **New code only:** all code is written now (hackathon rule). Don't copy code from other projects or folders. Data may be copied from `../../context/analysis/if/` as listed below.
 - **Secrets:** read the Claude key only from the env var `ANTHROPIC_API_KEY`. Never read keys or `.env` files from other folders, never log a key, and never put one in the app bundle.
 - **Outbound requests:** use a generic User-Agent, `prepared-home-prototype/0.1`. Never send personal names or emails.
@@ -98,7 +98,7 @@ Clause ids must exist in the clause data. "Section" = the clause covers the area
 
 - **Peril grouping for the deductible:** leak, fire, freeze. Storm water (S1) counts toward **leak** for houses.
 - **Leak alarm:** when the home has one, leak status shows the 6.4.1 line: "No deductible if an alarm device prevented or limited the damage (terms 6.4.1)."
-- **Translations:** fi and sv titles and criteria are needed for the app's language switch. The engine owner writes them; keep them plain.
+- **Translations:** fi and sv titles and criteria are needed for the app's language switch. Keep them plain.
 
 ## 5. Server HTTP API (JSON; base `/api`; CORS open for the web app in dev)
 | Method and path | Request | Response |
@@ -183,7 +183,7 @@ Judges try the real product online on their own device, and the team installs it
 
 ### 9.3 Sample photos (desktop judges have no camera)
 - **In-app "Use a sample photo"** on every check screen. Bundled, licensed examples cover all three outcomes. They come from `server/eval/photos/` (Wikimedia Commons, with attribution), and each sample shows its credit line ("Photo: <author>, <licence>, Wikimedia Commons").
-- **Proposed set** (W-SERVER confirms against the manifest):
+- **Proposed set** (confirmed against the eval manifest):
 
 | Sample | Check | Expected |
 |---|---|---|
@@ -194,11 +194,11 @@ Judges try the real product online on their own device, and the team installs it
 | B07 | L5 | retake (cupboard closed) |
 | A05 | L1 | retake (no valve in frame) |
 
-- **Sample results are served from the cache**, recorded from a real live check (`CACHE_WRITE=1` run by the lead once the key is set), so they are instant, free and deterministic. Until recorded they go live (or offline without a key). The cache file records the model and the date; the UI labels them "Recorded live result (<date>)".
+- **Sample results are served from the cache**, recorded from a real live check (recorded with `CACHE_WRITE=1` once the key is set), so they are instant, free and deterministic. Until recorded they go live (or offline without a key). The cache file records the model and the date; the UI labels them "Recorded live result (<date>)".
 - On mobile, the camera and file picker come first, and samples are a secondary link.
 
 ### 9.4 Web build
-- **Phone frame:** a landing page `/` with a realistic phone frame (390 × 844) running the app, a QR code to open it on your own phone, and a one-line pitch. On a narrow screen (≤500 px) the app opens full screen. **Built after the team lead picks a style.** W-APP prepares the routes so the app lives at `/app` and the landing at `/`.
+- **Phone frame:** a landing page `/` with a realistic phone frame (390 × 844) running the app, a QR code to open it on your own phone, and a one-line pitch. On a narrow screen (≤500 px) the app opens full screen. **Built after the team lead picks a style.** The app lives at `/app` and the landing page at `/`.
 - **PWA:** manifest (name "Prepared Home", short name "Prepared Home", theme colour from the chosen style, icons), installable to the home screen.
 - **`noindex`:** `<meta name="robots" content="noindex, nofollow">` on every page, plus `robots.txt` with `Disallow: /`.
 - **Naming:** no domain, title or app name that implies If owns it. "Prototype for JunctionX, not an If service" stays on every screen.
@@ -211,12 +211,12 @@ Judges try the real product online on their own device, and the team installs it
   - `preview` (Android `buildType: "apk"`, internal distribution);
   - `production` (iOS store build for TestFlight internal testing; Android aab).
   - Each sets `EXPO_PUBLIC_API_BASE_URL` (the hosted URL, filled in once hosting is chosen).
-- **Logins are the team lead's alone:** the team lead runs `eas login` and the Apple sign-in himself; agents never handle Apple or Expo credentials. Commands are in `docs/NATIVE-BUILDS.md`.
+- **Logins are the team lead's alone:** the team lead runs `eas login` and the Apple sign-in himself; nobody else handles Apple or Expo credentials. Commands are in `docs/NATIVE-BUILDS.md`.
 
 ### 9.6 Hosting (decided: UpCloud Helsinki behind Traefik; runbook deploy/README.md)
 - **One Docker image:** `server/` serves `/api/*` and the static web export (`app/dist`) from one Node process. `Dockerfile` at the repo root; config only via env vars.
 - **Also works as:** static hosting for `app/dist`, with the API on any Node host (set `EXPO_PUBLIC_API_BASE_URL` at build time).
-- **Deploy only after the team lead logs in to the chosen host himself.** No accounts are created by agents. Commands are in `docs/HOSTING.md`.
+- **Deploy only after the team lead logs in to the chosen host himself.** Nobody creates accounts on his behalf. Commands are in `docs/HOSTING.md`.
 
 ### 9.7 Polish bar (Phase 3, but don't block it now)
 - **Copy:** real copy, no placeholder text anywhere a judge can reach.
