@@ -154,3 +154,73 @@ Clause ids must exist in the clause data. "Section" = the clause covers the area
 - **Label on every screen:** "Prototype for JunctionX, not an If service". No If logo.
 - **Networking:** Android over USB uses `adb reverse tcp:8787 tcp:8787`, so the server runs on port 8787 and the app defaults to `http://localhost:8787/api`.
 - **Theme:** neutral tokens in `theme.ts` for now. Phase 3 applies the chosen design option.
+
+## 9. Addendum (Sat 20:00): public web demo, native builds, hosting
+Judges try the real product online on their own device, and the team installs it on their phones on Sunday. This section overrides §5 and §8 where they conflict.
+
+### 9.1 State lives on the device; the server is stateless for the public demo
+- **The app keeps Home and CheckRecords locally** (AsyncStorage on native, localStorage on web) and computes status, reminders and the Home Card with the engine (`perilStatuses`, `reminders`, `homeCard`). Demo homes come from the engine's `DEMO`.
+- **Server env `STORE_MODE=stateless|file`** (default `stateless`). In stateless mode the server writes nothing to disk and keeps no records. `file` keeps §5's store; it models "the insurer holds status, date and hash" for a later integration.
+- **Stateless endpoints** (always available; the app uses these):
+
+| Method and path | Request | Response |
+|---|---|---|
+| POST `/api/v1/check` | `{ homeId, homeType, checkId, lang, imageBase64, width, height, photoSha256, userAnswers }` | `{ outcome: CheckOutcome, record: CheckRecord, source: "live"/"cached"/"offline", sourceNote?, model, clause: { id, text }[] }` |
+| POST `/api/v1/claims` | `{ home: Home, records: CheckRecord[], peril, lossDate, shared: [{ checkId, imageBase64 }] }` | `AdjusterView` (images hashed in memory, compared, discarded) |
+| GET `/api/v1/checks?homeType&lang` | – | as §5 |
+| GET `/api/v1/frost?place=Turku` | – | `FrostForecast` |
+| GET `/api/v1/health` | – | `{ ok, provider, model, keySet, liveAvailable, limits: { perIpPer10Min, dailyLive, usedToday } }` |
+| GET `/api/v1/samples` | – | the sample photos list (§9.3) with URLs |
+
+- The §5 home-based routes stay, for `STORE_MODE=file` only.
+- **Photos:** processed in memory and never stored or logged. The app shows the line "Photos are checked and then discarded. Nothing is saved on our server." near the shutter.
+
+### 9.2 Abuse and cost guard on the vision endpoint
+- **Per-IP limit:** env `RATE_PER_IP_10MIN`, default 12 live checks per 10 minutes. Behind a proxy, honour `X-Forwarded-For` only when `TRUST_PROXY=1`.
+- **Daily live cap:** env `DAILY_LIVE_LIMIT`, default 400 calls; `DAILY_SPEND_CAP_EUR` (default 10) is checked with a per-call cost estimate. The counter resets at midnight Europe/Helsinki and is in memory, which is fine for one instance.
+- **When a limit is hit, never error to the judge.** Fall back to cached if the hash is cached, otherwise offline. Set `source` and `sourceNote` ("Live checks are paused for today; this is a recorded result." / "Live check limit reached; try a sample photo."), and say so in the UI.
+- **Body size limit:** 12 MB. Only `image/jpeg` is accepted; reject anything above 2576 px on the long edge.
+
+### 9.3 Sample photos (desktop judges have no camera)
+- **In-app "Use a sample photo"** on every check screen. Bundled, licensed examples cover all three outcomes. They come from `server/eval/photos/` (Wikimedia Commons, with attribution), and each sample shows its credit line ("Photo: <author>, <licence>, Wikimedia Commons").
+- **Proposed set** (W-SERVER confirms against the manifest):
+
+| Sample | Check | Expected |
+|---|---|---|
+| A07 | L1 | verified |
+| C01 | F2 | verified |
+| B03 | L5 | fix_first, urgent (dripping trap) |
+| C04 | F2 | fix_first, urgent (cover removed) |
+| B07 | L5 | retake (cupboard closed) |
+| A05 | L1 | retake (no valve in frame) |
+
+- **Sample results are served from the cache**, recorded from a real live check (`CACHE_WRITE=1` run by the lead once the key is set), so they are instant, free and deterministic. Until recorded they go live (or offline without a key). The cache file records the model and the date; the UI labels them "Recorded live result (<date>)".
+- On mobile, the camera and file picker come first, and samples are a secondary link.
+
+### 9.4 Web build
+- **Phone frame:** a landing page `/` with a realistic phone frame (390 × 844) running the app, a QR code to open it on your own phone, and a one-line pitch. On a narrow screen (≤500 px) the app opens full screen. **Built after the team lead picks a style.** W-APP prepares the routes so the app lives at `/app` and the landing at `/`.
+- **PWA:** manifest (name "Prepared Home", short name "Prepared Home", theme colour from the chosen style, icons), installable to the home screen.
+- **`noindex`:** `<meta name="robots" content="noindex, nofollow">` on every page, plus `robots.txt` with `Disallow: /`.
+- **Naming:** no domain, title or app name that implies If owns it. "Prototype for JunctionX, not an If service" stays on every screen.
+- **API base URL from env `EXPO_PUBLIC_API_BASE_URL`.** The default is a same-origin `/api` on web and `http://localhost:8787/api` in native dev builds.
+
+### 9.5 Native builds (EAS)
+- **`app.json`:** name "Prepared Home"; slug `prepared-home`; scheme `preparedhome`; `ios.bundleIdentifier` and `android.package` = `fi.wicflow.preparedhome`; camera and photo-library usage strings (plain English: "Prepared Home uses the camera to photograph the points you check. Photos are checked and then discarded."). A "Prototype" note sits in the app's settings and on the start screen.
+- **`eas.json` profiles:**
+  - `development` (dev client, internal);
+  - `preview` (Android `buildType: "apk"`, internal distribution);
+  - `production` (iOS store build for TestFlight internal testing; Android aab).
+  - Each sets `EXPO_PUBLIC_API_BASE_URL` (the hosted URL, filled in once hosting is chosen).
+- **Logins are the team lead's alone:** the team lead runs `eas login` and the Apple sign-in himself; agents never handle Apple or Expo credentials. Commands are in `docs/NATIVE-BUILDS.md`.
+
+### 9.6 Hosting (host-agnostic)
+- **One Docker image:** `server/` serves `/api/*` and the static web export (`app/dist`) from one Node process. `Dockerfile` at the repo root; config only via env vars.
+- **Also works as:** static hosting for `app/dist`, with the API on any Node host (set `EXPO_PUBLIC_API_BASE_URL` at build time).
+- **Deploy only after the team lead logs in to the chosen host himself.** No accounts are created by agents. Commands are in `docs/HOSTING.md`.
+
+### 9.7 Polish bar (Phase 3, but don't block it now)
+- **Copy:** real copy, no placeholder text anywhere a judge can reach.
+- **States:** loading, empty and error states on every screen.
+- **Motion:** smooth but restrained (respect reduced motion).
+- **Accessibility:** WCAG AA contrast, tap targets ≥44 px.
+- **Languages:** fi/sv/en switch.
