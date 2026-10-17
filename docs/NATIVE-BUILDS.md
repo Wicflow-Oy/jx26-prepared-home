@@ -55,4 +55,6 @@ Start the API first (`server/`: `npm run dev`). Then open the project in Expo Go
 
 ## 5. What never goes into a build
 - No API keys. The Claude key lives only on the server (`ANTHROPIC_API_KEY`).
-- No If logo or If-implying name. The app name is "Prepared Home", with "Prototype for JunctionX, not an If service" on every screen.
+- **Branding:** the app name is "Prepared Home". The build is If-branded (If logo and a "Concept" pill in the header; About says "Concept for If, built at JunctionX Turku 2026. Not a live If service.").
+  - **Why:** the team lead's decision on 17 Oct, pending If's written consent.
+  - **If If says no:** set `IF_BRANDED = false` in `app/src/prepared-home/brand.ts` before building.

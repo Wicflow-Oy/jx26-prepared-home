@@ -46,6 +46,7 @@ docs/              contracts, hosting and native-build notes
 - **Mocked or concept:** the insurer's systems and the adjuster view; the deductible amounts ("Concept: If decides the amount"); the demo homes and their records.
 
 ## Data sources and licences
+- **Branding:** the If logo and name are used for this concept for If, pending If's written consent. One switch turns the neutral version back on (`app/src/prepared-home/brand.ts`).
 - **If's home insurance terms:** public documents, quoted per check in Finnish, Swedish and If's official English translation (Finnish prevails).
 - **Sample and eval photos:** Wikimedia Commons, under CC0, CC BY and CC BY-SA. Credits are in `server/eval/photos/README.md` and shown in the app.
 - **Weather:** Finnish Meteorological Institute open data (CC BY 4.0).
