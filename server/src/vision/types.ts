@@ -14,6 +14,7 @@ export interface VisionInput {
   check: CheckDefinition;
   lang: Lang;
   image: VisionImage;
+  secondImage?: VisionImage; // the same item from another angle
 }
 
 /** CONTRACTS §3. */

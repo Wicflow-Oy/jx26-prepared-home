@@ -73,7 +73,11 @@ export function adjusterView(
       validAtLoss: current,
       photoShared: photos.length > 0,
       hashMatches: photos.length
-        ? photos.every((p) => !!rec.photoSha256 && normHash(p.sha256) === normHash(rec.photoSha256))
+        ? photos.every((p) =>
+            [rec.photoSha256, rec.secondPhotoSha256].some(
+              (h) => !!h && normHash(p.sha256) === normHash(h),
+            ),
+          )
         : null,
     });
     listed.add(checkId);

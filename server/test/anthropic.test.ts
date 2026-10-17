@@ -199,3 +199,14 @@ describe("AnthropicVisionProvider with a fake client", () => {
     ).rejects.toThrow("overloaded");
   });
 });
+
+describe("two angles of the same item", () => {
+  it("sends both photos and tells the model they are one item from two positions", () => {
+    const second = { ...image, base64: "BBBB", width: 900 };
+    const req = buildRequest(check("L2"), "en", image, { model: "m" }, second);
+    const content = req.messages[0].content as { type: string; text?: string }[];
+    expect(content.filter((c) => c.type === "image")).toHaveLength(2);
+    expect(content.find((c) => c.type === "text")?.text).toContain("Two photos of the same item");
+    expect(SYSTEM_PROMPT).toContain("one flat picture seen twice");
+  });
+});

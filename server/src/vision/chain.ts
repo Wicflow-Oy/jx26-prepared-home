@@ -54,7 +54,8 @@ export class VisionChain {
   async assess(input: VisionInput & { sha256: string; clientKey: string }): Promise<ChainResult> {
     const { check, lang, sha256, clientKey } = input;
 
-    const hit = await this.cache.lookup(sha256, check.id);
+    // Recorded results are single photos (the samples); a two-angle check always goes live.
+    const hit = input.secondImage ? null : await this.cache.lookup(sha256, check.id);
     if (hit) {
       return {
         assessment: hit.assessment,

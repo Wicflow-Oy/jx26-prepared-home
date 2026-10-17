@@ -69,12 +69,18 @@ export function v1Router(deps: AppDeps): Router {
     const check = checkForHome(body.checkId, homeType);
     if (body.photoSha256 === undefined) throw bad("photoSha256 is required");
     const image = receiveImage(body.imageBase64, body.photoSha256);
+    // An optional second angle of the same item; both fields come together.
+    const secondImage =
+      body.secondImageBase64 === undefined
+        ? undefined
+        : receiveImage(body.secondImageBase64, body.secondPhotoSha256);
     const result = await runCheck(deps, {
       check,
       homeId,
       homeType,
       lang: parseLang(body.lang),
       image,
+      secondImage,
       userAnswers: parseUserAnswers(body.userAnswers),
       clientKey: clientKey(deps, req),
       capture: parseCapture(body.capture),

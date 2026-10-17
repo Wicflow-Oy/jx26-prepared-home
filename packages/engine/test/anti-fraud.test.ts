@@ -82,3 +82,18 @@ describe("only in-app camera photos count toward the relief", () => {
     expect(view.reasons.join(" ")).toContain("does not count");
   });
 });
+
+describe("a second angle of the same item", () => {
+  it("can be shared at claim time and still matches the check", () => {
+    const records = leakRecords("camera").map((r) => ({ ...r, secondPhotoSha256: "f".repeat(64) }));
+    const view = adjusterView({
+      claimId: "c2",
+      home,
+      records,
+      peril: "leak",
+      lossDate: "2026-11-01",
+      shared: [{ checkId: "L2", sha256: "f".repeat(64) }],
+    });
+    expect(view.records.find((r) => r.checkId === "L2")?.hashMatches).toBe(true);
+  });
+});

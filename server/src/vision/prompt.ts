@@ -54,6 +54,7 @@ export const SYSTEM_PROMPT = [
   "- retakeHint: one short sentence on how to retake the photo when a visibility criterion is false or null, or a condition can't be judged; otherwise null.",
   "- fixSuggestion: one short, practical sentence when a condition criterion is false; otherwise null. For electrical faults, exposed parts or active leaks, say to call a professional and not to touch.",
   "- urgent: true only for an active leak or drip, or exposed live electrical parts or a removed cover. Otherwise false.",
+  "- When two photos are given, they should show the same item from two positions. Judge the criteria on both together. Also set reproduction true if they look like one flat picture seen twice (no depth or parallax between near and far parts, the same flat surface tilted) rather than a real 3D scene from two viewpoints.",
   "- reproduction: true if this is a photo of a screen (TV, monitor, phone or tablet), a printout or another photo rather than the real item. Signs: screen bezels or edges, a pixel grid or moiré pattern, glare from glass, visible user-interface elements, paper edges. Otherwise false.",
   "- note per criterion: at most one short sentence on what you saw, or an empty string.",
   "",
@@ -123,13 +124,16 @@ export function buildUserText(
   check: CheckDefinition,
   lang: Lang,
   image: { width: number; height: number },
+  secondImage?: { width: number; height: number },
 ): string {
   const criteria = modelCriteria(check);
   const keys = criterionKeys(criteria);
   const lines = criteria.map((c, i) => `- ${keys[i]} (${c.kind}): ${c.text.en}`);
   return [
     `Check: ${check.title.en}.`,
-    `Image size: ${image.width} x ${image.height} pixels.`,
+    secondImage
+      ? `Two photos of the same item from two positions. Sizes: ${image.width} x ${image.height} and ${secondImage.width} x ${secondImage.height} pixels. Boxes refer to the first photo.`
+      : `Image size: ${image.width} x ${image.height} pixels.`,
     "Criteria:",
     ...lines,
     `Write notes, retakeHint and fixSuggestion in ${LANG_NAME[lang] ?? "English"}.`,
@@ -148,7 +152,9 @@ export function buildRequest(
   lang: Lang,
   image: VisionImage,
   opts: RequestOptions,
+  secondImage?: VisionImage,
 ): Anthropic.MessageCreateParamsNonStreaming {
+  const images = secondImage ? [image, secondImage] : [image];
   const params: Anthropic.MessageCreateParamsNonStreaming = {
     model: opts.model,
     max_tokens: opts.maxTokens ?? 16000,
@@ -161,11 +167,11 @@ export function buildRequest(
       {
         role: "user",
         content: [
-          {
-            type: "image",
-            source: { type: "base64", media_type: image.mediaType, data: image.base64 },
-          },
-          { type: "text", text: buildUserText(check, lang, image) },
+          ...images.map((img) => ({
+            type: "image" as const,
+            source: { type: "base64" as const, media_type: img.mediaType, data: img.base64 },
+          })),
+          { type: "text", text: buildUserText(check, lang, image, secondImage) },
         ],
       },
     ],

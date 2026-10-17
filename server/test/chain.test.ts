@@ -101,6 +101,24 @@ describe("VisionChain", () => {
     expect(other.source).not.toBe("cached");
   });
 
+  it("never answers a two-angle check from the single-photo cache", async () => {
+    const dir = tempDir();
+    const cache = new CachedVisionProvider(dir, true);
+    await cache.store(
+      a07.sha256,
+      "L1",
+      scriptedAssessment(l1, "verified", "claude-sonnet-5-5"),
+      new Date("2026-10-18T09:30:00Z"),
+    );
+    const live = new FakeProvider("claude-sonnet-5-5", (i) =>
+      scriptedAssessment(i.check, "retake"),
+    );
+    const chain = new VisionChain({ cache: new CachedVisionProvider(dir, false), live });
+    const pair = await chain.assess({ ...input(), secondImage: input().image });
+    expect(pair.source).toBe("live");
+    expect(live.calls).toBe(1);
+  });
+
   it("falls back to offline with a note when the per-IP limit is hit, never an error", async () => {
     const live = new FakeProvider("m", (i) => scriptedAssessment(i.check, "verified"));
     const chain = new VisionChain({

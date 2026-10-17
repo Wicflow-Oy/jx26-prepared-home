@@ -60,6 +60,7 @@ export async function runCheck(
     homeType: HomeType;
     lang: Lang;
     image: ReceivedImage;
+    secondImage?: ReceivedImage;
     userAnswers: Record<string, boolean>;
     clientKey: string;
     capture?: CaptureSource;
@@ -76,6 +77,16 @@ export async function runCheck(
       width: image.width,
       height: image.height,
     },
+    ...(args.secondImage
+      ? {
+          secondImage: {
+            base64: args.secondImage.base64,
+            mediaType: "image/jpeg" as const,
+            width: args.secondImage.width,
+            height: args.secondImage.height,
+          },
+        }
+      : {}),
     sha256: image.sha256,
     clientKey: args.clientKey,
   });
@@ -91,6 +102,7 @@ export async function runCheck(
     homeType,
     args.capture,
   );
+  if (args.secondImage) record.secondPhotoSha256 = args.secondImage.sha256;
   deps.logger.check({
     checkId: check.id,
     verdict: outcome.verdict,

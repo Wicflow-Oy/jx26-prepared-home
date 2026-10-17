@@ -100,6 +100,7 @@ export interface CheckRecord {
   checkedAt: string; // ISO datetime
   dueAt: string | null; // ISO date; null unless verified or not_applicable
   photoSha256: string | null; // hex of the exact JPEG bytes sent; null for not_applicable
+  secondPhotoSha256?: string | null; // the second angle of the same item, when one was taken
   userAnswers?: Record<string, boolean>;
   capture?: CaptureSource; // absent on older records and seeded examples, which count as camera
 }

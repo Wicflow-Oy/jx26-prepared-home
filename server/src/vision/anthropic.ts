@@ -48,9 +48,17 @@ export class AnthropicVisionProvider implements VisionProvider {
 
   /** Throws on transport/API errors (the caller treats that as "couldn't check"); malformed output becomes all-null. */
   async assess(input: VisionInput): Promise<LiveAssessment> {
-    const { check, lang, image } = input;
-    if (Math.max(image.width, image.height) > MAX_LONG_EDGE) throw new ImageTooLargeError();
-    const request = buildRequest(check, lang, image, { model: this.model, effort: this.effort });
+    const { check, lang, image, secondImage } = input;
+    for (const img of secondImage ? [image, secondImage] : [image]) {
+      if (Math.max(img.width, img.height) > MAX_LONG_EDGE) throw new ImageTooLargeError();
+    }
+    const request = buildRequest(
+      check,
+      lang,
+      image,
+      { model: this.model, effort: this.effort },
+      secondImage,
+    );
     const message = await this.client.messages.create(request);
     const usage = message.usage
       ? {
