@@ -30,7 +30,6 @@ export function v1Router(deps: AppDeps): Router {
     res.json({
       ...base,
       liveAvailable: deps.chain.liveAvailable(),
-      storeMode: deps.config.storeMode,
       limits: {
         perIpPer10Min: limits.perIpPer10Min,
         dailyLive: limits.dailyLive,

@@ -64,7 +64,6 @@ export function testConfig(overrides: Partial<ServerConfig> = {}): ServerConfig 
   return {
     ...base,
     cacheDir: tempDir("ph-cache-"),
-    storePath: path.join(tempDir("ph-store-"), "store.json"),
     samplesDir: photosDir,
     webDist: path.join(tempDir("ph-web-"), "none"),
     logSalt: "test-salt",

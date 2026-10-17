@@ -44,7 +44,7 @@ Prepared Home is a voluntary moving-day check-up inside the home insurance app. 
 | Integration | What it means | How the code supports it |
 |---|---|---|
 | **Identity and policy** | The check-up opens from the customer's existing If login and is tied to their home policy (home type, address, move-in date) | The engine takes a `Home` object; the app's feature folder takes `apiBaseUrl`, language and theme as props |
-| **Where records live** | Per check, If keeps the verdict, the date and the photo's SHA-256 fingerprint (a few hundred bytes). No images | `STORE_MODE=file` shows the record model; production would use If's own store |
+| **Where records live** | Per check, If keeps the verdict, the date and the photo's SHA-256 fingerprint (a few hundred bytes). No images | The engine's `CheckRecord` type is the record model (`packages/engine/src/types.ts`); production would use If's own store |
 | **Claims handling** | When a leak, fire or freeze claim arrives, the claims tool asks "was this risk prepared on the loss date?" and shows the dated checks. If the customer shares the photos with the claim, their fingerprints are matched | `adjusterView()` in the engine returns the decision, the reasons and the fingerprint matches; a person decides |
 | **Reminders** | Yearly re-checks, autumn freeze checks for houses, and a first-frost reminder from the Finnish Meteorological Institute's open forecast | `reminders()` in the engine; FMI open data (CC BY 4.0) |
 | **Distribution** | Offered when a customer moves or changes address, and again at renewal | The app starts from a deep link (`preparedhome://`) or the web URL |

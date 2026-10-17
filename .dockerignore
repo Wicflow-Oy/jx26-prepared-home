@@ -1,5 +1,4 @@
 # Only the committed, prebuilt artifact goes into the image (see Dockerfile).
-# Dockerfile.source has its own ignore file: Dockerfile.source.dockerignore.
 *
 !release/artifact
 !release/artifact/**

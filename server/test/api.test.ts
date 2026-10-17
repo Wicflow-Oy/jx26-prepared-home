@@ -59,7 +59,6 @@ describe("stateless API (/api/v1)", () => {
       model: "mock",
       keySet: false,
       liveAvailable: false,
-      storeMode: "stateless",
       limits: {
         perIpPer10Min: 12,
         dailyLive: 400,
@@ -145,7 +144,7 @@ describe("stateless API (/api/v1)", () => {
   });
 
   it("checks a photo offline without a key: retake with a note, record built from the body, nothing stored", async () => {
-    const { app, config } = await makeApp();
+    const { app } = await makeApp();
     const res = await request(app).post("/api/v1/check").send(checkBody()).expect(200);
     expect(res.body.source).toBe("offline");
     expect(res.body.model).toBe("mock");
@@ -159,8 +158,6 @@ describe("stateless API (/api/v1)", () => {
       dueAt: null,
     });
     expect(res.body.clause).toEqual([]); // flat L1 cites no clause
-    const { existsSync } = await import("node:fs");
-    expect(existsSync(config.storePath)).toBe(false);
   });
 
   it("checks a photo live: verified with a due date, user answers only for the check's own criteria", async () => {
@@ -217,7 +214,7 @@ describe("stateless API (/api/v1)", () => {
 
   it("serves a recorded sample from the cache with its date", async () => {
     const cacheDir = tempDir();
-    const { app, deps } = await makeApp({ config: { cacheDir } });
+    const { app } = await makeApp({ config: { cacheDir } });
     const { CachedVisionProvider } = await import("../src/vision/cached");
     const writer = new CachedVisionProvider(cacheDir, true);
     const { getCheck } = await import("@prepared-home/engine");
@@ -241,7 +238,6 @@ describe("stateless API (/api/v1)", () => {
       recordedAt: "2026-10-18T08:00:00.000Z",
     });
     expect((await request(app).get("/api/v1/health")).body.provider).toBe("cached");
-    expect(deps.config.storeMode).toBe("stateless");
   });
 
   it("rejects a hash mismatch (409), non-JPEG (415), oversize images (413), unknown checks (404) and bad bodies (400)", async () => {
@@ -350,7 +346,7 @@ describe("stateless API (/api/v1)", () => {
       .expect(400);
   });
 
-  it("keeps the §5 routes off in stateless mode", async () => {
+  it("serves only the v1 API, not the old home-based routes", async () => {
     const { app } = await makeApp();
     await request(app).get("/api/demo/homes").expect(404);
     await request(app).post("/api/homes").send({}).expect(404);
@@ -413,83 +409,5 @@ describe("web hosting", () => {
   it("says what it is at / when no web export is present", async () => {
     const { app } = await makeApp();
     expect((await request(app).get("/").expect(200)).text).toContain("not an If service");
-  });
-});
-
-describe("file mode (§5 routes)", () => {
-  it("creates homes, stores records (never images), reports status, resets demo homes and keeps claims in memory", async () => {
-    const dir = tempDir();
-    const storePath = path.join(dir, "data", "store.json");
-    const live = new FakeProvider("m", (i) => scriptedAssessment(i.check, "fix_first"));
-    const { app } = await makeApp({ config: { storeMode: "file", storePath }, live });
-
-    expect((await request(app).get("/api/health").expect(200)).body).toEqual({
-      ok: true,
-      provider: "anthropic",
-      model: "m",
-      keySet: true,
-    });
-    const demo = await request(app).get("/api/demo/homes").expect(200);
-    expect(demo.body.map((h: { homeId: string }) => h.homeId)).toContain("demo-turku-flat");
-
-    const created = await request(app)
-      .post("/api/homes")
-      .send({ homeType: "flat", moveInDate: "2026-10-15", hasLeakAlarm: true })
-      .expect(201);
-    const homeId = created.body.homeId as string;
-    expect(created.body).toMatchObject({ homeType: "flat", label: "My home", hasLeakAlarm: true });
-
-    const checked = await request(app)
-      .post(`/api/homes/${homeId}/checks/L5`)
-      .send({
-        lang: "en",
-        imageBase64: a07.base64,
-        width: 1280,
-        height: 1707,
-        photoSha256: a07.sha256,
-        userAnswers: {},
-      })
-      .expect(200);
-    expect(checked.body.outcome.verdict).toBe("fix_first");
-    await request(app)
-      .post(`/api/homes/${homeId}/checks/L5`)
-      .send({ imageBase64: a07.base64, photoSha256: "f".repeat(64) })
-      .expect(409);
-
-    await request(app).post(`/api/homes/${homeId}/checks/L1/not-applicable`).send({}).expect(400);
-    const na = await request(app)
-      .post(`/api/homes/${homeId}/checks/L2/not-applicable`)
-      .send({})
-      .expect(200);
-    expect(na.body.record).toMatchObject({ verdict: "not_applicable", photoSha256: null });
-
-    const status = await request(app).get(`/api/homes/${homeId}/status?lang=en`).expect(200);
-    expect(status.body.home.homeId).toBe(homeId);
-    expect(status.body.perils.find((p: { peril: string }) => p.peril === "leak").state).toBe(
-      "in_progress",
-    );
-    expect(status.body.homeCard.homeId).toBe(homeId);
-
-    const { readFileSync } = await import("node:fs");
-    const stored = readFileSync(storePath, "utf8");
-    expect(stored).not.toContain(a07.base64.slice(0, 40));
-    expect(stored).toContain(a07.sha256);
-
-    await request(app).post(`/api/homes/${homeId}/reset`).expect(400);
-    await request(app)
-      .post(`/api/homes/demo-turku-flat/checks/L4`)
-      .send({ imageBase64: a07.base64, photoSha256: a07.sha256 })
-      .expect(200);
-    await request(app).post(`/api/homes/demo-turku-flat/reset`).expect(200);
-
-    const claim = await request(app)
-      .post("/api/claims")
-      .send({ homeId: "demo-turku-flat", peril: "leak", lossDate: "2027-02-03", shared: [] })
-      .expect(200);
-    expect(claim.body.decision).toBe("bonus_not_applied");
-    const again = await request(app).get(`/api/claims/${claim.body.claimId}`).expect(200);
-    expect(again.body).toEqual(claim.body);
-    await request(app).get("/api/claims/claim-unknown").expect(404);
-    await request(app).get("/api/homes/nope/status").expect(404);
   });
 });

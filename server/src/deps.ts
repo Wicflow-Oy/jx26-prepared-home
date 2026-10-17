@@ -1,14 +1,12 @@
 // What the routes need, and how it is built from the config. Tests pass fakes through BuildOptions.
 
 import { randomBytes } from "node:crypto";
-import { DEMO } from "@prepared-home/engine";
 import type { ServerConfig } from "./config";
 import { FrostService, type FetchLike } from "./fmi";
 import { makeIpHasher } from "./hash";
 import { LiveGuard } from "./limits";
 import { consoleLogger, type Logger } from "./log";
 import { SampleCatalog } from "./samples";
-import { FileStore } from "./store";
 import { AnthropicVisionProvider } from "./vision/anthropic";
 import { CachedVisionProvider } from "./vision/cached";
 import { VisionChain } from "./vision/chain";
@@ -20,7 +18,6 @@ export interface AppDeps {
   guard: LiveGuard;
   frost: FrostService;
   samples: SampleCatalog;
-  store: FileStore | null; // only in STORE_MODE=file
   logger: Logger;
   ipHash: (ip: string) => string;
   clock: () => Date;
@@ -59,20 +56,12 @@ export async function buildDeps(config: ServerConfig, opts: BuildOptions = {}): 
   const cache = new CachedVisionProvider(config.cacheDir, config.cacheWrite);
   const chain = new VisionChain({ cache, live, guard, clock, logger });
 
-  let store: FileStore | null = null;
-  if (config.storeMode === "file") {
-    store = new FileStore(config.storePath);
-    await store.load();
-    await store.seedDemo(DEMO);
-  }
-
   return {
     config,
     chain,
     guard,
     frost: new FrostService({ fetchImpl: opts.fetchImpl, clock }),
     samples: new SampleCatalog(config.samplesDir),
-    store,
     logger,
     ipHash: makeIpHasher(config.logSalt),
     clock,

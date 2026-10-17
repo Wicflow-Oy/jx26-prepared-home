@@ -11,7 +11,6 @@
 |---|---|---|
 | `ANTHROPIC_API_KEY` | this app's own key | the operator sets it in `.env` on the server; the team lead keeps his local one in `.env.local`. Never in the app, the repo or logs |
 | `VISION_MODEL` | `claude-sonnet-5-5` | Change only after `npm run eval:gate` passes |
-| `STORE_MODE` | `stateless` | The public demo stores nothing |
 | `TRUST_PROXY` | `1` | Traefik in front; needed for per-IP limits |
 | `RATE_PER_IP_10MIN` | `12` | Live checks per IP per 10 minutes |
 | `DAILY_LIVE_LIMIT` | `400` | Live calls per day (Helsinki midnight reset) |

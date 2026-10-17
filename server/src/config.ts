@@ -17,12 +17,8 @@ export function baseDir(): string {
   return IS_BUNDLED ? here : path.resolve(here, "..");
 }
 
-export type StoreMode = "stateless" | "file";
-
 export interface ServerConfig {
   port: number;
-  storeMode: StoreMode;
-  storePath: string;
   cacheDir: string; // assessments live in <cacheDir>/assessments/<sha>.json
   cacheWrite: boolean;
   samplesDir: string;
@@ -71,8 +67,6 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): ServerConfig {
   }
   return {
     port: num(env, "PORT", 8787),
-    storeMode: env.STORE_MODE?.trim() === "file" ? "file" : "stateless",
-    storePath: resolvePath(env, "STORE_PATH", "data/store.json", "./data/store.json"),
     cacheDir: resolvePath(env, "CACHE_DIR", "cache", "./cache"),
     cacheWrite: env.CACHE_WRITE?.trim() === "1",
     samplesDir: resolvePath(env, "SAMPLES_DIR", "eval/photos", "./samples"),

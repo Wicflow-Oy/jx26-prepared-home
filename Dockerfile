@@ -8,7 +8,6 @@ COPY release/artifact/ /app/
 
 ENV NODE_ENV=production \
     PORT=8787 \
-    STORE_MODE=stateless \
     WEB_DIST=/app/web
 
 USER node

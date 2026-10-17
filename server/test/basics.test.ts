@@ -1,13 +1,9 @@
-import { readFileSync, writeFileSync } from "node:fs";
-import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { DEMO } from "@prepared-home/engine";
 import { loadConfig } from "../src/config";
 import { decodeBase64, isSha256Hex, makeIpHasher, sha256Hex } from "../src/hash";
 import { isJpeg, jpegSize } from "../src/jpeg";
-import { FileStore } from "../src/store";
 import { HttpError, receiveImage } from "../src/validate";
-import { fakeJpeg, photo, tempDir } from "./helpers";
+import { fakeJpeg, photo } from "./helpers";
 
 describe("JPEG and hashing", () => {
   it("reads the size of real and synthetic JPEGs", () => {
@@ -66,7 +62,6 @@ describe("config", () => {
       DAILY_SPEND_CAP_USD: "",
       VISION_MODEL: "",
       ANTHROPIC_API_KEY: "",
-      STORE_MODE: "",
       TRUST_PROXY: "",
       CACHE_WRITE: "",
       WEB_DIST: "",
@@ -78,7 +73,6 @@ describe("config", () => {
       dailySpendCapUsd: 40,
       visionModel: "claude-sonnet-5-5",
       apiKey: null,
-      storeMode: "stateless",
       trustProxy: false,
       cacheWrite: false,
     });
@@ -90,7 +84,6 @@ describe("config", () => {
       RATE_PER_IP_10MIN: "3",
       DAILY_SPEND_CAP_USD: "7.5",
       TRUST_PROXY: "1",
-      STORE_MODE: "file",
       CACHE_WRITE: "1",
       ANTHROPIC_API_KEY: " k ",
       VISION_EFFORT: "high",
@@ -99,56 +92,10 @@ describe("config", () => {
       ratePerIp10Min: 3,
       dailySpendCapUsd: 7.5,
       trustProxy: 1,
-      storeMode: "file",
       cacheWrite: true,
       apiKey: "k",
       visionEffort: "high",
     });
     expect(loadConfig({ VISION_EFFORT: "turbo" }).visionEffort).toBeNull();
-  });
-});
-
-describe("FileStore", () => {
-  it("seeds the demo homes, appends records and survives a reload", async () => {
-    const file = path.join(tempDir(), "data", "store.json");
-    const store = new FileStore(file);
-    await store.load();
-    await store.addHome({
-      homeId: "home-1",
-      homeType: "flat",
-      label: "Mine",
-      moveInDate: "2026-10-01",
-      hasLeakAlarm: false,
-    });
-    await store.seedDemo(DEMO);
-    const demoFlat = DEMO.homes[0].homeId;
-    expect(store.records(demoFlat).length).toBe(
-      DEMO.records.filter((r) => r.homeId === demoFlat).length,
-    );
-    await store.putRecord({
-      homeId: "home-1",
-      checkId: "L1",
-      verdict: "verified",
-      checkedAt: "2026-10-18T10:00:00Z",
-      dueAt: "2027-10-18",
-      photoSha256: "a".repeat(64),
-    });
-    const again = new FileStore(file);
-    await again.load();
-    expect(again.getHome("home-1")?.label).toBe("Mine");
-    expect(again.records("home-1")).toHaveLength(1);
-    const raw = readFileSync(file, "utf8");
-    expect(Object.keys(JSON.parse(raw)).sort()).toEqual(["homes", "records"]);
-  });
-
-  it("keeps a corrupt file aside instead of overwriting it", async () => {
-    const dir = tempDir();
-    const file = path.join(dir, "store.json");
-    writeFileSync(file, "{not json");
-    const store = new FileStore(file);
-    await store.load();
-    expect(store.homes()).toEqual([]);
-    const { readdirSync } = await import("node:fs");
-    expect(readdirSync(dir).some((n) => n.startsWith("store.json.corrupt-"))).toBe(true);
   });
 });

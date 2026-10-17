@@ -11,7 +11,6 @@ const server = app.listen(config.port, () => {
   consoleLogger.info(
     [
       `Prepared Home server on port ${config.port}`,
-      `store=${config.storeMode}`,
       `vision=${config.apiKey ? `anthropic:${config.visionModel}` : "offline"}`,
       `cacheWrite=${config.cacheWrite ? "on" : "off"}`,
       `bundled=${IS_BUNDLED ? "yes" : "no"}`,

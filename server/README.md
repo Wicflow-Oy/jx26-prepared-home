@@ -1,6 +1,6 @@
 # Prepared Home server
 
-A small Node API for Prepared Home (Valmis koti), a prototype for JunctionX, not an If service. It checks one photo against a check's fixed criteria with the Claude API, turns the answer into a verdict with the shared rules engine (`packages/engine`), and serves the frost forecast, sample photos and the web app. It stores nothing by default: photos are hashed and checked in memory, then dropped.
+A small Node API for Prepared Home (Valmis koti), a prototype for JunctionX, not an If service. It checks one photo against a check's fixed criteria with the Claude API, turns the answer into a verdict with the shared rules engine (`packages/engine`), and serves the frost forecast, sample photos and the web app. It stores nothing: photos are hashed and checked in memory, then dropped.
 
 ## Run it
 
@@ -24,7 +24,6 @@ Empty values mean "use the default".
 | `VISION_MODEL` | `claude-sonnet-5-5` | Change only after `npm run eval:gate` passes. |
 | `VISION_EFFORT` | model default | Optional `low`, `medium`, `high`, `xhigh` or `max`. |
 | `PORT` | `8787` | |
-| `STORE_MODE` | `stateless` | `file` also enables the home-based routes below and `data/store.json`. |
 | `RATE_PER_IP_10MIN` | `12` | Live checks per client per 10 minutes. |
 | `DAILY_LIVE_LIMIT` | `400` | Live calls per day; resets at midnight Helsinki time. |
 | `DAILY_SPEND_CAP_USD` | `40` | Daily spend cap: an estimate before each call, corrected with real token usage after it. |
@@ -41,19 +40,17 @@ Relative paths resolve against `server/` when run from source, and against the f
 
 ## API
 
-Stateless (always on; the app uses these):
+Stateless routes the app uses:
 
 | Route | What it does |
 |---|---|
-| `GET /api/v1/health` | `{ ok, provider, model, keySet, liveAvailable, storeMode, limits }`. Returns 200 without a key. |
+| `GET /api/v1/health` | `{ ok, provider, model, keySet, liveAvailable, limits }`. Returns 200 without a key. |
 | `GET /api/v1/checks?homeType&lang` | Checks with the home type's wording and their clause texts. |
 | `POST /api/v1/check` | `{ homeId, homeType, checkId, lang, imageBase64, width, height, photoSha256, userAnswers }` → `{ outcome, record, source, sourceNote?, model, clause }`. |
 | `POST /api/v1/claims` | `{ home, records, peril, lossDate, shared: [{ checkId, imageBase64 }] }` → adjuster view. Shared photos are hashed, compared and dropped. |
 | `GET /api/v1/frost?place=Turku` | First forecast frost day from FMI open data (1-hour cache, captured fixture when offline). |
 | `GET /api/v1/samples?lang` | The six sample photos with check, expected verdict, credit line, URL and SHA-256. |
 | `GET /samples/<file>` | The sample image itself (only the six listed files). |
-
-With `STORE_MODE=file` the home-based routes are also on: `GET /api/health`, `/api/checks`, `/api/frost`, `POST /api/homes`, `GET /api/homes/:id/status`, `POST /api/homes/:id/checks/:checkId`, `POST /api/homes/:id/checks/:checkId/not-applicable`, `POST /api/homes/:id/reset` (demo homes only), `GET /api/demo/homes`, `POST /api/claims` and `GET /api/claims/:id`. The store keeps homes and check records (status, dates, photo hashes) only.
 
 Everything else: `/app/*` serves the Expo web app (unknown paths fall back to `app/index.html`), and any other page path serves the landing page. Every response carries `X-Robots-Tag: noindex, nofollow`.
 
@@ -91,7 +88,7 @@ Reports give strict and lenient accuracy, a confusion matrix, the false "verifie
 
 ## Bundle and container
 
-`npm run bundle` writes one ESM file with the engine and every dependency, `../release/artifact/server.mjs`, which runs with plain `node server.mjs` and no `node_modules`. The root `Dockerfile` only copies `release/artifact/` (with `web/`, `samples/` and `cache/` beside `server.mjs`) into `node:24-alpine`. `Dockerfile.source` builds everything from source instead, for machines where building is fine.
+`npm run bundle` writes one ESM file with the engine and every dependency, `../release/artifact/server.mjs`, which runs with plain `node server.mjs` and no `node_modules`. The root `Dockerfile` only copies `release/artifact/` (with `web/`, `samples/` and `cache/` beside `server.mjs`) into `node:24-alpine`.
 
 ## Privacy
 
@@ -106,7 +103,7 @@ Reports give strict and lenient accuracy, a confusion matrix, the false "verifie
 | `src/index.ts` | Entry point: config, dependencies, listen, graceful shutdown |
 | `src/config.ts`, `src/deps.ts` | Environment variables (the only place they are read), and the dependencies built from them |
 | `src/app.ts` | Routes, headers, static files, error handling |
-| `src/routes/` | `v1.ts` (stateless API), `fileMode.ts` (home-based routes, `STORE_MODE=file`), `common.ts` (a check from photo to record) |
+| `src/routes/` | `v1.ts` (stateless API), `common.ts` (a check from photo to record) |
 | `src/validate.ts`, `src/hash.ts`, `src/jpeg.ts` | Request validation, SHA-256 and base64, the JPEG size reader |
 | `src/vision/` | The provider interface, the Claude provider and its prompt, the cache, the offline mock and the chain |
 | `src/limits.ts` | Per-IP and daily limits |
