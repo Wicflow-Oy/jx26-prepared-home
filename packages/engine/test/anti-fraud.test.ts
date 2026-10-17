@@ -41,7 +41,8 @@ const checkedAt = new Date("2026-10-12T10:00:00Z");
 function leakRecords(capture: CheckRecord["capture"]): CheckRecord[] {
   return leakIds.map((id, i) => {
     const outcome = decideVerdict(getCheck(id, "flat"), allMet(id), answers(id), "en", "flat");
-    return recordFromOutcome("h1", outcome, checkedAt, `${i}`.repeat(64), "flat", capture);
+    const record = recordFromOutcome("h1", outcome, checkedAt, `${i}`.repeat(64), "flat", capture);
+    return { ...record, secondPhotoSha256: `${i}`.repeat(63) + "a" };
   });
 }
 
@@ -95,5 +96,22 @@ describe("a second angle of the same item", () => {
       shared: [{ checkId: "L2", sha256: "f".repeat(64) }],
     });
     expect(view.records.find((r) => r.checkId === "L2")?.hashMatches).toBe(true);
+  });
+});
+
+describe("what counts toward the relief", () => {
+  const now = new Date("2026-10-20T10:00:00Z");
+
+  it("a camera photo without the second angle doesn't count", () => {
+    const records = leakRecords("camera").map((r) => ({ ...r, secondPhotoSha256: null }));
+    const leak = perilStatuses(home, records, now).find((p) => p.peril === "leak")!;
+    expect(leak.state).not.toBe("prepared");
+    expect(leak.notCounted).toEqual(leakIds);
+  });
+
+  it("a record with no photo source doesn't count", () => {
+    const records = leakRecords("camera").map((r) => ({ ...r, capture: undefined }));
+    const leak = perilStatuses(home, records, now).find((p) => p.peril === "leak")!;
+    expect(leak.state).not.toBe("prepared");
   });
 });

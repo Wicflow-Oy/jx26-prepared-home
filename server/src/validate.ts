@@ -105,6 +105,13 @@ export function parseRecord(v: unknown, homeId: string): CheckRecord {
     photoSha256: typeof sha === "string" ? sha.toLowerCase() : null,
   };
   if (v.userAnswers !== undefined) record.userAnswers = parseUserAnswers(v.userAnswers);
+  // Keep how the photo was taken and the second angle: the claim decision depends on both.
+  if (v.capture === "camera" || v.capture === "library" || v.capture === "sample")
+    record.capture = v.capture;
+  const second = v.secondPhotoSha256;
+  if (second !== null && second !== undefined && !isSha256Hex(second))
+    throw bad("record.secondPhotoSha256 must be a SHA-256 hex string or null");
+  if (typeof second === "string") record.secondPhotoSha256 = second.toLowerCase();
   return record;
 }
 

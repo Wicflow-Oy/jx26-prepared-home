@@ -47,14 +47,18 @@ function record(
   userAnswers?: Record<string, boolean>,
 ): CheckRecord {
   const current = verdict === "verified" || verdict === "not_applicable";
+  const photo = verdict === "not_applicable" ? null : (DEMO_HASHES[`${homeId}:${checkId}`] ?? null);
   return {
     homeId,
     checkId,
     verdict,
     checkedAt,
     dueAt: current ? dueDateFor(getCheck(checkId).recheck, checkedAt) : null,
-    photoSha256:
-      verdict === "not_applicable" ? null : (DEMO_HASHES[`${homeId}:${checkId}`] ?? null),
+    photoSha256: photo,
+    // Example homes behave like real in-app camera checks taken from two angles.
+    ...(photo
+      ? { capture: "camera" as const, secondPhotoSha256: photo.split("").reverse().join("") }
+      : {}),
     ...(userAnswers ? { userAnswers } : {}),
   };
 }

@@ -310,6 +310,8 @@ describe("stateless API (/api/v1)", () => {
       checkedAt: "2026-10-20T10:00:00.000Z",
       dueAt: "2027-10-20",
       photoSha256: a07.sha256,
+      capture: "camera",
+      secondPhotoSha256: "e".repeat(64),
     };
     const shared = [{ checkId: "L4", imageBase64: a07.base64 }];
     const after = await request(app)
@@ -323,6 +325,24 @@ describe("stateless API (/api/v1)", () => {
       })
       .expect(200);
     expect(after.body.decision).toBe("relief_applies");
+
+    // The same fix from a gallery photo, or with no photo source, never earns the relief.
+    for (const variant of [
+      { ...fixed, capture: "library" },
+      { ...fixed, capture: undefined },
+    ]) {
+      const res = await request(app)
+        .post("/api/v1/claims")
+        .send({
+          home,
+          records: [...records, variant],
+          peril: "leak",
+          lossDate: DEMO_CLAIM.lossDate,
+          shared,
+        })
+        .expect(200);
+      expect(res.body.decision).toBe("bonus_not_applied");
+    }
     expect(after.body.records.find((r: { checkId: string }) => r.checkId === "L4")).toMatchObject({
       photoShared: true,
       hashMatches: true,

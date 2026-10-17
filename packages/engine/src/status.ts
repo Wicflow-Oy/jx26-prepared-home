@@ -43,16 +43,15 @@ export function perilGroup(peril: Peril): PerilGroup {
 
 /** Only photos taken with the in-app camera count; gallery and example photos are shown but don't count. */
 export function countsForRelief(record: CheckRecord): boolean {
-  if (record.capture === undefined) return true;
   if (record.capture !== "camera") return false;
   return !REQUIRE_SECOND_ANGLE || !!record.secondPhotoSha256;
 }
 
 /**
  * A second photo from another angle makes a screen or printout much harder to pass off as the real item.
- * Required for camera photos to count once the app always takes the pair.
+ * Camera photos count only with both angles.
  */
-export const REQUIRE_SECOND_ANGLE = false;
+export const REQUIRE_SECOND_ANGLE = true;
 
 /** When a record was checked, in ms; an unreadable date sorts first. */
 export const timeOf = (r: CheckRecord) => {

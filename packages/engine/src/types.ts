@@ -102,7 +102,7 @@ export interface CheckRecord {
   photoSha256: string | null; // hex of the exact JPEG bytes sent; null for not_applicable
   secondPhotoSha256?: string | null; // the second angle of the same item, when one was taken
   userAnswers?: Record<string, boolean>;
-  capture?: CaptureSource; // absent on older records and seeded examples, which count as camera
+  capture?: CaptureSource; // only "camera" counts toward the relief; absent means unknown and doesn't count
 }
 
 export type PerilState = "prepared" | "in_progress" | "lapsed" | "not_started";

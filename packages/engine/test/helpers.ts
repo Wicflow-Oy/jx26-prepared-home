@@ -28,5 +28,9 @@ export function rec(
     checkedAt,
     dueAt: current ? dueDateFor(getCheck(checkId).recheck, checkedAt) : null,
     photoSha256: verdict === "not_applicable" ? null : photoSha256,
+    // Like a real in-app camera check from two angles, which is what counts toward the relief.
+    ...(verdict === "not_applicable"
+      ? {}
+      : { capture: "camera" as const, secondPhotoSha256: "e".repeat(64) }),
   };
 }
