@@ -57,6 +57,10 @@ export function PressableScale({
       accessibilityLabel={accessibilityLabel}
       accessibilityHint={accessibilityHint}
       accessibilityState={{ disabled: !!disabled, ...accessibilityState }}
+      // The same state as ARIA, which the web reads (native reads accessibilityState).
+      aria-checked={accessibilityState?.checked}
+      aria-selected={accessibilityState?.selected}
+      aria-busy={accessibilityState?.busy}
       disabled={disabled}
       hitSlop={hitSlop}
       onPress={onPress}
@@ -151,19 +155,23 @@ export function Button({
   );
 }
 
-/** A round 44 px icon button for app bars. */
+/** A round 44 px icon button for app bars. Pass `checked` to make it an on/off switch (the torch). */
 export function IconButton({
   icon,
   label,
   onPress,
   testID,
   inverse,
+  hint,
+  checked,
 }: {
   icon: IconName;
   label: string;
   onPress: () => void;
   testID?: string;
   inverse?: boolean;
+  hint?: string;
+  checked?: boolean;
 }) {
   const theme = useTheme();
   return (
@@ -171,6 +179,10 @@ export function IconButton({
       testID={testID}
       onPress={onPress}
       accessibilityLabel={label}
+      accessibilityHint={hint}
+      accessibilityRole={checked === undefined ? "button" : "switch"}
+      accessibilityState={checked === undefined ? undefined : { checked }}
+      aria-checked={checked}
       hitSlop={4}
       style={{
         width: theme.layout.tapTarget,

@@ -11,10 +11,11 @@ import { result } from "./result";
 import { settings } from "./settings";
 import { start } from "./start";
 import { status } from "./status";
+import { voice } from "./voice";
 
 export { formatDate, formatDecimal, formatMoney, localizeDates, todayIso } from "./format";
 
-const AREAS = [common, start, home, check, result, status, records, claim, settings];
+const AREAS = [common, start, home, check, result, status, records, claim, settings, voice];
 
 const en = {
   ...common.en,
@@ -26,6 +27,7 @@ const en = {
   ...records.en,
   ...claim.en,
   ...settings.en,
+  ...voice.en,
 };
 
 export type StringKey = keyof typeof en;

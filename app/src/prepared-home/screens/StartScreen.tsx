@@ -15,6 +15,7 @@ import {
   LoadingState,
   Screen,
   Txt,
+  VoiceGuidanceToggle,
 } from "../ui";
 
 /** Welcome for a new customer. With a home already set up, or an example link, it goes straight on. */
@@ -67,7 +68,9 @@ export function StartScreen({ example }: { example?: string }) {
   return (
     <Screen testID="start-screen" back={false} right={settingsButton}>
       <LanguageSwitch />
-      <Gap size="xl" />
+      <Gap size="sm" />
+      <VoiceGuidanceToggle />
+      <Gap size="lg" />
       {storageProblem ? <Banner tone="warning">{t("errStorage")}</Banner> : null}
       <Appear>
         <View style={{ flexDirection: "row", gap: theme.space.md, marginBottom: theme.space.lg }}>

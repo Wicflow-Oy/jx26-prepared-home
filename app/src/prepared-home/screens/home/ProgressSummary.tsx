@@ -34,6 +34,8 @@ export function ProgressSummary({ model }: { model: HomeModel }) {
         {model.perils.map((p) => (
           <View
             key={p.peril}
+            accessible
+            accessibilityLabel={`${perilLabel(p.peril, lang)}: ${t("countOf", { done: doneCount(p), total: p.required.length })}`}
             style={{
               flexDirection: "row",
               alignItems: "center",

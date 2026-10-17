@@ -15,6 +15,7 @@ import { durations } from "../motion";
 import { useSystemBarIcons } from "../systemBars";
 import { Appear } from "./Appear";
 import { IfLogo } from "./IfLogo";
+import { useBehindSheet } from "./a11y";
 import { IconButton } from "./Pressable";
 import { Txt } from "./Text";
 
@@ -106,6 +107,7 @@ export function Screen({
   const { t, paths } = usePreparedHome();
   const dark = tone === "dark";
   const insets = useSafeAreaInsets();
+  const behindSheet = useBehindSheet();
   useSystemBarIcons(dark ? "light" : "dark");
   const background = dark
     ? theme.colors.dark
@@ -133,6 +135,7 @@ export function Screen({
     // Overlays (sheets) sit outside the padding so their scrim also covers the status bar.
     <View style={{ flex: 1, backgroundColor: background }}>
       <View
+        aria-hidden={behindSheet}
         style={{
           flex: 1,
           paddingTop: insets.top,
@@ -174,15 +177,17 @@ export function Screen({
           >
             {IF_BRANDED && !barTitle ? <IfLogo size={30} /> : null}
             <View
+              accessible
+              accessibilityLabel={`${barTitle ?? t("appName")}, ${barSubtitle ?? t("appNameLocal")}`}
               style={{
                 alignItems: IF_BRANDED && !barTitle ? "flex-start" : "center",
                 flexShrink: 1,
               }}
             >
-              <Txt variant="body" inverse={dark} numberOfLines={1}>
+              <Txt variant="body" inverse={dark} numberOfLines={1} maxScale={1.5}>
                 {barTitle ?? t("appName")}
               </Txt>
-              <Txt variant="caption" inverse={dark} muted numberOfLines={1}>
+              <Txt variant="caption" inverse={dark} muted numberOfLines={1} maxScale={1.5}>
                 {barSubtitle ?? t("appNameLocal")}
               </Txt>
             </View>

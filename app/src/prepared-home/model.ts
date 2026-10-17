@@ -12,6 +12,7 @@ import {
   reminders as engineReminders,
   STATE_LABELS,
   VERDICT_LABELS,
+  type CaptureSource,
   type CheckDefinition,
   type CheckRecord,
   type Home,
@@ -27,7 +28,7 @@ import {
 import { useMemo } from "react";
 
 import { usePreparedHome } from "./context";
-import { allTranslations, type Translate } from "./i18n";
+import { allTranslations, type StringKey, type Translate } from "./i18n";
 
 /** needs_camera: verified with a gallery or example photo, so it shows as done but does not count. */
 export type RowState =
@@ -143,6 +144,13 @@ export const doneCount = (p: PerilStatus) =>
 export const isDoneRow = (s: RowState) =>
   s === "verified" || s === "needs_camera" || s === "not_applicable";
 
+/** The next check that is not done, after `afterId` and wrapping round; null when every check is done. */
+export function nextOpenCheck(model: HomeModel, afterId: string): CheckDefinition | null {
+  const i = model.checks.findIndex((c) => c.id === afterId);
+  const order = [...model.checks.slice(i + 1), ...model.checks.slice(0, Math.max(0, i))];
+  return order.find((c) => !isDoneRow(model.rowState(c.id))) ?? null;
+}
+
 /** The model for the current home, or null when no home is open. */
 export function useHomeModel(): HomeModel | null {
   const { currentHome, recordsFor, frost, lang } = usePreparedHome();
@@ -207,3 +215,25 @@ export const stateTone = (s: PerilState): Tone =>
       : s === "in_progress"
         ? "info"
         : "neutral";
+
+/**
+ * Whether a verified photo counts toward the lower deductible: only an in-app camera check with both
+ * angles does. Records without a capture source count as gallery photos, as on the server.
+ */
+export type PhotoCount = "counts" | "sample" | "library" | "oneAngle";
+
+export function photoCount(
+  capture: CaptureSource | undefined,
+  secondPhotoSha256: string | null | undefined,
+): PhotoCount {
+  if (capture === "sample") return "sample";
+  if (capture !== "camera") return "library";
+  return secondPhotoSha256 ? "counts" : "oneAngle";
+}
+
+/** The line shown with a verified result that does not count. */
+export const PHOTO_COUNT_NOTE: Record<Exclude<PhotoCount, "counts">, StringKey> = {
+  sample: "countSample",
+  library: "countLibrary",
+  oneAngle: "countOneAngle",
+};

@@ -23,6 +23,7 @@ const KEYS = {
 export interface Settings {
   lang: Lang | null; // null: use the provider's default
   apiBaseUrl: string | null; // null: use the provider's default
+  voiceGuidance: boolean | null; // null: on while the phone's screen reader is on
 }
 
 export interface LocalState {
@@ -54,7 +55,7 @@ export interface StoredOutcome {
 export type Outcomes = Record<string, Record<string, StoredOutcome>>; // homeId -> checkId -> latest outcome
 export type Claims = Record<string, { view: AdjusterView; createdAt: string; homeId: string }>;
 
-export const EMPTY_SETTINGS: Settings = { lang: null, apiBaseUrl: null };
+export const EMPTY_SETTINGS: Settings = { lang: null, apiBaseUrl: null, voiceGuidance: null };
 export const EMPTY_STATE: LocalState = { homes: {}, records: {}, currentHomeId: null };
 
 export interface LoadResult<T> {

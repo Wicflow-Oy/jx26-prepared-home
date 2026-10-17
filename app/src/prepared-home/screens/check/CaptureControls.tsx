@@ -38,23 +38,49 @@ export function CaptureControls({
       <View
         style={{ flexDirection: "row", alignItems: "flex-start", justifyContent: "space-around" }}
       >
-        <RoundAction icon="image" label={t("gallery")} onPress={onGallery} testID="pick-photo" />
+        <RoundAction
+          icon="image"
+          label={t("gallery")}
+          hint={t("hintGallery")}
+          onPress={onGallery}
+          testID="pick-photo"
+        />
         {showShutter ? (
-          <Shutter label={t("takePhoto")} onPress={onShoot} disabled={shutterDisabled} />
+          <Shutter
+            label={t("takePhoto")}
+            hint={t("hintShutter")}
+            onPress={onShoot}
+            disabled={shutterDisabled}
+          />
         ) : (
           <View style={{ width: SIDE }} />
         )}
         <RoundAction
           icon="card"
           label={t("samplesShort")}
+          hint={t("hintExamples")}
           onPress={onExamples}
           testID="use-sample"
         />
       </View>
       <View style={{ flexDirection: "row", justifyContent: "center", gap: theme.space.lg }}>
-        <TextLink label={t("doLater")} onPress={onLater} inverse center testID="do-later" />
+        <TextLink
+          label={t("doLater")}
+          hint={t("hintLater")}
+          onPress={onLater}
+          inverse
+          center
+          testID="do-later"
+        />
         {onNotInHome ? (
-          <TextLink label={t("notInHome")} onPress={onNotInHome} inverse center testID="mark-na" />
+          <TextLink
+            label={t("notInHome")}
+            hint={t("hintNotInHome")}
+            onPress={onNotInHome}
+            inverse
+            center
+            testID="mark-na"
+          />
         ) : null}
       </View>
       <PressableScale
@@ -66,12 +92,12 @@ export function CaptureControls({
           alignItems: "center",
           justifyContent: "center",
           gap: theme.space.xs,
-          minHeight: 32,
+          minHeight: theme.layout.tapTarget,
           paddingHorizontal: theme.space.xl,
         }}
       >
         <Icon name="lock" size={14} color={theme.colors.textInverseMuted} />
-        <Txt variant="caption" inverse muted numberOfLines={2} style={{ textAlign: "center" }}>
+        <Txt variant="caption" inverse muted style={{ textAlign: "center", flexShrink: 1 }}>
           {t("cameraNote")}{" "}
           <Txt variant="caption" inverse style={{ textDecorationLine: "underline" }}>
             {t("privacyLink")}
@@ -82,12 +108,15 @@ export function CaptureControls({
   );
 }
 
+/** The biggest target on the screen; the touch area reaches beyond the ring. */
 function Shutter({
   label,
+  hint,
   onPress,
   disabled,
 }: {
   label: string;
+  hint: string;
   onPress: () => void;
   disabled: boolean;
 }) {
@@ -97,6 +126,8 @@ function Shutter({
       <PressableScale
         testID="take-photo"
         accessibilityLabel={label}
+        accessibilityHint={hint}
+        hitSlop={16}
         onPress={onPress}
         disabled={disabled}
         style={{
@@ -122,24 +153,31 @@ function Shutter({
   );
 }
 
+/** A secondary capture choice: the circle and its caption are one button. */
 function RoundAction({
   icon,
   label,
+  hint,
   onPress,
   testID,
 }: {
   icon: IconName;
   label: string;
+  hint: string;
   onPress: () => void;
   testID: string;
 }) {
   const theme = useTheme();
   return (
-    <View style={{ alignItems: "center", gap: theme.space.xs, width: SIDE, paddingTop: 12 }}>
-      <PressableScale
-        testID={testID}
-        accessibilityLabel={label}
-        onPress={onPress}
+    <PressableScale
+      testID={testID}
+      accessibilityLabel={label}
+      accessibilityHint={hint}
+      onPress={onPress}
+      // Wide enough for the caption at large text sizes, so a word never breaks.
+      style={{ alignItems: "center", gap: theme.space.xs, minWidth: SIDE, paddingTop: 12 }}
+    >
+      <View
         style={{
           width: 52,
           height: 52,
@@ -150,10 +188,10 @@ function RoundAction({
         }}
       >
         <Icon name={icon} size={22} color={theme.colors.textInverse} />
-      </PressableScale>
+      </View>
       <Txt variant="caption" inverse>
         {label}
       </Txt>
-    </View>
+    </PressableScale>
   );
 }

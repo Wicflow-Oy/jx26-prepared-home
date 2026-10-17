@@ -15,6 +15,7 @@ export function TextLink({
   inverse,
   icon,
   center,
+  hint,
 }: {
   label: string;
   onPress: () => void;
@@ -23,6 +24,7 @@ export function TextLink({
   inverse?: boolean;
   icon?: IconName;
   center?: boolean;
+  hint?: string;
 }) {
   const theme = useTheme();
   const primary = tone === "primary";
@@ -39,6 +41,7 @@ export function TextLink({
       onPress={onPress}
       accessibilityRole={primary ? "link" : "button"}
       accessibilityLabel={label}
+      accessibilityHint={hint}
       style={{
         flexDirection: "row",
         alignItems: "center",

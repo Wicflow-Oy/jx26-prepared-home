@@ -3,7 +3,7 @@
 import type { CheckDefinition, Home } from "@prepared-home/engine";
 import { Image } from "expo-image";
 import { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -14,10 +14,15 @@ import Animated, {
 
 import { useT, useTheme } from "../../context";
 import { springs } from "../../motion";
+import { useFontScale } from "../../ui/a11y";
 import { ScanLine } from "../../ui/ScanLine";
 import { VerdictBadge } from "../../ui/VerdictBadge";
 import { ReviewMessage } from "./ReviewMessage";
 import type { useCheckRun } from "./useCheckRun";
+
+/** "Your photo of washing machine hose…": the title reads as part of the sentence, except in Finnish. */
+const lowerFirst = (title: string, lang: string) =>
+  lang === "fi" ? title : title.charAt(0).toLowerCase() + title.slice(1);
 
 const CARD_TOP = 8;
 const BADGE = 64;
@@ -36,6 +41,8 @@ export function CheckReview({
   onHome,
   autoAdvance,
   secondAngle,
+  spokenResult,
+  onTakeSecond,
 }: {
   flow: ReturnType<typeof useCheckRun>;
   check: CheckDefinition;
@@ -49,13 +56,18 @@ export function CheckReview({
   autoAdvance: boolean;
   /** The fallback button for the second photo, shown when the phone did not settle by itself. */
   secondAngle: { showButton: boolean; onTake: () => void };
+  /** The verdict and next steps as one sentence, for screen readers. */
+  spokenResult: string;
+  onTakeSecond: () => void;
 }) {
-  const { t } = useT();
+  const { t, lang } = useT();
   const theme = useTheme();
   const { run, photoUri } = flow;
   const width = stage.width - theme.space.lg * 2;
   const height = viewfinderHeight;
-  const scale = Math.max(0.35, Math.min(0.56, (stage.height - TEXT_ROOM) / Math.max(1, height)));
+  // Larger text needs more room under the card; the card shrinks further and the text scrolls if needed.
+  const textRoom = TEXT_ROOM * Math.min(useFontScale(), 1.6);
+  const scale = Math.max(0.25, Math.min(0.56, (stage.height - textRoom) / Math.max(1, height)));
   const cardBottom = CARD_TOP + height * scale;
 
   // Shrink: from the full viewfinder into the card, on the UI thread.
@@ -112,7 +124,7 @@ export function CheckReview({
               style={StyleSheet.absoluteFill}
               contentFit="cover"
               transition={120}
-              accessibilityLabel={t("photoStaysOnDevice")}
+              accessibilityLabel={t("photoOf", { title: lowerFirst(check.title[lang], lang) })}
             />
           ) : null}
           {scanning ? <ScanLine height={height} /> : null}
@@ -145,7 +157,7 @@ export function CheckReview({
         </View>
       ) : null}
 
-      <View
+      <ScrollView
         style={{
           position: "absolute",
           top: allDone ? CARD_TOP + BADGE + 48 : cardBottom + (decided ? BADGE / 2 + 16 : 24),
@@ -153,6 +165,7 @@ export function CheckReview({
           right: theme.space.xl,
           bottom: 0,
         }}
+        contentContainerStyle={{ paddingBottom: theme.space.lg }}
       >
         <ReviewMessage
           flow={flow}
@@ -164,8 +177,10 @@ export function CheckReview({
           onHome={onHome}
           autoAdvance={autoAdvance}
           secondAngle={secondAngle}
+          spokenResult={spokenResult}
+          onTakeSecond={onTakeSecond}
         />
-      </View>
+      </ScrollView>
     </View>
   );
 }

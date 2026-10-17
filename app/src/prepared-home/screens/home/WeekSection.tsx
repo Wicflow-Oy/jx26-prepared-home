@@ -49,9 +49,12 @@ function WeekItem({
   const c = theme.colors;
   return (
     <View
+      accessible
+      accessibilityLabel={`${when}: ${text}`}
       style={{ flexDirection: "row", alignItems: "center", gap: theme.space.md, minHeight: 32 }}
     >
       <View
+        aria-hidden
         style={{
           width: 16,
           height: 16,

@@ -12,3 +12,5 @@ export { Segmented } from "./Segmented";
 export { EmptyState, ErrorState, LoadingState, NoHome } from "./States";
 export { Txt } from "./Text";
 export { TextLink } from "./TextLink";
+export { ToggleRow } from "./ToggleRow";
+export { VoiceGuidanceToggle } from "./VoiceGuidanceToggle";

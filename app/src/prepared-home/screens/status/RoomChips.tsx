@@ -15,7 +15,7 @@ export function RoomChips({
   required: string[];
   isDone: (checkId: string) => boolean;
 }) {
-  const { lang } = useT();
+  const { t, lang } = useT();
   const theme = useTheme();
   const rooms = roomProgress(required, isDone);
   if (rooms.length === 0) return null;
@@ -32,6 +32,8 @@ export function RoomChips({
         <View
           key={r.room}
           testID={`room-${peril}-${r.room}`}
+          accessible
+          accessibilityLabel={`${roomName(r.room, lang)}: ${t("countOf", { done: r.done, total: r.total })}`}
           style={{
             flexDirection: "row",
             alignItems: "center",

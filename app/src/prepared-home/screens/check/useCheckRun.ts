@@ -54,10 +54,11 @@ export function useCheckRun(home: Home, check: CheckDefinition, previousVerdict?
           second,
           previousVerdict,
         });
-        if (saved.stored.outcome.verdict === "verified") haptics.verified();
-        else haptics.fixFirst();
+        if (saved.stored.outcome.verdict === "verified") haptics.success();
+        else haptics.retry();
         setRun({ status: "done", ...saved });
       } catch (err) {
+        haptics.retry();
         setRun({ status: "error", message: errorMessage(err, t) });
       }
     },
@@ -136,6 +137,10 @@ export function useCheckRun(home: Home, check: CheckDefinition, previousVerdict?
     capturing: () => {
       setPhotoUri(null);
       setRun({ status: "preparing" });
+    },
+    /** Takes the second angle again for the photo already here, then checks both. */
+    retakeSecond: () => {
+      if (photos.current) setRun({ status: "secondAngle" });
     },
     fail: (message: string) => setRun({ status: "error", message }),
     finish: () => setRun({ status: "allDone" }),

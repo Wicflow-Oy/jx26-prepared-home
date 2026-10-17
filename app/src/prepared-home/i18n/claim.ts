@@ -47,6 +47,7 @@ const en = {
   reasonNotCounted: "{title}: checked with a gallery or example photo, which does not count.",
   "decision.relief_applies": "Relief applies",
   "decision.bonus_not_applied": "Relief not applied",
+  reasonOneAngle: "{title}: checked from one angle only, which does not count.",
 };
 
 export const claim: Area<typeof en> = {
@@ -99,6 +100,7 @@ export const claim: Area<typeof en> = {
       "{title}: tarkistettu gallerian kuvalla tai esimerkkikuvalla, joka ei kelpaa.",
     "decision.relief_applies": "Omavastuun alennus pätee",
     "decision.bonus_not_applied": "Omavastuun alennusta ei sovelleta",
+    reasonOneAngle: "{title}: tarkistettu vain yhdestä kulmasta, mikä ei riitä.",
   },
   sv: {
     claimTitle: "Anmäl skada (demo)",
@@ -145,5 +147,6 @@ export const claim: Area<typeof en> = {
       "{title}: kontrollerad med en bild ur galleriet eller en exempelbild, som inte räknas.",
     "decision.relief_applies": "Lättnaden gäller",
     "decision.bonus_not_applied": "Lättnaden tillämpas inte",
+    reasonOneAngle: "{title}: kontrollerad från bara en vinkel, vilket inte räknas.",
   },
 };

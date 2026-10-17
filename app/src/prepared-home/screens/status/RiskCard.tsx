@@ -33,7 +33,12 @@ export function RiskCard({
 
   return (
     <Card testID={`peril-status-${p.peril}`}>
-      <View style={{ flexDirection: "row", alignItems: "center", gap: theme.space.md }}>
+      <View
+        accessible
+        accessibilityRole="header"
+        accessibilityLabel={`${perilLabel(p.peril, lang)}: ${t("countOf", { done: doneCount(p), total: p.required.length })}`}
+        style={{ flexDirection: "row", alignItems: "center", gap: theme.space.md }}
+      >
         <View
           style={{
             width: 40,
@@ -46,10 +51,10 @@ export function RiskCard({
         >
           <Icon name={PERIL_ICON[p.peril]} size={20} color={theme.colors.primary} />
         </View>
-        <Txt variant="h2" style={{ flex: 1 }}>
+        <Txt variant="h2" role="none" style={{ flex: 1 }}>
           {perilLabel(p.peril, lang)}
         </Txt>
-        <Txt variant="h2" testID={`peril-count-${p.peril}`}>
+        <Txt variant="h2" role="none" testID={`peril-count-${p.peril}`}>
           {t("countOf", { done: doneCount(p), total: p.required.length })}
         </Txt>
       </View>

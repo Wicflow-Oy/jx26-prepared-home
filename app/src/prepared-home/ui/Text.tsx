@@ -3,6 +3,7 @@ import { Text, type StyleProp, type TextStyle } from "react-native";
 
 import { useTheme } from "../context";
 import type { Theme } from "../theme";
+import { MAX_FONT_SCALE } from "./a11y";
 
 export type TxtVariant =
   | "display"
@@ -62,6 +63,7 @@ export function Txt({
   role,
   selectable,
   onPress,
+  maxScale = MAX_FONT_SCALE,
 }: {
   variant?: TxtVariant;
   children: ReactNode;
@@ -71,10 +73,13 @@ export function Txt({
   muted?: boolean;
   inverse?: boolean;
   numberOfLines?: number;
-  role?: "header" | "alert";
+  /** "none" when the text sits inside a heading that already speaks for it. */
+  role?: "header" | "alert" | "none";
   selectable?: boolean;
   /** Makes the text a link (also inside another Txt). */
   onPress?: () => void;
+  /** A lower cap for text that must stay on one line, such as the app bar. */
+  maxScale?: number;
 }) {
   const theme = useTheme();
   const base: TextStyle = { color: theme.colors.text, fontFamily: theme.font.family };
@@ -86,6 +91,8 @@ export function Txt({
   return (
     <Text
       testID={testID}
+      // Text grows with the phone's font size up to twice the design size; layouts are checked at that size.
+      maxFontSizeMultiplier={maxScale}
       numberOfLines={numberOfLines}
       selectable={selectable}
       onPress={onPress}

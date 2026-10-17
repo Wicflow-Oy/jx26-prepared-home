@@ -1,5 +1,13 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { Pressable, ScrollView, StyleSheet, View, useWindowDimensions } from "react-native";
+import {
+  BackHandler,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import { GestureDetector, usePanGesture } from "react-native-gesture-handler";
 import Animated, {
   useAnimatedStyle,
@@ -12,6 +20,7 @@ import { scheduleOnRN } from "react-native-worklets";
 
 import { usePreparedHome, useTheme } from "../context";
 import { durations, springs, useMotion } from "../motion";
+import { useFocusOnShow, useSheetOpen } from "./a11y";
 import { IconButton } from "./Pressable";
 
 /** How far (share of the sheet height) or how fast (px/s) a downward drag must go to dismiss. */
@@ -56,6 +65,24 @@ export function BottomSheet({
 
   // Mount as soon as the sheet is asked to open; unmount only after the closing animation.
   if (open && !mounted) setMounted(true);
+
+  // For screen readers the sheet is a dialog: the page behind is hidden, focus starts on its title,
+  // and Back (or the escape gesture) closes it.
+  useSheetOpen(open);
+  const titleRef = useFocusOnShow(open ? "open" : null);
+  useEffect(() => {
+    if (!open) return;
+    if (Platform.OS === "web") {
+      const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+      window.addEventListener("keydown", onKey);
+      return () => window.removeEventListener("keydown", onKey);
+    }
+    const subscription = BackHandler.addEventListener("hardwareBackPress", () => {
+      onClose();
+      return true;
+    });
+    return () => subscription.remove();
+  }, [open, onClose]);
 
   useEffect(() => {
     if (!mounted) return;
@@ -129,15 +156,14 @@ export function BottomSheet({
         <Pressable
           style={StyleSheet.absoluteFill}
           onPress={onClose}
-          accessibilityRole="button"
-          accessibilityLabel={t("close")}
+          aria-hidden
           testID={testID ? `${testID}-backdrop` : undefined}
         />
       </Animated.View>
       <Animated.View
         testID={testID}
         accessibilityViewIsModal
-        accessibilityLabel={label}
+        onAccessibilityEscape={onClose}
         onLayout={(e) => sheetHeight.set(e.nativeEvent.layout.height)}
         style={[
           {
@@ -174,6 +200,10 @@ export function BottomSheet({
             >
               <View style={{ width: theme.layout.tapTarget }} />
               <View
+                ref={titleRef}
+                accessible
+                accessibilityRole="header"
+                accessibilityLabel={label}
                 style={{
                   flex: 1,
                   alignItems: "center",

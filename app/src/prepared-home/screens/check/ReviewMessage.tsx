@@ -4,9 +4,11 @@ import type { CheckDefinition, Home } from "@prepared-home/engine";
 import { View } from "react-native";
 
 import { useT, useTheme } from "../../context";
+import { photoCount } from "../../model";
 import { guidanceFor } from "./guidance";
 import { Appear, Button, Segmented, TextLink, Txt } from "../../ui";
 import type { useCheckRun } from "./useCheckRun";
+import { ResultSummary } from "./ResultSummary";
 import { FixMessage, OkMessage, RetakeMessage } from "./VerdictMessages";
 
 export function ReviewMessage({
@@ -19,6 +21,8 @@ export function ReviewMessage({
   onHome,
   autoAdvance,
   secondAngle,
+  spokenResult,
+  onTakeSecond,
 }: {
   flow: ReturnType<typeof useCheckRun>;
   check: CheckDefinition;
@@ -29,6 +33,8 @@ export function ReviewMessage({
   onHome: () => void;
   autoAdvance: boolean;
   secondAngle: { showButton: boolean; onTake: () => void };
+  spokenResult: string;
+  onTakeSecond: () => void;
 }) {
   const { t, lang } = useT();
   const theme = useTheme();
@@ -93,12 +99,14 @@ export function ReviewMessage({
     case "allDone":
       return (
         <Appear>
-          <Txt variant="title" inverse style={{ textAlign: "center" }} testID="all-done">
-            {t("allChecksDone")}
-          </Txt>
-          <Txt inverse muted style={{ textAlign: "center", marginTop: theme.space.sm }}>
-            {t("allChecksDoneBody")}
-          </Txt>
+          <ResultSummary spoken={spokenResult}>
+            <Txt variant="title" inverse style={{ textAlign: "center" }} testID="all-done">
+              {t("allChecksDone")}
+            </Txt>
+            <Txt inverse muted style={{ textAlign: "center", marginTop: theme.space.sm }}>
+              {t("allChecksDoneBody")}
+            </Txt>
+          </ResultSummary>
           <Button
             label={t("toHome")}
             onPress={onHome}
@@ -110,9 +118,11 @@ export function ReviewMessage({
     case "error":
       return (
         <Appear>
-          <Txt variant="h2" inverse style={{ textAlign: "center" }}>
-            {run.message}
-          </Txt>
+          <ResultSummary spoken={spokenResult}>
+            <Txt variant="h2" inverse style={{ textAlign: "center" }}>
+              {run.message}
+            </Txt>
+          </ResultSummary>
           <Button
             label={t("tryAgain")}
             onPress={onRetry}
@@ -130,8 +140,10 @@ export function ReviewMessage({
       if (guidance.kind === "ok")
         return (
           <OkMessage
+            spoken={spokenResult}
             title={check.title[lang]}
-            capture={stored.capture ?? "camera"}
+            count={photoCount(stored.capture, stored.secondPhotoSha256)}
+            onTakeSecond={onTakeSecond}
             newlyPrepared={run.newlyPrepared}
             onNext={onNext}
             onDetails={onDetails}
@@ -139,9 +151,17 @@ export function ReviewMessage({
           />
         );
       if (guidance.kind === "retake")
-        return <RetakeMessage guidance={guidance} onRetry={onRetry} onLater={onNext} />;
+        return (
+          <RetakeMessage
+            spoken={spokenResult}
+            guidance={guidance}
+            onRetry={onRetry}
+            onLater={onNext}
+          />
+        );
       return (
         <FixMessage
+          spoken={spokenResult}
           guidance={guidance}
           urgent={stored.outcome.urgent}
           onRetry={onRetry}

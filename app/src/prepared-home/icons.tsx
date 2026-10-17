@@ -1,5 +1,6 @@
 // Simple 24 px line icons, drawn for this app.
 import type { Peril } from "@prepared-home/engine";
+import { View } from "react-native";
 import Svg, { Circle, Path, Rect } from "react-native-svg";
 
 const PATHS = {
@@ -88,19 +89,22 @@ export function Icon({
   color: string;
   strokeWidth?: number;
 }) {
+  // Icons sit next to text that says the same, so screen readers skip them.
   return (
-    <Svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke={color}
-      strokeWidth={strokeWidth}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      {PATHS[name]}
-    </Svg>
+    <View aria-hidden style={{ width: size, height: size }}>
+      <Svg
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={color}
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        {PATHS[name]}
+      </Svg>
+    </View>
   );
 }
 

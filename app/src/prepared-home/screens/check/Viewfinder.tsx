@@ -9,6 +9,7 @@ import { Button, Txt } from "../../ui";
 
 /** The live camera inside framing brackets, or, without a camera, buttons to upload or use an example. */
 export function Viewfinder({
+  hidden,
   cameraRef,
   live,
   needsPermission,
@@ -18,6 +19,8 @@ export function Viewfinder({
   onUpload,
   onExamples,
 }: {
+  /** Covered by the review: hidden from screen readers too. */
+  hidden: boolean;
   cameraRef: RefObject<CameraView | null>;
   /** Settings for the live camera; absent when there is none or it is not allowed. */
   live?: { torch: boolean; pictureSize?: string; onReady: () => void };
@@ -33,6 +36,7 @@ export function Viewfinder({
   return (
     <View
       testID="viewfinder"
+      aria-hidden={hidden}
       style={{
         position: "absolute",
         left: theme.space.lg,

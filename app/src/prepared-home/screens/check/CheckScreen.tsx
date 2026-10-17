@@ -9,12 +9,13 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { usePreparedHome, useTheme } from "../../context";
 import { haptics } from "../../haptics";
-import { isDoneRow, useHomeModel, type HomeModel } from "../../model";
+import { nextOpenCheck, useHomeModel, type HomeModel } from "../../model";
 import { durations, useMotion } from "../../motion";
 import { useSystemBarIcons } from "../../systemBars";
-import { Button, ErrorState, LoadingState, NoHome, Screen, Txt } from "../../ui";
+import { Button, ErrorState, LoadingState, NoHome, Screen } from "../../ui";
+import { useBehindSheet, useFontScale } from "../../ui/a11y";
 import { CaptureControls } from "./CaptureControls";
-import { checkInstruction } from "./checkInstruction";
+import { CheckHeading } from "./CheckHeading";
 import { CheckTopBar } from "./CheckTopBar";
 import { PhotoInfoSheet } from "./PhotoInfoSheet";
 import { ReviewLayer } from "./ReviewLayer";
@@ -22,10 +23,14 @@ import { SamplesSheet } from "./SamplesSheet";
 import { useCamera } from "./useCamera";
 import { useCapture } from "./useCapture";
 import { useCheckRun } from "./useCheckRun";
+import { useCheckVoice } from "./useCheckVoice";
+import { spokenIntro, spokenResult } from "./spokenText";
 import { useSecondAngle } from "./useSecondAngle";
 import { Viewfinder } from "./Viewfinder";
 
 const CONTROLS_HEIGHT = 196;
+/** Extra room under the viewfinder per step of the phone's font scale, so large text never clips. */
+const CONTROLS_PER_SCALE = 90;
 
 export function CheckScreen({ checkId }: { checkId: string }) {
   const { t, paths, ready } = usePreparedHome();
@@ -51,7 +56,7 @@ export function CheckScreen({ checkId }: { checkId: string }) {
 }
 
 function CheckFlow({ model, initialId }: { model: HomeModel; initialId: string }) {
-  const { t, lang, paths, markNotApplicable } = usePreparedHome();
+  const { t, lang, paths, markNotApplicable, voiceGuidance } = usePreparedHome();
   const theme = useTheme();
   const router = useRouter();
   const insets = useSafeAreaInsets();
@@ -66,6 +71,8 @@ function CheckFlow({ model, initialId }: { model: HomeModel; initialId: string }
   const [samplesOpen, setSamplesOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
   const [stage, setStage] = useState({ width: 0, height: 0 });
+  const fontScale = useFontScale();
+  const behindSheet = useBehindSheet();
 
   const reviewing = flow.run.status !== "idle";
   const review = useSharedValue(0);
@@ -81,31 +88,35 @@ function CheckFlow({ model, initialId }: { model: HomeModel; initialId: string }
     camera.resume();
   };
 
-  /** The next check that is not done yet, after this one and wrapping round; none when all are done. */
+  const next = nextOpenCheck(model, currentId);
   const goNext = () => {
-    const order = model.checks.map((c) => c.id);
-    const i = order.indexOf(currentId);
-    const next = order
-      .slice(i + 1)
-      .concat(order.slice(0, i))
-      .find((id) => !isDoneRow(model.rowState(id)));
     if (!next) return flow.finish();
     retry();
-    setCurrentId(next);
-    router.setParams({ checkId: next });
+    setCurrentId(next.id);
+    router.setParams({ checkId: next.id });
   };
 
   const capture = useCapture({ camera, flow, flash, busy: reviewing, onAbort: retry });
   const secondAngle = useSecondAngle({
     active: flow.run.status === "secondAngle",
-    prompt: t("moveAside"),
-    lang,
     onCapture: () => void capture.shootSecond(),
   });
 
+  const intro = spokenIntro({
+    check,
+    home,
+    position: model.checks.findIndex((c) => c.id === currentId) + 1,
+    total: model.checks.length,
+    camera: camera.granted ? "ready" : camera.needsPermission ? "needsPermission" : "none",
+    lang,
+    t,
+  });
+  const result = spokenResult({ run: flow.run, check, home, next, lang, t });
+  useCheckVoice({ checkId: currentId, run: flow.run, intro, result });
+
   const notInHome = () => {
     markNotApplicable(home, check.id);
-    haptics.verified();
+    haptics.success();
     goNext();
   };
 
@@ -113,12 +124,14 @@ function CheckFlow({ model, initialId }: { model: HomeModel; initialId: string }
     const { width, height } = e.nativeEvent.layout;
     setStage({ width, height });
   };
-  const viewfinderHeight = Math.max(0, stage.height - CONTROLS_HEIGHT);
+  const controlsHeight = CONTROLS_HEIGHT + (fontScale - 1) * CONTROLS_PER_SCALE;
+  const viewfinderHeight = Math.max(0, stage.height - controlsHeight);
   const close = () => (router.canGoBack() ? router.back() : router.replace(paths.home as Href));
 
   return (
     <View testID="check-screen" style={{ flex: 1, backgroundColor: theme.colors.dark }}>
       <View
+        aria-hidden={behindSheet}
         style={{
           flex: 1,
           paddingTop: insets.top,
@@ -134,17 +147,16 @@ function CheckFlow({ model, initialId }: { model: HomeModel; initialId: string }
           torch={camera.native ? { on: camera.torch, toggle: camera.toggleTorch } : undefined}
         />
 
-        <View style={{ paddingHorizontal: theme.space.xl, paddingBottom: theme.space.md }}>
-          <Txt variant="h2" inverse numberOfLines={2} testID="check-title">
-            {check.title[lang]}
-          </Txt>
-          <Txt inverse muted testID="coach-line">
-            {checkInstruction(check.id, home.homeType, t)}
-          </Txt>
-        </View>
+        <CheckHeading
+          check={check}
+          homeType={home.homeType}
+          spoken={intro}
+          focusKey={reviewing ? null : currentId}
+        />
 
         <View style={{ flex: 1 }} onLayout={onStageLayout}>
           <Viewfinder
+            hidden={reviewing}
             cameraRef={camera.cameraRef}
             live={
               camera.granted
@@ -164,8 +176,9 @@ function CheckFlow({ model, initialId }: { model: HomeModel; initialId: string }
           />
           <Animated.View
             pointerEvents={reviewing ? "none" : "auto"}
+            aria-hidden={reviewing}
             style={[
-              { position: "absolute", left: 0, right: 0, bottom: 0, height: CONTROLS_HEIGHT },
+              { position: "absolute", left: 0, right: 0, bottom: 0, height: controlsHeight },
               controlsStyle,
             ]}
           >
@@ -194,8 +207,14 @@ function CheckFlow({ model, initialId }: { model: HomeModel; initialId: string }
                 onNext={goNext}
                 onDetails={() => router.push(paths.result(check.id) as Href)}
                 onHome={() => router.replace(paths.home as Href)}
-                autoAdvance={!motion.reduced}
+                // Moving on by itself would cut off a spoken result.
+                autoAdvance={!motion.reduced && !voiceGuidance}
                 secondAngle={{ showButton: secondAngle.showButton, onTake: secondAngle.take }}
+                spokenResult={result}
+                onTakeSecond={() => {
+                  camera.resume();
+                  flow.retakeSecond();
+                }}
               />
             </Animated.View>
           ) : null}

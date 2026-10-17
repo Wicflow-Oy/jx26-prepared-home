@@ -19,7 +19,7 @@ const en = {
   recheckCount: "{count} checks are due then.",
   alarmLine:
     "If an alarm device's working prevented or limited the damage, no deductible is deducted (terms 6.4.1). If decides whether a device qualifies.",
-  needsCamera: "Take with the camera to count: {items}",
+  needsCamera: "Take with the camera, from two angles, to count: {items}",
   ddTitle: "How the lower deductible works",
   dd1: "Do all the checks for a risk with the app's camera.",
   dd2: "While they are current, that risk has the lower deductible. Reminders shows when a check is due again. The amounts are examples; If decides them.",
@@ -53,7 +53,7 @@ export const status: Area<typeof en> = {
     recheckCount: "Silloin on vuorossa {count} tarkistusta.",
     alarmLine:
       "Jos hälytyslaitteen toiminta esti vahingon tai rajoitti sitä, omavastuuta ei vähennetä (ehtojen kohta 6.4.1). If ratkaisee, täyttääkö laite ehdon.",
-    needsCamera: "Ota kameralla, jotta ne lasketaan: {items}",
+    needsCamera: "Ota kameralla kahdesta kulmasta, jotta ne lasketaan: {items}",
     ddTitle: "Näin pienempi omavastuu toimii",
     dd1: "Tee riskin kaikki tarkistukset sovelluksen kameralla.",
     dd2: "Kun tarkistukset ovat voimassa, riskin omavastuu on pienempi. Muistutuksista näet, milloin tarkistus erääntyy. Summat ovat esimerkkejä; If päättää ne.",
@@ -83,7 +83,7 @@ export const status: Area<typeof en> = {
     recheckCount: "Då är det dags för {count} kontroller.",
     alarmLine:
       "Om en larmanordnings funktion förhindrade eller begränsade skadan dras ingen självrisk av (villkorens punkt 6.4.1). If avgör om anordningen uppfyller villkoret.",
-    needsCamera: "Ta med kameran så att de räknas: {items}",
+    needsCamera: "Ta med kameran från två vinklar så att de räknas: {items}",
     ddTitle: "Så fungerar den lägre självrisken",
     dd1: "Gör alla kontroller för en risk med appens kamera.",
     dd2: "Medan de är aktuella har risken den lägre självrisken. Under Påminnelser ser du när en kontroll ska göras igen. Beloppen är exempel; If bestämmer dem.",

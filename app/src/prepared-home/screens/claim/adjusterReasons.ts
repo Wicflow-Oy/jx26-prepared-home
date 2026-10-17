@@ -12,7 +12,7 @@ import {
 } from "@prepared-home/engine";
 
 import { formatDate, type Translate } from "../../i18n";
-import { perilLabel, stateLabel, verdictLabel } from "../../model";
+import { perilLabel, photoCount, stateLabel, verdictLabel } from "../../model";
 
 /** Check title in the current language, next to its id (the claims handler works with both). */
 export function checkName(id: string, home: Home | null, lang: Lang): string {
@@ -31,10 +31,10 @@ export function adjusterReasons(
   const date = formatDate(view.lossDate, lang);
   const title = (id: string) => (isCheckId(id) ? getCheck(id, home?.homeType).title[lang] : id);
   const byId = new Map(view.records.map((r) => [r.checkId, r]));
-  // Gallery and example photos are verified but do not count; the record on this device says how it was taken.
-  const notCounted = (id: string, checkedAt: string) => {
+  // Verified photos count only from the in-app camera with both angles; the record on this device says which.
+  const countOf = (id: string, checkedAt: string) => {
     const local = records.find((r) => r.checkId === id && r.checkedAt === checkedAt);
-    return !!local?.capture && local.capture !== "camera";
+    return local ? photoCount(local.capture, local.secondPhotoSha256) : "counts";
   };
   // Without the home on this device, only the checks the claim lists can be judged.
   const required = home ? requiredChecks(home.homeType, group) : [...byId.keys()];
@@ -54,8 +54,12 @@ export function adjusterReasons(
     else if (r.verdict === "fix_first")
       out.push(t("reasonFix", { title: title(id), verdict: verdictLabel(r.verdict, lang), date }));
     else if (r.verdict === "retake") out.push(t("reasonRetake", { title: title(id), date }));
-    else if (r.verdict === "verified" && notCounted(id, r.checkedAt))
-      out.push(t("reasonNotCounted", { title: title(id) }));
+    else if (r.verdict === "verified" && countOf(id, r.checkedAt) !== "counts")
+      out.push(
+        t(countOf(id, r.checkedAt) === "oneAngle" ? "reasonOneAngle" : "reasonNotCounted", {
+          title: title(id),
+        }),
+      );
     else if (!r.validAtLoss) out.push(t("reasonOverdue", { title: title(id), date }));
   }
   const shared = view.records.filter((r) => r.photoShared);

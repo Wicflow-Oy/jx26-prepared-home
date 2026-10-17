@@ -15,6 +15,7 @@ import {
   type NewHome,
   type SaveResult,
 } from "./state/useHomeActions";
+import { useScreenReader } from "./state/useScreenReader";
 import type { Claims, StoredOutcome } from "./storage";
 import { ifTheme, type Theme } from "./theme";
 
@@ -28,6 +29,10 @@ export interface PreparedHomeContextValue {
   storageProblem: boolean;
   lang: Lang;
   setLang: (lang: Lang) => void;
+  /** Steps and results are said aloud, or sent to the screen reader when one is on. */
+  voiceGuidance: boolean;
+  setVoiceGuidance: (on: boolean) => void;
+  screenReader: boolean;
   t: Translate;
   theme: Theme;
   paths: Paths;
@@ -104,6 +109,12 @@ export function PreparedHomeProvider({
     [settingsNow, updateSettings],
   );
 
+  const screenReader = useScreenReader();
+  const setVoiceGuidance = useCallback(
+    (on: boolean) => updateSettings({ ...settingsNow.current, voiceGuidance: on }),
+    [settingsNow, updateSettings],
+  );
+
   const actions = useHomeActions(store, lang);
   const { frost, refreshFrost } = useFrost(api, store.ready);
   const outcomes = store.outcomes.value;
@@ -113,6 +124,9 @@ export function PreparedHomeProvider({
     storageProblem: store.storageProblem,
     lang,
     setLang,
+    voiceGuidance: settings.voiceGuidance ?? screenReader,
+    setVoiceGuidance,
+    screenReader,
     t,
     theme,
     paths,

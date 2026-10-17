@@ -1,0 +1,54 @@
+# Voice guidance on, then one check walked by what a screen reader hears (accessibility labels, not ids).
+# New flat: the floor drain check with an unclear example photo gives "Not yet" with tips, then Try again.
+# Needs the API server (port 8787); the example photo has a saved result. Turns the setting off again at the end.
+# Expo Go. For a development build change appId to fi.wicflow.preparedhome and APP_LINK to preparedhome://?example=fresh
+appId: host.exp.exponent
+env:
+  APP_LINK: exp://127.0.0.1:8081/--/?example=fresh&__expo_disable_fab=1
+---
+- runFlow:
+    file: subflows/open-app.yaml
+    env:
+      APP_LINK: ${APP_LINK}
+- tapOn: "Settings"
+- extendedWaitUntil:
+    visible: "Voice guidance"
+    timeout: 10000
+- runFlow:
+    when:
+      notVisible:
+        text: "Voice guidance"
+        checked: true
+    commands:
+      - tapOn: "Voice guidance"
+- assertVisible:
+    text: "Voice guidance"
+    checked: true
+- tapOn: "Back"
+- scrollUntilVisible:
+    element:
+      text: "Floor drain and sink trap.*"
+    direction: DOWN
+- tapOn: "Floor drain and sink trap.*"
+- extendedWaitUntil:
+    visible: "Check 5 of 11. Floor drain and sink trap.*"
+    timeout: 10000
+- assertVisible: "Take a photo"
+- assertVisible: "Do later"
+- tapOn: "Examples"
+- tapOn: "Use an example photo: Kitchen with the sink cupboard closed"
+- extendedWaitUntil:
+    visible: "Not yet\\..*Then try again\\."
+    timeout: 60000
+- assertVisible: "Your photo of floor drain and sink trap"
+- tapOn: "Try again"
+- assertVisible: "Check 5 of 11.*"
+- tapOn: "Close"
+- tapOn: "Settings"
+- extendedWaitUntil:
+    visible: "Voice guidance"
+    timeout: 10000
+- tapOn: "Voice guidance"
+- assertVisible:
+    text: "Voice guidance"
+    checked: false

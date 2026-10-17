@@ -20,7 +20,6 @@ const en = {
   checkNotFound: "This check does not exist.",
   urgent:
     "Act now: this looks urgent. If it is safe, close the appliance's valve or switch off the power, and call a professional (in a block of flats, the maintenance company's emergency number).",
-  photoStaysOnDevice: "Your photo",
   yourPhotos: "Your photos",
   samplesShort: "Examples",
   preparedNow: "{peril}: prepared. Every check is current.",
@@ -78,6 +77,7 @@ const en = {
   moveAside: "Now move a step to the side",
   moveAsideHint: "Keep the same spot in view. The second photo is taken when you hold still.",
   takeSecond: "Take second photo",
+  countOneAngle: "Take the second angle to count this check.",
 };
 
 export const check: Area<typeof en> = {
@@ -101,7 +101,6 @@ export const check: Area<typeof en> = {
     checkNotFound: "Tätä tarkistusta ei ole.",
     urgent:
       "Toimi heti: tämä näyttää kiireelliseltä. Jos se on turvallista, sulje kodinkoneen venttiili tai katkaise virta ja soita ammattilaiselle (kerrostalossa huoltoyhtiön päivystykseen).",
-    photoStaysOnDevice: "Kuvasi",
     yourPhotos: "Kuvasi",
     samplesShort: "Esimerkit",
     preparedNow: "{peril}: valmis. Kaikki tarkistukset ovat voimassa.",
@@ -159,6 +158,7 @@ export const check: Area<typeof en> = {
     moveAside: "Siirry nyt askel sivulle",
     moveAsideHint: "Pidä sama kohta kuvassa. Toinen kuva otetaan, kun pidät puhelimen paikallaan.",
     takeSecond: "Ota toinen kuva",
+    countOneAngle: "Ota toinen kuva toisesta kulmasta, niin tarkistus lasketaan.",
   },
   sv: {
     privacyLine:
@@ -179,7 +179,6 @@ export const check: Area<typeof en> = {
     checkNotFound: "Den här kontrollen finns inte.",
     urgent:
       "Agera nu: det här ser brådskande ut. Om det är säkert, stäng maskinens ventil eller bryt strömmen och ring en fackman (i flervåningshus servicebolagets jour).",
-    photoStaysOnDevice: "Din bild",
     yourPhotos: "Dina bilder",
     samplesShort: "Exempel",
     preparedNow: "{peril}: redo. Alla kontroller är aktuella.",
@@ -239,5 +238,6 @@ export const check: Area<typeof en> = {
     moveAside: "Ta nu ett steg åt sidan",
     moveAsideHint: "Håll samma ställe i bild. Den andra bilden tas när du håller stilla.",
     takeSecond: "Ta den andra bilden",
+    countOneAngle: "Ta den andra vinkeln så räknas kontrollen.",
   },
 };

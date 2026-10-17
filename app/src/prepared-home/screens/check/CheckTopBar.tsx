@@ -30,7 +30,11 @@ export function CheckTopBar({
       }}
     >
       <IconButton icon="close" label={t("close")} onPress={onClose} inverse testID="back-button" />
-      <View style={{ flex: 1, alignItems: "center", gap: theme.space.xs }}>
+      <View
+        accessible
+        accessibilityLabel={t("checkPosition", { n: position, total: model.checks.length })}
+        style={{ flex: 1, alignItems: "center", gap: theme.space.xs }}
+      >
         <Txt variant="smallStrong" inverse testID="check-count">
           {t("checkCount", { n: position, total: model.checks.length })}
         </Txt>
@@ -42,6 +46,8 @@ export function CheckTopBar({
           label={t("light")}
           onPress={torch.toggle}
           inverse={!torch.on}
+          checked={torch.on}
+          hint={t("hintTorch")}
           testID="torch"
         />
       ) : (
@@ -55,7 +61,7 @@ export function CheckTopBar({
 function ProgressDots({ model, currentId }: { model: HomeModel; currentId: string }) {
   const theme = useTheme();
   return (
-    <View style={{ flexDirection: "row", gap: 4 }} accessibilityElementsHidden>
+    <View style={{ flexDirection: "row", gap: 4 }} aria-hidden>
       {model.checks.map((c) => {
         const state = model.rowState(c.id);
         return (

@@ -16,7 +16,7 @@ import { shortHash } from "../../bytes";
 import { useT, useTheme } from "../../context";
 import { formatDate } from "../../i18n";
 import { Icon, type IconName } from "../../icons";
-import { ownerLabel, verdictLabel, verdictTone } from "../../model";
+import { ownerLabel, photoCount, PHOTO_COUNT_NOTE, verdictLabel, verdictTone } from "../../model";
 import type { StoredOutcome } from "../../storage";
 import { Banner, Gap, Tag, toneColors, Txt } from "../../ui";
 import { CriterionLine } from "./CriterionLine";
@@ -48,8 +48,10 @@ export function ResultBody({
   const colors = toneColors(theme, verdictTone(verdict));
   const current = record?.verdict === "verified" || record?.verdict === "not_applicable";
   const dueAt = current ? (record?.dueAt ?? null) : null;
-  // Older results and seeded examples carry no capture; they count as camera photos.
-  const capture = stored?.capture ?? record?.capture ?? "camera";
+  const count = photoCount(
+    stored?.capture ?? record?.capture,
+    stored?.secondPhotoSha256 ?? record?.secondPhotoSha256,
+  );
   const keptEarlier = stored && !stored.recordReplaced ? stored.previousVerdict : undefined;
   const serverText = serverTextFits(stored, lang);
   // One fingerprint per photo; a camera check has two, from two angles.
@@ -107,9 +109,9 @@ export function ResultBody({
       <Txt variant="small" muted>
         {t(explainKey(verdict, !!dueAt), { date: formatDate(dueAt, lang) })}
       </Txt>
-      {verdict === "verified" && capture !== "camera" ? (
+      {verdict === "verified" && count !== "counts" ? (
         <Txt variant="small" testID="not-counted" style={{ marginTop: theme.space.xs }}>
-          {t(capture === "sample" ? "countSample" : "countLibrary")}
+          {t(PHOTO_COUNT_NOTE[count])}
         </Txt>
       ) : null}
       {source ? (

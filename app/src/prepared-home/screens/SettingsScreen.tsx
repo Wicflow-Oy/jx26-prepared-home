@@ -20,6 +20,7 @@ import {
   Section,
   LanguageSwitch,
   Txt,
+  VoiceGuidanceToggle,
 } from "../ui";
 import { DeductibleSheet } from "./status/DeductibleSheet";
 
@@ -93,6 +94,8 @@ export function SettingsScreen() {
         <>
           <Section title={t("language")}>
             <LanguageSwitch />
+            <Gap size="sm" />
+            <VoiceGuidanceToggle />
           </Section>
 
           <Section title={t("exampleHomesTitle")} testID="example-homes">

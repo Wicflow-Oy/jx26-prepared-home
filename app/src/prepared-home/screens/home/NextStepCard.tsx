@@ -52,6 +52,7 @@ export function NextStepCard({
             label={t(BUTTON[next.kind])}
             icon="camera"
             onPress={() => onOpen(next.check.id)}
+            accessibilityHint={title}
             testID="next-step-open"
             style={{ marginTop: theme.space.lg }}
           />

@@ -62,7 +62,7 @@ export function ResultScreen({ checkId }: { checkId: string }) {
             <Button
               label={t("markNA")}
               onPress={() => {
-                if (markNotApplicable(home, checkId).newlyPrepared.length > 0) haptics.prepared();
+                if (markNotApplicable(home, checkId).newlyPrepared.length > 0) haptics.success();
               }}
               testID="mark-na"
               variant="ghost"
