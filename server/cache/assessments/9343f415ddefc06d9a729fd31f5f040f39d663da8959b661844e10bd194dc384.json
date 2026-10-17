@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "sha256": "9343f415ddefc06d9a729fd31f5f040f39d663da8959b661844e10bd194dc384",
+  "checkId": "F2",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-17T17:35:09.972Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "F2.board_visible",
+        "met": true,
+        "note": "A distribution board with rows of circuit breakers and blank cover plates is visible."
+      },
+      {
+        "id": "F2.no_damage",
+        "met": true,
+        "note": "Covers and blanking plates are in place; no scorching, damage or exposed parts seen."
+      },
+      {
+        "id": "F2.rcd_visible",
+        "met": true,
+        "note": "RCDs with TEST buttons are visible at the left of the top and bottom rows and at lower centre-right."
+      },
+      {
+        "id": "F2.clear_front",
+        "met": true,
+        "note": "Nothing is stored in front of or against the board in this close view."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "RCD top left",
+        "bbox_px": [
+          0,
+          97,
+          117,
+          245
+        ]
+      },
+      {
+        "label": "RCD bottom left",
+        "bbox_px": [
+          0,
+          504,
+          112,
+          657
+        ]
+      },
+      {
+        "label": "RCD bottom right",
+        "bbox_px": [
+          692,
+          501,
+          923,
+          655
+        ]
+      },
+      {
+        "label": "Top breaker row",
+        "bbox_px": [
+          117,
+          97,
+          471,
+          246
+        ]
+      },
+      {
+        "label": "Bottom right breakers",
+        "bbox_px": [
+          922,
+          503,
+          1280,
+          657
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": null,
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

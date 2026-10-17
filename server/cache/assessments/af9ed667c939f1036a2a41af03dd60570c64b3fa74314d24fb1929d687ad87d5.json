@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "sha256": "af9ed667c939f1036a2a41af03dd60570c64b3fa74314d24fb1929d687ad87d5",
+  "checkId": "F2",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-17T17:35:20.723Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "F2.board_visible",
+        "met": true,
+        "note": "A distribution board with circuit breakers and wiring fills the frame."
+      },
+      {
+        "id": "F2.no_damage",
+        "met": false,
+        "note": "The front cover is off, so terminals, screws and wiring are exposed; no scorch marks seen."
+      },
+      {
+        "id": "F2.rcd_visible",
+        "met": true,
+        "note": "Devices labelled RCBO1 and RCBO2 are visible, with round test button markings."
+      },
+      {
+        "id": "F2.clear_front",
+        "met": true,
+        "note": "Nothing is stored in front of or against the board."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "distribution board",
+        "bbox_px": [
+          245,
+          50,
+          950,
+          668
+        ]
+      },
+      {
+        "label": "RCBO devices",
+        "bbox_px": [
+          355,
+          365,
+          660,
+          445
+        ]
+      },
+      {
+        "label": "exposed terminals and wiring",
+        "bbox_px": [
+          285,
+          270,
+          800,
+          300
+        ]
+      },
+      {
+        "label": "breakers QF1-QF3",
+        "bbox_px": [
+          650,
+          320,
+          800,
+          440
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": "The board cover appears to be missing with live parts exposed; do not touch it and call a qualified electrician to refit the cover.",
+    "urgent": true,
+    "model": "claude-sonnet-5-5"
+  }
+}

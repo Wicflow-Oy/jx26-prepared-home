@@ -1,0 +1,978 @@
+{
+  "kind": "prepared-home-eval",
+  "version": 1,
+  "model": "claude-haiku-5-5",
+  "provider": "anthropic",
+  "startedAt": "2026-10-17T17:38:11.195Z",
+  "finishedAt": "2026-10-17T17:38:59.572Z",
+  "total": 24,
+  "correct": 19,
+  "accuracy": 0.7917,
+  "lenientAccuracy": 0.8333,
+  "falseVerified": 1,
+  "falseVerifiedFiles": [
+    "A04.jpg"
+  ],
+  "errors": 0,
+  "urgent": {
+    "expected": 4,
+    "flaggedOnExpected": 3,
+    "flaggedElsewhere": 1
+  },
+  "confusion": {
+    "verified": {
+      "verified": 6,
+      "retake": 1,
+      "fix_first": 0,
+      "not_applicable": 0
+    },
+    "retake": {
+      "verified": 1,
+      "retake": 10,
+      "fix_first": 1,
+      "not_applicable": 0
+    },
+    "fix_first": {
+      "verified": 0,
+      "retake": 2,
+      "fix_first": 3,
+      "not_applicable": 0
+    },
+    "not_applicable": {
+      "verified": 0,
+      "retake": 0,
+      "fix_first": 0,
+      "not_applicable": 0
+    }
+  },
+  "rows": [
+    {
+      "file": "A01.jpg",
+      "checkId": "L1",
+      "expected": "verified",
+      "actual": "verified",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "L1.valve_visible",
+          "kind": "visibility",
+          "met": true,
+          "note": "Several ball valves with red handles and angled brass shut-off valves are visible inside the floor manifold box."
+        },
+        {
+          "id": "L1.handle_visible",
+          "kind": "visibility",
+          "met": true,
+          "note": "Red-and-white lever handles on the ball valves are clearly visible."
+        },
+        {
+          "id": "L1.no_leak",
+          "kind": "condition",
+          "met": true,
+          "note": "No drips, water, or staining are visible on the valves or fittings; brass parts look clean."
+        },
+        {
+          "id": "L1.know_how",
+          "kind": "user",
+          "met": true
+        }
+      ],
+      "retakeHint": null,
+      "fix": null,
+      "sha256": "859a034846ce117a4e98d3e74ecb2039bcb2bfdf05c7c8e4c98351a9aba97122",
+      "resized": false,
+      "ms": 5465,
+      "note": "Flat's tiled access hatch: two red-lever ball valves, filters and water meters, no visible leak or stains. Lever position must not be judged."
+    },
+    {
+      "file": "A02.jpg",
+      "checkId": "L1",
+      "expected": "verified",
+      "actual": "verified",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "L1.valve_visible",
+          "kind": "visibility",
+          "met": true,
+          "note": "A blue ball shut-off valve sits just below the meter, with its body visible."
+        },
+        {
+          "id": "L1.handle_visible",
+          "kind": "visibility",
+          "met": true,
+          "note": "The blue valve handle is visible at the bottom of the frame."
+        },
+        {
+          "id": "L1.no_leak",
+          "kind": "condition",
+          "met": true,
+          "note": "No drip, leak, water stain or obvious corrosion is visible on the valve."
+        },
+        {
+          "id": "L1.know_how",
+          "kind": "user",
+          "met": true
+        }
+      ],
+      "retakeHint": null,
+      "fix": null,
+      "sha256": "29d568268219f562ccbeccdf49d664096758bc6609b43d7d99706e6d335d38c0",
+      "resized": false,
+      "ms": 5693,
+      "note": "Outdoor meter with a blue-lever ball valve below; the valve is partly cut off at the bottom edge, so a retake is defensible."
+    },
+    {
+      "file": "A03.jpg",
+      "checkId": "L1",
+      "expected": "retake",
+      "actual": "retake",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "L1.valve_visible",
+          "kind": "visibility",
+          "met": false,
+          "note": "The photo shows a Sagemcom water meter with a display and push button, not a shut-off valve."
+        },
+        {
+          "id": "L1.handle_visible",
+          "kind": "visibility",
+          "met": false,
+          "note": "No valve handle or lever is visible; only the meter's blue push button is shown."
+        },
+        {
+          "id": "L1.no_leak",
+          "kind": "condition",
+          "met": null,
+          "note": "No shut-off valve is visible, so leaks at the valve cannot be judged."
+        },
+        {
+          "id": "L1.know_how",
+          "kind": "user",
+          "met": true
+        }
+      ],
+      "retakeHint": "Retake the photo showing the water shut-off valve and its handle, such as the valve on the supply pipe, with the whole valve in frame.",
+      "fix": null,
+      "sha256": "44b18446780e2328f200953440f29294d1895d98a0b1daa7322518fb83cf7d12",
+      "resized": false,
+      "ms": 6295,
+      "note": "Electronic water meter lying on a table, not installed; no shut-off valve in frame."
+    },
+    {
+      "file": "A04.jpg",
+      "checkId": "L1",
+      "expected": "retake",
+      "actual": "verified",
+      "correct": false,
+      "lenientCorrect": false,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "L1.valve_visible",
+          "kind": "visibility",
+          "met": true,
+          "note": "Several outdoor pipe valves are visible, including one below the window and others beside the meters."
+        },
+        {
+          "id": "L1.handle_visible",
+          "kind": "visibility",
+          "met": true,
+          "note": "The small valve below the window shows its handle clearly; other valve handles are small or partly hidden."
+        },
+        {
+          "id": "L1.no_leak",
+          "kind": "condition",
+          "met": true,
+          "note": "No drip, active leak or water stain is visible at the valves; the fittings look weathered but dry."
+        },
+        {
+          "id": "L1.know_how",
+          "kind": "user",
+          "met": true
+        }
+      ],
+      "retakeHint": null,
+      "fix": null,
+      "sha256": "ef1eed15667a75ef0120ad7d5c2cb9f611737a220fd76727cb1c7310f7a292b4",
+      "resized": false,
+      "ms": 6814,
+      "note": "Black-and-white outdoor wall with several meters and small valves of a shared building; which valve is the home's is unclear and corrosion can't be judged in B/W. Corroded pipework makes fix_first defensible. Never verified."
+    },
+    {
+      "file": "A05.jpg",
+      "checkId": "L1",
+      "expected": "retake",
+      "actual": "retake",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "L1.valve_visible",
+          "kind": "visibility",
+          "met": false,
+          "note": "The photo shows a water meter dial, not a shut-off valve."
+        },
+        {
+          "id": "L1.handle_visible",
+          "kind": "visibility",
+          "met": false,
+          "note": "No valve handle or lever is visible; only the meter and a teal seal tab."
+        },
+        {
+          "id": "L1.no_leak",
+          "kind": "condition",
+          "met": null,
+          "note": "No shut-off valve is visible, so leaks at the valve cannot be judged."
+        },
+        {
+          "id": "L1.know_how",
+          "kind": "user",
+          "met": true
+        }
+      ],
+      "retakeHint": "Retake showing the flat's main stop valve or the appliance shut-off valve, with its handle fully in frame and well lit.",
+      "fix": null,
+      "sha256": "8480d4b61077dff0478e19508a7c88f9981de0067e219dbf3ae8b8de439e192e",
+      "resized": false,
+      "ms": 5384,
+      "note": "Close-up of a dirty meter dial, no valve in frame (sample photo)."
+    },
+    {
+      "file": "A06.jpg",
+      "checkId": "L1",
+      "expected": "retake",
+      "actual": "retake",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "L1.valve_visible",
+          "kind": "visibility",
+          "met": false,
+          "note": "Photo shows an outdoor water meter box in an excavation, not the flat's shut-off or an appliance valve."
+        },
+        {
+          "id": "L1.handle_visible",
+          "kind": "visibility",
+          "met": false,
+          "note": "No valve handle or lever is clearly visible on the fittings beside the meter box."
+        },
+        {
+          "id": "L1.no_leak",
+          "kind": "condition",
+          "met": true,
+          "note": "No drip, active leak or corrosion is visible on the pipe fittings in frame."
+        },
+        {
+          "id": "L1.know_how",
+          "kind": "user",
+          "met": true
+        }
+      ],
+      "retakeHint": "Retake the photo closer to the flat's own water shut-off or appliance valve, with its handle clearly in frame and well lit.",
+      "fix": null,
+      "sha256": "0a1de90327e24f3ca4012a0ad5e106632f2eb157271eb1f2fcab34fb72f5e4a7",
+      "resized": false,
+      "ms": 5429,
+      "note": "Street excavation with the utility's meter box, lid closed, no lever visible; wrong subject (the valve is inside the building)."
+    },
+    {
+      "file": "A07.jpg",
+      "checkId": "L1",
+      "expected": "verified",
+      "actual": "verified",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "L1.valve_visible",
+          "kind": "visibility",
+          "met": true,
+          "note": "A brass shut-off valve with a lever handle is clearly visible on the supply pipe."
+        },
+        {
+          "id": "L1.handle_visible",
+          "kind": "visibility",
+          "met": true,
+          "note": "The chrome and green lever handle is fully visible."
+        },
+        {
+          "id": "L1.no_leak",
+          "kind": "condition",
+          "met": true,
+          "note": "No drip, active leak, or water staining is visible at the valve or pipe joints."
+        },
+        {
+          "id": "L1.know_how",
+          "kind": "user",
+          "met": true
+        }
+      ],
+      "retakeHint": null,
+      "fix": null,
+      "sha256": "58f1ae16fff9cc8bfeb259d58b4e775def51664e25a06a14ccdacee9a5869e1d",
+      "resized": false,
+      "ms": 4635,
+      "note": "Brass ball valve with a green lever on copper pipe, clean (sample photo)."
+    },
+    {
+      "file": "A08.jpg",
+      "checkId": "L1",
+      "expected": "verified",
+      "actual": "verified",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "L1.valve_visible",
+          "kind": "visibility",
+          "met": true,
+          "note": "A brass shut-off valve with its body and connections is clearly visible in the centre of the photo."
+        },
+        {
+          "id": "L1.handle_visible",
+          "kind": "visibility",
+          "met": true,
+          "note": "The black lever handle, marked 17-10, is clearly visible below the valve body."
+        },
+        {
+          "id": "L1.no_leak",
+          "kind": "condition",
+          "met": true,
+          "note": "No drips, water, staining or active corrosion is visible at the valve or its joints."
+        },
+        {
+          "id": "L1.know_how",
+          "kind": "user",
+          "met": true
+        }
+      ],
+      "retakeHint": null,
+      "fix": null,
+      "sha256": "5553a9b5335f8e91cb00a3571aa9fda4d190891ddc060024b33df2009b388710",
+      "resized": false,
+      "ms": 3647,
+      "note": "Brass ball valve on copper pipe with a black lever; the lever position is ambiguous but never judged."
+    },
+    {
+      "file": "B01.jpg",
+      "checkId": "L2",
+      "expected": "retake",
+      "actual": "retake",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "L2.hose_visible",
+          "kind": "visibility",
+          "met": false,
+          "note": "Only a close-up of a braided hose is shown; the run from tap to machine is not visible."
+        },
+        {
+          "id": "L2.tap_visible",
+          "kind": "visibility",
+          "met": false,
+          "note": "No shut-off tap or wall fitting is visible in this photo."
+        },
+        {
+          "id": "L2.hose_ok",
+          "kind": "condition",
+          "met": true,
+          "note": "The visible braided sections show no drip, kink, bulge, crack or rust; connections are not shown."
+        }
+      ],
+      "retakeHint": "Take a wider photo showing the full hose from the wall tap to the machine, with the machine's shut-off tap clearly in frame.",
+      "fix": null,
+      "sha256": "a23fea9bf42d2032106ca11375d5a1fd1a6457ce9f9ddc691caa9b4413d6813d",
+      "resized": false,
+      "ms": 4817,
+      "note": "Macro of a braided steel hose only: neither the machine nor its tap is in frame."
+    },
+    {
+      "file": "B02.jpg",
+      "checkId": "L2",
+      "expected": "retake",
+      "actual": "retake",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "L2.hose_visible",
+          "kind": "visibility",
+          "met": null,
+          "note": "Braided hose is visible, but its full run to the machine is not in frame and the wall end is out of focus."
+        },
+        {
+          "id": "L2.tap_visible",
+          "kind": "visibility",
+          "met": null,
+          "note": "A blurred chrome valve sits at lower left; it is unclear if it is the machine's own shut-off tap."
+        },
+        {
+          "id": "L2.hose_ok",
+          "kind": "condition",
+          "met": true,
+          "note": "The visible braided hose and its fittings show no drip, kink, bulge, crack or rust."
+        }
+      ],
+      "retakeHint": "Step back so the whole hose runs from the wall tap to the machine, and focus on the tap handle and the machine's connection.",
+      "fix": null,
+      "sha256": "ef2450d47e3a4486137b528a0ecf58cc9646523e5163981b253c3bf1cd1d023b",
+      "resized": false,
+      "ms": 6158,
+      "note": "Braided hose into a chrome angle valve, shallow focus; no machine in frame, so the hose is not visible from tap to machine."
+    },
+    {
+      "file": "B03.jpg",
+      "checkId": "L5",
+      "expected": "fix_first",
+      "actual": "fix_first",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": true,
+      "expectedUrgent": true,
+      "criteria": [
+        {
+          "id": "L5.drain_visible",
+          "kind": "visibility",
+          "met": true,
+          "note": "A white PVC sink trap (P-trap) is clearly visible under the sink."
+        },
+        {
+          "id": "L5.clear",
+          "kind": "condition",
+          "met": false,
+          "note": "Water is dripping from the bottom of the trap, indicating an active leak."
+        }
+      ],
+      "retakeHint": null,
+      "fix": "Clean the drain or trap: lift the cover, remove hair and dirt, and rinse. Tighten a leaking nut.",
+      "sha256": "708acf04270e518216ce42a2312c3110e11b5584e2ca6d17b111d6152a56b196",
+      "resized": false,
+      "ms": 2991,
+      "note": "White plastic sink trap with water dripping from it: leak at the trap, urgent (sample photo)."
+    },
+    {
+      "file": "B04.jpg",
+      "checkId": "L3",
+      "expected": "retake",
+      "actual": "retake",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "L3.connection_visible",
+          "kind": "visibility",
+          "met": false,
+          "note": "Only a brass valve with white thread tape is shown; no dishwasher hose connection is visible."
+        },
+        {
+          "id": "L3.tap_present",
+          "kind": "condition",
+          "met": true,
+          "note": "A brass shut-off valve with a handle is visible, though its link to the dishwasher isn't shown."
+        },
+        {
+          "id": "L3.no_leak",
+          "kind": "condition",
+          "met": true,
+          "note": "No drip, kink, bulge or water stain is visible on the valve or fittings."
+        }
+      ],
+      "retakeHint": "Retake the photo under the sink showing the valve connected to the dishwasher's water hose, with both the hose and valve in frame.",
+      "fix": null,
+      "sha256": "269692e5a96652aa2f472c01f3e84b62121cfe2906d454a5f58a984765e31f80",
+      "resized": false,
+      "ms": 5592,
+      "note": "A hand holding a loose brass valve with thread tape: a loose part, not an installed connection. Never describe the person."
+    },
+    {
+      "file": "B05.jpg",
+      "checkId": "L5",
+      "expected": "verified",
+      "actual": "verified",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "L5.drain_visible",
+          "kind": "visibility",
+          "met": true,
+          "note": "A white sink P-trap under the basin is clearly visible in the centre of the frame."
+        },
+        {
+          "id": "L5.clear",
+          "kind": "condition",
+          "met": true,
+          "note": "No visible standing water, drips, leak or blockage at the trap or its joints."
+        }
+      ],
+      "retakeHint": null,
+      "fix": null,
+      "sha256": "bbf63cd7242d488085b4fa0f0583525476ea72edf5461c60bba1660c46bd6ad6",
+      "resized": false,
+      "ms": 3030,
+      "note": "Open under-sink cupboard: plastic trap with an appliance branch, dry clean floor, no leak. (No drip tray, but that is L4, not L5.)"
+    },
+    {
+      "file": "B06.jpg",
+      "checkId": "L5",
+      "expected": "retake",
+      "actual": "retake",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "L5.drain_visible",
+          "kind": "visibility",
+          "met": null,
+          "note": "Cabinet interior is partly blocked from view; a pipe is faintly visible but a clear sink trap cannot be confirmed."
+        },
+        {
+          "id": "L5.clear",
+          "kind": "condition",
+          "met": null,
+          "note": "Trap and drain area are obstructed, so blockage, standing water or leaks cannot be judged."
+        }
+      ],
+      "retakeHint": "Retake with the cabinet open and clear of people, pointing the camera straight at the sink trap and pipes.",
+      "fix": null,
+      "sha256": "86a1fcd14df610adc8a33ac918ab16923e8e1efe1d3a601610f8e6dbc20f4003",
+      "resized": false,
+      "ms": 3376,
+      "note": "A person lying in an open sink cupboard (legs only); the trap is not clearly visible. Never describe the person."
+    },
+    {
+      "file": "B07.jpg",
+      "checkId": "L5",
+      "expected": "retake",
+      "actual": "retake",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "L5.drain_visible",
+          "kind": "visibility",
+          "met": false,
+          "note": "A stainless sink basin with its plughole is visible, but the under-sink trap is hidden behind closed cabinet doors."
+        },
+        {
+          "id": "L5.clear",
+          "kind": "condition",
+          "met": null,
+          "note": "Basins look dry with no visible standing water, but the trap itself cannot be seen to judge blockage or leaks."
+        }
+      ],
+      "retakeHint": "Open the sink cabinet doors and photograph the pipework under the sink, with the trap clearly in frame.",
+      "fix": null,
+      "sha256": "1d387a45db36887a7a587d5734894bf06feb7d3cbca68128bf36d0faae7cc70f",
+      "resized": false,
+      "ms": 5292,
+      "note": "Kitchen with the lower cupboard doors closed; the trap is not visible (sample photo)."
+    },
+    {
+      "file": "B08.jpg",
+      "checkId": "L3",
+      "expected": "retake",
+      "actual": "retake",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "L3.connection_visible",
+          "kind": "visibility",
+          "met": false,
+          "note": "The visible hose and white fitting connect to a basin above, not a dishwasher."
+        },
+        {
+          "id": "L3.tap_present",
+          "kind": "condition",
+          "met": false,
+          "note": "A chrome angle shut-off valve is visible, but it appears to supply the basin, not a dishwasher."
+        },
+        {
+          "id": "L3.no_leak",
+          "kind": "condition",
+          "met": true,
+          "note": "No drips, kinks, bulges or water stains are visible on the hose or valve."
+        }
+      ],
+      "retakeHint": "Retake the photo at the dishwasher's own water inlet, showing the hose connection and its dedicated shut-off valve in focus.",
+      "fix": null,
+      "sha256": "78093c7a19b2660ae38b86e9011041e60c4b89f85d6cb5b54290825132d36ac0",
+      "resized": false,
+      "ms": 6960,
+      "note": "Toilet supply: braided hose and angle stop valve under a toilet cistern; wrong appliance for the dishwasher check."
+    },
+    {
+      "file": "C01.jpg",
+      "checkId": "F2",
+      "expected": "verified",
+      "actual": "verified",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "F2.board_visible",
+          "kind": "visibility",
+          "met": true,
+          "note": "Distribution board with miniature circuit breakers and RCDs fills most of the frame."
+        },
+        {
+          "id": "F2.no_damage",
+          "kind": "condition",
+          "met": true,
+          "note": "No scorch marks, damage or exposed live parts visible; filler plates and covers appear in place."
+        },
+        {
+          "id": "F2.rcd_visible",
+          "kind": "condition",
+          "met": true,
+          "note": "Several RCDs with blue TEST buttons are visible, including the bottom-right unit."
+        },
+        {
+          "id": "F2.clear_front",
+          "kind": "condition",
+          "met": true,
+          "note": "Nothing is stored against or in front of the board."
+        }
+      ],
+      "retakeHint": null,
+      "fix": null,
+      "sha256": "9343f415ddefc06d9a729fd31f5f040f39d663da8959b661844e10bd194dc384",
+      "resized": false,
+      "ms": 4595,
+      "note": "Modern ABB board: RCDs with TEST buttons, B16 breakers, labelled circuits, cover on (sample photo)."
+    },
+    {
+      "file": "C02.jpg",
+      "checkId": "F2",
+      "expected": "fix_first",
+      "actual": "retake",
+      "correct": false,
+      "lenientCorrect": false,
+      "urgent": true,
+      "expectedUrgent": true,
+      "criteria": [
+        {
+          "id": "F2.board_visible",
+          "kind": "visibility",
+          "met": null,
+          "note": "Shows an electricity meter and service fitting on a backboard, unclear if this is a fuse box or distribution board."
+        },
+        {
+          "id": "F2.no_damage",
+          "kind": "condition",
+          "met": false,
+          "note": "Loose wiring and exposed terminals are visible on the board, and the cover appears absent."
+        },
+        {
+          "id": "F2.rcd_visible",
+          "kind": "condition",
+          "met": false,
+          "note": "No residual-current device with a TEST button is visible."
+        },
+        {
+          "id": "F2.clear_front",
+          "kind": "condition",
+          "met": false,
+          "note": "Tools, fittings and loose parts are stored on the floor in front of the board."
+        }
+      ],
+      "retakeHint": "Retake from a closer, straight-on angle so the fuse box or distribution board and its front cover are clearly in frame.",
+      "fix": null,
+      "sha256": "9d686feb89493af0ff15349479610e41f0053493fa41b907b7328338722cef17",
+      "resized": false,
+      "ms": 8144,
+      "note": "Old single-phase installation with porcelain screw-fuse holders, a removed fuse and tools on the floor: exposed parts, no RCD."
+    },
+    {
+      "file": "C03.jpg",
+      "checkId": "F2",
+      "expected": "retake",
+      "actual": "fix_first",
+      "correct": false,
+      "lenientCorrect": true,
+      "urgent": true,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "F2.board_visible",
+          "kind": "visibility",
+          "met": true,
+          "note": "A Kanlux DB1125 distribution board enclosure is visible, though it appears empty and unassembled."
+        },
+        {
+          "id": "F2.no_damage",
+          "kind": "condition",
+          "met": false,
+          "note": "The front cover is detached from the backplate, leaving the interior open with bus bars and DIN rail exposed."
+        },
+        {
+          "id": "F2.rcd_visible",
+          "kind": "condition",
+          "met": false,
+          "note": "No residual-current device with a TEST button is visible in the enclosure."
+        },
+        {
+          "id": "F2.clear_front",
+          "kind": "condition",
+          "met": true,
+          "note": "Nothing is stored in front of the board."
+        }
+      ],
+      "retakeHint": null,
+      "fix": "Clear the space in front. For damage, scorch marks or a missing RCD, call an authorised electrician. Don't fix it yourself.",
+      "sha256": "30bd096f38b2fe9c11d459cbe8b0c13f90f8dae6179e98793e249e37d4e10d81",
+      "resized": false,
+      "ms": 8010,
+      "note": "An empty consumer-unit enclosure with its cover beside it, bare DIN rail, no breakers: not an installed board. fix_first (missing cover, no RCD) is defensible. Never verified."
+    },
+    {
+      "file": "C04.jpg",
+      "checkId": "F2",
+      "expected": "fix_first",
+      "actual": "fix_first",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": true,
+      "expectedUrgent": true,
+      "criteria": [
+        {
+          "id": "F2.board_visible",
+          "kind": "visibility",
+          "met": true,
+          "note": "A distribution board with DIN-rail breakers and RCBOs is clearly visible."
+        },
+        {
+          "id": "F2.no_damage",
+          "kind": "condition",
+          "met": false,
+          "note": "The front cover appears absent, leaving breakers, wiring and terminals exposed."
+        },
+        {
+          "id": "F2.rcd_visible",
+          "kind": "condition",
+          "met": true,
+          "note": "RCBO1, RCBO2 and the RC-labelled device show test buttons."
+        },
+        {
+          "id": "F2.clear_front",
+          "kind": "condition",
+          "met": true,
+          "note": "Nothing is stored in front of the board."
+        }
+      ],
+      "retakeHint": null,
+      "fix": "Clear the space in front. For damage, scorch marks or a missing RCD, call an authorised electrician. Don't fix it yourself.",
+      "sha256": "af9ed667c939f1036a2a41af03dd60570c64b3fa74314d24fb1929d687ad87d5",
+      "resized": false,
+      "ms": 8266,
+      "note": "Consumer unit with its front cover removed: RCBOs and exposed terminals, urgent (sample photo)."
+    },
+    {
+      "file": "C05.jpg",
+      "checkId": "F2",
+      "expected": "verified",
+      "actual": "retake",
+      "correct": false,
+      "lenientCorrect": false,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "F2.board_visible",
+          "kind": "visibility",
+          "met": true,
+          "note": "The distribution board with breakers numbered 1 to 13 is clearly visible."
+        },
+        {
+          "id": "F2.no_damage",
+          "kind": "condition",
+          "met": true,
+          "note": "No visible damage, scorch marks or exposed live parts; the inner cover is in place."
+        },
+        {
+          "id": "F2.rcd_visible",
+          "kind": "condition",
+          "met": null,
+          "note": "Two breakers with yellow markings may be RCD or combination units, but no TEST button is clearly visible."
+        },
+        {
+          "id": "F2.clear_front",
+          "kind": "condition",
+          "met": true,
+          "note": "Nothing is stored in front of the board."
+        }
+      ],
+      "retakeHint": "Retake the photo closer and straight-on, with the yellow-marked breakers in sharp focus so any TEST button is visible.",
+      "fix": null,
+      "sha256": "c3a5d7b08caa1cc6cbe52f8937b966249dbd6ba583a69c34079e60b4b1b9ce40",
+      "resized": false,
+      "ms": 6307,
+      "note": "US breaker panel, door open, dead front on, handwritten circuit numbers, two GFCI breakers with TEST buttons (residual-current protection)."
+    },
+    {
+      "file": "C06.jpg",
+      "checkId": "F2",
+      "expected": "retake",
+      "actual": "retake",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "F2.board_visible",
+          "kind": "visibility",
+          "met": false,
+          "note": "This is a product photo of a single ABB RCD on a plain background, not an installed fuse box or distribution board."
+        },
+        {
+          "id": "F2.no_damage",
+          "kind": "condition",
+          "met": true,
+          "note": "The RCD housing, cover and terminals appear intact with no visible damage or scorching."
+        },
+        {
+          "id": "F2.rcd_visible",
+          "kind": "condition",
+          "met": true,
+          "note": "An RCD with a TEST button and status indicator is clearly visible."
+        },
+        {
+          "id": "F2.clear_front",
+          "kind": "condition",
+          "met": true,
+          "note": "Nothing is stored in front of the device."
+        }
+      ],
+      "retakeHint": "Retake the photo of the installed fuse box or distribution board in your home, standing back so the whole board and its surroundings are in frame.",
+      "fix": null,
+      "sha256": "53a588e0605f7670dc34efa2d315cfe6b5a30bbafbb92512e8248e7da846e5b8",
+      "resized": false,
+      "ms": 4245,
+      "note": "Product photo of an ABB RCD on a white background: not the home's board."
+    },
+    {
+      "file": "C07.jpg",
+      "checkId": "F2",
+      "expected": "fix_first",
+      "actual": "fix_first",
+      "correct": true,
+      "lenientCorrect": true,
+      "urgent": false,
+      "expectedUrgent": false,
+      "criteria": [
+        {
+          "id": "F2.board_visible",
+          "kind": "visibility",
+          "met": true,
+          "note": "A large industrial electrical distribution panel with several enclosures is clearly visible."
+        },
+        {
+          "id": "F2.no_damage",
+          "kind": "condition",
+          "met": false,
+          "note": "Rust patches on the mounting board and peeling paint on enclosures are visible; no live parts exposed."
+        },
+        {
+          "id": "F2.rcd_visible",
+          "kind": "condition",
+          "met": false,
+          "note": "No residual-current device with a TEST button is visible in this photo."
+        },
+        {
+          "id": "F2.clear_front",
+          "kind": "condition",
+          "met": true,
+          "note": "Nothing is stored in front of the panel; only fixed cabling is present."
+        }
+      ],
+      "retakeHint": null,
+      "fix": "Clear the space in front. For damage, scorch marks or a missing RCD, call an authorised electrician. Don't fix it yourself.",
+      "sha256": "30808bb511fb4666b26cba649080fef7eb734958809782d6bba51480417be1ba",
+      "resized": false,
+      "ms": 7568,
+      "note": "Old industrial cast-metal switchgear (ASEA) with covers on but no RCD visible. A retake (not a home board) is defensible. Never verified."
+    },
+    {
+      "file": "C08.jpg",
+      "checkId": "F2",
+      "expected": "fix_first",
+      "actual": "retake",
+      "correct": false,
+      "lenientCorrect": false,
+      "urgent": false,
+      "expectedUrgent": true,
+      "criteria": [
+        {
+          "id": "F2.board_visible",
+          "kind": "visibility",
+          "met": true,
+          "note": "An open metal distribution board (ШИ-25M) with internal breakers, meter and terminals is clearly visible."
+        },
+        {
+          "id": "F2.no_damage",
+          "kind": "condition",
+          "met": true,
+          "note": "Enclosure and hinged door appear intact with no visible scorch marks or damage; the door is open."
+        },
+        {
+          "id": "F2.rcd_visible",
+          "kind": "condition",
+          "met": null,
+          "note": "A small switch module is at the upper right, but no TEST button is clearly visible at this resolution."
+        },
+        {
+          "id": "F2.clear_front",
+          "kind": "condition",
+          "met": true,
+          "note": "Nothing is stored in front of or against the board."
+        }
+      ],
+      "retakeHint": "Retake from closer and straight on, with the door fully open, so any RCD test button on the breakers is clearly visible.",
+      "fix": null,
+      "sha256": "d0db1b0aec166e744c5996c62f627da89e5c94a1aa8a8e6629babfb3406d2ad1",
+      "resized": false,
+      "ms": 6749,
+      "note": "Open metal cabinet in an outbuilding: meter, screw fuses, main switch and exposed empty fuse bases; RCD not clearly visible."
+    }
+  ]
+}

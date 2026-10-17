@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "sha256": "58f1ae16fff9cc8bfeb259d58b4e775def51664e25a06a14ccdacee9a5869e1d",
+  "checkId": "L1",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-17T17:35:00.979Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "L1.valve_visible",
+        "met": true,
+        "note": "A brass shut-off valve on a copper pipe is clearly visible."
+      },
+      {
+        "id": "L1.handle_visible",
+        "met": true,
+        "note": "The lever handle with a green grip is fully in frame."
+      },
+      {
+        "id": "L1.no_leak",
+        "met": true,
+        "note": "No drips, water stains or heavy corrosion seen; only normal tarnish and solder marks."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "valve body",
+        "bbox_px": [
+          180,
+          0,
+          830,
+          720
+        ]
+      },
+      {
+        "label": "handle",
+        "bbox_px": [
+          745,
+          200,
+          1010,
+          1160
+        ]
+      },
+      {
+        "label": "pipe joints",
+        "bbox_px": [
+          215,
+          700,
+          530,
+          1470
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": null,
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

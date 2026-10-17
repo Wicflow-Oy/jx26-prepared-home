@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "sha256": "8480d4b61077dff0478e19508a7c88f9981de0067e219dbf3ae8b8de439e192e",
+  "checkId": "L1",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-17T17:35:30.423Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "L1.valve_visible",
+        "met": false,
+        "note": "The photo shows a water meter dial, not a shut-off valve."
+      },
+      {
+        "id": "L1.handle_visible",
+        "met": false,
+        "note": "No valve handle or lever is visible, only a meter face."
+      },
+      {
+        "id": "L1.no_leak",
+        "met": null,
+        "note": "No valve is in frame, so leaks or corrosion at a valve can't be judged."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "water meter",
+        "bbox_px": [
+          240,
+          90,
+          1000,
+          900
+        ]
+      }
+    ],
+    "retakeHint": "Step back and photograph the shut-off valve itself, with its handle or lever and the pipe around it in frame.",
+    "fixSuggestion": null,
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

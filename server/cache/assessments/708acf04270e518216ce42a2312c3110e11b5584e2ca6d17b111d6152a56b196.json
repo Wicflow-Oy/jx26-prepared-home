@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "sha256": "708acf04270e518216ce42a2312c3110e11b5584e2ca6d17b111d6152a56b196",
+  "checkId": "L5",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-17T17:35:13.630Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "L5.drain_visible",
+        "met": true,
+        "note": "A white P-trap under a sink is clearly visible."
+      },
+      {
+        "id": "L5.clear",
+        "met": false,
+        "note": "A stream of water is dripping from the bottom of the trap."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "sink trap",
+        "bbox_px": [
+          142,
+          30,
+          720,
+          622
+        ]
+      },
+      {
+        "label": "water drip",
+        "bbox_px": [
+          412,
+          618,
+          476,
+          750
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": "Place a bucket under the trap and have a plumber check and repair the leaking trap soon.",
+    "urgent": true,
+    "model": "claude-sonnet-5-5"
+  }
+}
