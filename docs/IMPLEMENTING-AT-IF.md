@@ -29,6 +29,15 @@ Prepared Home is a voluntary moving-day check-up inside the home insurance app. 
 2. **The written terms.** The relief must be in the terms or the pre-contract information before it applies to anyone.
 3. **The tone and brand.** The product can run If-branded or neutral (one switch: `app/src/prepared-home/brand.ts`).
 
+## Proposed terms wording (for If's legal team to adapt)
+> **Lower deductible for a prepared home.** The deductible for leak, fire or freeze damage is [amount] instead of [standard amount] if, on the date of the damage, all Prepared Home checks for that risk were completed and current. The checks count only when they were made with photos taken in the If app of the insured home. When you make a claim, we may ask you to share the photos; they must match the checks and the insured home. If they don't, or if a photo shows something other than the insured home (for example a screen or a printed picture), the standard deductible applies. Prepared Home never reduces your cover.
+
+**How the product enforces it today:**
+- **Screens and printouts:** the vision check flags photos of a screen, a printout or another photo, and they are always "Retake".
+- **In-app camera only:** only photos taken with the app's camera count. Gallery and example photos are shown but never count toward the lower deductible.
+- **Fingerprints:** each counted check stores the SHA-256 fingerprint of the exact photo. At a claim, shared photos are compared with it, so a photo can't be swapped afterwards.
+- **A person decides:** the claims handler sees the dated checks and the photos, and can compare them with the damaged home.
+
 ## What If connects (integration points)
 | Integration | What it means | How the code supports it |
 |---|---|---|
