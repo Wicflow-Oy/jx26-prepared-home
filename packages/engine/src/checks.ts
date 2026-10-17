@@ -14,8 +14,8 @@ export const CHECKS: CheckDefinition[] = [
     title: t("Mistä vesi suljetaan", "Var vattnet stängs av", "Where the water shuts off"),
     coach: t(
       "Etsi veden sulkuventtiili ja kuvaa se niin, että kahva näkyy.",
-      "Leta upp vattnets avstängningsventil och fotografera den så att handtaget syns.",
-      "Find the water shut-off valve and photograph it so the handle shows.",
+      "Leta upp avstängningsventilen för vattnet. Ta en bild där handtaget syns.",
+      "Find the water shut-off valve. Take a photo with the handle in view.",
     ),
     criteria: [
       {
@@ -31,9 +31,9 @@ export const CHECKS: CheckDefinition[] = [
         id: "L1.handle_visible",
         kind: "visibility",
         text: t(
-          "Sen kahva tai vipu näkyy",
-          "Dess handtag eller spak syns",
-          "Its handle or lever is visible",
+          "Venttiilin kahva tai vipu näkyy",
+          "Ventilens handtag eller spak syns",
+          "The valve's handle or lever is visible",
         ),
       },
       {
@@ -42,7 +42,7 @@ export const CHECKS: CheckDefinition[] = [
         text: t(
           "Venttiilissä ei ole vuotoa, tippumista, ruostetta eikä vesijälkiä",
           "Inget läckage, dropp, korrosion eller vattenfläckar vid ventilen",
-          "No leak, drip, corrosion or water stains at the valve",
+          "No leaks, drips, corrosion or water stains at the valve",
         ),
       },
       {
@@ -56,8 +56,8 @@ export const CHECKS: CheckDefinition[] = [
     notApplicableAllowed: false,
     defaultOwner: { default: "me", flat: "property_manager" },
     fixHint: t(
-      "Jos venttiili vuotaa tai on jumissa, ota yhteys putkimieheen tai taloyhtiössä isännöitsijään. Opettele sulkemaan se ennen kuin tarvitset sitä.",
-      "Om ventilen droppar eller sitter fast, kontakta en rörmokare eller disponenten i ett bostadsbolag. Lär dig stänga den innan du behöver det.",
+      "Jos venttiili vuotaa tai on jumissa, ota yhteys putkimieheen tai taloyhtiössä isännöitsijään. Opettele sulkemaan se, ennen kuin tarvitset sitä.",
+      "Om ventilen droppar eller sitter fast, kontakta en rörmokare eller, i ett husbolag, disponenten. Lär dig stänga den innan det behövs.",
       "If the valve drips or is stuck, call a plumber or, in a flat, the property manager. Learn how to close it before you need to.",
     ),
     recheck: { kind: "yearly" },
@@ -67,41 +67,41 @@ export const CHECKS: CheckDefinition[] = [
     peril: "leak",
     homeTypes: ["flat", "house", "cottage"],
     title: t(
-      "Pesukoneen letku ja oma hana",
-      "Tvättmaskinens slang och egen kran",
-      "Washing-machine hose and its own tap",
+      "Pesukoneen letku ja sulkuventtiili",
+      "Tvättmaskinens slang och avstängningsventil",
+      "Washing machine hose and valve",
     ),
     coach: t(
-      "Vedä konetta tarvittaessa hieman esiin. Kuvaa letku hanasta koneeseen sekä hana.",
-      "Dra vid behov ut maskinen lite. Fotografera slangen från kranen till maskinen, och kranen.",
-      "Pull the machine out a little if needed. Show the hose from the tap to the machine, and the tap.",
+      "Vedä konetta tarvittaessa hieman esiin. Kuvaa sulkuventtiili ja letku venttiilistä koneeseen asti.",
+      "Dra vid behov ut maskinen lite. Ta en bild där ventilen och hela slangen fram till maskinen syns.",
+      "Pull the machine out a little if needed. Take a photo of the valve and the hose all the way to the machine.",
     ),
     criteria: [
       {
         id: "L2.hose_visible",
         kind: "visibility",
         text: t(
-          "Täyttöletku näkyy hanasta koneeseen asti",
-          "Påfyllningsslangen syns från kranen till maskinen",
-          "The fill hose is visible from the tap to the machine",
+          "Täyttöletku näkyy venttiilistä koneeseen asti",
+          "Påfyllningsslangen syns från ventilen till maskinen",
+          "The inlet hose is visible from the valve to the machine",
         ),
       },
       {
         id: "L2.tap_visible",
         kind: "visibility",
         text: t(
-          "Koneen oma sulkuhana näkyy",
-          "Maskinens egen avstängningskran syns",
-          "The machine's own shut-off tap is visible",
+          "Koneen oma sulkuventtiili näkyy",
+          "Maskinens egen avstängningsventil syns",
+          "The machine's own shut-off valve is visible",
         ),
       },
       {
         id: "L2.hose_ok",
         kind: "condition",
         text: t(
-          "Letkussa ja liitoksissa ei ole tippumista, taitetta, pullistumaa, halkeamaa eikä ruostetta",
-          "Inget dropp, veck, bula, spricka eller rost på slangen eller kopplingarna",
-          "No drip, kink, bulge, crack or rust on the hose or its connections",
+          "Letkussa tai liitoksissa ei ole tippumista, taitteita, pullistumia, halkeamia eikä ruostetta",
+          "Inga droppar, veck, bulor, sprickor eller rost på slangen eller kopplingarna",
+          "No drips, kinks, bulges, cracks or rust on the hose or its connections",
         ),
       },
     ],
@@ -110,9 +110,9 @@ export const CHECKS: CheckDefinition[] = [
     notApplicableAllowed: true,
     defaultOwner: { default: "me" },
     fixHint: t(
-      "Vaihda kulunut letku uuteen paineenkestävään letkuun. Sulje hana, kun kone ei ole käytössä.",
-      "Byt en sliten slang mot en ny trycktålig slang. Stäng kranen när maskinen inte används.",
-      "Replace a worn hose with a new pressure-proof hose. Close the tap when the machine is not in use.",
+      "Vaihda kulunut letku uuteen paineenkestävään letkuun. Sulje venttiili, kun kone ei ole käytössä.",
+      "Byt ut en sliten slang mot en ny, trycktålig slang. Stäng ventilen när maskinen inte används.",
+      "Replace a worn hose with a new pressure-proof one. Close the valve when the machine is not in use.",
     ),
     recheck: { kind: "yearly" },
   },
@@ -121,14 +121,14 @@ export const CHECKS: CheckDefinition[] = [
     peril: "leak",
     homeTypes: ["flat", "house", "cottage"],
     title: t(
-      "Astianpesukoneen letku ja hana",
-      "Diskmaskinens slang och kran",
-      "Dishwasher hose and tap",
+      "Astianpesukoneen letku ja sulkuventtiili",
+      "Diskmaskinens slang och avstängningsventil",
+      "Dishwasher hose and valve",
     ),
     coach: t(
-      "Avaa altaan alakaappi tai astianpesukoneen vieressä oleva sokkeli. Kuvaa vesiliitäntä.",
-      "Öppna skåpet under diskbänken eller sockeln bredvid diskmaskinen. Fotografera vattenanslutningen.",
-      "Open the cabinet under the sink, or the plinth next to the dishwasher. Show the water connection.",
+      "Avaa tiskialtaan alakaappi tai irrota astianpesukoneen vieressä oleva sokkelilista. Kuvaa vesiliitäntä.",
+      "Öppna skåpet under diskbänken eller ta loss sockeln bredvid diskmaskinen. Ta en bild av vattenanslutningen.",
+      "Open the cabinet under the sink, or take off the kickboard next to the dishwasher. Take a photo of the water connection.",
     ),
     criteria: [
       {
@@ -144,34 +144,34 @@ export const CHECKS: CheckDefinition[] = [
         id: "L3.tap_present",
         kind: "condition",
         text: t(
-          "Astianpesukoneen sulkuhana näkyy",
-          "En avstängningskran för diskmaskinen syns",
-          "A shut-off tap for the dishwasher is visible",
+          "Astianpesukoneen sulkuventtiili näkyy",
+          "En avstängningsventil för diskmaskinen syns",
+          "A shut-off valve for the dishwasher is visible",
         ),
       },
       {
         id: "L3.no_leak",
         kind: "condition",
         text: t(
-          "Ei tippumista, taitetta, pullistumaa eikä vesijälkiä",
-          "Inget dropp, veck, bula eller vattenfläckar",
-          "No drip, kink, bulge or water stains",
+          "Ei tippumista, taitteita, pullistumia eikä vesijälkiä",
+          "Inga droppar, veck, bulor eller vattenfläckar",
+          "No drips, kinks, bulges or water stains",
         ),
       },
     ],
     clauseIds: [],
     clauseFit: "none",
     guideNote: t(
-      "Ifin kotiopas: astianpesukoneelle oma sulkuhana ja kaukalo. Ehtojen kohta 5.5.6 soveltuvin osin.",
-      "Ifs hemguide: en egen avstängningskran och ett tråg för diskmaskinen. Villkorens punkt 5.5.6 i tillämpliga delar.",
-      "If's home guide: a shut-off tap and a drip tray for the dishwasher. Terms 5.5.6 by analogy.",
+      "Ifin kotioppaan vinkki: asenna astianpesukoneelle oma sulkuventtiili ja turvakaukalo samaan tapaan kuin pesukoneelle (ehtojen kohta 5.5.6).",
+      "Tips ur Ifs hemguide: ge diskmaskinen en egen avstängningsventil och ett tråg, på samma sätt som tvättmaskinen (villkorens punkt 5.5.6).",
+      "Tip from If's home guide: give the dishwasher its own shut-off valve and a drip tray, as for a washing machine (terms 5.5.6).",
     ),
     notApplicableAllowed: true,
     defaultOwner: { default: "me" },
     fixHint: t(
-      "Pyydä putkimiestä asentamaan astianpesukoneelle oma sulkuhana. Vaihda kulunut letku.",
-      "Låt en rörmokare montera en egen avstängningskran för diskmaskinen. Byt en sliten slang.",
-      "Have a plumber fit a shut-off tap for the dishwasher. Replace a worn hose.",
+      "Pyydä putkimiestä asentamaan astianpesukoneelle oma sulkuventtiili. Vaihda kulunut letku.",
+      "Låt en rörmokare montera en egen avstängningsventil för diskmaskinen. Byt ut en sliten slang.",
+      "Have a plumber fit a shut-off valve for the dishwasher. Replace a worn hose.",
     ),
     recheck: { kind: "yearly" },
   },
@@ -185,16 +185,16 @@ export const CHECKS: CheckDefinition[] = [
       "Drip trays under the washing machine and fridge",
     ),
     coach: t(
-      "Kuvaa lattia pesukoneen tai jääkaapin alta ja edestä. Näytä kaukalon reuna tai lähin lattiakaivo.",
-      "Fotografera golvet under och framför tvättmaskinen eller kylskåpet. Visa trågets kant eller närmaste golvbrunn.",
-      "Photograph the floor under and in front of the washing machine or fridge. Show the tray edge or the nearest floor drain.",
+      "Kuvaa lattia pesukoneen tai jääkaapin alta ja edestä niin, että turvakaukalon reuna tai lähin lattiakaivo näkyy.",
+      "Ta en bild av golvet under och framför tvättmaskinen eller kylskåpet. Visa trågets kant eller närmaste golvbrunn.",
+      "Take a photo of the floor under and in front of the washing machine or fridge. Show the edge of the drip tray or the nearest floor drain.",
     ),
     criteria: [
       {
         id: "L4.floor_visible",
         kind: "visibility",
         text: t(
-          "Lattia laitteen alla näkyy",
+          "Laitteen alla oleva lattia näkyy",
           "Golvet under apparaten syns",
           "The floor under the appliance is visible",
         ),
@@ -203,18 +203,18 @@ export const CHECKS: CheckDefinition[] = [
         id: "L4.tray_or_drain",
         kind: "condition",
         text: t(
-          "Laitteen alla on kaukalo tai aivan vieressä on lattiakaivo",
+          "Laitteen alla on turvakaukalo tai aivan vieressä lattiakaivo",
           "Det finns ett tråg under apparaten eller en golvbrunn alldeles intill",
-          "A drip tray is under it, or a floor drain is right next to it",
+          "There is a drip tray under the appliance, or a floor drain right next to it",
         ),
       },
       {
         id: "L4.dry",
         kind: "condition",
         text: t(
-          "Lattialla tai kaukalossa ei ole vettä eikä jälkiä",
-          "Inget vatten eller fläckar på golvet eller i tråget",
-          "No water or stains on the floor or tray",
+          "Lattialla tai turvakaukalossa ei ole vettä eikä vesijälkiä",
+          "Inget vatten och inga fläckar på golvet eller i tråget",
+          "No water or stains on the floor or in the tray",
         ),
       },
     ],
@@ -224,7 +224,7 @@ export const CHECKS: CheckDefinition[] = [
     defaultOwner: { default: "me" },
     fixHint: t(
       "Laita laitteen alle turvakaukalo. Niitä saa edullisesti rautakaupasta.",
-      "Ställ ett tråg under apparaten. Det finns billigt i järnhandeln.",
+      "Ställ ett tråg under apparaten. Sådana får du billigt i järnhandeln.",
       "Put a drip tray under the appliance. Hardware stores sell them cheaply.",
     ),
     recheck: { kind: "yearly" },
@@ -233,18 +233,18 @@ export const CHECKS: CheckDefinition[] = [
     id: "L5",
     peril: "leak",
     homeTypes: ["flat", "house", "cottage"],
-    title: t("Lattiakaivo ja vesilukko", "Golvbrunn och vattenlås", "Floor drain and sink trap"),
+    title: t("Lattiakaivo ja hajulukko", "Golvbrunn och vattenlås", "Floor drain and sink trap"),
     coach: t(
-      "Kuvaa kylpyhuoneen lattiakaivo ylhäältä tai altaan alla oleva vesilukko.",
-      "Fotografera badrummets golvbrunn uppifrån eller vattenlåset under ett handfat.",
-      "Photograph the bathroom floor drain from above, or the trap under a sink.",
+      "Kuvaa kylpyhuoneen lattiakaivo ylhäältä tai pesualtaan alla oleva hajulukko.",
+      "Ta en bild av golvbrunnen i badrummet uppifrån, eller av vattenlåset under ett handfat.",
+      "Take a photo of the bathroom floor drain from above, or of the trap under a sink.",
     ),
     criteria: [
       {
         id: "L5.drain_visible",
         kind: "visibility",
         text: t(
-          "Lattiakaivo tai vesilukko näkyy",
+          "Lattiakaivo tai hajulukko näkyy",
           "En golvbrunn eller ett vattenlås syns",
           "A floor drain or a sink trap is visible",
         ),
@@ -253,9 +253,9 @@ export const CHECKS: CheckDefinition[] = [
         id: "L5.clear",
         kind: "condition",
         text: t(
-          "Kaivossa tai vesilukossa ei ole tukosta, seisovaa vettä eikä vuotoa",
+          "Kaivossa tai hajulukossa ei ole tukosta, seisovaa vettä eikä vuotoa",
           "Inget stopp, stående vatten eller läckage vid brunnen eller vattenlåset",
-          "No blockage, standing water or leak at the drain or trap",
+          "No blockage, standing water or leaks at the drain or trap",
         ),
       },
     ],
@@ -264,9 +264,9 @@ export const CHECKS: CheckDefinition[] = [
     notApplicableAllowed: false,
     defaultOwner: { default: "me" },
     fixHint: t(
-      "Puhdista kaivo tai vesilukko: nosta kansi, poista hiukset ja lika ja huuhtele. Kiristä vuotava mutteri.",
-      "Rengör brunnen eller vattenlåset: lyft locket, ta bort hår och smuts och spola. Dra åt en läckande mutter.",
-      "Clean the drain or trap: lift the cover, remove hair and dirt, and rinse. Tighten a leaking nut.",
+      "Puhdista kaivo tai hajulukko: nosta kansi pois, poista hiukset ja lika ja huuhtele. Kiristä vuotava mutteri.",
+      "Rengör brunnen eller vattenlåset: lyft av locket, ta bort hår och smuts och spola. Dra åt muttern om den läcker.",
+      "Clean the drain or trap: lift off the cover, remove hair and dirt, and rinse. If a nut leaks, tighten it.",
     ),
     recheck: { kind: "yearly" },
   },
@@ -276,9 +276,9 @@ export const CHECKS: CheckDefinition[] = [
     homeTypes: ["flat", "house", "cottage"],
     title: t("Kylpyhuoneen silikonisaumat", "Badrummets silikonfogar", "Bathroom silicone seams"),
     coach: t(
-      "Kuvaa läheltä lattian ja seinän liitosta sekä suihkun tai ammeen reunoja. Käytä hyvää valoa.",
-      "Fotografera nära där golvet möter väggen och vid duschens eller badkarets kanter. Använd bra ljus.",
-      "Get close to where the floor meets the wall, and to the shower or bath edges. Use good light.",
+      "Kuvaa läheltä saumat lattian ja seinän rajassa sekä suihkun tai ammeen ympärillä. Varmista, että valoa on riittävästi.",
+      "Ta en närbild av fogarna där golvet möter väggen och runt duschen eller badkaret. Se till att det är ljust.",
+      "Take close-ups of the seams where the floor meets the wall and around the shower or bath. Use good light.",
     ),
     criteria: [
       {
@@ -287,7 +287,7 @@ export const CHECKS: CheckDefinition[] = [
         text: t(
           "Lattian ja seinän sekä suihkun tai ammeen saumat näkyvät läheltä",
           "Fogarna mellan golv och vägg och vid dusch eller badkar syns på nära håll",
-          "The seams at floor-wall joints and shower or bath edges are visible up close",
+          "The seams where the floor meets the wall and around the shower or bath are visible up close",
         ),
       },
       {
@@ -295,8 +295,8 @@ export const CHECKS: CheckDefinition[] = [
         kind: "condition",
         text: t(
           "Saumat ovat ehjät: ei halkeamia, rakoja, irtoamista eikä mustaa hometta",
-          "Fogarna är hela: inga sprickor, glipor, lossnade fogar eller svart mögel",
-          "Seams intact, with no cracks, gaps, peeling or black mould",
+          "Fogarna är hela: inga sprickor, glipor, lösa kanter eller svart mögel",
+          "The seams are intact: no cracks, gaps, peeling or black mould",
         ),
       },
     ],
@@ -305,8 +305,8 @@ export const CHECKS: CheckDefinition[] = [
     notApplicableAllowed: false,
     defaultOwner: { default: "me" },
     fixHint: t(
-      "Leikkaa vaurioitunut sauma pois ja tee uusi saniteettisilikonilla. Anna kuivua vuorokausi ennen suihkua.",
-      "Skär bort den skadade fogen och foga om med sanitetssilikon. Låt torka ett dygn innan du duschar.",
+      "Leikkaa vaurioitunut sauma pois ja tee tilalle uusi saniteettisilikonilla. Anna sauman kuivua vuorokausi, ennen kuin käytät suihkua.",
+      "Skär bort den skadade fogen och foga om med sanitetssilikon. Låt fogen torka ett dygn innan du duschar.",
       "Cut out the damaged seam and apply new sanitary silicone. Let it dry for a day before you shower.",
     ),
     recheck: { kind: "yearly" },
@@ -320,8 +320,8 @@ export const CHECKS: CheckDefinition[] = [
     title: t("Toimiva palovaroitin", "Fungerande brandvarnare", "Working smoke alarm"),
     coach: t(
       "Kuvaa katossa oleva palovaroitin. Paina sitten sen testinappia.",
-      "Fotografera brandvarnaren i taket. Tryck sedan på testknappen.",
-      "Photograph the smoke alarm on the ceiling. Then press its test button.",
+      "Ta en bild av brandvarnaren i taket. Tryck sedan på testknappen.",
+      "Take a photo of the smoke alarm on the ceiling. Then press its test button.",
     ),
     criteria: [
       {
@@ -333,9 +333,9 @@ export const CHECKS: CheckDefinition[] = [
         id: "F1.mounted",
         kind: "condition",
         text: t(
-          "Se on kiinni paikallaan, ei irrotettu eikä peitetty",
+          "Se on paikallaan, ei irrotettu eikä peitetty",
           "Den sitter på plats, inte nedtagen eller övertäckt",
-          "It is mounted, not removed or covered",
+          "It is in place, not taken down or covered",
         ),
       },
       {
@@ -353,9 +353,9 @@ export const CHECKS: CheckDefinition[] = [
     notApplicableAllowed: false,
     defaultOwner: { default: "me" },
     fixHint: t(
-      "Vaihda paristo tai osta uusi varoitin, jos se ei piippaa. Asenna vähintään yksi jokaisen kerroksen kattoon.",
-      "Byt batteri eller köp en ny varnare om den inte piper. Sätt minst en i taket på varje våning.",
-      "Change the battery, or buy a new alarm if it does not beep. Fit at least one on the ceiling of every floor.",
+      "Jos palovaroitin ei piippaa, vaihda paristo tai osta uusi. Asenna vähintään yksi palovaroitin jokaisen kerroksen kattoon.",
+      "Om den inte piper, byt batteri eller köp en ny brandvarnare. Sätt upp minst en i taket på varje våning.",
+      "If it does not beep, change the battery or buy a new alarm. Fit at least one alarm on the ceiling of every floor.",
     ),
     recheck: { kind: "yearly" },
   },
@@ -365,9 +365,9 @@ export const CHECKS: CheckDefinition[] = [
     homeTypes: ["flat", "house", "cottage"],
     title: t("Sähkökeskus", "Elcentral", "Fuse box"),
     coach: t(
-      "Avaa kaapin ovi ja kuvaa koko sähkökeskus edestä. Älä koske mihinkään sisällä.",
-      "Öppna skåpluckan och fotografera hela elcentralen framifrån. Rör inget inuti.",
-      "Open the cabinet door and photograph the whole fuse box from the front. Don't touch anything inside.",
+      "Avaa kaapin ovi ja kuvaa koko sähkökeskus edestä. Älä koske mihinkään keskuksen sisällä.",
+      "Öppna skåpluckan och ta en bild av hela elcentralen framifrån. Rör ingenting inuti.",
+      "Open the cabinet door and take a photo of the whole fuse box from the front. Do not touch anything inside.",
     ),
     criteria: [
       {
@@ -384,7 +384,7 @@ export const CHECKS: CheckDefinition[] = [
         kind: "condition",
         text: t(
           "Ei vaurioita, kärventymisjälkiä, puuttuvaa kantta eikä paljaita jännitteisiä osia",
-          "Inga skador, brännmärken, saknat lock eller blottade strömförande delar",
+          "Inga skador, brännmärken, saknade lock eller blottade strömförande delar",
           "No damage, scorch marks, missing cover or exposed live parts",
         ),
       },
@@ -392,18 +392,18 @@ export const CHECKS: CheckDefinition[] = [
         id: "F2.rcd_visible",
         kind: "condition",
         text: t(
-          "Vikavirtasuojakytkin (jossa TEST-painike) näkyy",
-          "En jordfelsbrytare (med TEST-knapp) syns",
-          "A residual-current device (RCD, with a TEST button) is visible",
+          "Vikavirtasuoja, jossa on TEST-painike, näkyy",
+          "En jordfelsbrytare med TEST-knapp syns",
+          "A residual-current device (RCD) with a TEST button is visible",
         ),
       },
       {
         id: "F2.clear_front",
         kind: "condition",
         text: t(
-          "Keskuksen edessä tai sitä vasten ei ole tavaraa",
+          "Keskuksen edessä tai sitä vasten ei ole tavaroita",
           "Inget förvaras framför eller mot centralen",
-          "Nothing stored against or in front of it",
+          "Nothing is stored in front of it or against it",
         ),
       },
     ],
@@ -412,9 +412,9 @@ export const CHECKS: CheckDefinition[] = [
     notApplicableAllowed: false,
     defaultOwner: { default: "professional" },
     fixHint: t(
-      "Raivaa tila keskuksen edestä. Jos näet vaurioita tai kärventymistä tai vikavirtasuoja puuttuu, tilaa sähköasentaja. Älä korjaa itse.",
-      "Röj undan framför centralen. Ser du skador eller brännmärken, eller saknas jordfelsbrytare, anlita en behörig elinstallatör. Laga inte själv.",
-      "Clear the space in front. For damage, scorch marks or a missing RCD, call an authorised electrician. Don't fix it yourself.",
+      "Raivaa tavarat keskuksen edestä. Jos näet vaurioita tai kärventymisjälkiä tai vikavirtasuoja puuttuu, tilaa sähköasentaja. Älä korjaa itse.",
+      "Flytta bort saker framför centralen. Om du ser skador eller brännmärken, eller om jordfelsbrytare saknas, anlita en behörig elektriker. Laga inget själv.",
+      "Clear the space in front of the fuse box. If you see damage or scorch marks, or there is no RCD, call an authorised electrician. Do not fix it yourself.",
     ),
     recheck: { kind: "yearly" },
   },
@@ -425,8 +425,8 @@ export const CHECKS: CheckDefinition[] = [
     title: t("Jääkaapin takana", "Bakom kylskåpet", "Behind the fridge"),
     coach: t(
       "Vedä jääkaappia hieman esiin tai käytä puhelimen valoa. Kuvaa takana oleva lauhdutin ja johdot.",
-      "Dra ut kylskåpet lite eller använd mobilens lampa. Fotografera kondensorn på baksidan och sladdarna.",
-      "Pull the fridge out a little, or use your phone's light. Show the coil at the back and the cords.",
+      "Dra ut kylskåpet lite eller använd mobilens ficklampa. Ta en bild av kondensorn på baksidan och sladdarna.",
+      "Pull the fridge out a little, or use your phone's light. Take a photo of the coil at the back and the cords.",
     ),
     criteria: [
       {
@@ -442,7 +442,7 @@ export const CHECKS: CheckDefinition[] = [
         id: "F3.no_dust",
         kind: "condition",
         text: t(
-          "Lauhduttimessa tai kompressorissa ei ole paksua pölyä",
+          "Lauhduttimessa tai kompressorissa ei ole paksua pölykerrosta",
           "Inget tjockt damm på kondensorn eller kompressorn",
           "No thick dust on the coil or compressor",
         ),
@@ -453,7 +453,7 @@ export const CHECKS: CheckDefinition[] = [
         text: t(
           "Johdot ja pistokkeet ovat ehjät",
           "Sladdar och stickproppar är hela",
-          "Cords and plugs undamaged",
+          "The cords and plugs are undamaged",
         ),
       },
     ],
@@ -462,8 +462,8 @@ export const CHECKS: CheckDefinition[] = [
     notApplicableAllowed: false,
     defaultOwner: { default: "me" },
     fixHint: t(
-      "Irrota pistoke ja imuroi pölyt takaa. Vaihdata vaurioitunut johto tai korjauta laite.",
-      "Dra ur kontakten och dammsug baksidan. Låt byta en skadad sladd eller reparera apparaten.",
+      "Irrota pistoke ja imuroi pölyt laitteen takaa. Vaihdata vaurioitunut johto tai korjauta laite.",
+      "Dra ur kontakten och dammsug baksidan. Låt en fackman byta en skadad sladd eller reparera apparaten.",
       "Unplug the fridge and vacuum the dust off the back. Have a damaged cord replaced or the appliance repaired.",
     ),
     recheck: { kind: "yearly" },
@@ -472,11 +472,11 @@ export const CHECKS: CheckDefinition[] = [
     id: "F4",
     peril: "fire",
     homeTypes: ["flat", "house", "cottage"],
-    title: t("Liesitaso tyhjänä", "Spishällen tom", "Stove top clear"),
+    title: t("Liesitaso tyhjänä", "Tom spishäll", "Clear stove top"),
     coach: t(
       "Kuvaa koko liesitaso ylhäältä sellaisena kuin se yleensä on.",
-      "Fotografera hela spishällen uppifrån, så som den brukar se ut.",
-      "Photograph the whole stove top from above, as it usually is.",
+      "Ta en bild av hela spishällen uppifrån, så som den brukar se ut.",
+      "Take a photo of the whole stove top from above, as it usually looks.",
     ),
     criteria: [
       {
@@ -490,7 +490,7 @@ export const CHECKS: CheckDefinition[] = [
         text: t(
           "Sen päällä ei säilytetä mitään (ei papereita, laatikoita, pyyhkeitä eikä kattiloita)",
           "Inget förvaras på den (inga papper, lådor, handdukar eller kastruller)",
-          "Nothing stored on it (no paper, boxes, towels or pans left on)",
+          "Nothing is stored on it (no paper, boxes, towels or pans)",
         ),
       },
     ],
@@ -499,12 +499,12 @@ export const CHECKS: CheckDefinition[] = [
     guideNote: t(
       "Liedellä tai sen lähellä olevat tavarat ovat keittiöpalojen yleisin syy (SPEK).",
       "Föremål på eller nära spisen är den vanligaste orsaken till köksbränder (SPEK).",
-      "Items on or near the stove are the top cause of kitchen fires (SPEK).",
+      "Things left on or near the stove are the most common cause of kitchen fires (SPEK).",
     ),
     notApplicableAllowed: false,
     defaultOwner: { default: "me" },
     fixHint: t(
-      "Pidä liesitaso tyhjänä ja säilytä tavarat muualla. Liesivahti lisää turvaa.",
+      "Pidä liesitaso tyhjänä ja säilytä tavarat muualla. Liesivahti lisää turvallisuutta.",
       "Håll spishällen tom och förvara saker någon annanstans. En spisvakt ger extra säkerhet.",
       "Keep the stove top empty and store things elsewhere. A stove guard adds safety.",
     ),
@@ -514,18 +514,18 @@ export const CHECKS: CheckDefinition[] = [
     id: "F5",
     peril: "fire",
     homeTypes: ["flat", "house", "cottage"],
-    title: t("Missä lataat laitteita", "Där du laddar apparater", "Where you charge devices"),
+    title: t("Missä lataat laitteita", "Var du laddar apparater", "Where you charge devices"),
     coach: t(
-      "Kuvaa paikka, jossa yleensä lataat puhelinta, läppäriä tai sähköpyörän akkua, ja sen ympäristö.",
-      "Fotografera platsen där du brukar ladda telefon, dator eller elcykelbatteri, och det som finns runt omkring.",
-      "Photograph the spot where you usually charge phones, laptops or e-bike batteries, and what is around it.",
+      "Kuvaa paikka, jossa yleensä lataat puhelinta, kannettavaa tai sähköpyörän akkua, ja sen ympäristö.",
+      "Ta en bild av platsen där du brukar ladda telefonen, datorn eller elcykelns batteri, och det som finns runt omkring.",
+      "Take a photo of where you usually charge your phone, laptop or e-bike battery, and what is around it.",
     ),
     criteria: [
       {
         id: "F5.spot_visible",
         kind: "visibility",
         text: t(
-          "Puhelinten, läppärien tai sähköpyörän akkujen latauspaikka näkyy",
+          "Puhelinten, kannettavien tai sähköpyörän akkujen latauspaikka näkyy",
           "Laddplatsen för telefoner, datorer eller elcykelbatterier syns",
           "The charging spot for phones, laptops or e-bike batteries is visible",
         ),
@@ -534,9 +534,9 @@ export const CHECKS: CheckDefinition[] = [
         id: "F5.safe_surface",
         kind: "condition",
         text: t(
-          "Lataus tapahtuu kovalla alustalla, kaukana sängyistä, sohvista, verhoista ja tekstiileistä",
-          "Laddningen sker på ett hårt underlag, långt från sängar, soffor, gardiner och textilier",
-          "Charging on a hard surface, away from beds, sofas, curtains and textiles",
+          "Lataus tapahtuu kovalla alustalla, kaukana sängyistä, sohvista, verhoista ja muista tekstiileistä",
+          "Laddningen sker på ett hårt underlag, långt från sängar, soffor, gardiner och andra textilier",
+          "Charging happens on a hard surface, away from beds, sofas, curtains and other textiles",
         ),
       },
     ],
@@ -546,8 +546,8 @@ export const CHECKS: CheckDefinition[] = [
     defaultOwner: { default: "me" },
     fixHint: t(
       "Siirrä lataus kovalle alustalle, kuten pöydälle tai laattalattialle, kauas tekstiileistä. Älä jätä latausta valvomatta.",
-      "Flytta laddningen till ett hårt underlag, som ett bord eller klinkergolv, bort från textilier. Lämna inte laddningen utan uppsikt.",
-      "Move charging to a hard surface, such as a table or tiled floor, away from textiles. Don't leave it charging unattended.",
+      "Ladda på ett hårt underlag, som ett bord eller ett klinkergolv, långt från textilier. Lämna inget på laddning utan uppsikt.",
+      "Charge on a hard surface, such as a table or a tiled floor, away from textiles. Do not leave anything charging unattended.",
     ),
     recheck: { kind: "yearly" },
   },
@@ -564,8 +564,8 @@ export const CHECKS: CheckDefinition[] = [
     ),
     coach: t(
       "Kuvaa termostaatti, lämmityksen säädin tai patterin asetus.",
-      "Fotografera termostaten, värmeregleringen eller ett elements inställning.",
-      "Photograph the thermostat, the heating controller or a radiator setting.",
+      "Ta en bild av termostaten, värmeregleringen eller inställningen på ett element.",
+      "Take a photo of the thermostat, the heating control or a radiator setting.",
     ),
     criteria: [
       {
@@ -573,8 +573,8 @@ export const CHECKS: CheckDefinition[] = [
         kind: "visibility",
         text: t(
           "Termostaatti, lämmityksen säädin tai patterin säätö näkyy",
-          "En termostat, värmereglering eller elementinställning syns",
-          "A thermostat, heating controller or radiator setting is visible",
+          "En termostat, värmereglering eller inställningen på ett element syns",
+          "A thermostat, heating control or radiator setting is visible",
         ),
       },
       {
@@ -583,7 +583,7 @@ export const CHECKS: CheckDefinition[] = [
         text: t(
           "Lämmitys on päällä kaikissa tiloissa, joissa on vesiputkia",
           "Värmen är på i alla rum med vattenrör",
-          "Heating is on in every room with water pipes",
+          "The heating is on in every room with water pipes",
         ),
       },
     ],
@@ -592,7 +592,7 @@ export const CHECKS: CheckDefinition[] = [
     notApplicableAllowed: false,
     defaultOwner: { default: "me" },
     fixHint: t(
-      "Laita lämmitys päälle kaikkiin tiloihin, joissa on vesiputkia, ennen kylmää kautta.",
+      "Laita lämmitys päälle kaikkiin tiloihin, joissa on vesiputkia, ennen kylmää vuodenaikaa.",
       "Sätt på värmen i alla rum med vattenrör före den kalla årstiden.",
       "Turn the heating on in every room with water pipes before the cold season.",
     ),
@@ -605,8 +605,8 @@ export const CHECKS: CheckDefinition[] = [
     title: t("Ulkohana ennen pakkasia", "Utekranen före frosten", "Outdoor tap before frost"),
     coach: t(
       "Kuvaa ulkohana niin, että näkyy, onko siinä letku kiinni.",
-      "Fotografera utekranen så att det syns om en slang är ansluten.",
-      "Photograph the outdoor tap so it shows whether a hose is attached.",
+      "Ta en bild av utekranen så att det syns om en slang är ansluten.",
+      "Take a photo of the outdoor tap that shows whether a hose is attached.",
     ),
     criteria: [
       {
@@ -617,15 +617,19 @@ export const CHECKS: CheckDefinition[] = [
       {
         id: "Z2.no_hose",
         kind: "condition",
-        text: t("Hanaan ei ole kiinnitetty letkua", "Ingen slang är ansluten", "No hose attached"),
+        text: t(
+          "Hanaan ei ole kiinnitetty letkua",
+          "Ingen slang är ansluten",
+          "No hose is attached",
+        ),
       },
       {
         id: "Z2.indoor_valve_closed",
         kind: "user",
         text: t(
           "Suljin ulkohanan sisäpuolisen sulkuventtiilin",
-          "Jag stängde inomhusventilen för utekranen",
-          "I closed the indoor valve for the outdoor tap",
+          "Jag stängde utekranens avstängningsventil inomhus",
+          "I closed the indoor shut-off valve for the outdoor tap",
         ),
       },
     ],
@@ -634,9 +638,9 @@ export const CHECKS: CheckDefinition[] = [
     notApplicableAllowed: true,
     defaultOwner: { default: "me" },
     fixHint: t(
-      "Irrota letku, sulje sisäpuolinen venttiili ja avaa ulkohana, jotta vesi valuu pois.",
-      "Ta bort slangen, stäng inomhusventilen och öppna utekranen så att vattnet rinner ut.",
-      "Remove the hose, close the indoor valve and open the outdoor tap to let the water out.",
+      "Irrota letku, sulje sisäpuolinen sulkuventtiili ja avaa ulkohana, jotta vesi pääsee valumaan pois.",
+      "Ta bort slangen, stäng avstängningsventilen inomhus och öppna utekranen så att vattnet rinner ut.",
+      "Remove the hose, close the indoor shut-off valve and open the outdoor tap to let the water drain out.",
     ),
     recheck: { kind: "frost" },
   },
@@ -648,9 +652,9 @@ export const CHECKS: CheckDefinition[] = [
     homeTypes: ["house"],
     title: t("Räystäskourut ja syöksytorvet", "Hängrännor och stuprör", "Gutters and downpipes"),
     coach: t(
-      "Kuvaa maasta käsin räystäskouru ja syöksytorvi aina sinne asti, minne vesi menee.",
-      "Fotografera från marken en hängränna och stupröret ända ner till där vattnet leds.",
-      "From the ground, photograph a gutter and the downpipe down to where the water goes.",
+      "Kuvaa maasta käsin räystäskouru ja syöksytorvi aina sinne asti, minne vesi ohjautuu.",
+      "Ta en bild från marken av en hängränna och stupröret ända ner till där vattnet leds bort.",
+      "From the ground, take a photo of a gutter and its downpipe, all the way down to where the water goes.",
     ),
     criteria: [
       {
@@ -666,9 +670,9 @@ export const CHECKS: CheckDefinition[] = [
         id: "S1.clear_and_away",
         kind: "condition",
         text: t(
-          "Ei lehtiä, roskia eikä ylivuotoa, ja syöksytorvi ohjaa veden pois seinän vierestä",
-          "Inga löv, skräp eller överrinning, och stupröret leder vattnet bort från väggen",
-          "No leaves, debris or overflow; the downpipe leads water away from the wall",
+          "Ei lehtiä, roskia eikä ylivuotoa, ja syöksytorvi ohjaa veden poispäin seinästä",
+          "Inga löv, inget skräp och ingen överrinning, och stupröret leder bort vattnet från väggen",
+          "No leaves, debris or overflow, and the downpipe leads water away from the wall",
         ),
       },
     ],
@@ -679,7 +683,7 @@ export const CHECKS: CheckDefinition[] = [
     fixHint: t(
       "Puhdista kourut lehdistä. Lisää syöksytorveen jatke tai roiskekouru, jotta vesi valuu poispäin seinästä.",
       "Rensa hängrännorna från löv. Sätt en förlängning eller en utkastare på stupröret så att vattnet rinner bort från väggen.",
-      "Clear the leaves from the gutters. Add an extension or a splash block so water runs away from the wall.",
+      "Clear the leaves from the gutters. Add an extension or a splash block to the downpipe so water runs away from the wall.",
     ),
     recheck: { kind: "seasonal", months: [4, 10] },
   },
@@ -696,9 +700,9 @@ interface HomeVariant {
 
 const MAIN_VALVE: HomeVariant = {
   coach: t(
-    "Etsi veden pääsulkuventtiili. Se on yleensä vesimittarin vieressä, missä vesiputki tulee sisään. Näytä kahva kuvassa.",
-    "Leta upp huvudavstängningsventilen. Den sitter oftast vid vattenmätaren, där vattenröret kommer in. Visa handtaget.",
-    "Find the main water valve. It is usually by the water meter, where the pipe comes in. Show the handle.",
+    "Etsi veden pääsulkuventtiili. Se on yleensä vesimittarin vieressä, siellä missä vesijohto tulee taloon. Kuvaa se niin, että kahva näkyy.",
+    "Leta upp huvudavstängningsventilen. Den sitter oftast vid vattenmätaren, där vattenledningen kommer in i huset. Ta en bild där handtaget syns.",
+    "Find the main water shut-off valve. It is usually by the water meter, where the water pipe comes in. Take a photo with the handle in view.",
   ),
   criteria: {
     "L1.valve_visible": t(
@@ -709,8 +713,8 @@ const MAIN_VALVE: HomeVariant = {
   },
   clauseFit: "direct",
   fixHint: t(
-    "Jos pääsulkuventtiili vuotaa tai on jumissa, tilaa putkimies. Opettele sulkemaan se ennen kuin tarvitset sitä.",
-    "Om huvudventilen droppar eller sitter fast, anlita en rörmokare. Lär dig stänga den innan du behöver det.",
+    "Jos pääsulkuventtiili vuotaa tai on jumissa, tilaa putkimies. Opettele sulkemaan se, ennen kuin tarvitset sitä.",
+    "Om huvudventilen droppar eller sitter fast, anlita en rörmokare. Lär dig stänga den innan det behövs.",
     "If the main valve drips or is stuck, call a plumber. Learn how to close it before you need to.",
   ),
 };
@@ -721,22 +725,22 @@ const VARIANTS: Record<string, Partial<Record<HomeType, HomeVariant>>> = {
     cottage: MAIN_VALVE,
     flat: {
       coach: t(
-        "Katso keittiön altaan alta, pesukoneen takaa tai kylpyhuoneesta. Kuvaa sulkuventtiili niin, että kahva näkyy.",
-        "Titta under diskbänken, bakom tvättmaskinen eller i badrummet. Fotografera en avstängningsventil så att handtaget syns.",
-        "Look under the kitchen sink, behind the washing machine or in the bathroom. Photograph a shut-off valve so the handle shows.",
+        "Katso keittiön tiskialtaan alta, pesukoneen takaa tai kylpyhuoneesta. Kuvaa sulkuventtiili niin, että kahva näkyy.",
+        "Titta under diskbänken, bakom tvättmaskinen eller i badrummet. Ta en bild av en avstängningsventil där handtaget syns.",
+        "Look under the kitchen sink, behind the washing machine or in the bathroom. Take a photo of a shut-off valve with the handle in view.",
       ),
       criteria: {
         "L1.valve_visible": t(
-          "Asunnon tai kodinkoneen vesisulku näkyy",
+          "Asunnon tai kodinkoneen sulkuventtiili näkyy",
           "Lägenhetens avstängningsventil eller en maskins egen ventil syns",
-          "The flat's water shut-off or an appliance shut-off valve is visible",
+          "The flat's own shut-off valve or an appliance's shut-off valve is visible",
         ),
       },
       clauseFit: "section",
       fixHint: t(
-        "Jos venttiili vuotaa tai on jumissa, kerro isännöitsijälle tai huoltoyhtiölle. Opettele sulkemaan se ennen kuin tarvitset sitä.",
-        "Om ventilen droppar eller sitter fast, meddela disponenten eller fastighetsservicen. Lär dig stänga den innan du behöver det.",
-        "If the valve drips or is stuck, tell the property manager or maintenance company. Learn how to close it before you need to.",
+        "Jos venttiili vuotaa tai on jumissa, ilmoita isännöitsijälle tai huoltoyhtiölle. Opettele sulkemaan se, ennen kuin tarvitset sitä.",
+        "Om ventilen droppar eller sitter fast, meddela disponenten eller servicebolaget. Lär dig stänga den innan det behövs.",
+        "If the valve drips or is stuck, tell the property manager or the maintenance company. Learn how to close it before you need to.",
       ),
     },
   },
@@ -747,13 +751,13 @@ const VARIANTS: Record<string, Partial<Record<HomeType, HomeVariant>>> = {
         "Z1.heating_on": t(
           "Lämmitys on päällä kaikissa tiloissa, joissa on vesiputkia, tai vesijärjestelmä on tyhjennetty",
           "Värmen är på i alla rum med vattenrör, eller vattensystemet är tömt",
-          "Heating is on in every room with water pipes, or the water system is drained",
+          "The heating is on in every room with water pipes, or the water system is drained",
         ),
       },
       clauseIds: ["OMA-5.5.1", "OMA-5.5.2"],
       fixHint: t(
         "Laita lämmitys päälle tiloihin, joissa on vesiputkia. Jos jätät mökin kylmäksi, tyhjennä vesijärjestelmä.",
-        "Sätt på värmen i rum med vattenrör. Om du lämnar stugan kall, töm vattensystemet.",
+        "Sätt på värmen i rum med vattenrör. Lämnar du stugan kall, töm vattensystemet.",
         "Turn the heating on in rooms with water pipes. If you leave the cottage cold, drain the water system.",
       ),
     },

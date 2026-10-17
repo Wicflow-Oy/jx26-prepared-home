@@ -63,6 +63,7 @@ export interface VisionAssessment {
   retakeHint?: string | null;
   fixSuggestion?: string | null;
   urgent?: boolean; // e.g. an active drip or exposed live parts
+  reproduction?: boolean; // the photo shows a screen, a printout or another photo, not the real item
   model: string;
 }
 
@@ -85,6 +86,9 @@ export interface CheckOutcome {
 }
 
 /** What the server stores per check. Never image bytes. */
+/** How the photo was taken. Only in-app camera photos count toward the lower deductible. */
+export type CaptureSource = "camera" | "library" | "sample";
+
 export interface CheckRecord {
   homeId: string;
   checkId: string;
@@ -93,6 +97,7 @@ export interface CheckRecord {
   dueAt: string | null; // ISO date; null unless verified or not_applicable
   photoSha256: string | null; // hex of the exact JPEG bytes sent; null for not_applicable
   userAnswers?: Record<string, boolean>;
+  capture?: CaptureSource; // absent on older records and seeded examples, which count as camera
 }
 
 export type PerilState = "prepared" | "in_progress" | "lapsed" | "not_started";
@@ -113,6 +118,7 @@ export interface PerilStatus {
   fixFirst: string[];
   missing: string[];
   overdue: string[];
+  notCounted: string[]; // verified from a gallery or example photo: shown, but not counted toward the relief
   preparedUntil: string | null; // ISO date: earliest dueAt among required checks, when prepared
   deductible: DeductiblePreview;
   alarmDeviceLine: boolean; // show OMA-6.4.1 when the customer says a leak alarm is fitted (leak only)

@@ -124,31 +124,6 @@ h1 {
   line-height: 1.55;
 }
 
-.points {
-  display: grid;
-  gap: 6px;
-  margin-top: var(--space-s);
-  color: var(--quiet);
-  font-size: 15px;
-}
-
-.points li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.icon {
-  flex: none;
-  width: 20px;
-  height: 20px;
-  fill: none;
-  stroke: var(--text);
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
 .button {
   display: flex;
   align-items: center;
@@ -234,52 +209,6 @@ h1 {
   font-size: 14px;
   line-height: 20px;
   overflow-wrap: anywhere;
-}
-
-.steps h2 {
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
-}
-
-.steps ol {
-  display: grid;
-  gap: 12px;
-  margin-top: 12px;
-  counter-reset: step;
-}
-
-.steps li {
-  display: grid;
-  grid-template-columns: 28px 1fr;
-  column-gap: 12px;
-  counter-increment: step;
-}
-
-.steps li::before {
-  content: counter(step);
-  grid-row: span 2;
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--blue-tint);
-  color: var(--blue);
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.steps h3 {
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 20px;
-}
-
-.steps p {
-  color: var(--quiet);
-  font-size: 14px;
-  line-height: 20px;
 }
 
 .footnote {
@@ -429,10 +358,6 @@ h1 {
     font-size: 16px;
     line-height: 1.5;
   }
-
-  .points {
-    gap: 2px;
-  }
 }
 
 /* The footer already carries this label, so the top copy can go first. */
@@ -486,4 +411,17 @@ h1 {
   *::after {
     transition: none !important;
   }
+}
+
+/* If logo next to the product name (If-branded build). */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand-logo {
+  flex: none;
+  width: 44px;
+  height: 44px;
 }

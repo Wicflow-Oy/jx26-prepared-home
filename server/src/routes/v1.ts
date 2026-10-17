@@ -77,6 +77,7 @@ export function v1Router(deps: AppDeps): Router {
       image,
       userAnswers: parseUserAnswers(body.userAnswers),
       clientKey: clientKey(deps, req),
+      capture: parseCapture(body.capture),
     });
     res.json(result);
   });
@@ -103,4 +104,9 @@ export function v1Router(deps: AppDeps): Router {
   });
 
   return r;
+}
+
+/** The client says how the photo was taken. Unknown values count as "library", so they never earn the relief. */
+function parseCapture(v: unknown): "camera" | "library" | "sample" {
+  return v === "camera" || v === "sample" ? v : "library";
 }

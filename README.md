@@ -38,6 +38,9 @@ docs/              contracts, hosting and native-build notes
 ## Tests
 `npm run check`. Tests run offline with mocked model calls. A separate photo eval (`server/eval`) runs on demand against a fixed set of licensed photos, so any model change is measured before it ships.
 
+## Implementing it at If
+`docs/IMPLEMENTING-AT-IF.md`: what is ready today, the decisions only If can make, the integration points (identity and policy, records, claims handling, reminders) and a privacy checklist for a pilot.
+
 ## What's real and what's mocked
 - **Real:** the vision checks (Claude API); If's public home-insurance terms (OMA 200.27, YLE 900.14) quoted per check; the FMI open-data frost forecast; the photo hashing.
 - **Mocked or concept:** the insurer's systems and the adjuster view; the deductible amounts ("Concept: If decides the amount"); the demo homes and their records.

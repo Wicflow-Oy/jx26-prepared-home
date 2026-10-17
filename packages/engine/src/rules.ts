@@ -2,6 +2,7 @@
 // Everything here is decided in code. The vision model only reports visibility and condition criteria.
 
 import type {
+  CaptureSource,
   AdjusterView,
   CheckDefinition,
   CheckOutcome,
@@ -161,6 +162,8 @@ export function decideVerdict(
   });
 
   if (!a) return retake(TEXT.couldNotCheck[lang]);
+  // A photo of a screen or a printout proves nothing about the home, whatever it shows.
+  if (a.reproduction === true) return retake(TEXT.reproduction[lang]);
 
   const of = (kind: CriterionResult["kind"]) => criteria.filter((c) => c.kind === kind);
   const list = (items: CriterionResult[]) => items.map((c) => c.text).join("; ");
@@ -258,6 +261,7 @@ export function recordFromOutcome(
   checkedAt: Date,
   photoSha256: string | null,
   homeType: HomeType,
+  capture?: CaptureSource,
 ): CheckRecord {
   const check = getCheck(outcome.checkId);
   if (!appliesTo(check, homeType))
@@ -276,7 +280,13 @@ export function recordFromOutcome(
     photoSha256:
       outcome.verdict === "not_applicable" ? null : (nonEmpty(photoSha256)?.toLowerCase() ?? null),
     ...(Object.keys(userAnswers).length ? { userAnswers } : {}),
+    ...(capture ? { capture } : {}),
   };
+}
+
+/** Only photos taken with the in-app camera count; gallery and example photos are shown but don't count. */
+export function countsForRelief(record: CheckRecord): boolean {
+  return record.capture === undefined || record.capture === "camera";
 }
 
 const timeOf = (r: CheckRecord) => {
@@ -310,13 +320,14 @@ function ownRecords(home: Home, records: CheckRecord[]): CheckRecord[] {
 
 // ------------------------------------------------------------------ peril status
 
-type Slot = "verified" | "notApplicable" | "fixFirst" | "missing" | "overdue";
+type Slot = "verified" | "notApplicable" | "fixFirst" | "missing" | "overdue" | "notCounted";
 
 /** A record is current through its due date; it is overdue from the next day. */
 function slotOf(record: CheckRecord | undefined, today: string): Slot {
   if (!record || record.verdict === "retake") return "missing";
   if (record.verdict === "fix_first") return "fixFirst";
   if (today > dueOf(record)) return "overdue";
+  if (record.verdict === "verified" && !countsForRelief(record)) return "notCounted";
   return record.verdict === "verified" ? "verified" : "notApplicable";
 }
 
@@ -335,6 +346,7 @@ function groupStatus(
     fixFirst: [],
     missing: [],
     overdue: [],
+    notCounted: [],
   };
   for (const id of required) lists[slotOf(effective.get(id), today)].push(id);
 
@@ -364,6 +376,7 @@ function groupStatus(
     fixFirst: lists.fixFirst,
     missing: lists.missing,
     overdue: lists.overdue,
+    notCounted: lists.notCounted,
     preparedUntil,
     deductible: preview(cfg, group, state === "prepared"),
     alarmDeviceLine: group === "leak" && home.hasLeakAlarm,
@@ -594,7 +607,9 @@ export function adjusterView(
   const addRecord = (checkId: string, rec: CheckRecord) => {
     const photos = shared.filter((s) => s.checkId === checkId);
     const current =
-      (rec.verdict === "verified" || rec.verdict === "not_applicable") && dueOf(rec) >= lossDay;
+      (rec.verdict === "verified" || rec.verdict === "not_applicable") &&
+      dueOf(rec) >= lossDay &&
+      countsForRelief(rec);
     view.push({
       checkId,
       verdict: rec.verdict,
@@ -624,6 +639,8 @@ export function adjusterView(
       reasons.push(`${id} was fix_first and never re-taken before the loss date.`);
     else if (rec.verdict === "retake")
       reasons.push(`${id} had only unclear photos (retake) before the loss date.`);
+    else if (!countsForRelief(rec))
+      reasons.push(`${id} was checked with a gallery or example photo, which does not count.`);
     else if (dueOf(rec) < lossDay)
       reasons.push(`${id} was past its due date (${dueOf(rec)}) on the loss date.`);
   }

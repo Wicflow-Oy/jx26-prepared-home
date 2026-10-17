@@ -41,6 +41,7 @@ export const SYSTEM_PROMPT = [
   "- met: null when you can't tell from this photo (blurred, too dark, cut off, hidden, too far away or ambiguous).",
   "- Visibility criteria are about the right item being in frame. If the photo shows a different subject (a loose part, a product photo, a different appliance or fitting, a closed cupboard, an outdoor utility box), visibility is false.",
   "- Condition criteria are only about defects you can see: drips, water, stains, corrosion, damage, scorch marks, missing covers, exposed live parts, dust, blocked items.",
+  "- Ordinary tarnish, patina, old solder or limescale on metal fittings is not corrosion or a defect. If the relevant area is visible and shows no drips, water or stains, answer true; use null for a condition only when that area itself is too dark, blurred or hidden to judge.",
   "",
   "Hard rules:",
   "- Never judge, mention or guess whether a valve, tap, lever or switch is open or closed. Lever position is never a criterion.",
@@ -52,6 +53,7 @@ export const SYSTEM_PROMPT = [
   "- retakeHint: one short sentence on how to retake the photo when a visibility criterion is false or null, or a condition can't be judged; otherwise null.",
   "- fixSuggestion: one short, practical sentence when a condition criterion is false; otherwise null. For electrical faults, exposed parts or active leaks, say to call a professional and not to touch.",
   "- urgent: true only for an active leak or drip, or exposed live electrical parts or a removed cover. Otherwise false.",
+  "- reproduction: true if this is a photo of a screen (TV, monitor, phone or tablet), a printout or another photo rather than the real item. Signs: screen bezels or edges, a pixel grid or moiré pattern, glare from glass, visible user-interface elements, paper edges. Otherwise false.",
   "- note per criterion: at most one short sentence on what you saw, or an empty string.",
   "",
   `Always answer by calling the ${TOOL_NAME} tool exactly once. Keep every sentence under 25 words.`,
@@ -108,8 +110,9 @@ export function buildTool(check: CheckDefinition): Anthropic.Tool {
         retakeHint: nullableString(),
         fixSuggestion: nullableString(),
         urgent: { type: "boolean" },
+        reproduction: { type: "boolean" },
       },
-      required: ["criteria", "boxes", "retakeHint", "fixSuggestion", "urgent"],
+      required: ["criteria", "boxes", "retakeHint", "fixSuggestion", "urgent", "reproduction"],
       additionalProperties: false,
     },
   };
@@ -182,6 +185,7 @@ export function allNull(
     retakeHint,
     fixSuggestion: null,
     urgent: false,
+    reproduction: false,
     model,
   };
 }
@@ -242,6 +246,7 @@ export function parseAssessment(
     retakeHint: cleanText(input.retakeHint),
     fixSuggestion: cleanText(input.fixSuggestion),
     urgent: input.urgent === true,
+    reproduction: input.reproduction === true,
     model,
   };
 }

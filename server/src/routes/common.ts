@@ -1,4 +1,5 @@
 import {
+  type CaptureSource,
   CHECKS,
   checksFor,
   clauseText,
@@ -65,6 +66,7 @@ export async function runCheck(
     image: ReceivedImage;
     userAnswers: Record<string, boolean>;
     clientKey: string;
+    capture?: CaptureSource;
   },
 ): Promise<CheckResponse> {
   const started = Date.now();
@@ -85,7 +87,14 @@ export async function runCheck(
   const userIds = new Set(check.criteria.filter((c) => c.kind === "user").map((c) => c.id));
   const answers = Object.fromEntries(Object.entries(userAnswers).filter(([k]) => userIds.has(k)));
   const outcome = decideVerdict(check, result.assessment, answers, lang, homeType);
-  const record = recordFromOutcome(homeId, outcome, deps.clock(), image.sha256, homeType);
+  const record = recordFromOutcome(
+    homeId,
+    outcome,
+    deps.clock(),
+    image.sha256,
+    homeType,
+    args.capture,
+  );
   deps.logger.check({
     checkId: check.id,
     verdict: outcome.verdict,

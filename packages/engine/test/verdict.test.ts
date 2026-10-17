@@ -20,7 +20,7 @@ describe("decideVerdict", () => {
   it("retakes with the fixed hint when there is no assessment", () => {
     const o = decideVerdict(L1, null, knows, "en", "house");
     expect(o.verdict).toBe("retake");
-    expect(o.retakeHint).toBe("Couldn't check the photo. Try again.");
+    expect(o.retakeHint).toBe("Could not check the photo. Try again.");
     expect(decideVerdict(L1, null, knows, "fi", "house").retakeHint).toBe(
       "Kuvaa ei voitu tarkistaa. Yritä uudelleen.",
     );
@@ -36,7 +36,7 @@ describe("decideVerdict", () => {
       "house",
     );
     expect(o.verdict).toBe("retake");
-    expect(o.retakeHint).toContain("Its handle or lever is visible");
+    expect(o.retakeHint).toContain("The valve's handle or lever is visible");
   });
 
   it("retakes when a visibility criterion is null or missing, even if a condition fails", () => {
@@ -68,13 +68,13 @@ describe("decideVerdict", () => {
   it("retakes when a condition criterion is null", () => {
     const o = decideVerdict(L1, assess({ ...allGood, "L1.no_leak": null }), knows, "en", "house");
     expect(o.verdict).toBe("retake");
-    expect(o.retakeHint).toContain("No leak, drip, corrosion or water stains at the valve");
+    expect(o.retakeHint).toContain("No leaks, drips, corrosion or water stains at the valve");
   });
 
   it("retakes and asks for the answer when a user answer is missing", () => {
     const o = decideVerdict(L1, assess(allGood), {}, "en", "house");
     expect(o.verdict).toBe("retake");
-    expect(o.retakeHint).toBe("Please answer yes or no: “I know how to close it”.");
+    expect(o.retakeHint).toBe("Answer yes or no: “I know how to close it”.");
     const sv = decideVerdict(L1, assess(allGood), {}, "sv", "house");
     expect(sv.retakeHint).toBe("Svara ja eller nej: ”Jag vet hur man stänger den”.");
   });

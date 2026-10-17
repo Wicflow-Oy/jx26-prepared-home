@@ -33,6 +33,7 @@ describe("request shape", () => {
       "retakeHint",
       "fixSuggestion",
       "urgent",
+      "reproduction",
     ]);
     expect(tool.input_schema.additionalProperties).toBe(false);
     // Forced tool choice 400s on Sonnet 5.5 / Opus 5.5, so the request must not use it.
@@ -96,6 +97,18 @@ describe("parsing tool output", () => {
     expect(a.boxes).toEqual([{ label: "board", bbox_px: [0, 10, 1000, 700] }]);
     expect(a.fixSuggestion).toBe("Call an electrician; don't touch.");
     expect(a.urgent).toBe(true);
+  });
+
+  it("passes on a photo of a screen or printout, and treats a missing flag as false", () => {
+    const flagged = parseAssessment(
+      toolInput(f2, true, true, { reproduction: true }),
+      f2,
+      image,
+      "m",
+    );
+    expect(flagged.reproduction).toBe(true);
+    const plain = parseAssessment(toolInput(f2, true, true, {}), f2, image, "m");
+    expect(plain.reproduction).toBe(false);
   });
 
   it("turns anything malformed into all-null criteria", () => {

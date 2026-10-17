@@ -5,27 +5,27 @@ import type { Lang, Localized, Owner, Peril, PerilState, Verdict } from "./types
 const t = (fi: string, sv: string, en: string): Localized => ({ fi, sv, en });
 
 export const PERIL_LABELS: Record<Peril, Localized> = {
-  leak: t("Vuodot", "Läckage", "Leak"),
+  leak: t("Vesivuoto", "Läckage", "Leak"),
   fire: t("Tulipalo", "Brand", "Fire"),
-  freeze: t("Jäätyminen", "Frysning", "Freeze"),
+  freeze: t("Jäätyminen", "Frysning", "Freezing"),
   storm_water: t("Hulevesi", "Dagvatten", "Storm water"),
 };
 
 export const OWNER_LABELS: Record<Owner, Localized> = {
   me: t("Sinä", "Du", "You"),
-  property_manager: t("Isännöitsijä", "Disponenten", "Property manager"),
+  property_manager: t("Isännöitsijä", "Disponenten", "The property manager"),
   professional: t("Ammattilainen", "En fackman", "A professional"),
 };
 
 export const VERDICT_LABELS: Record<Verdict, Localized> = {
-  verified: t("Tarkistettu", "Kontrollerad", "Verified"),
+  verified: t("Kunnossa", "I ordning", "Verified"),
   retake: t("Ota uusi kuva", "Ta en ny bild", "Retake"),
   fix_first: t("Korjaa ensin", "Åtgärda först", "Fix first"),
-  not_applicable: t("Ei koske minua", "Gäller inte mig", "Not applicable"),
+  not_applicable: t("Ei koske kotiani", "Gäller inte mitt hem", "Not applicable"),
 };
 
 export const STATE_LABELS: Record<PerilState, Localized> = {
-  prepared: t("Valmis", "Klar", "Prepared"),
+  prepared: t("Valmis", "Redo", "Prepared"),
   in_progress: t("Kesken", "Pågår", "In progress"),
   lapsed: t("Vanhentunut", "Har gått ut", "Lapsed"),
   not_started: t("Ei aloitettu", "Inte påbörjad", "Not started"),
@@ -33,8 +33,8 @@ export const STATE_LABELS: Record<PerilState, Localized> = {
 
 /** OMA-6.4.1, shown with the leak status when the customer says a leak alarm is fitted. */
 export const ALARM_DEVICE_LINE: Localized = t(
-  "Omavastuuta ei vähennetä, jos hälytinlaite esti vahingon tai rajoitti sitä (ehdot 6.4.1).",
-  "Ingen självrisk dras av om en larmanordning förhindrade eller begränsade skadan (villkor 6.4.1).",
+  "Omavastuuta ei vähennetä, jos hälytyslaite esti vahingon tai rajoitti sitä (ehtojen kohta 6.4.1).",
+  "Ingen självrisk dras av om en larmanordning förhindrade eller begränsade skadan (villkorens punkt 6.4.1).",
   "No deductible if an alarm device prevented or limited the damage (terms 6.4.1).",
 );
 
@@ -46,9 +46,9 @@ export const DEDUCTIBLE_CONCEPT_LABEL: Localized = t(
 );
 
 export const DISCLAIMER: Localized = t(
-  "Muistutus tarkistaa, ei tarkastus.",
-  "En påminnelse att kontrollera, inte en besiktning.",
-  "A prompt to check, not an inspection.",
+  "Muistutus omista tarkistuksista, ei kuntotarkastus.",
+  "En påminnelse om att kontrollera, inte en besiktning.",
+  "A reminder to check, not an inspection.",
 );
 
 export const ADJUSTER_NOTE =
@@ -57,33 +57,38 @@ export const ADJUSTER_NOTE =
 export const TEXT = {
   couldNotCheck: t(
     "Kuvaa ei voitu tarkistaa. Yritä uudelleen.",
-    "Bilden kunde inte kontrolleras. Försök igen.",
-    "Couldn't check the photo. Try again.",
+    "Det gick inte att kontrollera bilden. Försök igen.",
+    "Could not check the photo. Try again.",
   ),
   retakeVisible: t(
     "Ota uusi kuva. Varmista: {items}.",
-    "Ta en ny bild. Se till att: {items}.",
+    "Ta en ny bild. Kontrollera: {items}.",
     "Take a new photo. Make sure: {items}.",
   ),
   retakeCondition: t(
-    "Ota lähempää ja tarkempi kuva. Emme voineet arvioida: {items}.",
-    "Ta en närmare och skarpare bild. Vi kunde inte bedöma: {items}.",
-    "Take a closer, sharper photo. We couldn't judge: {items}.",
+    "Ota tarkempi kuva lähempää. Emme voineet arvioida: {items}.",
+    "Ta en skarpare bild på närmare håll. Vi kunde inte bedöma: {items}.",
+    "Take a closer, sharper photo. We could not judge: {items}.",
+  ),
+  reproduction: t(
+    "Kuvaa itse kohde, älä näyttöä tai tulostettua kuvaa.",
+    "Fotografera själva föremålet, inte en skärm eller ett utskrivet foto.",
+    "Photograph the real item, not a screen or a printed photo.",
   ),
   answerPrompt: t(
     "Vastaa kyllä tai ei: {items}.",
     "Svara ja eller nej: {items}.",
-    "Please answer yes or no: {items}.",
+    "Answer yes or no: {items}.",
   ),
   shutOffChecked: t(
-    "Veden sulku tarkistettu {date}.",
-    "Vattenavstängningen kontrollerad {date}.",
-    "Water shut-off checked on {date}.",
+    "Sulkuventtiili tarkistettu {date}.",
+    "Avstängningsventilen kontrollerad {date}.",
+    "Shut-off valve verified on {date}.",
   ),
   shutOffFix: t(
-    "Veden sulku löydetty {date}, mutta se vaatii korjausta.",
-    "Vattenavstängningen hittad {date}, men den behöver åtgärdas.",
-    "Water shut-off found on {date}, but it needs a fix.",
+    "Sulkuventtiili löytyi {date}, mutta se pitää korjata.",
+    "Avstängningsventilen hittades {date}, men den behöver åtgärdas.",
+    "Shut-off valve found on {date}, but it needs fixing.",
   ),
   yearlyOne: t("Vuositarkistus: {title}", "Årlig kontroll: {title}", "Yearly re-check: {title}"),
   yearlyMany: t(
@@ -92,14 +97,14 @@ export const TEXT = {
     "Yearly re-check: {n} checks",
   ),
   seasonalOne: t(
-    "Kauden tarkistus: {title}",
+    "Kausitarkistus: {title}",
     "Säsongskontroll: {title}",
-    "Seasonal check: {title}",
+    "Seasonal re-check: {title}",
   ),
   seasonalMany: t(
-    "Kauden tarkistus: {n} kohdetta",
+    "Kausitarkistus: {n} kohdetta",
     "Säsongskontroll: {n} kontroller",
-    "Seasonal check: {n} checks",
+    "Seasonal re-check: {n} checks",
   ),
   fixFirst: t(
     "Korjaa ja ota uusi kuva: {title}",

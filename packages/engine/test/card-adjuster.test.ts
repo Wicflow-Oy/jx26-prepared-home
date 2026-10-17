@@ -13,8 +13,8 @@ describe("homeCard", () => {
       label: "Demo flat, Turku",
       homeType: "flat",
       generatedAt: "2026-10-17T12:00:00.000Z",
-      shutOffNote: "Water shut-off checked on 12 Oct 2026.",
-      disclaimer: "A prompt to check, not an inspection.",
+      shutOffNote: "Shut-off valve verified on 12 Oct 2026.",
+      disclaimer: "A reminder to check, not an inspection.",
     });
     expect(card.perils).toEqual([
       { peril: "leak", state: "in_progress", preparedUntil: null },
@@ -43,10 +43,10 @@ describe("homeCard", () => {
 
   it("localises the shut-off note and disclaimer", () => {
     const fi = homeCard(demoHome(FLAT), DEMO.records, NOW, null, "fi");
-    expect(fi.shutOffNote).toBe("Veden sulku tarkistettu 12.10.2026.");
-    expect(fi.disclaimer).toBe("Muistutus tarkistaa, ei tarkastus.");
+    expect(fi.shutOffNote).toBe("Sulkuventtiili tarkistettu 12.10.2026.");
+    expect(fi.disclaimer).toBe("Muistutus omista tarkistuksista, ei kuntotarkastus.");
     const sv = homeCard(demoHome(FLAT), DEMO.records, NOW, null, "sv");
-    expect(sv.shutOffNote).toBe("Vattenavstängningen kontrollerad 12.10.2026.");
+    expect(sv.shutOffNote).toBe("Avstängningsventilen kontrollerad 12.10.2026.");
   });
 
   it("fresh home card is empty", () => {

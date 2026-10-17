@@ -12,3 +12,4 @@ coverage/
 app/dist/
 !.env.example
 !**/.env.example
+.review/
