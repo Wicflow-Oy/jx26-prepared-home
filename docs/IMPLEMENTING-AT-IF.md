@@ -5,11 +5,11 @@ Prepared Home is a voluntary moving-day check-up inside the home insurance app. 
 ## What is ready today
 | Part | State | Where |
 |---|---|---|
-| Check catalogue: 14 checks (flat 11, house 14, cottage 13) with fixed criteria, each linked to the protective instruction in If's home terms (OMA 200.27, YLE 900.14) in Finnish, Swedish and If's official English | Built, unit-tested | `packages/engine/src/checks.ts`, `packages/engine/src/data/clauses.ts` |
+| Check catalogue: 14 checks (flat 11, house 14, cottage 13) with fixed criteria; each check shows the related clause of If's home terms OMA 200.27, quoted verbatim in Finnish, Swedish and If's official English (protective instructions, one exclusion, and If's home guide where the terms are silent) | Built, unit-tested | `packages/engine/src/checks.ts`, `packages/engine/src/data/clauses.ts` |
 | Rules: verdicts (Verified / Retake / Fix first), due dates, status per risk, reminders, Home Card, the claim-time decision | Built, unit-tested (63 tests) | `packages/engine/src/rules.ts` |
 | Vision check behind one interface, with a fixed photo eval that gates every model change | Built, measured | `server/src/vision/`, `server/eval/` |
 | API with per-IP and daily spend limits, recorded-result fallback, no storage of photos | Built, tested (64 tests) | `server/src/` |
-| App for iOS, Android and web from one codebase, in fi, sv and en | Built | `app/` |
+| App in fi, sv and en | Built and running on the web and in Expo Go on Android; the same code builds for iOS and Android with EAS (native store builds pending) | `app/` |
 
 **Measured on 17 Oct 2026** (24 licensed photos; a small set, so treat it as a smoke test, not a benchmark):
 
@@ -19,13 +19,15 @@ Prepared Home is a voluntary moving-day check-up inside the home insurance app. 
 | `claude-opus-5-5` | 23/24 | 0 | 7.1 s |
 | `claude-haiku-5-5` | 19/24 | 1 | 5.6 s |
 
-- **Tokens per check:** one check used about 3,100 input and 300 output tokens with the default model.
+- **Calls per check:** each live check is one Claude API call with one photo (at most 1600 px from the app). The server tracks token use for its daily spend cap.
+- **Coverage of the eval set:** the 24 photos cover 5 of the 14 checks (L1, L2, L3, L5, F2); the other checks are covered by unit tests of the rules, not yet by labelled photos.
 
 ## The decisions only If can make
 1. **The reward.**
    - Whether a verified, current check earns a lower deductible for that risk, and how much.
    - The prototype shows €300 → €100 as a labelled concept.
-   - The existing alarm-device rule (6.4.1) is the closest precedent in the Finnish terms. In Norway, If customers with an Ohma sensor package already skip the deductible.
+   - The existing alarm-device rule (6.4.1) is the closest precedent in the Finnish terms: no deductible when an alarm device's working prevented or limited the damage.
+   - In Norway, the alarm service Ohma waives the If deductible for water, fire or burglary damage covered by If when the Ohma sensor was triggered and the customer did what could reasonably be expected to limit the damage; in flats this applies to contents insurance only (Ohma terms §16, read 17 Oct 2026).
 2. **The written terms.** The relief must be in the terms or the pre-contract information before it applies to anyone.
 3. **The tone and brand.** The product can run If-branded or neutral (one switch: `app/src/prepared-home/brand.ts`).
 
@@ -49,9 +51,10 @@ Prepared Home is a voluntary moving-day check-up inside the home insurance app. 
 
 ## Privacy and legal checklist (before a pilot)
 - **DPIA:** home-interior photos are processed by an AI service, which is new technology, so do a data protection impact assessment.
-- **AI processor:** the photo is sent to our API and on to the Anthropic API for the check, then discarded by our server. Put a data processing agreement in place and describe the processor in the customer information.
-- **No automated decisions with legal effect:** the model only answers whether each item is visible and in order; the verdict follows fixed rules, and at claim time a person decides.
-- **Findings never raise the price or reduce cover.** The scheme rewards completing the checks, not what the photos show.
+- **AI processor:** for the check, the photo is sent to our API and on to Anthropic's Claude API; our server keeps nothing, and the app keeps a copy on the device for a later claim. Anthropic states that API data isn't used for training by default and is deleted within 30 days unless kept for policy enforcement; zero data retention is available by agreement. For a pilot, put a data processing agreement in place, consider zero retention, and describe the processor in the customer information.
+- **No solely automated decision with legal or similarly significant effect (GDPR Art. 22):** the model only answers whether each item is visible and in order; the app's verdicts are guidance, and the deductible decision at claim time is made by a claims handler.
+- **Design principle (If decides):** check results are used only for the deductible relief, never to price the policy or to assess a claim. The relief needs every check for that risk to be current and verified, so anything found must be fixed and photographed again; a Fix-first result only means no relief yet. Under today's terms, neglecting a protective instruction can still affect compensation (YLE 5.1.1), so this firewall is a policy If would choose.
+- **Client-held records in the prototype:** the demo keeps dated records on the customer's device and the claim view trusts them. A fingerprint proves a shared photo is the same file that was checked, not when it was checked. In production the records live in If's store (see the integration table).
 - **An alternative route** for customers who can't use the camera, such as a manual review or a partner inspection.
 
 ## Suggested pilot
@@ -60,6 +63,6 @@ Prepared Home is a voluntary moving-day check-up inside the home insurance app. 
 - **Gates before scaling:** keep the photo eval green on If's own labelled photos, a false-"Verified" rate of zero on the gate set, and customer feedback.
 
 ## Running it
-- **Hosting:** one container serves the web app, the landing page and the API (`DEPLOY.md`). Configuration is by environment variables only (`.env.example`).
+- **Hosting:** one container serves the web app, the landing page and the API (`DEPLOY.md`). Configuration is by environment variables only (`.env.example`). The planned host is an UpCloud server in Helsinki; the AI check runs on Anthropic's Claude API.
 - **Native apps:** EAS builds for iOS (TestFlight) and Android (`docs/NATIVE-BUILDS.md`).
 - **Changing the model:** run `npm run eval -- --model <id>` and `npm run eval:gate`. The gate fails if accuracy drops or false "Verified" results rise.

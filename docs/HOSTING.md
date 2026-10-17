@@ -22,6 +22,6 @@
 When a limit is hit, the app falls back to recorded results and says so. Judges never see an error.
 
 ## Privacy story (true as stated)
-- **Hosting:** "Hosted in Helsinki (UpCloud), EU data residency" holds for the app and its data. The app stores nothing on the server; state stays in the visitor's browser or phone.
+- **Hosting:** say "Hosted in Helsinki (UpCloud)" only once the deployment there is confirmed. The app stores nothing on the server; state stays in the visitor's browser or phone.
 - **Photos:** processed in memory, sent to the Claude API for the check, then discarded. The Claude call goes to Anthropic, so say so if asked; don't call it EU storage.
 - **Indexing and tracking:** `noindex` header and meta on every page, plus `robots.txt` `Disallow: /`. No analytics, no trackers, no request-body logs.

@@ -18,7 +18,7 @@ npm run check
 - **`server`:** a small Node API. It verifies each photo's SHA-256, asks the vision model about the check's criteria (one `VisionProvider` interface: live, cached or offline), applies the engine's rules and returns the outcome. It stores nothing by default, and has per-IP and daily spend limits.
 - **`app`:** an Expo app for Android, iOS and web. State stays on the device; status is computed locally with the engine.
 - **The model only answers "is this visible / is this OK in the photo".** Verified, Retake and Fix first are decided in code, and so are the deductible and the claim decision.
-- **Privacy:** photos are checked in memory and discarded. The record is a verdict, a date and a photo hash.
+- **Privacy:** the server checks photos in memory, sends them to the Claude API for the check and keeps nothing; the app keeps the record (verdict, dates, photo hash) and a copy of the photo on the device.
 
 ## Folder map
 ```
@@ -42,7 +42,7 @@ docs/              contracts, hosting and native-build notes
 `docs/IMPLEMENTING-AT-IF.md`: what is ready today, the decisions only If can make, the integration points (identity and policy, records, claims handling, reminders) and a privacy checklist for a pilot.
 
 ## What's real and what's mocked
-- **Real:** the vision checks (Claude API); If's public home-insurance terms (OMA 200.27, YLE 900.14) quoted per check; the FMI open-data frost forecast; the photo hashing.
+- **Real:** the vision checks (Claude API); If's public home-insurance terms (OMA 200.27) quoted per check; the FMI open-data frost forecast; the photo hashing.
 - **Mocked or concept:** the insurer's systems and the adjuster view; the deductible amounts ("Concept: If decides the amount"); the demo homes and their records.
 
 ## Data sources and licences
