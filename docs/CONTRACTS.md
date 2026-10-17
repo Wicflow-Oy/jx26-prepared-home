@@ -177,7 +177,7 @@ Judges try the real product online on their own device, and the team installs it
 
 ### 9.2 Abuse and cost guard on the vision endpoint
 - **Per-IP limit:** env `RATE_PER_IP_10MIN`, default 12 live checks per 10 minutes. Behind a proxy, honour `X-Forwarded-For` only when `TRUST_PROXY=1`.
-- **Daily live cap:** env `DAILY_LIVE_LIMIT`, default 400 calls; `DAILY_SPEND_CAP_EUR` (default 10) is checked with a per-call cost estimate. The counter resets at midnight Europe/Helsinki and is in memory, which is fine for one instance.
+- **Daily live cap:** env `DAILY_LIVE_LIMIT`, default 400 calls; `DAILY_SPEND_CAP_USD` (default 40) is checked with a per-call cost estimate. The counter resets at midnight Europe/Helsinki and is in memory, which is fine for one instance.
 - **When a limit is hit, never error to the judge.** Fall back to cached if the hash is cached, otherwise offline. Set `source` and `sourceNote` ("Live checks are paused for today; this is a recorded result." / "Live check limit reached; try a sample photo."), and say so in the UI.
 - **Body size limit:** 12 MB. Only `image/jpeg` is accepted; reject anything above 2576 px on the long edge.
 
@@ -213,7 +213,7 @@ Judges try the real product online on their own device, and the team installs it
   - Each sets `EXPO_PUBLIC_API_BASE_URL` (the hosted URL, filled in once hosting is chosen).
 - **Logins are the team lead's alone:** the team lead runs `eas login` and the Apple sign-in himself; agents never handle Apple or Expo credentials. Commands are in `docs/NATIVE-BUILDS.md`.
 
-### 9.6 Hosting (host-agnostic)
+### 9.6 Hosting (decided: UpCloud Helsinki behind Traefik; runbook deploy/README.md)
 - **One Docker image:** `server/` serves `/api/*` and the static web export (`app/dist`) from one Node process. `Dockerfile` at the repo root; config only via env vars.
 - **Also works as:** static hosting for `app/dist`, with the API on any Node host (set `EXPO_PUBLIC_API_BASE_URL` at build time).
 - **Deploy only after the team lead logs in to the chosen host himself.** No accounts are created by agents. Commands are in `docs/HOSTING.md`.
