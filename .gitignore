@@ -1,0 +1,14 @@
+node_modules/
+.expo/
+dist/
+web-build/
+android/
+ios/
+*.log
+.env
+.env.*
+server/data/*.json
+server/cache/assessments/*.json
+!server/cache/assessments/.gitkeep
+server/eval/reports/*.json
+coverage/
