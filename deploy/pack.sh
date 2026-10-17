@@ -5,14 +5,18 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 ART="$ROOT/release/artifact"
-rm -rf "$ART" && mkdir -p "$ART/samples" "$ART/cache/assessments"
+# Separate lines so set -e stops here if a running server still locks the old artifact (Windows).
+rm -rf "$ART"
+mkdir -p "$ART/samples" "$ART/cache/assessments"
 
 echo "1/4 bundling the server (engine and npm deps included)"
 ( cd "$ROOT/server" && npm run bundle )
 test -f "$ART/server.mjs"
 
 echo "2/4 exporting the web app to /app (same-origin /api) and adding the landing page at /"
-( cd "$ROOT/app" && EXPO_PUBLIC_API_BASE_URL=/api npx expo export --platform web --output-dir dist )
+# No EXPO_PUBLIC_API_BASE_URL here: production web builds default to same-origin /api,
+# and Git Bash would rewrite a "/api" value into a Windows path.
+( cd "$ROOT/app" && npx expo export --platform web --output-dir dist )
 mkdir -p "$ART/web"
 cp -r "$ROOT/app/dist" "$ART/web/app"
 ( cd "$ROOT/landing" && cp index.html styles.css main.js robots.txt favicon.svg manifest.webmanifest "$ART/web/" )

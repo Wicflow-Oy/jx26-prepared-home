@@ -1,0 +1,489 @@
+/* Public design tokens shared with the app: warm sand, brown text, one blue action colour. */
+:root {
+  color-scheme: light;
+  --sand: #faf9f7;
+  --sand-3: #f1ece8;
+  --white: #fff;
+  --text: #331e11;
+  --quiet: #6e625e;
+  --blue: #0054f0;
+  --blue-press: #1241a2;
+  --blue-tint: #e1e9f6;
+  --line: #e8e0d9;
+  --bezel-colour: #241b16;
+  --font: "If Sans Variable", "Segoe UI", Arial, sans-serif;
+
+  --pad-y: clamp(16px, 3vh, 32px);
+  --pad-x: clamp(16px, 4vw, 64px);
+  --space: clamp(16px, 3.6vh, 36px);
+  --space-s: clamp(10px, 2vh, 20px);
+
+  /* The framed app keeps the viewport of a common phone: 390 × 844 CSS px. */
+  --screen-w: 390px;
+  --screen-h: 844px;
+  --screen-radius: 40px;
+  --status-h: 34px;
+  --bezel: 10px;
+  --device-w: calc(var(--screen-w) + 2 * var(--bezel));
+  --device-h: calc(var(--status-h) + var(--screen-h) + 2 * var(--bezel));
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--sand);
+  color: var(--text);
+  font: 400 16px/1.5 var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: var(--blue);
+  text-underline-offset: 3px;
+  transition: color 120ms ease;
+}
+
+a:hover {
+  color: var(--blue-press);
+}
+
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Layout: pitch and next steps on the left, the live app on the right, all within one screen. */
+.page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 50rem) auto;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "intro preview"
+    "footer preview";
+  justify-content: center;
+  column-gap: clamp(40px, 6vw, 112px);
+  row-gap: var(--space);
+  padding: var(--pad-y) var(--pad-x);
+}
+
+.intro {
+  grid-area: intro;
+  align-self: center;
+}
+
+.tag {
+  display: inline-block;
+  margin-bottom: var(--space-s);
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--sand-3);
+  color: var(--quiet);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+h1 {
+  font-size: clamp(36px, 6vh, 52px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  margin-top: 4px;
+  color: var(--quiet);
+  font-size: 18px;
+}
+
+.lede {
+  max-width: 34em;
+  margin-top: var(--space-s);
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.points {
+  display: grid;
+  gap: 6px;
+  margin-top: var(--space-s);
+  color: var(--quiet);
+  font-size: 15px;
+}
+
+.points li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 6px;
+  background: var(--blue);
+  color: var(--sand);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 120ms ease;
+}
+
+.button:hover {
+  background: var(--blue-press);
+  color: var(--sand);
+}
+
+/* Only phones see this; with JavaScript they are redirected to the app before it shows. */
+.open-app {
+  display: none;
+}
+
+.next {
+  margin-top: var(--space);
+  container-type: inline-size;
+}
+
+.next-grid {
+  display: grid;
+  gap: var(--space);
+}
+
+@container (min-width: 700px) {
+  .next-grid {
+    grid-template-columns: auto 1fr;
+    align-items: start;
+  }
+}
+
+.qr-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  max-width: 26rem;
+  padding: 16px 24px 16px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--white);
+}
+
+.qr {
+  flex: none;
+  width: clamp(120px, 18vh, 148px);
+  aspect-ratio: 1;
+  color: var(--text);
+  font-size: 12px;
+}
+
+.qr svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.qr-card h2 {
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.qr-card p {
+  margin-top: 4px;
+  color: var(--quiet);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.url {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 20px;
+  overflow-wrap: anywhere;
+}
+
+.steps h2 {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.steps ol {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+  counter-reset: step;
+}
+
+.steps li {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  column-gap: 12px;
+  counter-increment: step;
+}
+
+.steps li::before {
+  content: counter(step);
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--blue-tint);
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.steps h3 {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.steps p {
+  color: var(--quiet);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.footnote {
+  grid-area: footer;
+  align-self: end;
+  max-width: 46rem;
+  color: var(--quiet);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+/* Phone frame */
+.preview {
+  grid-area: preview;
+  align-self: center;
+  /* tan(atan2(a, b)) is a / b as a plain number, so CSS alone can fit the phone to the viewport height. */
+  --scale: min(1, tan(atan2(100vh - 2 * var(--pad-y), var(--device-h))));
+  width: calc(var(--device-w) * var(--scale));
+  height: calc(var(--device-h) * var(--scale));
+}
+
+.device {
+  position: relative;
+  width: var(--device-w);
+  height: var(--device-h);
+  padding: var(--bezel);
+  border-radius: calc(var(--screen-radius) + var(--bezel));
+  background: var(--bezel-colour);
+  box-shadow:
+    0 0 0 1px rgb(51 30 17 / 0.2),
+    0 28px 56px -28px rgb(51 30 17 / 0.45);
+  /* A transform keeps the iframe's own viewport at 390 × 844 while the frame shrinks. */
+  transform: scale(var(--scale));
+  transform-origin: 0 0;
+}
+
+/* Side buttons: volume on the left, power on the right. */
+.device::before,
+.device::after {
+  content: "";
+  position: absolute;
+  width: 3px;
+  background: var(--bezel-colour);
+}
+
+.device::before {
+  top: 168px;
+  left: -3px;
+  height: 56px;
+  border-radius: 2px 0 0 2px;
+  box-shadow: 0 72px 0 var(--bezel-colour);
+}
+
+.device::after {
+  top: 200px;
+  right: -3px;
+  height: 88px;
+  border-radius: 0 2px 2px 0;
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--screen-radius);
+  background: var(--sand);
+}
+
+.status-bar {
+  position: relative;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--status-h);
+  padding: 0 24px 0 34px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.island {
+  position: absolute;
+  top: 5px;
+  left: calc(50% - 48px);
+  width: 96px;
+  height: 24px;
+  border-radius: 12px;
+  background: var(--bezel-colour);
+}
+
+.status-icons {
+  width: 66px;
+  height: 12px;
+  fill: var(--text);
+}
+
+.status-icons .wifi,
+.status-icons .battery {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.status-icons .battery {
+  stroke-width: 1;
+  opacity: 0.5;
+}
+
+.app-area {
+  position: relative;
+  flex: none;
+  width: var(--screen-w);
+  height: var(--screen-h);
+}
+
+/* Sits behind the iframe until the app paints its own background over it. */
+.app-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--quiet);
+  font-size: 14px;
+}
+
+.app-area iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.app-area iframe:focus-visible {
+  outline-offset: -3px;
+}
+
+/* Short laptop viewports (a 768 px screen leaves about 600 px for the page): tighten the text. */
+@media (max-height: 640px) {
+  h1 {
+    font-size: 32px;
+  }
+
+  .lede {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .points {
+    gap: 2px;
+  }
+}
+
+/* The footer already carries this label, so the top copy can go first. */
+@media (max-height: 580px) {
+  .tag {
+    display: none;
+  }
+}
+
+/* Narrow windows: stack the columns and let the page scroll. */
+@media (max-width: 860px) {
+  .page {
+    grid-template-columns: minmax(0, 40rem);
+    grid-template-rows: auto;
+    grid-template-areas:
+      "intro"
+      "preview"
+      "footer";
+  }
+
+  .preview {
+    justify-self: center;
+  }
+}
+
+/* Phones open the app itself; this is the fallback while redirecting or without JavaScript. */
+@media (max-width: 500px) {
+  .page {
+    display: block;
+    padding: 32px 16px;
+  }
+
+  .next,
+  .preview {
+    display: none;
+  }
+
+  .open-app {
+    display: flex;
+    margin-top: 24px;
+  }
+
+  .footnote {
+    margin-top: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}
