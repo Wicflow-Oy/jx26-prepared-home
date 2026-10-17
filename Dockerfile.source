@@ -1,0 +1,48 @@
+# Prepared Home: build everything from source (engine + server bundle + Expo web export).
+# NOT FOR THE PRODUCTION BOX. The production box builds the copy-only ./Dockerfile from the committed
+# release/artifact. Use this only on a machine where building is fine:
+#   docker build -f Dockerfile.source -t prepared-home:source .
+# Untested here (no Docker on the dev PC). Ignore rules: Dockerfile.source.dockerignore.
+
+# ---- build ---------------------------------------------------------------------------------------
+FROM node:24-alpine AS build
+WORKDIR /src
+
+# The engine is dependency-free TypeScript source; server and app link to it with file:../packages/engine.
+COPY packages/engine/ packages/engine/
+
+COPY server/package.json server/package-lock.json server/
+RUN cd server && npm ci --no-audit --no-fund
+COPY server/ server/
+RUN cd server && npm run bundle
+# -> /src/release/artifact/server.mjs
+
+COPY app/package.json app/package-lock.json app/
+RUN cd app && npm ci --no-audit --no-fund
+COPY app/ app/
+RUN cd app && EXPO_PUBLIC_API_BASE_URL=/api npx expo export --platform web --output-dir dist
+
+# Runtime layout: server.mjs, web/, samples/ (licensed photos + attribution), cache/assessments/ (recorded results).
+RUN mkdir -p /out/samples /out/cache/assessments \
+ && cp /src/release/artifact/server.mjs /out/server.mjs \
+ && cp -r /src/app/dist /out/web \
+ && cp /src/server/eval/photos/*.jpg /src/server/eval/photos/README.md /out/samples/ \
+ && (cp /src/server/cache/assessments/*.json /out/cache/assessments/ 2>/dev/null || true)
+
+# ---- run -----------------------------------------------------------------------------------------
+FROM node:24-alpine
+WORKDIR /app
+COPY --from=build /out/ /app/
+
+ENV NODE_ENV=production \
+    PORT=8787 \
+    STORE_MODE=stateless \
+    WEB_DIST=/app/web
+
+USER node
+EXPOSE 8787
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+  CMD wget -qO- http://127.0.0.1:8787/api/v1/health > /dev/null || exit 1
+
+CMD ["node", "--max-old-space-size=768", "server.mjs"]

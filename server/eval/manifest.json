@@ -1,0 +1,154 @@
+[
+  {
+    "file": "A01.jpg",
+    "checkId": "L1",
+    "expectedVerdict": "verified",
+    "note": "Flat's tiled access hatch: two red-lever ball valves, filters and water meters, no visible leak or stains. Lever position must not be judged."
+  },
+  {
+    "file": "A02.jpg",
+    "checkId": "L1",
+    "expectedVerdict": "verified",
+    "alsoAcceptable": ["retake"],
+    "note": "Outdoor meter with a blue-lever ball valve below; the valve is partly cut off at the bottom edge, so a retake is defensible."
+  },
+  {
+    "file": "A03.jpg",
+    "checkId": "L1",
+    "expectedVerdict": "retake",
+    "note": "Electronic water meter lying on a table, not installed; no shut-off valve in frame."
+  },
+  {
+    "file": "A04.jpg",
+    "checkId": "L1",
+    "expectedVerdict": "retake",
+    "alsoAcceptable": ["fix_first"],
+    "note": "Black-and-white outdoor wall with several meters and small valves of a shared building; which valve is the home's is unclear and corrosion can't be judged in B/W. Corroded pipework makes fix_first defensible. Never verified."
+  },
+  {
+    "file": "A05.jpg",
+    "checkId": "L1",
+    "expectedVerdict": "retake",
+    "note": "Close-up of a dirty meter dial, no valve in frame (sample photo)."
+  },
+  {
+    "file": "A06.jpg",
+    "checkId": "L1",
+    "expectedVerdict": "retake",
+    "note": "Street excavation with the utility's meter box, lid closed, no lever visible; wrong subject (the valve is inside the building)."
+  },
+  {
+    "file": "A07.jpg",
+    "checkId": "L1",
+    "expectedVerdict": "verified",
+    "note": "Brass ball valve with a green lever on copper pipe, clean (sample photo)."
+  },
+  {
+    "file": "A08.jpg",
+    "checkId": "L1",
+    "expectedVerdict": "verified",
+    "note": "Brass ball valve on copper pipe with a black lever; the lever position is ambiguous but never judged."
+  },
+  {
+    "file": "B01.jpg",
+    "checkId": "L2",
+    "expectedVerdict": "retake",
+    "note": "Macro of a braided steel hose only: neither the machine nor its tap is in frame."
+  },
+  {
+    "file": "B02.jpg",
+    "checkId": "L2",
+    "expectedVerdict": "retake",
+    "note": "Braided hose into a chrome angle valve, shallow focus; no machine in frame, so the hose is not visible from tap to machine."
+  },
+  {
+    "file": "B03.jpg",
+    "checkId": "L5",
+    "expectedVerdict": "fix_first",
+    "expectedUrgent": true,
+    "note": "White plastic sink trap with water dripping from it: leak at the trap, urgent (sample photo)."
+  },
+  {
+    "file": "B04.jpg",
+    "checkId": "L3",
+    "expectedVerdict": "retake",
+    "note": "A hand holding a loose brass valve with thread tape: a loose part, not an installed connection. Never describe the person."
+  },
+  {
+    "file": "B05.jpg",
+    "checkId": "L5",
+    "expectedVerdict": "verified",
+    "note": "Open under-sink cupboard: plastic trap with an appliance branch, dry clean floor, no leak. (No drip tray, but that is L4, not L5.)"
+  },
+  {
+    "file": "B06.jpg",
+    "checkId": "L5",
+    "expectedVerdict": "retake",
+    "note": "A person lying in an open sink cupboard (legs only); the trap is not clearly visible. Never describe the person."
+  },
+  {
+    "file": "B07.jpg",
+    "checkId": "L5",
+    "expectedVerdict": "retake",
+    "note": "Kitchen with the lower cupboard doors closed; the trap is not visible (sample photo)."
+  },
+  {
+    "file": "B08.jpg",
+    "checkId": "L3",
+    "expectedVerdict": "retake",
+    "note": "Toilet supply: braided hose and angle stop valve under a toilet cistern; wrong appliance for the dishwasher check."
+  },
+  {
+    "file": "C01.jpg",
+    "checkId": "F2",
+    "expectedVerdict": "verified",
+    "note": "Modern ABB board: RCDs with TEST buttons, B16 breakers, labelled circuits, cover on (sample photo)."
+  },
+  {
+    "file": "C02.jpg",
+    "checkId": "F2",
+    "expectedVerdict": "fix_first",
+    "expectedUrgent": true,
+    "note": "Old single-phase installation with porcelain screw-fuse holders, a removed fuse and tools on the floor: exposed parts, no RCD."
+  },
+  {
+    "file": "C03.jpg",
+    "checkId": "F2",
+    "expectedVerdict": "retake",
+    "alsoAcceptable": ["fix_first"],
+    "note": "An empty consumer-unit enclosure with its cover beside it, bare DIN rail, no breakers: not an installed board. fix_first (missing cover, no RCD) is defensible. Never verified."
+  },
+  {
+    "file": "C04.jpg",
+    "checkId": "F2",
+    "expectedVerdict": "fix_first",
+    "expectedUrgent": true,
+    "note": "Consumer unit with its front cover removed: RCBOs and exposed terminals, urgent (sample photo)."
+  },
+  {
+    "file": "C05.jpg",
+    "checkId": "F2",
+    "expectedVerdict": "verified",
+    "note": "US breaker panel, door open, dead front on, handwritten circuit numbers, two GFCI breakers with TEST buttons (residual-current protection)."
+  },
+  {
+    "file": "C06.jpg",
+    "checkId": "F2",
+    "expectedVerdict": "retake",
+    "note": "Product photo of an ABB RCD on a white background: not the home's board."
+  },
+  {
+    "file": "C07.jpg",
+    "checkId": "F2",
+    "expectedVerdict": "fix_first",
+    "alsoAcceptable": ["retake"],
+    "note": "Old industrial cast-metal switchgear (ASEA) with covers on but no RCD visible. A retake (not a home board) is defensible. Never verified."
+  },
+  {
+    "file": "C08.jpg",
+    "checkId": "F2",
+    "expectedVerdict": "fix_first",
+    "expectedUrgent": true,
+    "note": "Open metal cabinet in an outbuilding: meter, screw fuses, main switch and exposed empty fuse bases; RCD not clearly visible."
+  }
+]

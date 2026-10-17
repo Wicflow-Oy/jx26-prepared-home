@@ -1,0 +1,16 @@
+# Build context for Dockerfile.source (BuildKit reads <Dockerfile>.dockerignore next to the Dockerfile).
+**/node_modules
+**/.expo
+**/dist
+**/web-build
+**/coverage
+**/*.log
+**/.env
+**/.env.*
+.git
+release
+deploy
+app/android
+app/ios
+server/data
+server/eval/reports

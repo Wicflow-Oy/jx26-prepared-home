@@ -1,0 +1,36 @@
+{
+  "name": "@prepared-home/server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Prepared Home (Valmis koti) API: vision checks, frost forecast and adjuster view. Prototype for JunctionX, not an If service.",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "tsx watch --env-file-if-exists=../.env.local src/index.ts",
+    "start": "tsx --env-file-if-exists=../.env.local src/index.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "eval": "tsx --env-file-if-exists=../.env.local eval/run.ts",
+    "eval:gate": "tsx eval/gate.ts",
+    "record:samples": "tsx --env-file-if-exists=../.env.local scripts/record-samples.ts",
+    "bundle": "node scripts/bundle.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "0.135.0",
+    "@prepared-home/engine": "file:../packages/engine",
+    "express": "5.3.0"
+  },
+  "devDependencies": {
+    "@types/express": "5.0.6",
+    "@types/node": "26.6.5",
+    "@types/supertest": "7.2.1",
+    "esbuild": "0.28.2",
+    "sharp": "0.35.5",
+    "supertest": "7.3.1",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vitest": "5.0.5"
+  }
+}

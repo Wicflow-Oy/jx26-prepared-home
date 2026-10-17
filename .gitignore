@@ -8,9 +8,6 @@ ios/
 .env
 .env.*
 server/data/*.json
-server/cache/assessments/*.json
-!server/cache/assessments/.gitkeep
-server/eval/reports/*.json
 coverage/
 app/dist/
 !.env.example

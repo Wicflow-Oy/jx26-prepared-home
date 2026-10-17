@@ -3,5 +3,4 @@ release/
 dist/
 *.md
 package-lock.json
-server/
 app/
