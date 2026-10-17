@@ -2,15 +2,15 @@
 
 **Decided Sat 17 Oct: the team lead's UpCloud server in Helsinki**, behind the box's existing Traefik. Vercel is off.
 
-- **Runbook:** `deploy/README.md`. It covers the three confirmations the team lead gives before any deploy, the pack, upload, secrets, start, check and rollback.
+- **Runbook:** `DEPLOY.md` at the repo root, for the operator. He deploys from GitHub; build sessions never SSH in. It covers a read-only preflight, both proxy cases (Traefik labels, or Caddy/nginx with `127.0.0.1:8787`), verify and rollback.
 - **Shared conventions for all three JunctionX demos:** `../HOSTING.md`.
-- **Compose:** `deploy/compose.yml` (project `jx-preparedhome`, 1 GB, no published ports, `noindex` headers). Secrets template: `deploy/.env.example`.
-- **The box never builds heavy images.** `deploy/pack.sh` bundles the server and exports the web app on this PC; the Dockerfile only copies that artifact.
+- **Compose:** `deploy/compose.yml` plus `compose.traefik.yml` or `compose.port.yml` (project `jx-preparedhome`, 1 GB, `noindex` headers). Secrets template: `.env.example` (every variable, none filled in). the team lead's local key: `.env.local` (gitignored).
+- **The box never builds heavy images.** `deploy/pack.sh` bundles the server and exports the web app on the dev PC into `release/artifact/` (committed); the Dockerfile only copies it.
 
 ## Environment variables (server)
 | Variable | Value | Notes |
 |---|---|---|
-| `ANTHROPIC_API_KEY` | this app's own key | Set only in `/opt/jx/preparedhome/.env` on the box. Never in the app, the repo or logs |
+| `ANTHROPIC_API_KEY` | this app's own key | the operator sets it in `.env` on the server; the team lead keeps his local one in `.env.local`. Never in the app, the repo or logs |
 | `VISION_MODEL` | `claude-sonnet-5-5` | Change only after `npm run eval:gate` passes |
 | `STORE_MODE` | `stateless` | The public demo stores nothing |
 | `TRUST_PROXY` | `1` | Traefik in front; needed for per-IP limits |

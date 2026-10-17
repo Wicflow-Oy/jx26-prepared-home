@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Builds the upload artifact on the dev PC (the box never runs npm install).
 # Usage (Git Bash, repo root):  bash deploy/pack.sh
-# Output: deploy/artifact/{server.mjs, web/, samples/, cache/}
+# Output: release/artifact/{server.mjs, web/, samples/, cache/}, committed so the production box never runs npm.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-ART="$ROOT/deploy/artifact"
+ART="$ROOT/release/artifact"
 rm -rf "$ART" && mkdir -p "$ART/samples" "$ART/cache/assessments"
 
 echo "1/4 bundling the server (engine and npm deps included)"
@@ -24,4 +24,4 @@ if compgen -G "$ROOT/server/cache/assessments/*.json" > /dev/null; then
 fi
 
 du -sh "$ART" "$ART"/* 2>/dev/null || true
-echo "Artifact ready. Upload with the command in deploy/README.md."
+echo "Artifact ready. Commit release/artifact, push, and the operator deploys per DEPLOY.md."

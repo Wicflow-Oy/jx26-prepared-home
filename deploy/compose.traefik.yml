@@ -1,0 +1,21 @@
+# Proxy case A: an existing Traefik routes by Docker labels. No host ports.
+services:
+  preparedhome:
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=${TRAEFIK_NETWORK:-n8n_default}"
+      - "traefik.http.routers.jx-preparedhome.rule=Host(`${PH_HOST:-preparedhome.demo.wicflow.com}`)"
+      - "traefik.http.routers.jx-preparedhome.entrypoints=websecure"
+      - "traefik.http.routers.jx-preparedhome.tls.certresolver=${PH_CERTRESOLVER:-zerossl}"
+      - "traefik.http.services.jx-preparedhome.loadbalancer.server.port=8787"
+      - "traefik.http.middlewares.jx-preparedhome-headers.headers.customresponseheaders.X-Robots-Tag=noindex, nofollow"
+      - "traefik.http.middlewares.jx-preparedhome-headers.headers.referrerPolicy=no-referrer"
+      - "traefik.http.middlewares.jx-preparedhome-headers.headers.contentTypeNosniff=true"
+      - "traefik.http.routers.jx-preparedhome.middlewares=jx-preparedhome-headers"
+
+networks:
+  traefik:
+    name: ${TRAEFIK_NETWORK:-n8n_default}
+    external: true
