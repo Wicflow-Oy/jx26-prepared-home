@@ -3,7 +3,8 @@ release/
 dist/
 *.md
 package-lock.json
-app/
 server/cache/
 server/eval/reports/
 landing/.screens/
+.expo/
+app/maestro/recordings/

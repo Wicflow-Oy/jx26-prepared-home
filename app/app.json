@@ -1,0 +1,70 @@
+{
+  "expo": {
+    "name": "Prepared Home",
+    "slug": "prepared-home",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "preparedhome",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "bundleIdentifier": "fi.wicflow.preparedhome",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Prepared Home uses the camera to photograph the points you check. Photos are checked and then discarded.",
+        "NSPhotoLibraryUsageDescription": "Prepared Home uses the camera to photograph the points you check. Photos are checked and then discarded."
+      },
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "fi.wicflow.preparedhome",
+      "adaptiveIcon": {
+        "backgroundColor": "#331E11",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "single",
+      "favicon": "./assets/images/favicon.png",
+      "name": "Prepared Home",
+      "shortName": "Prepared Home",
+      "lang": "en",
+      "themeColor": "#FAF9F7",
+      "description": "A moving-day check-up prototype built at JunctionX Turku 2026. Not an If service."
+    },
+    "plugins": [
+      [
+        "expo-router",
+        {
+          "asyncRoutes": false
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "Prepared Home uses the camera to photograph the points you check. Photos are checked and then discarded.",
+          "photosPermission": "Prepared Home uses the camera to photograph the points you check. Photos are checked and then discarded.",
+          "microphonePermission": false
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#FAF9F7",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 96
+        }
+      ]
+    ],
+    "experiments": {
+      "baseUrl": "/app",
+      "typedRoutes": false,
+      "reactCompiler": true
+    }
+  }
+}

@@ -1,0 +1,36 @@
+# Demo flat: Leak is 5 of 6, and the status screen shows the concept label.
+# Expo Go. For a development build change appId to fi.wicflow.preparedhome and EXPO_URL to preparedhome://
+appId: host.exp.exponent
+env:
+  EXPO_URL: exp://127.0.0.1:8081
+---
+- runFlow:
+    file: subflows/open-app.yaml
+    env:
+      EXPO_URL: ${EXPO_URL}
+- tapOn:
+    id: demo-flat
+- extendedWaitUntil:
+    visible:
+      id: home-screen
+    timeout: 10000
+- assertVisible:
+    id: home-peril-count-leak
+    text: 5 of 6
+- scrollUntilVisible:
+    element:
+      id: nav-status
+    direction: DOWN
+- tapOn:
+    id: nav-status
+- extendedWaitUntil:
+    visible:
+      id: status-screen
+    timeout: 10000
+- assertVisible:
+    id: peril-count-leak
+    text: 5 of 6
+- assertVisible:
+    id: status-concept-label-leak
+- assertVisible:
+    id: prototype-label

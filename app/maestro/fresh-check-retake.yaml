@@ -1,0 +1,47 @@
+# Fresh home: open the washing-machine hose check (L2), use a sample photo, see the result sheet.
+# Needs the API server (port 8787). A sample for another check usually comes back as Retake.
+# Expo Go. For a development build change appId to fi.wicflow.preparedhome and EXPO_URL to preparedhome://
+appId: host.exp.exponent
+env:
+  EXPO_URL: exp://127.0.0.1:8081
+---
+- runFlow:
+    file: subflows/open-app.yaml
+    env:
+      EXPO_URL: ${EXPO_URL}
+- tapOn:
+    id: start-fresh
+- tapOn:
+    id: fresh-confirm
+- extendedWaitUntil:
+    visible:
+      id: home-screen
+    timeout: 10000
+- scrollUntilVisible:
+    element:
+      id: check-row-L2
+    direction: DOWN
+- tapOn:
+    id: check-row-L2
+- extendedWaitUntil:
+    visible:
+      id: check-screen
+    timeout: 10000
+- assertVisible:
+    id: coach-line
+- assertVisible:
+    id: privacy-line
+- tapOn:
+    id: use-sample
+- extendedWaitUntil:
+    visible:
+      id: samples-list
+    timeout: 20000
+- tapOn:
+    id: sample-A07
+- extendedWaitUntil:
+    visible:
+      id: result-body
+    timeout: 60000
+- assertVisible:
+    id: verdict-title

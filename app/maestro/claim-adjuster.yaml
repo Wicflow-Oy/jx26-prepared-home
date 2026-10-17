@@ -1,0 +1,38 @@
+# Demo flat: simulate the leak claim; the adjuster sees "Bonus not applied" because L4 is Fix first.
+# Needs the API server (port 8787).
+# Expo Go. For a development build change appId to fi.wicflow.preparedhome and EXPO_URL to preparedhome://
+appId: host.exp.exponent
+env:
+  EXPO_URL: exp://127.0.0.1:8081
+---
+- runFlow:
+    file: subflows/open-app.yaml
+    env:
+      EXPO_URL: ${EXPO_URL}
+- tapOn:
+    id: demo-flat
+- extendedWaitUntil:
+    visible:
+      id: home-screen
+    timeout: 10000
+- scrollUntilVisible:
+    element:
+      id: nav-claim
+    direction: DOWN
+- tapOn:
+    id: nav-claim
+- extendedWaitUntil:
+    visible:
+      id: simulate-claim
+    timeout: 10000
+- tapOn:
+    id: simulate-claim
+- extendedWaitUntil:
+    visible:
+      id: adjuster-decision-text
+    timeout: 30000
+- assertVisible:
+    id: adjuster-decision-text
+    text: Bonus not applied
+- assertVisible:
+    id: adjuster-note

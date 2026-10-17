@@ -1,0 +1,131 @@
+// On-device photo pipeline (docs/CONTRACTS.md §8):
+// capture or pick -> resize to at most 2576 px on the long edge -> re-encode JPEG ~0.85 (drops EXIF)
+// -> SHA-256 of the exact bytes that will be sent.
+import { ImageManipulator, SaveFormat } from "expo-image-manipulator";
+import * as ImagePicker from "expo-image-picker";
+import { Platform } from "react-native";
+
+import { base64ToBytes, bytesToBase64, sha256Hex } from "./bytes";
+import { PHOTO } from "./config";
+import { downloadBytes } from "./photoStore";
+
+export interface PreparedPhoto {
+  base64: string; // exactly the bytes below, base64 without a data-URI prefix
+  bytes: Uint8Array;
+  sha256: string;
+  width: number;
+  height: number;
+  previewUri: string;
+  origin: "camera" | "library" | "sample";
+  sampleId?: string;
+}
+
+export type PickResult = { kind: "ok"; uri: string } | { kind: "cancelled" } | { kind: "denied" };
+
+const PICKER_OPTIONS: ImagePicker.ImagePickerOptions = {
+  mediaTypes: ["images"],
+  quality: 1,
+  exif: false,
+  allowsEditing: false,
+  allowsMultipleSelection: false,
+};
+
+/** Opens the camera or the photo library. Preparing the image is a separate step, so the UI can respond first. */
+export async function pickImage(source: "camera" | "library"): Promise<PickResult> {
+  if (source === "camera" && Platform.OS !== "web") {
+    const perm = await ImagePicker.requestCameraPermissionsAsync();
+    if (!perm.granted) return { kind: "denied" };
+  }
+  const result =
+    source === "camera"
+      ? await ImagePicker.launchCameraAsync(PICKER_OPTIONS)
+      : await ImagePicker.launchImageLibraryAsync(PICKER_OPTIONS);
+  const asset = result.canceled ? undefined : result.assets?.[0];
+  return asset ? { kind: "ok", uri: asset.uri } : { kind: "cancelled" };
+}
+
+/** Re-encodes any picked image as a JPEG of at most PHOTO.maxLongEdge on the long edge. */
+export async function prepareImage(
+  uri: string,
+  origin: "camera" | "library",
+): Promise<PreparedPhoto> {
+  let ref = await ImageManipulator.manipulate(uri).renderAsync();
+  const long = Math.max(ref.width, ref.height);
+  if (long > PHOTO.maxLongEdge) {
+    const size =
+      ref.width >= ref.height ? { width: PHOTO.maxLongEdge } : { height: PHOTO.maxLongEdge };
+    ref = await ImageManipulator.manipulate(ref).resize(size).renderAsync();
+  }
+  const saved = await ref.saveAsync({
+    base64: true,
+    compress: PHOTO.jpegQuality,
+    format: SaveFormat.JPEG,
+  });
+  if (!saved.base64) throw new Error("No image data");
+  const bytes = base64ToBytes(saved.base64);
+  return {
+    base64: saved.base64,
+    bytes,
+    sha256: await sha256Hex(bytes),
+    width: saved.width,
+    height: saved.height,
+    previewUri: saved.uri,
+    origin,
+  };
+}
+
+/** Sample photos are sent byte for byte as served, so recorded results match their hash. */
+export async function prepareSample(
+  url: string,
+  sampleId: string,
+  knownSize?: { width?: number; height?: number },
+): Promise<PreparedPhoto> {
+  const bytes = await downloadBytes(url);
+  const size =
+    jpegSize(bytes) ??
+    (knownSize?.width && knownSize?.height
+      ? { width: knownSize.width, height: knownSize.height }
+      : null);
+  if (!size) throw new Error("Not a JPEG");
+  return {
+    base64: bytesToBase64(bytes),
+    bytes,
+    sha256: await sha256Hex(bytes),
+    width: size.width,
+    height: size.height,
+    previewUri: url,
+    origin: "sample",
+    sampleId,
+  };
+}
+
+/** Reads width and height from a JPEG's start-of-frame marker. */
+export function jpegSize(bytes: Uint8Array): { width: number; height: number } | null {
+  if (bytes.length < 4 || bytes[0] !== 0xff || bytes[1] !== 0xd8) return null;
+  let i = 2;
+  while (i + 9 < bytes.length) {
+    if (bytes[i] !== 0xff) {
+      i++;
+      continue;
+    }
+    const marker = bytes[i + 1];
+    if (marker === 0xff) {
+      i++;
+      continue;
+    }
+    if (marker === 0xd8 || marker === 0x01 || (marker >= 0xd0 && marker <= 0xd7)) {
+      i += 2;
+      continue;
+    }
+    const length = (bytes[i + 2] << 8) | bytes[i + 3];
+    const isSof =
+      marker >= 0xc0 && marker <= 0xcf && marker !== 0xc4 && marker !== 0xc8 && marker !== 0xcc;
+    if (isSof) {
+      const height = (bytes[i + 5] << 8) | bytes[i + 6];
+      const width = (bytes[i + 7] << 8) | bytes[i + 8];
+      return width > 0 && height > 0 ? { width, height } : null;
+    }
+    i += 2 + length;
+  }
+  return null;
+}
