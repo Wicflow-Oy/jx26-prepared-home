@@ -159,12 +159,12 @@ export const CHECKS: CheckDefinition[] = [
         ),
       },
     ],
-    clauseIds: [],
-    clauseFit: "none",
+    clauseIds: ["OMA-5.5.6", "OMA-5.5.8"],
+    clauseFit: "section",
     guideNote: t(
-      "Ifin kotioppaan vinkki: asenna astianpesukoneelle oma sulkuventtiili ja turvakaukalo samaan tapaan kuin pesukoneelle (ehtojen kohta 5.5.6).",
-      "Tips ur Ifs hemguide: ge diskmaskinen en egen avstängningsventil och ett tråg, på samma sätt som tvättmaskinen (villkorens punkt 5.5.6).",
-      "Tip from If's home guide: give the dishwasher its own shut-off valve and a drip tray, as for a washing machine (terms 5.5.6).",
+      "Ifin ohjeiden mukaan nämä suojeluohjeet koskevat myös astianpesukonetta: sulje sen venttiili, kun kone ei ole käytössä, ja laita turvakaukalo alle, jos tilassa ei ole lattiakaivoa.",
+      "Enligt Ifs anvisningar gäller de här säkerhetsföreskrifterna även diskmaskinen: stäng ventilen när den inte används, och ställ ett tråg under den om rummet saknar golvbrunn.",
+      "If's guidance applies these instructions to dishwashers: close the dishwasher's valve when not in use, and put a drip tray under it in a room with no floor drain.",
     ),
     notApplicableAllowed: true,
     defaultOwner: { default: "me" },
@@ -203,9 +203,9 @@ export const CHECKS: CheckDefinition[] = [
         id: "L4.tray_or_drain",
         kind: "condition",
         text: t(
-          "Laitteen alla on turvakaukalo tai aivan vieressä lattiakaivo",
-          "Det finns ett tråg under apparaten eller en golvbrunn alldeles intill",
-          "There is a drip tray under the appliance, or a floor drain right next to it",
+          "Laitteen alla on turvakaukalo, tai tilassa on lattiakaivo ja vuoto näkyisi heti",
+          "Det finns ett tråg under apparaten, eller rummet har golvbrunn och ett läckage skulle synas genast",
+          "There is a drip tray under the appliance, or the room has a floor drain and a leak would show at once",
         ),
       },
       {
@@ -351,11 +351,11 @@ export const CHECKS: CheckDefinition[] = [
     clauseIds: ["OMA-5.2.6"],
     clauseFit: "direct",
     notApplicableAllowed: false,
-    defaultOwner: { default: "me" },
+    defaultOwner: { default: "me", flat: "property_manager" },
     fixHint: t(
-      "Jos palovaroitin ei piippaa, vaihda paristo tai osta uusi. Asenna vähintään yksi palovaroitin jokaisen kerroksen kattoon.",
-      "Om den inte piper, byt batteri eller köp en ny brandvarnare. Sätt upp minst en i taket på varje våning.",
-      "If it does not beep, change the battery or buy a new alarm. Fit at least one alarm on the ceiling of every floor.",
+      "Jos palovaroitin ei piippaa, vaihda paristo tai varoitin. Jokaisessa kerroksessa tarvitaan kattoon vähintään yksi palovaroitin jokaista alkavaa 60 neliömetriä kohti.",
+      "Om den inte piper, byt batteri eller varnare. Varje våning behöver minst en brandvarnare i taket per påbörjade 60 m².",
+      "If it does not beep, change the battery or replace the alarm. You need at least one alarm on the ceiling for every started 60 m² of each floor.",
     ),
     recheck: { kind: "yearly" },
   },
@@ -389,15 +389,6 @@ export const CHECKS: CheckDefinition[] = [
         ),
       },
       {
-        id: "F2.rcd_visible",
-        kind: "condition",
-        text: t(
-          "Vikavirtasuoja, jossa on TEST-painike, näkyy",
-          "En jordfelsbrytare med TEST-knapp syns",
-          "A residual-current device (RCD) with a TEST button is visible",
-        ),
-      },
-      {
         id: "F2.clear_front",
         kind: "condition",
         text: t(
@@ -409,12 +400,18 @@ export const CHECKS: CheckDefinition[] = [
     ],
     clauseIds: ["OMA-5.2.7", "OMA-5.2.8"],
     clauseFit: "section",
+    // A missing RCD is not a fault: older wiring may lack one if it met the rules when installed (Tukes).
+    guideNote: t(
+      "Keskuksen edustan pitäminen tyhjänä on turvallisuusvinkki, ei ehtojen määräys. Eikö vikavirtasuojaa näy? Vanhemmissa sähköasennuksissa sitä ei usein ole, ja se on sallittua, jos asennus täytti tekohetkensä määräykset. Sähköasentaja voi lisätä sen turvallisuuden parantamiseksi.",
+      "Att hålla fritt framför elcentralen är ett säkerhetstips, inte en regel i villkoren. Syns ingen jordfelsbrytare? Äldre elinstallationer saknar ofta en, och det är tillåtet om installationen uppfyllde reglerna när den gjordes. En elektriker kan installera en för ökad säkerhet.",
+      "Keeping the front of the fuse box clear is a safety tip, not a rule in the terms. No RCD visible? Older wiring often has none, and that is allowed if it met the rules when it was installed. An electrician can add one for extra safety.",
+    ),
     notApplicableAllowed: false,
     defaultOwner: { default: "professional" },
     fixHint: t(
-      "Raivaa tavarat keskuksen edestä. Jos näet vaurioita tai kärventymisjälkiä tai vikavirtasuoja puuttuu, tilaa sähköasentaja. Älä korjaa itse.",
-      "Flytta bort saker framför centralen. Om du ser skador eller brännmärken, eller om jordfelsbrytare saknas, anlita en behörig elektriker. Laga inget själv.",
-      "Clear the space in front of the fuse box. If you see damage or scorch marks, or there is no RCD, call an authorised electrician. Do not fix it yourself.",
+      "Raivaa tavarat keskuksen edestä. Jos näet vaurioita tai kärventymisjälkiä, tilaa sähköasentaja. Älä korjaa itse.",
+      "Flytta bort saker framför centralen. Om du ser skador eller brännmärken, anlita en behörig elektriker. Laga inget själv.",
+      "Clear the space in front of the fuse box. If you see damage or scorch marks, call an authorised electrician. Do not fix it yourself.",
     ),
     recheck: { kind: "yearly" },
   },
@@ -459,6 +456,11 @@ export const CHECKS: CheckDefinition[] = [
     ],
     clauseIds: ["OMA-5.2.7"],
     clauseFit: "section",
+    guideNote: t(
+      "Paksun pölyn poistaminen lauhduttimesta on turvallisuusvinkki, ei ehtojen määräys. Ehtojen kohta 5.2.7 koskee viallisia sähkölaitteita, kuten vaurioituneita johtoja ja pistokkeita.",
+      "Att ta bort tjockt damm från kondensorn är ett säkerhetstips, inte en regel i villkoren. Villkorens punkt 5.2.7 gäller trasiga elektriska anordningar, till exempel skadade sladdar och stickproppar.",
+      "Removing thick dust from the coil is a safety tip, not a rule in the terms. The terms (5.2.7) cover faulty appliances, such as damaged cords and plugs.",
+    ),
     notApplicableAllowed: false,
     defaultOwner: { default: "me" },
     fixHint: t(
@@ -494,12 +496,12 @@ export const CHECKS: CheckDefinition[] = [
         ),
       },
     ],
-    clauseIds: [],
-    clauseFit: "none",
+    clauseIds: ["OMA-5.2.15"],
+    clauseFit: "direct",
     guideNote: t(
-      "Liedellä tai sen lähellä olevat tavarat ovat keittiöpalojen yleisin syy (SPEK).",
-      "Föremål på eller nära spisen är den vanligaste orsaken till köksbränder (SPEK).",
-      "Things left on or near the stove are the most common cause of kitchen fires (SPEK).",
+      "Liedelle jätetty tavara oli yleisin liesipalojen syy vakuutusyhtiölle ilmoitetuissa vahingoissa (SPEK 2023).",
+      "Saker som lämnats på spisen var den vanligaste orsaken till spisbränder i försäkringsskador (SPEK 2023).",
+      "In stove-fire insurance claims, things left on the stove were the most common cause (SPEK 2023).",
     ),
     notApplicableAllowed: false,
     defaultOwner: { default: "me" },
@@ -534,9 +536,9 @@ export const CHECKS: CheckDefinition[] = [
         id: "F5.safe_surface",
         kind: "condition",
         text: t(
-          "Lataus tapahtuu kovalla alustalla, kaukana sängyistä, sohvista, verhoista ja muista tekstiileistä",
-          "Laddningen sker på ett hårt underlag, långt från sängar, soffor, gardiner och andra textilier",
-          "Charging happens on a hard surface, away from beds, sofas, curtains and other textiles",
+          "Lataus tapahtuu kaukana sängyistä, sohvista, verhoista ja muista tekstiileistä",
+          "Laddningen sker långt från sängar, soffor, gardiner och andra textilier",
+          "Charging happens away from beds, sofas, curtains and other textiles",
         ),
       },
     ],
@@ -622,14 +624,16 @@ export const CHECKS: CheckDefinition[] = [
           "Ingen slang är ansluten",
           "No hose is attached",
         ),
+        // 5.5.4: the hose must come off "during the cold season" (rules.ts COLD_SEASON_MONTHS).
+        coldSeasonOnly: true,
       },
       {
         id: "Z2.indoor_valve_closed",
         kind: "user",
         text: t(
-          "Suljin ulkohanan sisäpuolisen sulkuventtiilin",
-          "Jag stängde utekranens avstängningsventil inomhus",
-          "I closed the indoor shut-off valve for the outdoor tap",
+          "Suljin ulkohanan sisäpuolisen sulkuventtiilin, tai hana on pakkasenkestävä",
+          "Jag stängde utekranens avstängningsventil inomhus, eller kranen är frostsäker",
+          "I closed the indoor shut-off valve for the outdoor tap, or it is a frost-proof tap",
         ),
       },
     ],
@@ -695,6 +699,8 @@ interface HomeVariant {
   criteria?: Record<string, Localized>;
   clauseIds?: string[];
   clauseFit?: ClauseFit;
+  guideNote?: Localized;
+  relationNote?: Localized;
   fixHint?: Localized;
 }
 
@@ -712,6 +718,11 @@ const MAIN_VALVE: HomeVariant = {
     ),
   },
   clauseFit: "direct",
+  relationNote: t(
+    "Ehtojen mukaan tämä venttiili suljetaan, kun koti on tyhjillään yli viikon (5.5.3).",
+    "Enligt villkoren ska den här ventilen stängas när hemmet står tomt i mer än en vecka (5.5.3).",
+    "Your terms ask you to close this valve when the home is empty for more than a week (5.5.3).",
+  ),
   fixHint: t(
     "Jos pääsulkuventtiili vuotaa tai on jumissa, tilaa putkimies. Opettele sulkemaan se, ennen kuin tarvitset sitä.",
     "Om huvudventilen droppar eller sitter fast, anlita en rörmokare. Lär dig stänga den innan det behövs.",
@@ -723,24 +734,48 @@ const VARIANTS: Record<string, Partial<Record<HomeType, HomeVariant>>> = {
   L1: {
     house: MAIN_VALVE,
     cottage: MAIN_VALVE,
+    // Flats and terraced houses: only the housing company uses the main and flat shut-offs (Isännöintiliitto,
+    // Yle 6 Mar 2026), and 5.5.3 is a building rule. Residents check an appliance valve. Owner stays
+    // property_manager for a dripping or stuck valve; learning the appliance valve is the resident's part.
     flat: {
       coach: t(
-        "Katso keittiön tiskialtaan alta, pesukoneen takaa tai kylpyhuoneesta. Kuvaa sulkuventtiili niin, että kahva näkyy.",
-        "Titta under diskbänken, bakom tvättmaskinen eller i badrummet. Ta en bild av en avstängningsventil där handtaget syns.",
-        "Look under the kitchen sink, behind the washing machine or in the bathroom. Take a photo of a shut-off valve with the handle in view.",
+        "Kuvaa kodinkoneen sulkuventtiili, esimerkiksi astian- tai pyykinpesukoneen, niin että kahva näkyy. Kerros- ja rivitalossa pääsulku ja asuntokohtainen sulku ovat taloyhtiön vastuulla: älä käytä niitä.",
+        "Ta en bild av en maskins avstängningsventil, till exempel diskmaskinens eller tvättmaskinens, där handtaget syns. I flervånings- och radhus hör huvudavstängningen och lägenhetens avstängning till husbolaget: använd dem inte.",
+        "Take a photo of an appliance's shut-off valve, such as the dishwasher's or washing machine's, with the handle in view. In a block of flats or terraced house, the main and flat shut-offs belong to the housing company: don't use them.",
       ),
       criteria: {
         "L1.valve_visible": t(
-          "Asunnon tai kodinkoneen sulkuventtiili näkyy",
-          "Lägenhetens avstängningsventil eller en maskins egen ventil syns",
-          "The flat's own shut-off valve or an appliance's shut-off valve is visible",
+          "Kodinkoneen sulkuventtiili näkyy",
+          "En maskins avstängningsventil syns",
+          "An appliance's shut-off valve is visible",
+        ),
+        "L1.know_how": t(
+          "Osaan sulkea kodinkoneiden venttiilit, ja minulla on huoltoyhtiön päivystysnumero",
+          "Jag vet hur jag stänger maskinernas ventiler, och jag har servicebolagets journummer",
+          "I know how to close my appliance valves, and I have the maintenance company's emergency number",
         ),
       },
-      clauseFit: "section",
+      clauseIds: [],
+      clauseFit: "none",
+      guideNote: t(
+        "Kerros- ja rivitalossa vain taloyhtiö käyttää vesisulkua. Sulje kodinkoneiden venttiilit, kun koneet eivät ole käytössä.",
+        "I flervånings- och radhus är det bara husbolaget som använder vattenavstängningen. Stäng maskinernas ventiler när de inte används.",
+        "In a block of flats or terraced house, only the housing company uses the water shut-off. Close appliance valves when not in use.",
+      ),
       fixHint: t(
-        "Jos venttiili vuotaa tai on jumissa, ilmoita isännöitsijälle tai huoltoyhtiölle. Opettele sulkemaan se, ennen kuin tarvitset sitä.",
-        "Om ventilen droppar eller sitter fast, meddela disponenten eller servicebolaget. Lär dig stänga den innan det behövs.",
-        "If the valve drips or is stuck, tell the property manager or the maintenance company. Learn how to close it before you need to.",
+        "Jos venttiili vuotaa tai on jumissa, ilmoita isännöitsijälle tai huoltoyhtiölle. Opettele sulkemaan kodinkoneen venttiili.",
+        "Om ventilen droppar eller sitter fast, meddela disponenten eller servicebolaget. Lär dig stänga maskinens ventil.",
+        "If the valve drips or is stuck, tell the property manager or the maintenance company. Learn how to close the appliance valve.",
+      ),
+    },
+  },
+  F1: {
+    // Since 1 Jan 2026 the building owner fits and maintains smoke alarms; residents report faults.
+    flat: {
+      fixHint: t(
+        "Jos palovaroitin ei piippaa, ilmoita heti taloyhtiölle tai vuokranantajalle: 1.1.2026 alkaen rakennuksen omistaja hankkii ja huoltaa palovaroittimet.",
+        "Om den inte piper, meddela husbolaget eller hyresvärden genast: från 1.1.2026 skaffar och underhåller byggnadens ägare brandvarnarna.",
+        "If it does not beep, tell your housing company or landlord at once: since 1 January 2026 the building owner fits and maintains smoke alarms.",
       ),
     },
   },
@@ -772,6 +807,8 @@ export function appliesTo(check: CheckDefinition, homeType: HomeType): boolean {
 
 function specialize(check: CheckDefinition, homeType: HomeType): CheckDefinition {
   const v = VARIANTS[check.id]?.[homeType];
+  const guideNote = v?.guideNote ?? check.guideNote;
+  const relationNote = v?.relationNote ?? check.relationNote;
   return {
     ...check,
     homeTypes: [...check.homeTypes],
@@ -780,7 +817,8 @@ function specialize(check: CheckDefinition, homeType: HomeType): CheckDefinition
     criteria: check.criteria.map((c) => ({ ...c, text: { ...(v?.criteria?.[c.id] ?? c.text) } })),
     clauseIds: [...(v?.clauseIds ?? check.clauseIds)],
     clauseFit: v?.clauseFit ?? check.clauseFit,
-    ...(check.guideNote ? { guideNote: { ...check.guideNote } } : {}),
+    ...(guideNote ? { guideNote: { ...guideNote } } : {}),
+    ...(relationNote ? { relationNote: { ...relationNote } } : {}),
     defaultOwner: { ...check.defaultOwner },
     fixHint: { ...(v?.fixHint ?? check.fixHint) },
     recheck:
@@ -796,7 +834,7 @@ export function checksFor(homeType: HomeType): CheckDefinition[] {
   return CHECKS.filter((c) => appliesTo(c, homeType)).map((c) => specialize(c, homeType));
 }
 
-/** A check by id. With a home type, returns that home type's wording (L1 and Z1 differ). Throws for an unknown id. */
+/** A check by id. With a home type, returns that home type's wording (L1, F1 and Z1 differ). Throws for an unknown id. */
 export function getCheck(id: string, homeType?: HomeType): CheckDefinition {
   const check = CHECK_INDEX.get(id);
   if (!check) throw new Error(`Unknown check id: ${id}`);
@@ -822,7 +860,7 @@ export function criterionText(
   return variant ?? check.criteria.find((c) => c.id === criterionId)?.text;
 }
 
-/** The fix hint for a home type (L1 and Z1 differ). */
+/** The fix hint for a home type (L1, F1 and Z1 differ). */
 export function fixHintFor(check: CheckDefinition, homeType: HomeType): Localized {
   return VARIANTS[check.id]?.[homeType]?.fixHint ?? check.fixHint;
 }

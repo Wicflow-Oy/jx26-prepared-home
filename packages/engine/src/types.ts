@@ -16,6 +16,9 @@ export interface Criterion {
   id: string; // e.g. "L2.hose_visible"
   kind: CriterionKind;
   text: Localized;
+  /** Counts toward the verdict only in the cold season (October to April, see COLD_SEASON_MONTHS).
+   *  Outside it the criterion is still judged and shown, with a note, but never gives retake or fix_first. */
+  coldSeasonOnly?: boolean;
 }
 
 export type ClauseFit = "direct" | "section" | "exclusion" | "none";
@@ -34,7 +37,8 @@ export interface CheckDefinition {
   criteria: Criterion[];
   clauseIds: string[]; // must exist in the engine's clause data, e.g. "OMA-5.5.6"
   clauseFit: ClauseFit;
-  guideNote?: Localized; // used when clauseFit is "none"
+  guideNote?: Localized; // a tip or source note outside the terms (If's home guide, SPEK, Tukes); required when clauseFit is "none"
+  relationNote?: Localized; // one line on how the check relates to its clause (e.g. L1 house: when 5.5.3 applies)
   notApplicableAllowed: boolean;
   defaultOwner: Partial<Record<HomeType, Owner>> & { default: Owner };
   fixHint: Localized; // cheapest typical fix if the check fails

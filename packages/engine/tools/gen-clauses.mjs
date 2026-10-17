@@ -48,6 +48,10 @@ const TOPICS = {
     fi: "Tavaroiden kuivaus ja säilytys saunassa",
     sv: "Torkning och förvaring av egendom i bastun",
   },
+  "OMA-5.2.15": {
+    fi: "Liesi ja uuni valvotusti, ei syttyviä esineitä päällä tai lähellä",
+    sv: "Spis och ugn under uppsikt, inget brännbart på eller nära",
+  },
   "OMA-5.2.17": { fi: "Sähköpyörien ja akkujen lataus", sv: "Laddning av elcyklar och batterier" },
   "OMA-5.2.18": {
     fi: "Sähköauton lataus kiinteistön sähköverkosta",

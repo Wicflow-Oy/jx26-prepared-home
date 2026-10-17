@@ -31,6 +31,8 @@ export {
   FIX_FIRST_REMINDER_DAYS,
   FROST_WINDOW_DAYS,
   SHA_SHORT_LENGTH,
+  COLD_SEASON_MONTHS,
+  isColdSeason,
 } from "./rules";
 export type { DeductibleConfig, PerilGroup } from "./rules";
 export {

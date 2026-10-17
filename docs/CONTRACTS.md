@@ -32,7 +32,7 @@ export function checksFor(homeType: HomeType): CheckDefinition[]; // flat: L1-L6
 export function getCheck(id: string): CheckDefinition;
 export const CLAUSES: Record<string, Clause>;                 // from the three clause files (fi, sv, en official)
 export function clauseText(id: string, lang: Lang): string;   // falls back to fi, then en
-export function decideVerdict(check: CheckDefinition, a: VisionAssessment | null, userAnswers: Record<string, boolean>, lang: Lang, homeType: HomeType): CheckOutcome;
+export function decideVerdict(check: CheckDefinition, a: VisionAssessment | null, userAnswers: Record<string, boolean>, lang: Lang, homeType: HomeType, now?: Date | string): CheckOutcome; // now: default the current time (cold-season criteria)
 export function recordFromOutcome(homeId: string, outcome: CheckOutcome, checkedAt: Date, photoSha256: string | null, homeType: HomeType): CheckRecord; // sets dueAt by Recheck rule
 export function perilStatuses(home: Home, records: CheckRecord[], now: Date, deductibles?: DeductibleConfig): PerilStatus[];
 export function reminders(home: Home, records: CheckRecord[], now: Date, frost: FrostForecast | null): Reminder[];
@@ -46,6 +46,8 @@ export const DEMO: { homes: Home[]; records: CheckRecord[] };   // §6
 2. Otherwise, any condition criterion that is null gives **retake**.
 3. Otherwise, any condition or user criterion that is false gives **fix_first**.
 4. Otherwise, the check is **verified**.
+
+A criterion marked `coldSeasonOnly` (Z2's hose) counts only from October to April (`COLD_SEASON_MONTHS`). Outside that, it is still judged and shown with a note, but it never gives retake or fix_first.
 
 "Not applicable" comes only from the user, and only where `notApplicableAllowed` is true. A missing vision assessment (offline, error) gives **retake** with the hint "Couldn't check the photo. Try again."
 
@@ -81,19 +83,19 @@ Clause ids must exist in the clause data. "Section" = the clause covers the area
 
 | id | peril | homes | title (en) | criteria | clauses (fit) | owner | recheck | N/A allowed |
 |---|---|---|---|---|---|---|---|---|
-| L1 | leak | all | Where the water shuts off | v: a water shut-off valve is visible (house: main valve; flat: the apartment or appliance shut-off) · v: its handle or lever is visible · c: no leak, drip, corrosion or water stains at the valve · u: "I know how to close it" | OMA-5.5.3 (direct for houses; section for flats) | flat: property_manager, else me | yearly | no |
+| L1 | leak | all | Where the water shuts off | v: a water shut-off valve is visible (house and cottage: the main valve; flat: an appliance's shut-off valve, since only the housing company uses the main and flat shut-offs) · v: its handle or lever is visible · c: no leak, drip, corrosion or water stains at the valve · u: "I know how to close it" (flat: "I know how to close my appliance valves, and I have the maintenance company's emergency number") | house, cottage: OMA-5.5.3 (direct), relation note "close this valve when the home is empty for more than a week (5.5.3)"; flat: none, guide note "only the housing company uses the water shut-off; close appliance valves when not in use" | flat: property_manager, else me | yearly | no |
 | L2 | leak | all | Washing-machine hose and its own tap | v: the fill hose is visible from the tap to the machine · v: the machine's own shut-off tap is visible · c: no drip, kink, bulge, crack or rust on the hose or its connections | OMA-5.5.6 (direct) | me | yearly | yes (no washing machine) |
-| L3 | leak | all | Dishwasher hose and tap | v: the dishwasher's water connection is visible · c: a shut-off tap for the dishwasher is visible · c: no drip, kink, bulge or water stains | none; guide note "If's home guide: a shut-off tap and a drip tray for the dishwasher; 5.5.6 by analogy" | me | yearly | yes (no dishwasher) |
-| L4 | leak | all | Drip trays under the washing machine and fridge | v: the floor under the appliance is visible · c: a drip tray is under it, or a floor drain is right next to it · c: no water or stains on the floor or tray | OMA-5.5.8 (direct) | me | yearly | no |
-| L5 | leak | all | Floor drain and sink trap | v: a floor drain or a sink trap is visible · c: no blockage, standing water or leak at the drain or trap | OMA-5.5.7 (direct), OMA-5.5.9 (section) | me | yearly | no |
+| L3 | leak | all | Dishwasher hose and tap | v: the dishwasher's water connection is visible · c: a shut-off tap for the dishwasher is visible · c: no drip, kink, bulge or water stains | OMA-5.5.6, OMA-5.5.8 (section); guide note "If's guidance applies these instructions to dishwashers" | me | yearly | yes (no dishwasher) |
+| L4 | leak | all | Drip trays under the washing machine and fridge | v: the floor under the appliance is visible · c: a drip tray is under it, or the room has a floor drain and a leak would show at once · c: no water or stains on the floor or tray | OMA-5.5.8 (direct) | me | yearly | no |
+| L5 | leak | all | Floor drain and sink trap | v: a floor drain or a sink trap is visible · c: no blockage, standing water or leak at the drain or trap | OMA-5.5.7, OMA-5.5.9 (direct; one fit per check) | me | yearly | no |
 | L6 | leak | all | Bathroom silicone seams | v: the seams at floor-wall joints and shower or bath edges are visible up close · c: seams intact, with no cracks, gaps, peeling or black mould | OMA-4.1-vesieriste (exclusion: water through or without a waterproofing layer isn't covered) | me | yearly | no |
-| F1 | fire | all | Working smoke alarm | v: a smoke alarm is visible · c: it is mounted, not removed or covered · u: "I pressed the test button and it beeped" | OMA-5.2.6 (direct) | me | yearly | no |
-| F2 | fire | all | Fuse box | v: the fuse box or distribution board is visible · c: no damage, scorch marks, missing cover or exposed live parts · c: a residual-current device (RCD, with a TEST button) is visible · c: nothing stored against or in front of it | OMA-5.2.7, OMA-5.2.8 (section) | professional | yearly | no |
-| F3 | fire | all | Behind the fridge | v: the back of the fridge or freezer (coil, cords) is visible · c: no thick dust on the coil or compressor · c: cords and plugs undamaged | OMA-5.2.7 (section) | me | yearly | no |
-| F4 | fire | all | Stove top clear | v: the stove top is visible · c: nothing stored on it (no paper, boxes, towels or pans left on) | none; guide note "Items on or near the stove are the top cause of kitchen fires (SPEK)" | me | yearly | no |
-| F5 | fire | all | Where you charge devices | v: the charging spot for phones, laptops or e-bike batteries is visible · c: charging on a hard surface, away from beds, sofas, curtains and textiles | OMA-5.2.17 (direct) | me | yearly | no |
+| F1 | fire | all | Working smoke alarm | v: a smoke alarm is visible · c: it is mounted, not removed or covered · u: "I pressed the test button and it beeped" | OMA-5.2.6 (direct) | flat: property_manager (the building owner fits and maintains alarms since 1.1.2026), else me | yearly | no |
+| F2 | fire | all | Fuse box | v: the fuse box or distribution board is visible · c: no damage, scorch marks, missing cover or exposed live parts · c: nothing stored against or in front of it (a safety tip, said in the guide note) | OMA-5.2.7, OMA-5.2.8 (section); guide note: the clear front is a tip, and a missing RCD is allowed in older wiring (not a criterion) | professional | yearly | no |
+| F3 | fire | all | Behind the fridge | v: the back of the fridge or freezer (coil, cords) is visible · c: no thick dust on the coil or compressor · c: cords and plugs undamaged | OMA-5.2.7 (section); guide note: dust is a safety tip, 5.2.7 covers the cords and plugs | me | yearly | no |
+| F4 | fire | all | Stove top clear | v: the stove top is visible · c: nothing stored on it (no paper, boxes, towels or pans left on) | OMA-5.2.15 (direct); guide note "In stove-fire insurance claims, things left on the stove were the most common cause (SPEK 2023)" | me | yearly | no |
+| F5 | fire | all | Where you charge devices | v: the charging spot for phones, laptops or e-bike batteries is visible · c: charging happens away from beds, sofas, curtains and other textiles | OMA-5.2.17 (direct) | me | yearly | no |
 | Z1 | freeze | house, cottage | Heating for the cold season | v: a thermostat, heating controller or radiator setting is visible · u: "Heating is on in every room with water pipes" (cottage: "or the water system is drained") | OMA-5.5.1 (direct), OMA-5.5.2 (direct, cottages) | me | seasonal [9] | no |
-| Z2 | freeze | house, cottage | Outdoor tap before frost | v: the outdoor tap is visible · c: no hose attached · u: "I closed the indoor valve for the outdoor tap" | OMA-5.5.4 (direct) | me | frost | yes (no outdoor tap) |
+| Z2 | freeze | house, cottage | Outdoor tap before frost | v: the outdoor tap is visible · c: no hose attached (counts only from October to April, `coldSeasonOnly`) · u: "I closed the indoor shut-off valve for the outdoor tap, or it is a frost-proof tap" | OMA-5.5.4 (direct) | me | frost | yes (no outdoor tap) |
 | S1 | storm_water | house | Gutters and downpipes | v: a gutter or downpipe is visible · c: no leaves, debris or overflow; the downpipe leads water away from the wall | OMA-5.4.1, OMA-5.4.2 (section; gutters aren't named) | me | seasonal [4, 10] | no |
 
 - **Peril grouping for the deductible:** leak, fire, freeze. Storm water (S1) counts toward **leak** for houses.

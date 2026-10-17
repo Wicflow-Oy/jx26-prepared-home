@@ -101,8 +101,9 @@ describe("stateless API (/api/v1)", () => {
       "F4",
       "F5",
     ]);
-    expect(flat.body[0].clause[0]).toMatchObject({ id: "OMA-5.5.3" });
-    expect(typeof flat.body[0].clause[0].text).toBe("string");
+    expect(flat.body[0].clause).toEqual([]); // flat L1 checks an appliance valve and cites no clause
+    expect(flat.body[9].clause[0]).toMatchObject({ id: "OMA-5.2.15" }); // F4
+    expect(typeof flat.body[9].clause[0].text).toBe("string");
     expect((await request(app).get("/api/v1/checks?homeType=house").expect(200)).body).toHaveLength(
       14,
     );
@@ -157,7 +158,7 @@ describe("stateless API (/api/v1)", () => {
       photoSha256: a07.sha256,
       dueAt: null,
     });
-    expect(res.body.clause[0].id).toBe("OMA-5.5.3");
+    expect(res.body.clause).toEqual([]); // flat L1 cites no clause
     const { existsSync } = await import("node:fs");
     expect(existsSync(config.storePath)).toBe(false);
   });

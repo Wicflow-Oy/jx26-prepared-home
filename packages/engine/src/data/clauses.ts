@@ -16,7 +16,7 @@ export const CLAUSES: Record<string, Clause> = {
     },
     text: {
       fi: "Suojeluohjeissa rakennuksen valvonnalla tarkoitetaan käyntiä rakennuksessa vähintään kerran kuukaudessa.",
-      sv: "Egendomen ska övervakas. I säkerhetsföreskrifterna avses med övervakning av lösöre ständig uppsikt. I säkerhetsföreskrifterna avses med övervakning av byggnad besök i byggnaden minst en gång i månaden.",
+      sv: "I säkerhetsföreskrifterna avses med övervakning av byggnad besök i byggnaden minst en gång i månaden.",
       en: "Furthermore, in the precautions the surveillance of a building refers to visiting the building at least once a month.",
     },
     source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
@@ -31,7 +31,7 @@ export const CLAUSES: Record<string, Clause> = {
     },
     text: {
       fi: "Suojeluohjeen laiminlyönti voi aiheuttaa sen, ettei korvausta makseta tai se maksetaan alennettuna yleisten sopimusehtojen kohdan 5 mukaisesti.",
-      sv: "Försäkringstagaren, den försäkrade och med honom eller henne jämställbar person ska iaktta säkerhetsföreskrifterna. Om säkerhetsföreskrifterna försummas, kan detta leda till att ersättning inte utbetalas eller att ersättningen sänks i enlighet med punkt 5 i de allmänna avtalsvillkoren.",
+      sv: "Om säkerhetsföreskrifterna försummas, kan detta leda till att ersättning inte utbetalas eller att ersättningen sänks i enlighet med punkt 5 i de allmänna avtalsvillkoren.",
       en: "Negligence in heeding the precautions may cause the compensation to be reduced or completely denied in accordance with clause 5 of the General Terms and Conditions.",
     },
     source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
@@ -138,6 +138,21 @@ export const CLAUSES: Record<string, Clause> = {
       fi: "Omaisuuden kuivattaminen ja säilyttäminen saunassa on kiellettyä.",
       sv: "Det är förbjudet att torka och förvara egendom i bastun.",
       en: "Drying and storing property in the sauna is prohibited.",
+    },
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+  },
+  "OMA-5.2.15": {
+    id: "OMA-5.2.15",
+    section: "5.2.15",
+    topic: {
+      fi: "Liesi ja uuni valvotusti, ei syttyviä esineitä päällä tai lähellä",
+      sv: "Spis och ugn under uppsikt, inget brännbart på eller nära",
+      en: "Stove and oven: supervise, nothing flammable on or near",
+    },
+    text: {
+      fi: "Liettä, uunia, grilliä, savustinta tai muuta vastaavaa tulee käyttää valvotusti. Niiden päällä tai välittömässä läheisyydessä ei saa olla syttyviä esineitä. Asunnosta poistuttaessa on varmistettava, että ne on sammutettu tai niistä on katkaistu virta.",
+      sv: "Spis, ugn, grill, rök eller motsvarande ska användas under övervakning. På dem eller i deras omedelbara närhet får inte finnas brännbara föremål. Då man lämnar bostaden ska man alltid försäkra sig om att de har släckts eller att strömmen till dem är frånkopplad.",
+      en: "The stove, oven, grill, smoker or similar must be operated under supervision. No flammable objects should be kept on or in the immediate vicinity of them. Make sure they are turned or switched off before you leave the dwelling.",
     },
     source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
   },
@@ -456,6 +471,11 @@ export const CLAUSE_SOURCES: Record<string, Partial<Record<Lang, string>>> = {
     en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
   },
   "OMA-5.2.12": {
+    fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
+    sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
+    en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",
+  },
+  "OMA-5.2.15": {
     fi: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)",
     sv: "Hemmets egendomsförsäkringsvillkor, Villkor OMA 200.27 (gäller från 1.1.2026)",
     en: "Home property insurance Terms and Conditions, Condition OMA 200.27, valid as of 1 January 2026",

@@ -2,9 +2,9 @@ import { describe, expect, it } from "vitest";
 import { CLAUSES, clauseRefs, clauseSource, clauseText, getCheck } from "../src/index";
 
 describe("clauses", () => {
-  it("has the 27 clauses with fi, sv and official en text and a topic in every language", () => {
+  it("has the 28 clauses with fi, sv and official en text and a topic in every language", () => {
     const ids = Object.keys(CLAUSES);
-    expect(ids).toHaveLength(27);
+    expect(ids).toHaveLength(28);
     for (const id of ids) {
       const c = CLAUSES[id]!;
       expect(c.id).toBe(id);
@@ -47,6 +47,34 @@ describe("clauses", () => {
 
   it("builds clause refs for a check", () => {
     expect(clauseRefs(getCheck("L5"), "en").map((r) => r.id)).toEqual(["OMA-5.5.7", "OMA-5.5.9"]);
-    expect(clauseRefs(getCheck("F4"), "en")).toEqual([]);
+    expect(clauseRefs(getCheck("F4"), "en").map((r) => r.id)).toEqual(["OMA-5.2.15"]);
+    expect(clauseRefs(getCheck("L1", "flat"), "en")).toEqual([]);
+  });
+
+  it("quotes the stove instruction 5.2.15 verbatim in all three languages", () => {
+    const c = CLAUSES["OMA-5.2.15"]!;
+    expect(c.section).toBe("5.2.15");
+    expect(c.text.fi).toBe(
+      "Liettä, uunia, grilliä, savustinta tai muuta vastaavaa tulee käyttää valvotusti. Niiden päällä tai välittömässä läheisyydessä ei saa olla syttyviä esineitä. Asunnosta poistuttaessa on varmistettava, että ne on sammutettu tai niistä on katkaistu virta.",
+    );
+    expect(c.text.sv).toMatch(
+      /^Spis, ugn, grill, rök eller motsvarande ska användas under övervakning\./,
+    ); // "15) " removed
+    expect(c.text.sv).toMatch(/strömmen till dem är frånkopplad\.$/);
+    expect(c.text.en).toBe(
+      "The stove, oven, grill, smoker or similar must be operated under supervision. No flammable objects should be kept on or in the immediate vicinity of them. Make sure they are turned or switched off before you leave the dwelling.",
+    );
+    expect(clauseSource("OMA-5.2.15", "en")).toMatch(
+      /^Home property insurance Terms and Conditions/,
+    );
+  });
+
+  it("gives the two §5 intro clauses the same extent in every language", () => {
+    expect(clauseText("OMA-5-intro-valvonta", "sv")).toBe(
+      "I säkerhetsföreskrifterna avses med övervakning av byggnad besök i byggnaden minst en gång i månaden.",
+    );
+    expect(clauseText("OMA-5-intro-laiminlyonti", "sv")).toMatch(
+      /^Om säkerhetsföreskrifterna försummas, kan detta leda till/,
+    );
   });
 });

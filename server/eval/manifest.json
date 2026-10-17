@@ -2,52 +2,60 @@
   {
     "file": "A01.jpg",
     "checkId": "L1",
+    "homeType": "house",
     "expectedVerdict": "verified",
-    "note": "Flat's tiled access hatch: two red-lever ball valves, filters and water meters, no visible leak or stains. Lever position must not be judged."
+    "note": "Flat's tiled access hatch: two red-lever ball valves, filters and water meters, no visible leak or stains. Lever position must not be judged. House wording (main valve): since fact audit FIX 7 the flat wording asks for an appliance valve, which these photos don't show."
   },
   {
     "file": "A02.jpg",
     "checkId": "L1",
+    "homeType": "house",
     "expectedVerdict": "verified",
     "alsoAcceptable": ["retake"],
-    "note": "Outdoor meter with a blue-lever ball valve below; the valve is partly cut off at the bottom edge, so a retake is defensible."
+    "note": "Outdoor meter with a blue-lever ball valve below; the valve is partly cut off at the bottom edge, so a retake is defensible. House wording (main valve): since fact audit FIX 7 the flat wording asks for an appliance valve, which these photos don't show."
   },
   {
     "file": "A03.jpg",
     "checkId": "L1",
+    "homeType": "house",
     "expectedVerdict": "retake",
-    "note": "Electronic water meter lying on a table, not installed; no shut-off valve in frame."
+    "note": "Electronic water meter lying on a table, not installed; no shut-off valve in frame. House wording (main valve): since fact audit FIX 7 the flat wording asks for an appliance valve, which these photos don't show."
   },
   {
     "file": "A04.jpg",
     "checkId": "L1",
+    "homeType": "house",
     "expectedVerdict": "retake",
     "alsoAcceptable": ["fix_first"],
-    "note": "Black-and-white outdoor wall with several meters and small valves of a shared building; which valve is the home's is unclear and corrosion can't be judged in B/W. Corroded pipework makes fix_first defensible. Never verified."
+    "note": "Black-and-white outdoor wall with several meters and small valves of a shared building; which valve is the home's is unclear and corrosion can't be judged in B/W. Corroded pipework makes fix_first defensible. Never verified. House wording (main valve): since fact audit FIX 7 the flat wording asks for an appliance valve, which these photos don't show."
   },
   {
     "file": "A05.jpg",
     "checkId": "L1",
+    "homeType": "house",
     "expectedVerdict": "retake",
-    "note": "Close-up of a dirty meter dial, no valve in frame (sample photo)."
+    "note": "Close-up of a dirty meter dial, no valve in frame (sample photo). House wording (main valve): since fact audit FIX 7 the flat wording asks for an appliance valve, which these photos don't show."
   },
   {
     "file": "A06.jpg",
     "checkId": "L1",
+    "homeType": "house",
     "expectedVerdict": "retake",
-    "note": "Street excavation with the utility's meter box, lid closed, no lever visible; wrong subject (the valve is inside the building)."
+    "note": "Street excavation with the utility's meter box, lid closed, no lever visible; wrong subject (the valve is inside the building). House wording (main valve): since fact audit FIX 7 the flat wording asks for an appliance valve, which these photos don't show."
   },
   {
     "file": "A07.jpg",
     "checkId": "L1",
+    "homeType": "house",
     "expectedVerdict": "verified",
-    "note": "Brass ball valve with a green lever on copper pipe, clean (sample photo)."
+    "note": "Brass ball valve with a green lever on copper pipe, clean (sample photo). House wording (main valve): since fact audit FIX 7 the flat wording asks for an appliance valve, which these photos don't show."
   },
   {
     "file": "A08.jpg",
     "checkId": "L1",
+    "homeType": "house",
     "expectedVerdict": "verified",
-    "note": "Brass ball valve on copper pipe with a black lever; the lever position is ambiguous but never judged."
+    "note": "Brass ball valve on copper pipe with a black lever; the lever position is ambiguous but never judged. House wording (main valve): since fact audit FIX 7 the flat wording asks for an appliance valve, which these photos don't show."
   },
   {
     "file": "B01.jpg",
@@ -109,14 +117,14 @@
     "checkId": "F2",
     "expectedVerdict": "fix_first",
     "expectedUrgent": true,
-    "note": "Old single-phase installation with porcelain screw-fuse holders, a removed fuse and tools on the floor: exposed parts, no RCD."
+    "note": "Old single-phase installation with porcelain screw-fuse holders, a removed fuse and tools on the floor. Fix first rests on the exposed parts (and the tools in front); the missing RCD no longer counts (fact audit FIX 9)."
   },
   {
     "file": "C03.jpg",
     "checkId": "F2",
     "expectedVerdict": "retake",
     "alsoAcceptable": ["fix_first"],
-    "note": "An empty consumer-unit enclosure with its cover beside it, bare DIN rail, no breakers: not an installed board. fix_first (missing cover, no RCD) is defensible. Never verified."
+    "note": "An empty consumer-unit enclosure with its cover beside it, bare DIN rail, no breakers: not an installed board. fix_first (missing cover) is defensible; the missing RCD no longer counts (fact audit FIX 9). Never verified."
   },
   {
     "file": "C04.jpg",
@@ -142,13 +150,13 @@
     "checkId": "F2",
     "expectedVerdict": "fix_first",
     "alsoAcceptable": ["retake"],
-    "note": "Old industrial cast-metal switchgear (ASEA) with covers on but no RCD visible. A retake (not a home board) is defensible. Never verified."
+    "note": "Old industrial cast-metal switchgear (ASEA), covers on but corroded and worn, with a cable and plug hung over the front. Fix first now rests on the corrosion damage and the cable over the front; the missing RCD no longer counts (fact audit FIX 9). A retake (not a home board) is defensible. Never verified."
   },
   {
     "file": "C08.jpg",
     "checkId": "F2",
     "expectedVerdict": "fix_first",
     "expectedUrgent": true,
-    "note": "Open metal cabinet in an outbuilding: meter, screw fuses, main switch and exposed empty fuse bases; RCD not clearly visible."
+    "note": "Open metal cabinet in an outbuilding: meter, screw fuses, main switch and exposed empty fuse bases. Fix first rests on the exposed fuse bases and terminals; the missing RCD no longer counts (fact audit FIX 9)."
   }
 ]

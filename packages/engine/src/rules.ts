@@ -108,6 +108,14 @@ function answerFor(
 const nonEmpty = (s: string | null | undefined): string | null =>
   typeof s === "string" && s.trim() ? s.trim() : null;
 
+/** Months (1-12) of the cold season for criteria marked `coldSeasonOnly` (OMA 5.5.4 "during the cold season";
+ *  the terms give no dates, so the engine reads it as 1 October to 30 April, UTC). */
+export const COLD_SEASON_MONTHS: readonly number[] = [10, 11, 12, 1, 2, 3, 4];
+
+export function isColdSeason(now: Date | string): boolean {
+  return COLD_SEASON_MONTHS.includes(Number(toDay(now).slice(5, 7)));
+}
+
 /**
  * Verdict rules (CONTRACTS §2), in this order:
  * 1. any visibility criterion false or null -> retake;
@@ -115,6 +123,8 @@ const nonEmpty = (s: string | null | undefined): string | null =>
  * 3. any condition or user criterion false -> fix_first;
  * 4. otherwise verified.
  * A missing assessment (offline, error) -> retake. User criteria come only from userAnswers, never from the model.
+ * A `coldSeasonOnly` criterion outside the cold season (judged on `now`, default: the current time) is shown with
+ * a note but left out of rules 1-3.
  * "not_applicable" never comes from here; see notApplicableOutcome.
  */
 export function decideVerdict(
@@ -123,7 +133,12 @@ export function decideVerdict(
   userAnswers: Record<string, boolean>,
   lang: Lang,
   homeType: HomeType,
+  now: Date | string = new Date(),
 ): CheckOutcome {
+  const offSeason = new Set(
+    isColdSeason(now) ? [] : check.criteria.filter((c) => c.coldSeasonOnly).map((c) => c.id),
+  );
+
   const fromModel = new Map<string, { met: boolean | null; note?: string }>();
   for (const c of a?.criteria ?? []) {
     const id = c && typeof c.id === "string" ? matchCriterionId(check, c.id) : null;
@@ -136,16 +151,10 @@ export function decideVerdict(
 
   const criteria: CriterionResult[] = check.criteria.map((c) => {
     const text = (criterionText(check, c.id, homeType) ?? c.text)[lang];
-    if (c.kind === "user")
-      return { id: c.id, kind: c.kind, text, met: answerFor(userAnswers, check, c.id) };
-    const m = a ? fromModel.get(c.id) : undefined;
-    return {
-      id: c.id,
-      kind: c.kind,
-      text,
-      met: m?.met ?? null,
-      ...(m?.note ? { note: m.note } : {}),
-    };
+    const m = c.kind === "user" ? undefined : a ? fromModel.get(c.id) : undefined;
+    const met = c.kind === "user" ? answerFor(userAnswers, check, c.id) : (m?.met ?? null);
+    const note = offSeason.has(c.id) && met !== true ? TEXT.coldSeasonOnly[lang] : m?.note;
+    return { id: c.id, kind: c.kind, text, met, ...(note ? { note } : {}) };
   });
 
   const base = {
@@ -165,7 +174,9 @@ export function decideVerdict(
   // A photo of a screen or a printout proves nothing about the home, whatever it shows.
   if (a.reproduction === true) return retake(TEXT.reproduction[lang]);
 
-  const of = (kind: CriterionResult["kind"]) => criteria.filter((c) => c.kind === kind);
+  // Off-season criteria are shown but never decide the verdict.
+  const counted = criteria.filter((c) => !offSeason.has(c.id));
+  const of = (kind: CriterionResult["kind"]) => counted.filter((c) => c.kind === kind);
   const list = (items: CriterionResult[]) => items.map((c) => c.text).join("; ");
   const modelHint = nonEmpty(a.retakeHint);
   const missingAnswers = of("user").filter((c) => c.met === null);
@@ -193,7 +204,7 @@ export function decideVerdict(
   }
 
   // 3. A failed condition or user criterion
-  const failed = criteria.filter(
+  const failed = counted.filter(
     (c) => (c.kind === "condition" || c.kind === "user") && c.met === false,
   );
   if (failed.length) {

@@ -80,6 +80,11 @@ export const TEXT = {
     "Svara ja eller nej: {items}.",
     "Answer yes or no: {items}.",
   ),
+  coldSeasonOnly: t(
+    "Lasketaan vain kylmänä vuodenaikana, lokakuusta huhtikuuhun.",
+    "Räknas bara under den kalla årstiden, från oktober till april.",
+    "Counts only in the cold season, from October to April.",
+  ),
   shutOffChecked: t(
     "Sulkuventtiili tarkistettu {date}.",
     "Avstängningsventilen kontrollerad {date}.",
