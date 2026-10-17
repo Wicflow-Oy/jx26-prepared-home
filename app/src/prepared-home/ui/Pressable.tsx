@@ -73,7 +73,7 @@ export function PressableScale({
   );
 }
 
-export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger" | "inverse";
+export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger" | "inverse" | "light";
 
 export function Button({
   label,
@@ -106,6 +106,8 @@ export function Button({
     ghost: { bg: "transparent", fg: c.primary, border: "transparent" },
     danger: { bg: "transparent", fg: c.danger, border: c.danger },
     inverse: { bg: "rgba(250, 249, 247, 0.12)", fg: c.textInverse, border: "transparent" },
+    // The main action on the blue camera screen.
+    light: { bg: c.textInverse, fg: c.primary, border: c.textInverse },
   }[variant];
   return (
     <PressableScale

@@ -1,9 +1,8 @@
 // On-device photo pipeline (docs/CONTRACTS.md §8):
-// capture or pick -> resize to at most 2576 px on the long edge -> re-encode JPEG ~0.85 (drops EXIF)
+// capture or pick -> resize to PHOTO.maxLongEdge on the long edge -> re-encode JPEG (drops EXIF)
 // -> SHA-256 of the exact bytes that will be sent.
 import { ImageManipulator, SaveFormat } from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
-import { Platform } from "react-native";
 
 import { base64ToBytes, bytesToBase64, sha256Hex } from "./bytes";
 import { PHOTO } from "./config";
@@ -20,8 +19,6 @@ export interface PreparedPhoto {
   sampleId?: string;
 }
 
-export type PickResult = { kind: "ok"; uri: string } | { kind: "cancelled" } | { kind: "denied" };
-
 const PICKER_OPTIONS: ImagePicker.ImagePickerOptions = {
   mediaTypes: ["images"],
   quality: 1,
@@ -30,31 +27,31 @@ const PICKER_OPTIONS: ImagePicker.ImagePickerOptions = {
   allowsMultipleSelection: false,
 };
 
-/** Opens the camera or the photo library. Preparing the image is a separate step, so the UI can respond first. */
-export async function pickImage(source: "camera" | "library"): Promise<PickResult> {
-  if (source === "camera" && Platform.OS !== "web") {
-    const perm = await ImagePicker.requestCameraPermissionsAsync();
-    if (!perm.granted) return { kind: "denied" };
-  }
-  const result =
-    source === "camera"
-      ? await ImagePicker.launchCameraAsync(PICKER_OPTIONS)
-      : await ImagePicker.launchImageLibraryAsync(PICKER_OPTIONS);
-  const asset = result.canceled ? undefined : result.assets?.[0];
-  return asset ? { kind: "ok", uri: asset.uri } : { kind: "cancelled" };
+/** Opens the photo library; null when the customer cancels. Preparing the image is a separate step. */
+export async function pickFromLibrary(): Promise<string | null> {
+  const result = await ImagePicker.launchImageLibraryAsync(PICKER_OPTIONS);
+  return result.canceled ? null : (result.assets?.[0]?.uri ?? null);
 }
 
-/** Re-encodes any picked image as a JPEG of at most PHOTO.maxLongEdge on the long edge. */
+/** Re-encodes a photo as a JPEG of at most PHOTO.maxLongEdge on the long edge. */
 export async function prepareImage(
   uri: string,
   origin: "camera" | "library",
+  known?: { width: number; height: number },
 ): Promise<PreparedPhoto> {
-  let ref = await ImageManipulator.manipulate(uri).renderAsync();
-  const long = Math.max(ref.width, ref.height);
-  if (long > PHOTO.maxLongEdge) {
-    const size =
-      ref.width >= ref.height ? { width: PHOTO.maxLongEdge } : { height: PHOTO.maxLongEdge };
-    ref = await ImageManipulator.manipulate(ref).resize(size).renderAsync();
+  const fit = (w: number, h: number) =>
+    w >= h ? { width: PHOTO.maxLongEdge } : { height: PHOTO.maxLongEdge };
+  let ref;
+  if (known && Math.max(known.width, known.height) > PHOTO.maxLongEdge) {
+    // The camera reports its size, so the photo is decoded and resized in one pass.
+    ref = await ImageManipulator.manipulate(uri)
+      .resize(fit(known.width, known.height))
+      .renderAsync();
+  } else {
+    ref = await ImageManipulator.manipulate(uri).renderAsync();
+    if (Math.max(ref.width, ref.height) > PHOTO.maxLongEdge) {
+      ref = await ImageManipulator.manipulate(ref).resize(fit(ref.width, ref.height)).renderAsync();
+    }
   }
   const saved = await ref.saveAsync({
     base64: true,

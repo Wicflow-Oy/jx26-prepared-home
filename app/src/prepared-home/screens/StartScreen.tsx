@@ -1,95 +1,104 @@
-import { DEMO_FLAT_ID, DEMO_HOUSE_ID, makeDemo } from "@prepared-home/engine";
-import { useRouter, type Href } from "expo-router";
+import { useFocusEffect, useRouter, type Href } from "expo-router";
+import { useCallback, useRef } from "react";
+import { View } from "react-native";
 
 import { usePreparedHome, useTheme } from "../context";
-import { Appear, Banner, Button, Card, Gap, IconButton, LoadingState, Screen, Txt } from "../ui";
+import { EXAMPLES, isExampleKey } from "../examples";
+import { Icon } from "../icons";
+import {
+  Appear,
+  Banner,
+  Button,
+  Gap,
+  IconButton,
+  LanguageSwitch,
+  LoadingState,
+  Screen,
+  Txt,
+} from "../ui";
 
-const HAS_HOUSE_DEMO = makeDemo().homes.some((h) => h.homeId === DEMO_HOUSE_ID);
-
-export function StartScreen() {
+/** Welcome for a new customer. With a home already set up, or an example link, it goes straight on. */
+export function StartScreen({ example }: { example?: string }) {
   const { t, paths, ready, currentHome, openDemo, storageProblem } = usePreparedHome();
-  const router = useRouter();
   const theme = useTheme();
+  const router = useRouter();
+  const goesOn = ready && (isExampleKey(example) || !!currentHome);
+  // Opening an example resets it, so it must happen once per link, not on every state change.
+  const openedExample = useRef<string | null>(null);
+  const redirecting = useRef(false);
+  useFocusEffect(
+    useCallback(
+      () => () => {
+        redirecting.current = false;
+      },
+      [],
+    ),
+  );
+  // Only while this screen is in front: a home set up from here must not pull the next screen back home.
+  useFocusEffect(
+    useCallback(() => {
+      if (!ready || redirecting.current) return;
+      if (isExampleKey(example) && openedExample.current !== example) {
+        openedExample.current = example;
+        if (!openDemo(EXAMPLES[example].homeId)) return;
+      } else if (!currentHome) return;
+      redirecting.current = true;
+      router.replace(paths.home as Href);
+    }, [ready, example, currentHome, openDemo, router, paths.home]),
+  );
 
-  const go = (homeId: string) => {
-    if (openDemo(homeId)) router.push(paths.home as Href);
-  };
+  const settingsButton = (
+    <IconButton
+      icon="sliders"
+      label={t("settings")}
+      onPress={() => router.push(paths.settings as Href)}
+      testID="open-settings"
+    />
+  );
 
-  const actions = [
-    currentHome ? (
-      <Button
-        key="continue"
-        label={t("continueHome", { label: currentHome.label })}
-        onPress={() => router.push(paths.home as Href)}
-        testID="continue-home"
-      />
-    ) : null,
-    <Button
-      key="flat"
-      label={t("demoFlat")}
-      onPress={() => go(DEMO_FLAT_ID)}
-      testID="demo-flat"
-      variant={currentHome ? "secondary" : "primary"}
-    />,
-    <Button
-      key="fresh"
-      label={t("startFresh")}
-      onPress={() => router.push(paths.newHome as Href)}
-      testID="start-fresh"
-      variant="secondary"
-    />,
-    HAS_HOUSE_DEMO ? (
-      <Button
-        key="house"
-        label={t("houseDemo")}
-        onPress={() => go(DEMO_HOUSE_ID)}
-        testID="demo-house"
-        variant="secondary"
-      />
-    ) : null,
-  ].filter(Boolean);
+  if (!ready || goesOn) {
+    return (
+      <Screen testID="start-screen" back={false} right={settingsButton}>
+        <LoadingState testID="start-loading" />
+      </Screen>
+    );
+  }
 
   return (
-    <Screen
-      testID="start-screen"
-      back={false}
-      right={
-        <IconButton
-          icon="sliders"
-          label={t("settings")}
-          onPress={() => router.push(paths.settings as Href)}
-          testID="open-settings"
-        />
-      }
-    >
-      <Gap size="lg" />
-      <Txt variant="display">{t("tagline")}</Txt>
-      <Gap size="sm" />
-      <Txt muted>{t("startIntro")}</Txt>
+    <Screen testID="start-screen" back={false} right={settingsButton}>
+      <LanguageSwitch />
       <Gap size="xl" />
-
-      {!ready ? (
-        <LoadingState testID="start-loading" />
-      ) : (
-        <>
-          {storageProblem ? <Banner tone="warning">{t("errStorage")}</Banner> : null}
-          {actions.map((a, i) => (
-            <Appear key={i} index={i} style={{ marginBottom: theme.space.md }}>
-              {a}
-            </Appear>
+      {storageProblem ? <Banner tone="warning">{t("errStorage")}</Banner> : null}
+      <Appear>
+        <View style={{ flexDirection: "row", gap: theme.space.md, marginBottom: theme.space.lg }}>
+          {(["drop", "flame", "home"] as const).map((icon) => (
+            <View
+              key={icon}
+              style={{
+                width: 48,
+                height: 48,
+                borderRadius: 24,
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: theme.colors.primaryTint,
+              }}
+            >
+              <Icon name={icon} color={theme.colors.primary} />
+            </View>
           ))}
-          <Txt variant="caption">{t("demoResetNote")}</Txt>
-        </>
-      )}
-
+        </View>
+        <Txt variant="display">{t("tagline")}</Txt>
+        <Gap size="sm" />
+        <Txt muted>{t("welcomeBody")}</Txt>
+      </Appear>
       <Gap size="xl" />
-      <Card testID="prototype-note">
-        <Txt variant="smallStrong">{t("prototypeTitle")}</Txt>
-        <Gap size="xs" />
-        <Txt variant="small" muted>
-          {t("prototypeNote")}
-        </Txt>
-      </Card>
+      <Appear index={1}>
+        <Button
+          label={t("getStarted")}
+          onPress={() => router.push(paths.newHome as Href)}
+          testID="get-started"
+        />
+      </Appear>
     </Screen>
   );
 }

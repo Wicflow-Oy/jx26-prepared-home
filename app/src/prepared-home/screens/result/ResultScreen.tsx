@@ -1,10 +1,10 @@
 import { getCheck, isCheckId } from "@prepared-home/engine";
 import { useRouter, type Href } from "expo-router";
 
-import { usePreparedHome } from "../context";
-import { haptics } from "../haptics";
-import { useHomeModel } from "../model";
-import { Button, Card, EmptyState, ErrorState, Gap, LoadingState, NoHome, Screen } from "../ui";
+import { usePreparedHome } from "../../context";
+import { haptics } from "../../haptics";
+import { useHomeModel } from "../../model";
+import { Button, Card, EmptyState, ErrorState, Gap, LoadingState, NoHome, Screen } from "../../ui";
 import { ResultBody } from "./ResultBody";
 
 /** A saved result, opened from the check screen, the home list or a reminder. */

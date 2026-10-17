@@ -1,17 +1,8 @@
 import { useRouter, type Href } from "expo-router";
-import { useEffect } from "react";
-import { ActivityIndicator, View, type DimensionValue } from "react-native";
-import Animated, {
-  cancelAnimation,
-  useAnimatedStyle,
-  useSharedValue,
-  withRepeat,
-  withTiming,
-} from "react-native-reanimated";
+import { ActivityIndicator, View } from "react-native";
 
 import { usePreparedHome, useTheme } from "../context";
-import { useMotion } from "../motion";
-import { Card, Gap } from "./Blocks";
+import { Card, Gap } from "./Layout";
 import { Button } from "./Pressable";
 import { Txt } from "./Text";
 
@@ -92,39 +83,5 @@ export function NoHome() {
         testID="choose-home"
       />
     </Card>
-  );
-}
-
-/** A placeholder block that breathes while content loads. Static with Reduce motion. */
-export function Skeleton({
-  width = "100%",
-  height,
-  radius,
-}: {
-  width?: DimensionValue;
-  height: number;
-  radius?: number;
-}) {
-  const theme = useTheme();
-  const { reduced } = useMotion();
-  const pulse = useSharedValue(0);
-  useEffect(() => {
-    if (reduced) return;
-    pulse.set(withRepeat(withTiming(1, { duration: 700 }), -1, true));
-    return () => cancelAnimation(pulse);
-  }, [pulse, reduced]);
-  const style = useAnimatedStyle(() => ({ opacity: 1 - pulse.get() * 0.45 }));
-  return (
-    <Animated.View
-      style={[
-        {
-          width,
-          height,
-          borderRadius: radius ?? theme.radius.sm,
-          backgroundColor: theme.colors.skeleton,
-        },
-        style,
-      ]}
-    />
   );
 }

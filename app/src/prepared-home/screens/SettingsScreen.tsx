@@ -1,22 +1,27 @@
+import { useRouter, type Href } from "expo-router";
 import { useState } from "react";
 import { TextInput } from "react-native";
 
 import type { Health } from "../api";
+import { IF_BRANDED } from "../brand";
 import { usePreparedHome, useTheme } from "../context";
 import { errorMessage } from "../errors";
-import { LANGS } from "../i18n";
+import { EXAMPLES, type ExampleKey } from "../examples";
 import {
   Banner,
   Button,
   Card,
   ErrorState,
   Gap,
+  ListGroup,
+  ListRow,
   LoadingState,
   Screen,
   Section,
-  Segmented,
+  LanguageSwitch,
   Txt,
 } from "../ui";
+import { DeductibleSheet } from "./status/DeductibleSheet";
 
 type HealthState =
   | { status: "idle" | "loading" }
@@ -26,8 +31,6 @@ type HealthState =
 export function SettingsScreen() {
   const {
     t,
-    lang,
-    setLang,
     ready,
     api,
     paths,
@@ -35,13 +38,16 @@ export function SettingsScreen() {
     customApiBaseUrl,
     setApiBaseUrl,
     clearDeviceData,
+    openDemo,
   } = usePreparedHome();
+  const router = useRouter();
   const theme = useTheme();
   const [draft, setDraft] = useState<string | null>(null);
   const [savedNote, setSavedNote] = useState(false);
   const [health, setHealth] = useState<HealthState>({ status: "idle" });
   const [confirmClear, setConfirmClear] = useState(false);
   const [cleared, setCleared] = useState(false);
+  const [explainOpen, setExplainOpen] = useState(false);
 
   const value = draft ?? customApiBaseUrl ?? "";
 
@@ -60,6 +66,10 @@ export function SettingsScreen() {
       .catch((err) => setHealth({ status: "error", message: errorMessage(err, t) }));
   };
 
+  const openExample = (key: ExampleKey) => {
+    if (openDemo(EXAMPLES[key].homeId)) router.replace(paths.home as Href);
+  };
+
   const clear = async () => {
     if (!confirmClear) {
       setConfirmClear(true);
@@ -71,19 +81,34 @@ export function SettingsScreen() {
   };
 
   return (
-    <Screen testID="settings-screen" backTo={paths.start}>
+    <Screen
+      testID="settings-screen"
+      backTo={paths.home}
+      overlay={<DeductibleSheet open={explainOpen} onClose={() => setExplainOpen(false)} />}
+    >
       <Txt variant="display">{t("settingsTitle")}</Txt>
       {!ready ? (
         <LoadingState />
       ) : (
         <>
           <Section title={t("language")}>
-            <Segmented
-              testIDPrefix="lang"
-              value={lang}
-              onChange={setLang}
-              options={LANGS.map((l) => ({ value: l.code, label: l.name }))}
-            />
+            <LanguageSwitch />
+          </Section>
+
+          <Section title={t("exampleHomesTitle")} testID="example-homes">
+            <ListGroup>
+              {(Object.keys(EXAMPLES) as ExampleKey[]).map((key, i, all) => (
+                <ListRow
+                  key={key}
+                  icon="home"
+                  title={t(EXAMPLES[key].label)}
+                  onPress={() => openExample(key)}
+                  testID={`example-${key}`}
+                  last={i === all.length - 1}
+                />
+              ))}
+            </ListGroup>
+            <Txt variant="caption">{t("exampleNote")}</Txt>
           </Section>
 
           <Section title={t("serverUrl")}>
@@ -162,13 +187,28 @@ export function SettingsScreen() {
             {cleared ? <Txt variant="caption">{t("cleared")}</Txt> : null}
           </Section>
 
-          <Card testID="prototype-note">
-            <Txt variant="smallStrong">{t("prototypeTitle")}</Txt>
-            <Gap size="xs" />
-            <Txt variant="small" muted>
-              {t("prototypeNote")}
+          <Section title={t("aboutTitle")} testID="about">
+            <ListGroup>
+              <ListRow
+                icon="doc"
+                title={t("ddTitle")}
+                onPress={() => setExplainOpen(true)}
+                testID="open-deductible-info"
+                last
+              />
+            </ListGroup>
+            <Txt variant="small" muted testID="about-camera">
+              {t("aboutCamera")}
             </Txt>
-          </Card>
+            <Gap size="sm" />
+            <Txt variant="small" muted>
+              {t("privacyLine")}
+            </Txt>
+            <Gap size="sm" />
+            <Txt variant="small" muted>
+              {t(IF_BRANDED ? "aboutIf" : "aboutNeutral")}
+            </Txt>
+          </Section>
         </>
       )}
     </Screen>

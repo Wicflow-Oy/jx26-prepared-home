@@ -1,5 +1,8 @@
 // Derived view of one home, computed on the device with the engine (docs/CONTRACTS.md §9.1).
 import {
+  DEMO_FLAT_ID,
+  DEMO_FRESH_ID,
+  DEMO_HOUSE_ID,
   checksFor,
   effectiveRecords,
   homeCard,
@@ -24,12 +27,20 @@ import {
 import { useMemo } from "react";
 
 import { usePreparedHome } from "./context";
+import { allTranslations, type Translate } from "./i18n";
 
+/** needs_camera: verified with a gallery or example photo, so it shows as done but does not count. */
 export type RowState =
-  "verified" | "not_applicable" | "fix_first" | "retake" | "overdue" | "not_checked";
+  | "verified"
+  | "needs_camera"
+  | "not_applicable"
+  | "fix_first"
+  | "retake"
+  | "overdue"
+  | "not_checked";
 
 export interface NextStep {
-  kind: "fix" | "retake" | "missing" | "overdue";
+  kind: "fix" | "retake" | "missing" | "overdue" | "camera";
   check: CheckDefinition;
 }
 
@@ -68,6 +79,7 @@ export function buildHomeModel(
   const slot = new Map<string, RowState>();
   for (const p of perils) {
     p.verified.forEach((id) => slot.set(id, "verified"));
+    p.notCounted.forEach((id) => slot.set(id, "needs_camera"));
     p.notApplicable.forEach((id) => slot.set(id, "not_applicable"));
     p.fixFirst.forEach((id) => slot.set(id, "fix_first"));
     p.overdue.forEach((id) => slot.set(id, "overdue"));
@@ -78,13 +90,14 @@ export function buildHomeModel(
   const rowState = (checkId: string): RowState => slot.get(checkId) ?? "not_checked";
 
   const total = perils.reduce((n, p) => n + p.required.length, 0);
-  const done = perils.reduce((n, p) => n + p.verified.length + p.notApplicable.length, 0);
+  const done = perils.reduce((n, p) => n + doneCount(p), 0);
 
   const order: { state: RowState; kind: NextStep["kind"] }[] = [
     { state: "fix_first", kind: "fix" },
     { state: "overdue", kind: "overdue" },
     { state: "retake", kind: "retake" },
     { state: "not_checked", kind: "missing" },
+    { state: "needs_camera", kind: "camera" },
   ];
   let nextStep: NextStep | null = null;
   for (const { state, kind } of order) {
@@ -122,6 +135,14 @@ export function buildHomeModel(
   };
 }
 
+/** Checks that show as done: verified (also with a photo that does not count) or not applicable. */
+export const doneCount = (p: PerilStatus) =>
+  p.verified.length + p.notCounted.length + p.notApplicable.length;
+
+/** True for rows the check flow can skip: done, even if a camera photo is still needed. */
+export const isDoneRow = (s: RowState) =>
+  s === "verified" || s === "needs_camera" || s === "not_applicable";
+
 /** The model for the current home, or null when no home is open. */
 export function useHomeModel(): HomeModel | null {
   const { currentHome, recordsFor, frost, lang } = usePreparedHome();
@@ -133,9 +154,27 @@ export function useHomeModel(): HomeModel | null {
   }, [currentHome, records, frostValue, lang]);
 }
 
+const NEW_HOME_LABELS = new Set(allTranslations("homeName"));
+
+/** The home's name in the current language: example homes and new homes are named by the app. */
+export function homeLabel(home: Home, t: Translate): string {
+  if (home.homeId === DEMO_FLAT_ID) return t("demoFlatLabel");
+  if (home.homeId === DEMO_HOUSE_ID) return t("demoHouseLabel");
+  if (home.homeId === DEMO_FRESH_ID || NEW_HOME_LABELS.has(home.label)) return t("homeName");
+  return home.label;
+}
+
 export const perilLabel = (p: Peril, lang: Lang) => PERIL_LABELS[p][lang];
 export const stateLabel = (s: PerilState, lang: Lang) => STATE_LABELS[s][lang];
 export const verdictLabel = (v: Verdict, lang: Lang) => VERDICT_LABELS[v][lang];
+
+/** The short state shown on a check row. */
+export function rowLabel(state: RowState, t: Translate, lang: Lang): string {
+  if (state === "not_checked") return t("row.notChecked");
+  if (state === "overdue") return t("row.overdue");
+  if (state === "needs_camera") return t("row.needsCamera");
+  return verdictLabel(state, lang);
+}
 export const ownerLabel = (o: Owner, lang: Lang) => OWNER_LABELS[o][lang];
 
 export type Tone = "success" | "warning" | "danger" | "info" | "neutral";
@@ -152,11 +191,13 @@ export const verdictTone = (v: Verdict): Tone =>
 export const rowTone = (s: RowState): Tone =>
   s === "verified"
     ? "success"
-    : s === "fix_first" || s === "overdue"
-      ? "warning"
-      : s === "retake"
-        ? "info"
-        : "neutral";
+    : s === "needs_camera"
+      ? "info"
+      : s === "fix_first" || s === "overdue"
+        ? "warning"
+        : s === "retake"
+          ? "info"
+          : "neutral";
 
 export const stateTone = (s: PerilState): Tone =>
   s === "prepared"

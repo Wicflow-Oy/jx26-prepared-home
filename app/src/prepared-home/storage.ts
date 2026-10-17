@@ -3,6 +3,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type {
   AdjusterView,
+  CaptureSource,
   CheckOutcome,
   CheckRecord,
   Home,
@@ -10,7 +11,7 @@ import type {
   Verdict,
 } from "@prepared-home/engine";
 
-import type { CheckSource, ClauseRef } from "./api";
+import type { CheckSource } from "./api";
 
 const KEYS = {
   settings: "prepared-home/settings/v1",
@@ -36,10 +37,15 @@ export interface StoredOutcome {
   outcome: CheckOutcome;
   source: CheckSource;
   sourceNote?: string;
+  /** Language of the server texts (source note, model notes and hints) in this result. */
+  lang?: Lang;
   model: string;
-  clause: ClauseRef[];
   checkedAt: string;
   photoSha256: string | null;
+  /** How the photo was taken; missing on older results, which count as camera photos. */
+  capture?: CaptureSource;
+  /** The second angle of the same item, when one was taken. */
+  secondPhotoSha256?: string | null;
   /** false when a retake did not replace an earlier, stronger record */
   recordReplaced: boolean;
   previousVerdict?: Verdict;

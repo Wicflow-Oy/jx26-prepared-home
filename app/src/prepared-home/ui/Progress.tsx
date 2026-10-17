@@ -21,7 +21,7 @@ const RADIUS = 64;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
 /**
- * Segmented progress ring: done checks in brown, fix-first checks in amber, the rest as a track.
+ * Segmented progress ring: done checks in blue, fix-first checks in amber, the rest as a track.
  * The arcs fill by animating strokeDashoffset on the UI thread.
  */
 export function ProgressRing({
@@ -100,7 +100,7 @@ export function ProgressRing({
           cx={c}
           cy={c}
           r={RADIUS}
-          stroke={theme.colors.text}
+          stroke={theme.colors.primary}
           strokeWidth={STROKE}
           fill="none"
           strokeDasharray={`${CIRCUMFERENCE} ${CIRCUMFERENCE}`}
@@ -154,7 +154,9 @@ export function SegmentBar({ segments, testID }: { segments: SegmentState[]; tes
         <Segment
           key={i}
           index={i}
-          color={s === "done" ? theme.colors.text : s === "fix" ? theme.colors.warningMark : null}
+          color={
+            s === "done" ? theme.colors.primary : s === "fix" ? theme.colors.warningMark : null
+          }
         />
       ))}
     </View>

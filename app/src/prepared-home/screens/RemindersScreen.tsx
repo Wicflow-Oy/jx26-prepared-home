@@ -2,7 +2,7 @@ import { useRouter, type Href } from "expo-router";
 
 import { FROST_PLACE } from "../config";
 import { usePreparedHome } from "../context";
-import { formatDate, reminderKey } from "../i18n";
+import { formatDate, formatDecimal, localizeDates, reminderKey } from "../i18n";
 import { useHomeModel } from "../model";
 import {
   Banner,
@@ -35,7 +35,7 @@ export function RemindersScreen() {
         ? t("frostInfo", {
             place,
             date: formatDate(f.firstFrostDate, lang),
-            temp: f.minTempC == null ? "–" : f.minTempC.toFixed(1),
+            temp: f.minTempC == null ? "–" : formatDecimal(f.minTempC, lang),
           })
         : t("frostNone", { place })) + (f.source === "fixture" ? t("frostSample") : "");
   }
@@ -67,18 +67,17 @@ export function RemindersScreen() {
           {model.reminders.map((r, i) => (
             <ListRow
               key={r.id}
-              index={i}
               last={i === model.reminders.length - 1}
               icon={r.kind === "frost" ? "snow" : r.kind === "fix_first" ? "tool" : "calendar"}
               testID={`reminder-${r.kind}-${r.checkIds.join("-")}`}
-              title={r.title[lang]}
+              title={localizeDates(r.title[lang], lang)}
               subtitle={[
                 t("due", { date: formatDate(r.dueAt, lang) }),
-                r.checkIds.join(", "),
-                r.trigger,
-              ]
-                .filter(Boolean)
-                .join(" · ")}
+                // Long groups are already counted in the title.
+                ...(r.checkIds.length <= 2
+                  ? r.checkIds.map((id) => model.checkById.get(id)?.title[lang] ?? id)
+                  : []),
+              ].join(" · ")}
               tag={{
                 label: t(reminderKey(r.kind)),
                 tone: r.kind === "frost" || r.kind === "fix_first" ? "warning" : "neutral",

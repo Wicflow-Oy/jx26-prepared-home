@@ -5,6 +5,6 @@ import { param } from "@/prepared-home/routes";
 
 export default function CheckRoute() {
   const { checkId } = useLocalSearchParams<{ checkId: string }>();
-  const id = param(checkId);
-  return <CheckScreen key={id} checkId={id} />;
+  // No key: moving to the next check keeps the screen, and its camera, mounted.
+  return <CheckScreen checkId={param(checkId)} />;
 }

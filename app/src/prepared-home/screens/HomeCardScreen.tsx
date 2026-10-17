@@ -2,9 +2,10 @@ import { DISCLAIMER } from "@prepared-home/engine";
 import { View } from "react-native";
 
 import { usePreparedHome, useTheme } from "../context";
-import { formatDate, type StringKey } from "../i18n";
+import { formatDate, localizeDates, type StringKey } from "../i18n";
 import { Icon, PERIL_ICON } from "../icons";
 import {
+  homeLabel,
   perilLabel,
   stateLabel,
   stateTone,
@@ -48,7 +49,7 @@ export function HomeCardScreen() {
       <Gap size="lg" />
 
       <Card raised testID="card-header">
-        <Txt variant="h2">{card.label}</Txt>
+        <Txt variant="h2">{homeLabel(model.home, t)}</Txt>
         <Txt variant="caption">
           {t(`homeType.${card.homeType}` as StringKey)} ·{" "}
           {t("generatedOn", { date: formatDate(card.generatedAt, lang) })}
@@ -86,7 +87,7 @@ export function HomeCardScreen() {
             }}
           >
             <Txt variant="label">{t("shutOff")}</Txt>
-            <Txt variant="small">{card.shutOffNote}</Txt>
+            <Txt variant="small">{localizeDates(card.shutOffNote, lang)}</Txt>
           </View>
         ) : null}
       </Card>
@@ -99,10 +100,9 @@ export function HomeCardScreen() {
             {card.records.map((r, i) => (
               <ListRow
                 key={r.checkId}
-                index={i}
                 last={i === card.records.length - 1}
                 testID={`card-record-${r.checkId}`}
-                title={`${r.checkId} · ${title(r.checkId)}`}
+                title={title(r.checkId)}
                 subtitle={`${t("checkedOn", { date: formatDate(r.checkedAt, lang) })} · ${
                   r.photoSha256Short ? t("photoHash", { hash: r.photoSha256Short }) : t("noPhoto")
                 }`}
@@ -116,7 +116,7 @@ export function HomeCardScreen() {
       {card.nextReminder ? (
         <Fact icon="bell" testID="card-next-reminder">
           <Txt variant="smallStrong">{t("nextReminder")}</Txt>
-          <Txt variant="small">{card.nextReminder.title[lang]}</Txt>
+          <Txt variant="small">{localizeDates(card.nextReminder.title[lang], lang)}</Txt>
           <Txt variant="caption">
             {t("due", { date: formatDate(card.nextReminder.dueAt, lang) })}
           </Txt>

@@ -6,6 +6,7 @@ const PATHS = {
   chevronLeft: <Path d="M14.5 18l-6-6 6-6" />,
   chevronRight: <Path d="M9.5 6l6 6-6 6" />,
   close: <Path d="M6.5 6.5l11 11M17.5 6.5l-11 11" />,
+  flash: <Path d="M13.6 2.5L5 13.6h5.9L9.8 21.5l9.2-11.6h-6z" />,
   check: <Path d="M5 12.5l4.5 4.5L19 7.5" />,
   drop: <Path d="M12 3.5c2.9 3.5 6 6.8 6 10.4a6 6 0 0 1-12 0c0-3.6 3.1-6.9 6-10.4z" />,
   flame: (
@@ -47,6 +48,8 @@ const PATHS = {
     <Path d="M14.7 6.3a4 4 0 0 0 5 5l-8.4 8.4a2.1 2.1 0 0 1-3-3L16.7 8.3a4 4 0 0 1-2-2zM14.7 6.3l2.6-2.6a4 4 0 0 1 2.4 7.6" />
   ),
   home: <Path d="M4 11l8-6.5 8 6.5v9H4zM10 20v-5h4v5" />,
+  building: <Path d="M5 20.5V4.5h10v16M15 9.5h4v11M3.5 20.5h17M8 8h4M8 11.5h4M8 15h4" />,
+  cabin: <Path d="M3.5 11.5L12 4l8.5 7.5M6 10v10.5h12V10M10 20.5v-5h4v5M16 6.3V4.5h2v3.6" />,
   camera: (
     <>
       <Rect x="3" y="7" width="18" height="13" rx="2" />

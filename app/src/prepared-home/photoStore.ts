@@ -1,5 +1,6 @@
 // Native photo store: the JPEG bytes that were checked, kept in the app's document folder by SHA-256.
-// The photos never leave the device unless the user shares them with a claim.
+// A copy of each checked photo is kept here. Every photo is also sent to the server (and the Claude API)
+// for the check; shared photos are sent again with a claim.
 import { Directory, File, Paths } from "expo-file-system";
 
 const FOLDER = "prepared-home-photos";

@@ -14,11 +14,11 @@ export function defaultApiBaseUrl(): string {
   return "http://localhost:8787/api";
 }
 
-/** Demo claim, as in docs/CONTRACTS.md §6. */
-export const DEMO_CLAIM = { peril: "leak" as const, lossDate: "2027-02-03" };
-
 /** Place used for the FMI frost forecast. */
 export const FROST_PLACE = "Turku";
 
-/** Photo pipeline limits (docs/CONTRACTS.md §8). */
-export const PHOTO = { maxLongEdge: 2576, jpegQuality: 0.85 };
+/**
+ * Photo size sent for checking. 1600 px keeps uploads fast on a phone connection and is above the
+ * 1280 px photos the model was evaluated on; the contract allows up to 2576 px.
+ */
+export const PHOTO = { maxLongEdge: 1600, jpegQuality: 0.8 };

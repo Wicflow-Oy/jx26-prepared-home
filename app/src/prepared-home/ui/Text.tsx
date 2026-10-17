@@ -60,6 +60,8 @@ export function Txt({
   inverse,
   numberOfLines,
   role,
+  selectable,
+  onPress,
 }: {
   variant?: TxtVariant;
   children: ReactNode;
@@ -70,6 +72,9 @@ export function Txt({
   inverse?: boolean;
   numberOfLines?: number;
   role?: "header" | "alert";
+  selectable?: boolean;
+  /** Makes the text a link (also inside another Txt). */
+  onPress?: () => void;
 }) {
   const theme = useTheme();
   const base: TextStyle = { color: theme.colors.text, fontFamily: theme.font.family };
@@ -82,7 +87,11 @@ export function Txt({
     <Text
       testID={testID}
       numberOfLines={numberOfLines}
-      accessibilityRole={role ?? (HEADINGS.includes(variant) ? "header" : undefined)}
+      selectable={selectable}
+      onPress={onPress}
+      accessibilityRole={
+        role ?? (onPress ? "link" : HEADINGS.includes(variant) ? "header" : undefined)
+      }
       style={[base, variantStyle(theme, variant), tone, color ? { color } : null, style]}
     >
       {children}

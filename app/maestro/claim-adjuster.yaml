@@ -1,38 +1,45 @@
-# Demo flat: simulate the leak claim; the adjuster sees "Bonus not applied" because L4 is Fix first.
+# Example flat: report a leak (demo); the claims handler view shows "Relief not applied" because L4 is Fix first.
 # Needs the API server (port 8787).
-# Expo Go. For a development build change appId to fi.wicflow.preparedhome and EXPO_URL to preparedhome://
+# Expo Go. For a development build change appId to fi.wicflow.preparedhome and APP_LINK to preparedhome://?example=flat
 appId: host.exp.exponent
 env:
-  EXPO_URL: exp://127.0.0.1:8081
+  APP_LINK: exp://127.0.0.1:8081/--/?example=flat
 ---
 - runFlow:
     file: subflows/open-app.yaml
     env:
-      EXPO_URL: ${EXPO_URL}
-- tapOn:
-    id: demo-flat
-- extendedWaitUntil:
-    visible:
-      id: home-screen
-    timeout: 10000
+      APP_LINK: ${APP_LINK}
 - scrollUntilVisible:
     element:
       id: nav-claim
     direction: DOWN
 - tapOn:
     id: nav-claim
-- extendedWaitUntil:
-    visible:
-      id: simulate-claim
+- scrollUntilVisible:
+    element:
+      id: send-report
+    direction: DOWN
     timeout: 10000
 - tapOn:
-    id: simulate-claim
+    id: send-report
+- extendedWaitUntil:
+    visible:
+      id: report-sent
+    timeout: 30000
+- scrollUntilVisible:
+    element:
+      id: open-handler-view
+    direction: DOWN
+- tapOn:
+    id: open-handler-view
 - extendedWaitUntil:
     visible:
       id: adjuster-decision-text
-    timeout: 30000
+    timeout: 10000
 - assertVisible:
     id: adjuster-decision-text
-    text: Bonus not applied
-- assertVisible:
-    id: adjuster-note
+    text: Relief not applied
+- scrollUntilVisible:
+    element:
+      id: adjuster-note
+    direction: DOWN

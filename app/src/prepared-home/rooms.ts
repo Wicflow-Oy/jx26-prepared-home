@@ -23,10 +23,10 @@ const ROOM_OF: Record<string, Room> = {
 const ROOM_NAMES: Record<Room, Localized> = {
   kitchen: { en: "Kitchen", fi: "Keittiö", sv: "Kök" },
   bathroom: { en: "Bathroom", fi: "Kylpyhuone", sv: "Badrum" },
-  hall: { en: "Hall", fi: "Eteinen", sv: "Hall" },
+  hall: { en: "Hallway", fi: "Eteinen", sv: "Tambur" },
   living: { en: "Living room", fi: "Olohuone", sv: "Vardagsrum" },
   outside: { en: "Outside", fi: "Ulkona", sv: "Utomhus" },
-  utility: { en: "Utility room", fi: "Tekninen tila", sv: "Teknikrum" },
+  utility: { en: "Utility room", fi: "Tekninen tila", sv: "Tekniskt utrymme" },
 };
 
 export const roomOf = (checkId: string): Room | null => ROOM_OF[checkId] ?? null;

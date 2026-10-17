@@ -1,10 +1,10 @@
-# Shared start: opens the project in Expo Go through Metro on this machine.
+# Shared start: opens an example home in Expo Go through Metro on this machine.
 # With a USB phone run `adb reverse tcp:8081 tcp:8081` and `adb reverse tcp:8787 tcp:8787` first.
 appId: host.exp.exponent
 ---
 - launchApp
-- openLink: ${EXPO_URL}
+- openLink: ${APP_LINK}
 - extendedWaitUntil:
     visible:
-      id: start-screen
+      id: home-screen
     timeout: 90000

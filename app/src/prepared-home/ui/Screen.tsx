@@ -1,14 +1,24 @@
 import { useRouter, type Href } from "expo-router";
 import type { ReactNode } from "react";
-import { Platform, ScrollView, View, type StyleProp, type ViewStyle } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Platform, View, type StyleProp, type ViewStyle } from "react-native";
+import Animated, {
+  interpolate,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+} from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { IF_BRANDED } from "../brand";
 import { usePreparedHome, useTheme } from "../context";
 import { durations } from "../motion";
+import { useSystemBarIcons } from "../systemBars";
 import { Appear } from "./Appear";
+import { IfLogo } from "./IfLogo";
 import { IconButton } from "./Pressable";
 import { Txt } from "./Text";
 
+/** The neutral build's banner. The If-branded build shows a small Concept pill in the header instead. */
 export function PrototypeLabel({ inverse }: { inverse?: boolean }) {
   const theme = useTheme();
   const { t } = usePreparedHome();
@@ -26,6 +36,27 @@ export function PrototypeLabel({ inverse }: { inverse?: boolean }) {
           {t("prototypeLabel")}
         </Txt>
       </View>
+    </View>
+  );
+}
+
+/** A small, honest marker next to the logo: this is a concept, not a live If service. */
+function ConceptPill() {
+  const theme = useTheme();
+  const { t } = usePreparedHome();
+  return (
+    <View
+      testID="concept-pill"
+      style={{
+        borderRadius: theme.radius.pill,
+        backgroundColor: theme.colors.primaryTint,
+        paddingHorizontal: theme.space.sm,
+        paddingVertical: theme.space.xxs,
+      }}
+    >
+      <Txt variant="caption" color={theme.colors.info}>
+        {t("conceptPill")}
+      </Txt>
     </View>
   );
 }
@@ -74,6 +105,8 @@ export function Screen({
   const router = useRouter();
   const { t, paths } = usePreparedHome();
   const dark = tone === "dark";
+  const insets = useSafeAreaInsets();
+  useSystemBarIcons(dark ? "light" : "dark");
   const background = dark
     ? theme.colors.dark
     : tone === "sandAlt"
@@ -81,65 +114,111 @@ export function Screen({
       : theme.colors.background;
   const maxWidth = wide ? theme.layout.maxWideWidth : theme.layout.maxContentWidth;
 
+  // A hairline under the app bar fades in once the page scrolls under it.
+  const scrollY = useSharedValue(0);
+  const onScroll = useAnimatedScrollHandler((e) => {
+    scrollY.set(e.contentOffset.y);
+  });
+  const hairline = useAnimatedStyle(() => ({
+    opacity: interpolate(scrollY.get(), [0, 24], [0, 1], "clamp"),
+  }));
+
   const goBack = () => {
     if (router.canGoBack()) router.back();
     else router.replace((backTo ?? paths.home) as Href);
   };
 
   return (
-    <SafeAreaView edges={["top", "left", "right"]} style={{ flex: 1, backgroundColor: background }}>
-      <PrototypeLabel inverse={dark} />
+    // The background fills behind both system bars; content keeps clear of them with the insets.
+    // Overlays (sheets) sit outside the padding so their scrim also covers the status bar.
+    <View style={{ flex: 1, backgroundColor: background }}>
       <View
         style={{
-          width: "100%",
-          maxWidth,
-          alignSelf: "center",
-          flexDirection: "row",
-          alignItems: "center",
-          paddingHorizontal: theme.space.md,
-          minHeight: 52,
+          flex: 1,
+          paddingTop: insets.top,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
         }}
       >
-        <View style={{ width: theme.layout.tapTarget }}>
-          {back ? (
-            <IconButton
-              icon={backIcon}
-              label={t("back")}
-              onPress={goBack}
-              testID="back-button"
-              inverse={dark}
-            />
-          ) : null}
-        </View>
-        <View style={{ flex: 1, alignItems: "center" }}>
-          <Txt variant="body" inverse={dark} numberOfLines={1}>
-            {barTitle ?? t("appName")}
-          </Txt>
-          <Txt variant="caption" inverse={dark} muted numberOfLines={1}>
-            {barSubtitle ?? t("appNameLocal")}
-          </Txt>
-        </View>
-        <View style={{ width: theme.layout.tapTarget, alignItems: "flex-end" }}>{right}</View>
-      </View>
-      <ScrollView
-        testID={testID}
-        style={{ flex: 1 }}
-        contentContainerStyle={{ paddingBottom: theme.space.xxl * 2 }}
-        keyboardShouldPersistTaps="handled"
-      >
-        <PageBody
+        {IF_BRANDED ? null : <PrototypeLabel inverse={dark} />}
+        <View
           style={{
             width: "100%",
             maxWidth,
             alignSelf: "center",
-            paddingHorizontal: theme.space.xl,
-            paddingTop: theme.space.sm,
+            flexDirection: "row",
+            alignItems: "center",
+            paddingHorizontal: theme.space.md,
+            minHeight: 52,
           }}
         >
-          {children}
-        </PageBody>
-      </ScrollView>
+          <View style={{ width: theme.layout.tapTarget }}>
+            {back ? (
+              <IconButton
+                icon={backIcon}
+                label={t("back")}
+                onPress={goBack}
+                testID="back-button"
+                inverse={dark}
+              />
+            ) : null}
+          </View>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: theme.space.sm,
+            }}
+          >
+            {IF_BRANDED && !barTitle ? <IfLogo size={30} /> : null}
+            <View
+              style={{
+                alignItems: IF_BRANDED && !barTitle ? "flex-start" : "center",
+                flexShrink: 1,
+              }}
+            >
+              <Txt variant="body" inverse={dark} numberOfLines={1}>
+                {barTitle ?? t("appName")}
+              </Txt>
+              <Txt variant="caption" inverse={dark} muted numberOfLines={1}>
+                {barSubtitle ?? t("appNameLocal")}
+              </Txt>
+            </View>
+            {IF_BRANDED && !barTitle ? <ConceptPill /> : null}
+          </View>
+          <View style={{ width: theme.layout.tapTarget, alignItems: "flex-end" }}>{right}</View>
+        </View>
+        <Animated.View
+          style={[
+            { height: 1, backgroundColor: dark ? "rgba(250, 249, 247, 0.12)" : theme.colors.line },
+            hairline,
+          ]}
+        />
+        <Animated.ScrollView
+          testID={testID}
+          style={{ flex: 1 }}
+          // The page runs behind the navigation bar; the last item still clears it.
+          contentContainerStyle={{ paddingBottom: theme.space.xxl + insets.bottom }}
+          keyboardShouldPersistTaps="handled"
+          onScroll={onScroll}
+          scrollEventThrottle={16}
+        >
+          <PageBody
+            style={{
+              width: "100%",
+              maxWidth,
+              alignSelf: "center",
+              paddingHorizontal: theme.space.xl,
+              paddingTop: theme.space.sm,
+            }}
+          >
+            {children}
+          </PageBody>
+        </Animated.ScrollView>
+      </View>
       {overlay}
-    </SafeAreaView>
+    </View>
   );
 }

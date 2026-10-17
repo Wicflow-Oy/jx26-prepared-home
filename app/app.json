@@ -11,8 +11,8 @@
       "bundleIdentifier": "fi.wicflow.preparedhome",
       "supportsTablet": true,
       "infoPlist": {
-        "NSCameraUsageDescription": "Prepared Home uses the camera to photograph the points you check. Photos are checked and then discarded.",
-        "NSPhotoLibraryUsageDescription": "Prepared Home uses the camera to photograph the points you check. Photos are checked and then discarded."
+        "NSCameraUsageDescription": "Prepared Home uses the camera to photograph the points you check. Each photo is sent for an AI check and a copy is kept in the app.",
+        "NSPhotoLibraryUsageDescription": "Prepared Home lets you choose a photo of a point you check. Each photo is sent for an AI check and a copy is kept in the app."
       },
       "config": {
         "usesNonExemptEncryption": false
@@ -21,7 +21,7 @@
     "android": {
       "package": "fi.wicflow.preparedhome",
       "adaptiveIcon": {
-        "backgroundColor": "#331E11",
+        "backgroundColor": "#1241A2",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
@@ -45,10 +45,18 @@
         }
       ],
       [
+        "expo-camera",
+        {
+          "cameraPermission": "Prepared Home uses the camera to photograph the points you check. Each photo is sent for an AI check and a copy is kept in the app.",
+          "microphonePermission": false,
+          "recordAudioAndroid": false
+        }
+      ],
+      [
         "expo-image-picker",
         {
-          "cameraPermission": "Prepared Home uses the camera to photograph the points you check. Photos are checked and then discarded.",
-          "photosPermission": "Prepared Home uses the camera to photograph the points you check. Photos are checked and then discarded.",
+          "cameraPermission": "Prepared Home uses the camera to photograph the points you check. Each photo is sent for an AI check and a copy is kept in the app.",
+          "photosPermission": "Prepared Home lets you choose a photo of a point you check. Each photo is sent for an AI check and a copy is kept in the app.",
           "microphonePermission": false
         }
       ],
@@ -59,12 +67,26 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 96
         }
+      ],
+      [
+        "expo-status-bar",
+        {
+          "style": "dark"
+        }
+      ],
+      [
+        "expo-navigation-bar",
+        {
+          "enforceContrast": false,
+          "style": "dark"
+        }
       ]
     ],
     "experiments": {
       "baseUrl": "/app",
       "typedRoutes": false,
       "reactCompiler": true
-    }
+    },
+    "backgroundColor": "#FAF9F7"
   }
 }

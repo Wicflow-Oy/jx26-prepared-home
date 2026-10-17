@@ -43,7 +43,8 @@ export function BottomSheet({
   const { reduced } = useMotion();
   const insets = useSafeAreaInsets();
   const { height: windowHeight } = useWindowDimensions();
-  const maxHeight = Math.round(windowHeight * 0.88);
+  // Tall content stops short of the status bar, leaving the dimmed page visible above the sheet.
+  const maxHeight = Math.round(Math.min(windowHeight * 0.88, windowHeight - insets.top - 56));
 
   const [mounted, setMounted] = useState(open);
   const offset = useSharedValue(maxHeight); // px below the open position
