@@ -99,6 +99,8 @@ export function createApp(deps: AppDeps): express.Express {
       return;
     }
     res.setHeader("Cache-Control", "public, max-age=86400");
+    // The dev web app loads samples from another port; production is same-origin.
+    res.setHeader("Access-Control-Allow-Origin", config.corsOrigin);
     res.type("image/jpeg");
     sendFileOr404(res, sample.path);
   });
