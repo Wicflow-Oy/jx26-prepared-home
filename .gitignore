@@ -12,3 +12,7 @@ server/cache/assessments/*.json
 !server/cache/assessments/.gitkeep
 server/eval/reports/*.json
 coverage/
+deploy/artifact/
+app/dist/
+!.env.example
+!**/.env.example

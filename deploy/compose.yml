@@ -1,0 +1,59 @@
+# Prepared Home public demo. Compose project: jx-preparedhome.
+# Runs behind the box's existing Traefik. No published host ports.
+# Production rule: if this box also runs wicflow.com, touch ONLY this project
+# (never wicflow-site, never Traefik's own config, never restart Traefik).
+#
+# Box layout mirrors the repo: /opt/jx/preparedhome/{Dockerfile, .dockerignore, .env, deploy/compose.yml, deploy/artifact/}
+# Deploy (from /opt/jx/preparedhome, after the team lead confirms box, DNS and SSH):
+#   docker compose -p jx-preparedhome -f deploy/compose.yml --env-file .env up -d --build
+# The build only COPYs the prebuilt artifact (deploy/artifact): no npm install on the box.
+name: jx-preparedhome
+
+services:
+  preparedhome:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: jx-preparedhome:${PH_TAG:-live}
+    container_name: jx-preparedhome
+    restart: unless-stopped
+    mem_limit: 1g
+    cpus: 1.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    # Secrets live only on the box (/opt/jx/preparedhome/.env, chmod 600, never in git).
+    env_file:
+      - ../.env
+    environment:
+      - NODE_ENV=production
+      - PORT=8787
+      - STORE_MODE=stateless
+      - TRUST_PROXY=1
+      - WEB_DIST=/app/web
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8787/api/v1/health", "-T", "5"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=${TRAEFIK_NETWORK:-n8n_default}"
+      - "traefik.http.routers.jx-preparedhome.rule=Host(`${PH_HOST:-preparedhome.demo.wicflow.com}`)"
+      - "traefik.http.routers.jx-preparedhome.entrypoints=websecure"
+      - "traefik.http.routers.jx-preparedhome.tls.certresolver=${PH_CERTRESOLVER:-zerossl}"
+      - "traefik.http.services.jx-preparedhome.loadbalancer.server.port=8787"
+      - "traefik.http.middlewares.jx-preparedhome-headers.headers.customresponseheaders.X-Robots-Tag=noindex, nofollow"
+      - "traefik.http.middlewares.jx-preparedhome-headers.headers.referrerPolicy=no-referrer"
+      - "traefik.http.middlewares.jx-preparedhome-headers.headers.contentTypeNosniff=true"
+      - "traefik.http.routers.jx-preparedhome.middlewares=jx-preparedhome-headers"
+
+networks:
+  traefik:
+    name: ${TRAEFIK_NETWORK:-n8n_default}
+    external: true
