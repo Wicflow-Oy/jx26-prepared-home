@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prepared Home: prototype</title>
+    <meta
+      name="description"
+      content="Prepared Home (Valmis koti): a voluntary moving-day check-up for your home, inside a home insurance app. A JunctionX Turku 2026 prototype."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#FAF9F7" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="stylesheet" href="/styles.css" />
+    <!-- Loaded synchronously so phones are sent to the app before this page paints. -->
+    <script src="/main.js"></script>
+  </head>
+  <body>
+    <div class="page">
+      <main class="intro">
+        <p class="tag">Prototype for JunctionX Turku 2026, not an If service</p>
+        <h1>Prepared Home</h1>
+        <p class="subtitle" lang="fi">Valmis koti</p>
+        <p class="lede">
+          A voluntary moving-day check-up for your home, inside your home insurance app. Photograph
+          about a dozen everyday risk points, and while the checks are current, your deductible for
+          that risk could be lower.
+        </p>
+        <ul class="points">
+          <li>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 7v5l3 2" />
+            </svg>
+            Check about a dozen spots in 15 minutes
+          </li>
+          <li>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3 5 6v5c0 4.4 3 8.3 7 10 4-1.7 7-5.6 7-10V6z" />
+              <path d="m9 12 2 2 4-4" />
+            </svg>
+            Verified checks could lower your deductible (concept)
+          </li>
+          <li>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 8h3l2-3h6l2 3h3v11H4z" />
+              <circle cx="12" cy="13" r="3.5" />
+            </svg>
+            Photos are checked and discarded
+          </li>
+        </ul>
+
+        <a class="button open-app" href="/app/">Open the app</a>
+
+        <div class="next">
+          <div class="next-grid">
+            <section class="qr-card" aria-labelledby="qr-title">
+              <div id="qr" class="qr">
+                <noscript>Turn on JavaScript to show the QR code, or use the link.</noscript>
+              </div>
+              <div>
+                <h2 id="qr-title">Open on your phone</h2>
+                <p>Scan with your phone's camera to try it full screen. No install needed.</p>
+                <a id="app-url" class="url" href="/app/">/app/</a>
+              </div>
+            </section>
+
+            <section class="steps" aria-labelledby="steps-title">
+              <h2 id="steps-title">How it works</h2>
+              <ol>
+                <li>
+                  <h3>Photograph</h3>
+                  <p>About a dozen spots, with a coach line for each.</p>
+                </li>
+                <li>
+                  <h3>Get it checked</h3>
+                  <p>Each photo is checked: verified, retake or fix first.</p>
+                </li>
+                <li>
+                  <h3>Stay prepared</h3>
+                  <p>While checks are current, your deductible could be lower.</p>
+                </li>
+              </ol>
+            </section>
+          </div>
+        </div>
+      </main>
+
+      <aside class="preview" aria-label="Live app preview">
+        <div class="device">
+          <div class="screen">
+            <div class="status-bar" aria-hidden="true">
+              <span>9:41</span>
+              <span class="island"></span>
+              <svg class="status-icons" viewBox="0 0 66 12">
+                <rect x="0" y="8" width="3" height="4" rx="0.8" />
+                <rect x="4.5" y="5.5" width="3" height="6.5" rx="0.8" />
+                <rect x="9" y="3" width="3" height="9" rx="0.8" />
+                <rect x="13.5" y="0.5" width="3" height="11.5" rx="0.8" />
+                <path class="wifi" d="M24.5 4.5a9 9 0 0 1 13 0M27.2 7.4a5.2 5.2 0 0 1 7.6 0" />
+                <circle cx="31" cy="10.3" r="1.4" />
+                <rect class="battery" x="42.5" y="1" width="20" height="10" rx="3" />
+                <rect x="44.5" y="3" width="14" height="6" rx="1.5" />
+                <rect x="63.8" y="4.3" width="1.6" height="3.4" rx="0.8" />
+              </svg>
+            </div>
+            <div class="app-area">
+              <p class="app-loading" aria-hidden="true">Loading the app…</p>
+              <iframe src="/app/" title="Prepared Home app"></iframe>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <footer class="footnote">
+        <p>
+          Prototype for JunctionX Turku 2026, If track. Not an If service. No If logo or
+          endorsement. Photos are checked in memory and discarded; nothing is stored on our server.
+          Hosted in Helsinki.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "Prepared Home",
+  "short_name": "Prepared Home",
+  "description": "A voluntary moving-day check-up for your home. Prototype for JunctionX Turku 2026.",
+  "lang": "en",
+  "start_url": "/app/",
+  "display": "standalone",
+  "theme_color": "#FAF9F7",
+  "background_color": "#FAF9F7",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
