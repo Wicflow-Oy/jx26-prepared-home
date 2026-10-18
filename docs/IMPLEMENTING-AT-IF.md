@@ -8,19 +8,20 @@ Prepared Home is a voluntary moving-day check-up inside the home insurance app. 
 | Check catalogue: 14 checks (flat 11, house 14, cottage 13) with fixed criteria; each check shows the related clause of If's home terms OMA 200.27, quoted verbatim in Finnish, Swedish and If's official English (protective instructions, one exclusion, and If's home guide where the terms are silent) | Built, unit-tested | `packages/engine/src/checks.ts`, `packages/engine/src/data/clauses.ts` |
 | Rules: verdicts (Verified / Retake / Fix first), due dates, status per risk, reminders, Home Card, the claim-time decision | Built, unit-tested (79 tests) | `packages/engine/src/` (`verdict.ts`, `status.ts`, `reminders.ts`, `homeCard.ts`, `adjuster.ts`) |
 | Vision check behind one interface, with a fixed photo eval that gates every model change | Built, measured | `server/src/vision/`, `server/eval/` |
-| API with per-IP and daily spend limits, recorded-result fallback, no storage of photos | Built, tested (65 tests) | `server/src/` |
-| App in fi, sv and en | Built and running on the web and in Expo Go on Android; the same code builds for iOS and Android with EAS (native store builds pending) | `app/` |
+| API with per-IP and daily spend limits, recorded-result fallback, no storage of photos | Built, tested (64 tests) | `server/src/` |
+| App in fi, sv and en, with voice guidance and screen-reader support | Built; runs on the web and as a standalone Android build (EAS); the same code builds for iOS | `app/` |
 
-**Measured on 17 Oct 2026** (24 licensed photos; a small set, so treat it as a smoke test, not a benchmark):
+**Measured on 17–18 Oct 2026** with `claude-sonnet-5-5` (the default):
 
-| Model | Correct | Wrongly "Verified" | Median time per check |
-|---|---|---|---|
-| `claude-sonnet-5-5` (default) | 22/24 | 0 | 4.9 s |
-| `claude-opus-5-5` | 23/24 | 0 | 7.1 s |
-| `claude-haiku-5-5` | 19/24 | 1 | 5.6 s |
+| Photo set | Labels | Result | Wrongly "Verified" | Median time |
+|---|---|---|---|---|
+| Gate set: 24 licensed photos, 5 checks | Hand-labelled | 24/24 | 0 | about 4 s |
+| Large set: 414 licensed photos, all 14 checks, 100 hard cases | Independent draft labels (Opus 5.5, two passes), not yet reviewed | 87.4% agreement | 13 | 3.4 s |
 
-- **Calls per check:** each live check is one Claude API call with one photo (at most 1600 px from the app). The server tracks token use for its daily spend cap.
-- **Coverage of the eval set:** the 24 photos cover 5 of the 14 checks (L1, L2, L3, L5, F2); the other checks are covered by unit tests of the rules, not yet by labelled photos.
+- **Model comparison on the large set** (agreement with draft labels): Opus 5.5 89.1% (it also wrote the labels), Haiku 5.5 77.5%.
+- **Consistency:** Sonnet's answer changed on 3.9% of photos between two runs.
+- **Coverage:** the large set is thin for a few checks (washing-machine and dishwasher hoses, drip trays, seams), because there are few licensed photos of them. If's own labelled photos would close that gap in a pilot.
+- **Calls per check:** each live check is one Claude API call with one or two photos (the second angle), each at most 1600 px. The server tracks token use for its daily spend cap.
 
 ## The decisions only If can make
 1. **The reward.**
