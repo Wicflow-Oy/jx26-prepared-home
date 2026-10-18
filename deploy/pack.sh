@@ -19,7 +19,7 @@ echo "2/4 exporting the web app to /app (same-origin /api) and adding the landin
 ( cd "$ROOT/app" && npx expo export --platform web --output-dir dist )
 mkdir -p "$ART/web"
 cp -r "$ROOT/app/dist" "$ART/web/app"
-( cd "$ROOT/landing" && cp index.html styles.css main.js tour.css tour.js tour-captions.js robots.txt favicon.svg if-logo.svg qr.svg manifest.webmanifest "$ART/web/" && cp -r fonts "$ART/web/" )
+( cd "$ROOT/landing" && cp index.html tech.html styles.css main.js tour.css tour.js tour-captions.js robots.txt favicon.svg if-logo.svg qr.svg manifest.webmanifest "$ART/web/" && cp -r fonts "$ART/web/" )
 
 echo "3/4 copying the licensed sample photos (with attribution)"
 cp "$ROOT/server/eval/photos/"*.jpg "$ROOT/server/eval/photos/README.md" "$ART/samples/"

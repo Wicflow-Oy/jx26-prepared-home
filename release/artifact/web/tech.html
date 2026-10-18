@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prepared Home technical execution</title>
+    <meta
+      name="description"
+      content="How Prepared Home is built: a vision model reports, deterministic rules decide. Architecture, key decisions and tool stack."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#0A1A4A" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <style>
+      /* One page for judges: thesis, numbers, the photo pipeline as the one diagram, decisions, process, stack.
+         Prints to two A4 pages (see @media print). */
+      @font-face {
+        font-family: "Instrument Serif";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("fonts/instrument-serif-400.woff2") format("woff2");
+      }
+      :root {
+        --bg: #f6f3ee;
+        --surface: #fffdf9;
+        --ink: #24170e;
+        --muted: #6b5a4e;
+        --line: #e4dccf;
+        --blue: #0054f0;
+        --blue-ink: #ffffff;
+        --blue-soft: #e4ecff;
+        --navy: #0a1a4a;
+        --on-navy: #f4efe7;
+        --on-navy-muted: #c3cff0;
+        --good: #1f7a3d;
+        --display: "Instrument Serif", Georgia, serif;
+        --text:
+          -apple-system, "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", Arial, sans-serif;
+        color-scheme: light;
+      }
+      @media screen and (prefers-color-scheme: dark) {
+        :root {
+          --bg: #081232;
+          --surface: #0f1c45;
+          --ink: #f2ede5;
+          --muted: #b6c1de;
+          --line: #22315d;
+          --blue: #8fb1ff;
+          --blue-ink: #081232;
+          --blue-soft: #18295a;
+          --navy: #050c24;
+          --on-navy: #f2ede5;
+          --on-navy-muted: #b6c1de;
+          --good: #7fd69a;
+          color-scheme: dark;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font: 16px/1.55 var(--text);
+        padding-inline: 16px;
+      }
+      main {
+        max-width: 980px;
+        margin: 0 auto;
+        padding-block: 20px 64px;
+        display: flex;
+        flex-direction: column;
+        gap: 36px;
+      }
+      h1,
+      h2 {
+        font-family: var(--display);
+        font-weight: 400;
+        margin: 0;
+        text-wrap: balance;
+      }
+      h2 {
+        font-size: 30px;
+        line-height: 1.1;
+      }
+      p {
+        margin: 0;
+      }
+      a {
+        color: var(--blue);
+      }
+      a:focus-visible {
+        outline: 3px solid var(--blue);
+        outline-offset: 2px;
+      }
+      .back {
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .eyebrow {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--blue);
+      }
+      section {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .hero {
+        background: var(--navy);
+        color: var(--on-navy);
+        border-radius: 24px;
+        padding: clamp(24px, 5vw, 44px);
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        right: -120px;
+        top: -120px;
+        width: 380px;
+        height: 380px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(0, 84, 240, 0.55), rgba(0, 84, 240, 0) 70%);
+        pointer-events: none;
+      }
+      .hero .eyebrow {
+        color: var(--on-navy-muted);
+      }
+      .hero h1 {
+        font-size: clamp(40px, 7vw, 72px);
+        line-height: 1;
+        position: relative;
+      }
+      .hero p {
+        color: var(--on-navy-muted);
+        font-size: 18px;
+        max-width: 60ch;
+        position: relative;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .stat {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+      }
+      .stat b {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: 34px;
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+      }
+      .stat span {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.3;
+      }
+      .flow {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        align-items: stretch;
+      }
+      .node {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        position: relative;
+        min-width: 0;
+      }
+      .node + .node {
+        margin-left: 22px;
+      }
+      .node + .node::before {
+        content: "";
+        position: absolute;
+        left: -19px;
+        top: 50%;
+        width: 14px;
+        height: 2px;
+        background: var(--blue);
+      }
+      .node + .node::after {
+        content: "";
+        position: absolute;
+        left: -9px;
+        top: calc(50% - 5px);
+        border: 5px solid transparent;
+        border-left-color: var(--blue);
+      }
+      .node small {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .node b {
+        font-size: 16px;
+      }
+      .node p {
+        font-size: 13.5px;
+        color: var(--muted);
+        line-height: 1.4;
+      }
+      .node.decides {
+        background: var(--blue);
+        border-color: var(--blue);
+      }
+      .node.decides b,
+      .node.decides p,
+      .node.decides small {
+        color: var(--blue-ink);
+      }
+      .caption {
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .grid3,
+      .grid2 {
+        display: grid;
+        gap: 12px;
+      }
+      .grid3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .grid2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-width: 0;
+      }
+      .card h3 {
+        margin: 0;
+        font-size: 16px;
+      }
+      .card p {
+        font-size: 14.5px;
+        color: var(--muted);
+      }
+      .card code {
+        font-size: 13px;
+        color: var(--blue);
+      }
+      .decision h3::before {
+        content: "✓";
+        color: var(--good);
+        margin-right: 8px;
+      }
+      .process {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 10px;
+        counter-reset: step;
+        margin: 0;
+        padding: 0;
+      }
+      .process li {
+        list-style: none;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 12px;
+        font-size: 14px;
+        color: var(--muted);
+        counter-increment: step;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .process li::before {
+        content: counter(step);
+        font-family: var(--display);
+        font-size: 26px;
+        color: var(--blue);
+        line-height: 1;
+      }
+      .process li b {
+        color: var(--ink);
+        font-size: 14.5px;
+      }
+      .stack {
+        display: grid;
+        grid-template-columns: 170px minmax(0, 1fr);
+        gap: 10px 18px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 18px;
+        margin: 0;
+      }
+      .stack dt {
+        font-weight: 700;
+        font-size: 14px;
+        padding-top: 4px;
+      }
+      .stack dd {
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .chip {
+        font-size: 13px;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: var(--blue-soft);
+        color: var(--blue);
+      }
+      footer {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 20px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      @media screen and (max-width: 820px) {
+        .stats {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .flow {
+          grid-template-columns: 1fr;
+          gap: 18px;
+        }
+        .node + .node {
+          margin-left: 0;
+        }
+        .node + .node::before {
+          left: calc(50% - 1px);
+          top: -16px;
+          width: 2px;
+          height: 12px;
+        }
+        .node + .node::after {
+          left: calc(50% - 5px);
+          top: -8px;
+          border-left-color: transparent;
+          border-top-color: var(--blue);
+        }
+        .grid3,
+        .grid2,
+        .process,
+        .stack {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media print {
+        @page {
+          size: A4;
+          margin: 12mm;
+        }
+        * {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        :root {
+          --bg: #ffffff;
+        }
+        body {
+          font-size: 12px;
+          padding: 0;
+        }
+        main {
+          max-width: none;
+          padding: 0;
+          gap: 14px;
+        }
+        section {
+          gap: 10px;
+        }
+        .stack {
+          gap: 6px 18px;
+          padding: 14px;
+        }
+        .back {
+          display: none;
+        }
+        h2 {
+          font-size: 22px;
+        }
+        .hero {
+          padding: 22px 26px;
+          border-radius: 16px;
+        }
+        .hero h1 {
+          font-size: 44px;
+        }
+        .hero p {
+          font-size: 13px;
+        }
+        .stat b {
+          font-size: 26px;
+        }
+        .stat span,
+        .node p,
+        .card p,
+        .process li,
+        .caption,
+        footer {
+          font-size: 10.5px;
+        }
+        .node b,
+        .card h3,
+        .process li b,
+        .stack dt {
+          font-size: 12px;
+        }
+        .chip {
+          font-size: 10.5px;
+          padding: 2px 8px;
+        }
+        .card,
+        .node,
+        .stat,
+        .process li,
+        .stack {
+          break-inside: avoid;
+        }
+        .decisions-section {
+          break-before: page;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <a class="back" href="/">← Back to the demo</a>
+
+      <header class="hero">
+        <p class="eyebrow">
+          Prepared Home · technical execution · JunctionX Turku 2026, If challenge
+        </p>
+        <h1>The model sees.<br />The rules decide.</h1>
+        <p>
+          A phone check-up for a new home. A vision model reports what each photo shows, criterion
+          by criterion; deterministic code turns that into a verdict, the deductible and the claim
+          decision. One TypeScript codebase runs on iPhone, Android and the web.
+        </p>
+      </header>
+
+      <section aria-label="Key numbers">
+        <div class="stats">
+          <div class="stat"><b>151</b><span>automated tests, offline</span></div>
+          <div class="stat"><b>24/24</b><span>gate photos, zero false “Verified”</span></div>
+          <div class="stat"><b>414</b><span>licensed photos in the eval set</span></div>
+          <div class="stat"><b>28</b><span>clauses of If's terms, quoted verbatim</span></div>
+          <div class="stat"><b>3</b><span>platforms and 3 languages</span></div>
+          <div class="stat"><b>0</b><span>photos stored on the server</span></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="flow">
+        <p class="eyebrow">The core process</p>
+        <h2 id="flow">How a photo becomes a verdict</h2>
+        <div class="flow">
+          <div class="node">
+            <small>Phone</small><b>Two-angle photo</b>
+            <p>
+              In-app camera only. The second angle fires on its own. SHA-256 fingerprint on the
+              device.
+            </p>
+          </div>
+          <div class="node">
+            <small>Server</small><b>Stateless API</b>
+            <p>Node and Express. Checks the hash, rate and spend limits, keeps nothing.</p>
+          </div>
+          <div class="node">
+            <small>Vision model</small><b>Claude reports</b>
+            <p>
+              Sonnet 5.5 answers fixed criteria in a strict schema, and flags screens and printouts.
+            </p>
+          </div>
+          <div class="node decides">
+            <small>Rules engine</small><b>Code decides</b>
+            <p>
+              Verified, Retake or Fix first. Status, deductible and reminders. No model involved.
+            </p>
+          </div>
+          <div class="node">
+            <small>Claim</small><b>Fingerprints match</b>
+            <p>Shared photos must match the recorded hashes. A person decides.</p>
+          </div>
+        </div>
+        <p class="caption">
+          Swapping the model can never change a payout rule: the engine is pure TypeScript with no
+          I/O, shared by the server and the app.
+        </p>
+      </section>
+
+      <section aria-labelledby="parts">
+        <p class="eyebrow">Architecture</p>
+        <h2 id="parts">Three parts, one contract</h2>
+        <div class="grid3">
+          <div class="card">
+            <h3>Engine</h3>
+            <p>
+              14 checks with fixed criteria, If's clauses as data, verdicts, status, reminders, Home
+              Card and the claim decision. <code>packages/engine</code>
+            </p>
+          </div>
+          <div class="card">
+            <h3>Server</h3>
+            <p>
+              One vision interface with three providers: recorded, live Claude, offline. Frost
+              forecast from FMI open data. <code>server</code>
+            </p>
+          </div>
+          <div class="card">
+            <h3>App</h3>
+            <p>
+              Expo and React Native for iOS, Android and web. State stays on the device. Voice
+              guidance and screen-reader labels. <code>app</code>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="decisions-section" aria-labelledby="decisions">
+        <p class="eyebrow">Decisions that carry weight</p>
+        <h2 id="decisions">What we chose, and why</h2>
+        <div class="grid2">
+          <div class="card decision">
+            <h3>The model never decides</h3>
+            <p>
+              It only answers “visible?” and “in order?”. Verdicts are code, so they're testable,
+              explainable and stay If's rules.
+            </p>
+          </div>
+          <div class="card decision">
+            <h3>Measured, not assumed</h3>
+            <p>
+              Every model or prompt change must pass a hand-labelled gate. We compared Sonnet, Opus
+              and Haiku on 414 photos and chose Sonnet for speed (3.4 s median) at near-Opus
+              agreement.
+            </p>
+          </div>
+          <div class="card decision">
+            <h3>Cheating is designed out</h3>
+            <p>
+              Screens and printouts are always Retake, only in-app camera photos count, two angles
+              per check, and fingerprints are matched at a claim.
+            </p>
+          </div>
+          <div class="card decision">
+            <h3>Private by default</h3>
+            <p>
+              The server is stateless and stores no photos. If would keep only a verdict, a date and
+              a hash per check.
+            </p>
+          </div>
+          <div class="card decision">
+            <h3>A demo that can't break</h3>
+            <p>
+              The public web demo uses recorded results for licensed example photos, so it is
+              instant, free and identical for every judge, even without an API key.
+            </p>
+          </div>
+          <div class="card decision">
+            <h3>Built for everyone</h3>
+            <p>
+              Finnish, Swedish and English; voice guidance that turns on with a screen reader;
+              distinct haptics; large text.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="process">
+        <p class="eyebrow">How we built it</p>
+        <h2 id="process">From research to release in one weekend</h2>
+        <ol class="process">
+          <li>
+            <b>Research</b>If's terms, Finnish claim and mover statistics, every number sourced.
+          </li>
+          <li><b>Contract first</b>Shared types fixed the engine, server and app boundaries.</li>
+          <li><b>Parallel agents</b>Claude Code sessions built each part at once.</li>
+          <li>
+            <b>Independent review</b>Codex audited the repo; its findings were verified and fixed.
+          </li>
+          <li>
+            <b>Gate and ship</b>Format, lint, types, tests and the photo gate before every commit.
+          </li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="stack">
+        <p class="eyebrow">Tool stack</p>
+        <h2 id="stack">Built with</h2>
+        <dl class="stack">
+          <dt>Development</dt>
+          <dd>
+            <span class="chip">Claude Code</span><span class="chip">OpenAI Codex</span
+            ><span class="chip">Git and GitHub</span>
+          </dd>
+          <dt>Language</dt>
+          <dd>
+            <span class="chip">TypeScript end to end</span
+            ><span class="chip">HTML, CSS and JS for the web page</span>
+          </dd>
+          <dt>App</dt>
+          <dd>
+            <span class="chip">Expo SDK 58</span><span class="chip">React Native</span
+            ><span class="chip">expo-router</span><span class="chip">Reanimated</span
+            ><span class="chip">expo-camera</span><span class="chip">expo-speech</span>
+          </dd>
+          <dt>Server and AI</dt>
+          <dd>
+            <span class="chip">Node 24</span><span class="chip">Express 5</span
+            ><span class="chip">Anthropic SDK</span><span class="chip">Claude Sonnet 5.5</span
+            ><span class="chip">FMI open data</span>
+          </dd>
+          <dt>Quality</dt>
+          <dd>
+            <span class="chip">Vitest</span><span class="chip">ESLint</span
+            ><span class="chip">Prettier</span><span class="chip">Maestro on a real phone</span
+            ><span class="chip">Photo evals</span>
+          </dd>
+          <dt>Ship</dt>
+          <dd>
+            <span class="chip">EAS Build (iOS, Android)</span
+            ><span class="chip">Docker Compose</span
+            ><span class="chip">Prebuilt release bundle</span>
+          </dd>
+        </dl>
+      </section>
+
+      <footer>
+        <span
+          >Live demo:
+          <a href="https://preparedhome.demo.wicflow.com">preparedhome.demo.wicflow.com</a></span
+        >
+        <span>Code: github.com/Wicflow-Oy/jx26-prepared-home</span>
+        <span>Built for If's challenge at JunctionX Turku 2026. Not a live If service.</span>
+      </footer>
+    </main>
+  </body>
+</html>
