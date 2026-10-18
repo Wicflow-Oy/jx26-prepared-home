@@ -7,6 +7,7 @@ import { useHomeModel } from "../model";
 import {
   Banner,
   Button,
+  Card,
   EmptyState,
   Gap,
   ListGroup,
@@ -45,6 +46,21 @@ export function RemindersScreen() {
       <Txt variant="display">{t("remindersTitle")}</Txt>
       <Gap size="xs" />
       <Txt muted>{t("remindersIntro")}</Txt>
+      <Gap size="lg" />
+
+      <Card testID="quick-card">
+        <Txt variant="bodyStrong">{t("quickCardTitle")}</Txt>
+        <Gap size="xs" />
+        <Txt variant="small">{t("quickCardBody")}</Txt>
+        <Gap size="md" />
+        <Button
+          label={t("quickStart")}
+          icon="bell"
+          variant="secondary"
+          onPress={() => router.push(paths.quick)}
+          testID="quick-start"
+        />
+      </Card>
       <Gap size="lg" />
 
       {frost.status === "loading" ? <LoadingState testID="frost-loading" /> : null}

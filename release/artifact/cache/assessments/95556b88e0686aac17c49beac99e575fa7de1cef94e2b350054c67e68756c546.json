@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "sha256": "95556b88e0686aac17c49beac99e575fa7de1cef94e2b350054c67e68756c546",
+  "checkId": "L2",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:04:13.481Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "L2.hose_visible",
+        "met": false,
+        "note": "Only a short corrugated hose end below a blue device is visible; the run to the machine is not shown."
+      },
+      {
+        "id": "L2.tap_visible",
+        "met": false,
+        "note": "A wall tap fitting with elbow is visible, but no clear shut-off valve with handle or lever is shown."
+      },
+      {
+        "id": "L2.hose_ok",
+        "met": null,
+        "note": "The full hose and its connections are not visible, so the condition cannot be judged."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "wall tap fitting",
+        "bbox_px": [
+          245,
+          55,
+          405,
+          320
+        ]
+      },
+      {
+        "label": "blue water-stop device",
+        "bbox_px": [
+          130,
+          335,
+          358,
+          625
+        ]
+      },
+      {
+        "label": "hose end",
+        "bbox_px": [
+          240,
+          615,
+          335,
+          800
+        ]
+      }
+    ],
+    "retakeHint": "Step back and photograph the whole inlet hose from the wall valve to the washing machine, with the shut-off valve in frame.",
+    "fixSuggestion": null,
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

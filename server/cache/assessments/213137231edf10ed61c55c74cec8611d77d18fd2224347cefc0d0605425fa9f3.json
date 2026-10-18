@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "sha256": "213137231edf10ed61c55c74cec8611d77d18fd2224347cefc0d0605425fa9f3",
+  "checkId": "L5",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:04:31.002Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "L5.drain_visible",
+        "met": true,
+        "note": "A round floor drain with a grate is clearly visible in a tiled floor."
+      },
+      {
+        "id": "L5.clear",
+        "met": true,
+        "note": "The grate openings look clear, with no standing water, leaks or visible blockage."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "floor drain",
+        "bbox_px": [
+          240,
+          180,
+          975,
+          730
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": null,
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

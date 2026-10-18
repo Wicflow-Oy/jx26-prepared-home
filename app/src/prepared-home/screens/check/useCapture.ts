@@ -1,10 +1,16 @@
-// The ways a photo enters a check: the camera (with a second angle), the gallery or an example photo.
+// The ways a photo enters a check: the camera (with a second angle), the gallery, an example photo or, on
+// the web, the demo camera.
 import { withSequence, withTiming, type SharedValue } from "react-native-reanimated";
 
 import type { SamplePhoto } from "../../api";
 import { usePreparedHome } from "../../context";
 import { haptics } from "../../haptics";
-import { pickFromLibrary, prepareImage, prepareSample } from "../../photo/pipeline";
+import {
+  pickFromLibrary,
+  prepareImage,
+  prepareSample,
+  type PreparedPhoto,
+} from "../../photo/pipeline";
 import type { useCamera } from "./useCamera";
 import type { useCheckRun } from "./useCheckRun";
 
@@ -57,6 +63,26 @@ export function useCapture({
     }
   };
 
+  /**
+   * The demo camera's shot is ready at once; it goes through the same review as a camera photo. holdMs
+   * keeps the scan on screen a moment when the answer is a recording that comes back instantly.
+   */
+  const shootScene = async (take: () => Promise<PreparedPhoto | null>, holdMs = 0) => {
+    if (busy) return;
+    shutterFeedback();
+    flow.capturing();
+    try {
+      const shot = await take();
+      if (!shot) return onAbort();
+      await flow.begin(shot.previewUri, async () => {
+        await new Promise((resolve) => setTimeout(resolve, holdMs));
+        return shot;
+      });
+    } catch {
+      flow.fail(t("photoFailed"));
+    }
+  };
+
   const fromGallery = async () => {
     const uri = await pickFromLibrary();
     if (uri) await flow.begin(uri, () => prepareImage(uri, "library"));
@@ -67,5 +93,5 @@ export function useCapture({
     await flow.begin(url, () => prepareSample(url, sample.id, sample));
   };
 
-  return { shoot, shootSecond, fromGallery, fromSample };
+  return { shoot, shootSecond, shootScene, fromGallery, fromSample };
 }

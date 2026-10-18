@@ -1,0 +1,25 @@
+# Demo camera scenes
+
+Scenes for the web demo camera, listed per check in `scenes.json`. They are Wikimedia Commons photos from the large photo eval set (`server/eval/large`), as Wikimedia's 1280 px thumbnails. A shot sends a crop of the scene marked as a sample photo, so it never counts toward the lower deductible. The label after the check is the eval set's draft label, not a promise of the live result.
+
+- `L1-02.jpg` (check L1, verified): [Ball valve in household.jpg](https://commons.wikimedia.org/wiki/File:Ball_valve_in_household.jpg) by NVgt156, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+- `L1-05.jpg` (check L1, fix_first): [Stop cock (1).JPG](https://commons.wikimedia.org/wiki/File:Stop_cock_(1).JPG) by Joydeep, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+- `L2-02.jpg` (check L2, verified): [Aquastop.jpg](https://commons.wikimedia.org/wiki/File:Aquastop.jpg) by Steffen Heinz Caronna, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+- `L3-01.jpg` (check L3, fix_first): [Kitchen renovation leaky valve beneath kitchen sink.JPG](https://commons.wikimedia.org/wiki/File:Kitchen_renovation_leaky_valve_beneath_kitchen_sink.JPG) by Tomwsulcer, [CC0](http://creativecommons.org/publicdomain/zero/1.0/deed.en)
+- `L4-05.jpg` (check L4, verified): [Waschmaschinen in Waschküche.jpg](https://commons.wikimedia.org/wiki/File:Waschmaschinen_in_Waschk%C3%BCche.jpg) by Michael Musto, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+- `L4-06.jpg` (check L4, fix_first): [Lavanderia in casa.jpg](https://commons.wikimedia.org/wiki/File:Lavanderia_in_casa.jpg) by PROPOLI87, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+- `L5-16.jpg` (check L5, verified): [Golvbrunn.jpg](https://commons.wikimedia.org/wiki/File:Golvbrunn.jpg) by Holger.Ellgaard, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+- `L6-09.jpg` (check L6, fix_first): [Schimmelfuge1 SR.jpg](https://commons.wikimedia.org/wiki/File:Schimmelfuge1_SR.jpg) by Post, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+- `F1-19.jpg` (check F1, verified): [Smoke detector Z.jpg](https://commons.wikimedia.org/wiki/File:Smoke_detector_Z.jpg) by Nikolai Twin, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+- `F2-16.jpg` (check F2, verified): [Cuadro de seguridad eléctrica en una vivienda.JPG](https://commons.wikimedia.org/wiki/File:Cuadro_de_seguridad_el%C3%A9ctrica_en_una_vivienda.JPG) by Frobles, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+- `F2-04.jpg` (check F2, fix_first): [220v service panel.jpg](https://commons.wikimedia.org/wiki/File:220v_service_panel.jpg) by Kristoferb, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+- `F3-09.jpg` (check F3, verified): [Morozko fridge rear.jpg](https://commons.wikimedia.org/wiki/File:Morozko_fridge_rear.jpg) by Ignatus, [CC BY 3.0](https://creativecommons.org/licenses/by/3.0)
+- `F4-06.jpg` (check F4, verified): [Gas Hob on a wooden kitchen worktop.jpg](https://commons.wikimedia.org/wiki/File:Gas_Hob_on_a_wooden_kitchen_worktop.jpg) by Stonesynergyimages, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+- `F4-21.jpg` (check F4, fix_first): [Percolator coffee and kettle on the stove top.jpg](https://commons.wikimedia.org/wiki/File:Percolator_coffee_and_kettle_on_the_stove_top.jpg) by Emily Allen, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)
+- `F5-01.jpg` (check F5, verified): [Charging smartphone.jpg](https://commons.wikimedia.org/wiki/File:Charging_smartphone.jpg) by Santeri Viinamäki, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+- `F5-17.jpg` (check F5, fix_first): [A Charging Nokia Lumia 930.jpg](https://commons.wikimedia.org/wiki/File:A_Charging_Nokia_Lumia_930.jpg) by Lumia930uploader, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+- `Z1-21.jpg` (check Z1, verified): [Danfoss thermostatic radiator valve.jpg](https://commons.wikimedia.org/wiki/File:Danfoss_thermostatic_radiator_valve.jpg) by Santeri Viinamäki, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+- `Z2-01.jpg` (check Z2, verified): [Outdoor water tap.jpg](https://commons.wikimedia.org/wiki/File:Outdoor_water_tap.jpg) by Santeri Viinamäki, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+- `Z2-10.jpg` (check Z2, fix_first): [Picture of a Garden Tap.jpg](https://commons.wikimedia.org/wiki/File:Picture_of_a_Garden_Tap.jpg) by AnIrish..Leprechaun, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+- `S1-23.jpg` (check S1, verified): [Drainage into grate, not ditch (43601050491).jpg](https://commons.wikimedia.org/wiki/File:Drainage_into_grate,_not_ditch_(43601050491).jpg) by Eric Fischer, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)
+- `S1-20.jpg` (check S1, fix_first): [Dead-gutter-plant-1.JPG](https://commons.wikimedia.org/wiki/File:Dead-gutter-plant-1.JPG) by Ted Garvin, [CC BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5)

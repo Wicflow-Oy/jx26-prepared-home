@@ -20,6 +20,7 @@ export function CaptureControls({
   onLater,
   onNotInHome,
   onPhotoInfo,
+  note,
 }: {
   showShutter: boolean;
   shutterDisabled: boolean;
@@ -30,9 +31,12 @@ export function CaptureControls({
   /** Only for checks that may not exist in every home. */
   onNotInHome?: () => void;
   onPhotoInfo: () => void;
+  /** Replaces the note that photos taken here count, for the web demo camera, whose shots never do. */
+  note?: string;
 }) {
   const { t } = useT();
   const theme = useTheme();
+  const cameraNote = note ?? t("cameraNote");
   return (
     <View style={{ flex: 1, justifyContent: "center" }}>
       <View
@@ -86,7 +90,7 @@ export function CaptureControls({
       <PressableScale
         testID="photo-info"
         onPress={onPhotoInfo}
-        accessibilityLabel={`${t("cameraNote")} ${t("privacyLink")}`}
+        accessibilityLabel={`${cameraNote} ${t("privacyLink")}`}
         style={{
           flexDirection: "row",
           alignItems: "center",
@@ -98,7 +102,7 @@ export function CaptureControls({
       >
         <Icon name="lock" size={14} color={theme.colors.textInverseMuted} />
         <Txt variant="caption" inverse muted style={{ textAlign: "center", flexShrink: 1 }}>
-          {t("cameraNote")}{" "}
+          {cameraNote}{" "}
           <Txt variant="caption" inverse style={{ textDecorationLine: "underline" }}>
             {t("privacyLink")}
           </Txt>

@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "sha256": "09c245c4d4d97b2764768c20dfb7f85d90b2c317d6794009532a762a9aacb766",
+  "checkId": "S1",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:05:20.492Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "S1.gutter_visible",
+        "met": true,
+        "note": "A gutter along the eaves of a house is visible."
+      },
+      {
+        "id": "S1.clear_and_away",
+        "met": false,
+        "note": "Dry grass and plant growth fill and hang over the gutter, with dirt build-up; the downpipe is not visible."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "gutter with grass debris",
+        "bbox_px": [
+          0,
+          80,
+          776,
+          808
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": "Clear the grass and debris from the gutter and check that the downpipe carries water away from the wall.",
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

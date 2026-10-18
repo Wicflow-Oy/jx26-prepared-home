@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "sha256": "3f52c1cc992163f2c33f7c71e5a3a7e5a4491f077e9118539e33d2de59c8f573",
+  "checkId": "L4",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:04:24.390Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "L4.floor_visible",
+        "met": true,
+        "note": "Tiled floor around and in front of the washing machines is clearly visible."
+      },
+      {
+        "id": "L4.tray_or_drain",
+        "met": true,
+        "note": "A floor drain is visible at the bottom of the frame in this tiled laundry room."
+      },
+      {
+        "id": "L4.dry",
+        "met": true,
+        "note": "Floor tiles look dry, with no puddles or visible water stains."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "floor drain",
+        "bbox_px": [
+          716,
+          672,
+          796,
+          720
+        ]
+      },
+      {
+        "label": "washing machine",
+        "bbox_px": [
+          458,
+          341,
+          620,
+          548
+        ]
+      },
+      {
+        "label": "washing machine",
+        "bbox_px": [
+          309,
+          356,
+          502,
+          602
+        ]
+      },
+      {
+        "label": "washing machine",
+        "bbox_px": [
+          640,
+          328,
+          769,
+          488
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": null,
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

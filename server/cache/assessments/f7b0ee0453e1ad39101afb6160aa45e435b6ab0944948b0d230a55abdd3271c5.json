@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "sha256": "f7b0ee0453e1ad39101afb6160aa45e435b6ab0944948b0d230a55abdd3271c5",
+  "checkId": "F4",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:04:51.690Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "F4.stove_visible",
+        "met": true,
+        "note": "A four-burner gas hob is clearly visible in the centre of the frame."
+      },
+      {
+        "id": "F4.nothing_stored",
+        "met": true,
+        "note": "The hob surface and burners are clear; the board, plant and knife block sit on the worktop beside it."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "gas hob",
+        "bbox_px": [
+          347,
+          538,
+          1069,
+          665
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": null,
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "sha256": "74d9a19dba9636ef597211173f6f6a4d64ebf5ff91f1dbf36182c366bc37e892",
+  "checkId": "Z1",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:05:04.182Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "Z1.control_visible",
+        "met": true,
+        "note": "A radiator thermostatic valve head with numbered dial is clearly visible, installed on a radiator pipe."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "radiator thermostat head",
+        "bbox_px": [
+          415,
+          235,
+          880,
+          735
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": null,
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

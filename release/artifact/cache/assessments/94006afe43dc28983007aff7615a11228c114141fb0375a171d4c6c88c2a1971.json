@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "sha256": "94006afe43dc28983007aff7615a11228c114141fb0375a171d4c6c88c2a1971",
+  "checkId": "L1",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:04:09.348Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "L1.valve_visible",
+        "met": true,
+        "note": "A globe-type shut-off valve is fitted on a vertical pipe against a wall."
+      },
+      {
+        "id": "L1.handle_visible",
+        "met": true,
+        "note": "A round handwheel is clearly visible on the left of the valve."
+      },
+      {
+        "id": "L1.no_leak",
+        "met": false,
+        "note": "The handwheel is heavily rusted, and there are some stains on the fittings; no active drips are visible."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "valve body",
+        "bbox_px": [
+          530,
+          505,
+          1110,
+          850
+        ]
+      },
+      {
+        "label": "handwheel",
+        "bbox_px": [
+          170,
+          490,
+          590,
+          1020
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": "Have a plumber inspect the rusted valve handwheel and consider replacing it before it seizes or starts to leak.",
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

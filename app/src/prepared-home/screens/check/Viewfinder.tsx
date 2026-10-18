@@ -1,5 +1,5 @@
 import { CameraView } from "expo-camera";
-import type { RefObject } from "react";
+import type { ReactNode, RefObject } from "react";
 import { StyleSheet, View } from "react-native";
 import Animated, { useAnimatedStyle, type SharedValue } from "react-native-reanimated";
 
@@ -7,7 +7,10 @@ import { useT, useTheme } from "../../context";
 import { Icon } from "../../icons";
 import { Button, Txt } from "../../ui";
 
-/** The live camera inside framing brackets, or, without a camera, buttons to upload or use an example. */
+/**
+ * The live camera inside framing brackets. Without one: the web demo camera when given, otherwise buttons to
+ * upload or use an example.
+ */
 export function Viewfinder({
   hidden,
   cameraRef,
@@ -18,6 +21,7 @@ export function Viewfinder({
   flash,
   onUpload,
   onExamples,
+  demo,
 }: {
   /** Covered by the review: hidden from screen readers too. */
   hidden: boolean;
@@ -30,6 +34,7 @@ export function Viewfinder({
   flash: SharedValue<number>;
   onUpload: () => void;
   onExamples: () => void;
+  demo?: ReactNode;
 }) {
   const theme = useTheme();
   const flashStyle = useAnimatedStyle(() => ({ opacity: flash.get() }));
@@ -58,6 +63,8 @@ export function Viewfinder({
           pictureSize={live.pictureSize}
           onCameraReady={live.onReady}
         />
+      ) : demo ? (
+        demo
       ) : (
         <NoCameraPanel
           needsPermission={needsPermission}

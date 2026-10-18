@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "sha256": "55bcf8385d09d7251a8234caa7f7077864ef3d0fbb5358c96ceb97cdbb8ae8f9",
+  "checkId": "L3",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:04:20.722Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "L3.connection_visible",
+        "met": null,
+        "note": "Copper supply lines and valves are visible, but no dishwasher hose or clear dishwasher connection can be confirmed."
+      },
+      {
+        "id": "L3.tap_present",
+        "met": true,
+        "note": "A chrome angle shut-off valve with a round handle is visible under the sink."
+      },
+      {
+        "id": "L3.no_leak",
+        "met": true,
+        "note": "No drips or water visible; only green patina and grime on the fittings."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "shut-off valve",
+        "bbox_px": [
+          170,
+          200,
+          545,
+          505
+        ]
+      },
+      {
+        "label": "rear valve",
+        "bbox_px": [
+          340,
+          110,
+          630,
+          285
+        ]
+      }
+    ],
+    "retakeHint": "Step back and show the dishwasher hose running from the valve to the dishwasher, with the whole connection in frame and well lit.",
+    "fixSuggestion": null,
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

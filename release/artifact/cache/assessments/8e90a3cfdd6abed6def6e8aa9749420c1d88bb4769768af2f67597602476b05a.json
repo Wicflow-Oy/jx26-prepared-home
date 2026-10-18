@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "sha256": "8e90a3cfdd6abed6def6e8aa9749420c1d88bb4769768af2f67597602476b05a",
+  "checkId": "F2",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:04:41.039Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "F2.board_visible",
+        "met": true,
+        "note": "A surface-mounted distribution board with breakers is fully in frame, with its door open to the right."
+      },
+      {
+        "id": "F2.no_damage",
+        "met": true,
+        "note": "The breakers and inner cover plates are in place. I can see no scorch marks, damage or exposed conductors."
+      },
+      {
+        "id": "F2.clear_front",
+        "met": true,
+        "note": "Nothing is stored in front of or against the board."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "fuse box",
+        "bbox_px": [
+          0,
+          125,
+          1280,
+          680
+        ]
+      },
+      {
+        "label": "main breakers",
+        "bbox_px": [
+          305,
+          340,
+          1135,
+          475
+        ]
+      },
+      {
+        "label": "ICP switch",
+        "bbox_px": [
+          65,
+          345,
+          178,
+          475
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": null,
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

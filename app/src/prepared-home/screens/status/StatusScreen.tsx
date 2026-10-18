@@ -4,6 +4,7 @@ import { useState } from "react";
 import { View } from "react-native";
 
 import { usePreparedHome, useTheme } from "../../context";
+import { setTour, useTour } from "../../embed";
 import { formatDate } from "../../i18n";
 import { Icon } from "../../icons";
 import { homeLabel, useHomeModel, type HomeModel } from "../../model";
@@ -17,6 +18,7 @@ export function StatusScreen() {
   const router = useRouter();
   const model = useHomeModel();
   const [explainOpen, setExplainOpen] = useState(false);
+  const tourOpens = useTour().cue?.kind === "deductible";
 
   if (!ready || !model) {
     return (
@@ -32,7 +34,15 @@ export function StatusScreen() {
     <Screen
       testID="status-screen"
       tone="sandAlt"
-      overlay={<DeductibleSheet open={explainOpen} onClose={() => setExplainOpen(false)} />}
+      overlay={
+        <DeductibleSheet
+          open={explainOpen || tourOpens}
+          onClose={() => {
+            setExplainOpen(false);
+            if (tourOpens) setTour({ cue: null });
+          }}
+        />
+      }
     >
       <View style={{ flexDirection: "row", alignItems: "center", gap: theme.space.xs }}>
         <Icon name="home" size={16} color={theme.colors.textMuted} />

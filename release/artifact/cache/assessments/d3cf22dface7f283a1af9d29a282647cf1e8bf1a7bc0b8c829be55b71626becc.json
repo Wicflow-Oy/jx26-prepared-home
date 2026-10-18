@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "sha256": "d3cf22dface7f283a1af9d29a282647cf1e8bf1a7bc0b8c829be55b71626becc",
+  "checkId": "F1",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:04:37.644Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "F1.alarm_visible",
+        "met": true,
+        "note": "A white smoke alarm with test button and vents is clearly visible on a textured ceiling."
+      },
+      {
+        "id": "F1.mounted",
+        "met": true,
+        "note": "The alarm is fixed flush to the ceiling and is uncovered, with no visible damage."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "smoke alarm",
+        "bbox_px": [
+          245,
+          360,
+          1040,
+          1040
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": null,
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

@@ -6,6 +6,7 @@ export interface Paths {
   check: (checkId: string) => string;
   result: (checkId: string) => string;
   status: string;
+  quick: string;
   card: string;
   reminders: string;
   claim: string;
@@ -23,6 +24,7 @@ export function makePaths(basePath: string, adjusterBase: string): Paths {
     check: (id) => `${b}/check/${encodeURIComponent(id)}`,
     result: (id) => `${b}/result/${encodeURIComponent(id)}`,
     status: `${b}/status`,
+    quick: `${b}/quick`,
     card: `${b}/card`,
     reminders: `${b}/reminders`,
     claim: `${b}/claim`,

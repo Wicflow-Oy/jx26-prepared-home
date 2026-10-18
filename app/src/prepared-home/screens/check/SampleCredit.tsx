@@ -16,7 +16,7 @@ function licenceUrl(licence: string): string | null {
  * "Photo: author, licence, Wikimedia Commons", with the author linked to the file page and the licence to
  * its deed. 4.0 licences ask for changes to be marked, so the resized photos say so.
  */
-export function SampleCredit({ sample }: { sample: SamplePhoto }) {
+export function SampleCredit({ sample, inverse }: { sample: SamplePhoto; inverse?: boolean }) {
   const { t } = useT();
   const theme = useTheme();
   if (!sample.author || !sample.licence) {
@@ -30,7 +30,7 @@ export function SampleCredit({ sample }: { sample: SamplePhoto }) {
     url ? (
       <Txt
         variant="caption"
-        color={theme.colors.primary}
+        color={inverse ? theme.colors.textInverse : theme.colors.primary}
         style={{ textDecorationLine: "underline" }}
         onPress={() => void Linking.openURL(url).catch(() => undefined)}
       >
@@ -51,7 +51,7 @@ export function SampleCredit({ sample }: { sample: SamplePhoto }) {
   };
   const pieces = t("sampleCredit").split(/\{(\w+)\}/);
   return (
-    <Txt variant="caption" testID={`sample-credit-${sample.id}`}>
+    <Txt variant="caption" inverse={inverse} muted testID={`sample-credit-${sample.id}`}>
       {pieces.map((piece, i) => (
         <Fragment key={i}>{i % 2 === 1 ? (parts[piece] ?? piece) : piece}</Fragment>
       ))}

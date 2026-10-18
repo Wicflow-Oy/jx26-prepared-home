@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "sha256": "bc377322b888c654ae2d0cc4dd1bc71caf09da7e935ff78cf89472c87613c6a5",
+  "checkId": "Z2",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:05:11.243Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "Z2.tap_visible",
+        "met": true,
+        "note": "A brass outdoor tap is fixed to the exterior wall and clearly visible."
+      },
+      {
+        "id": "Z2.no_hose",
+        "met": false,
+        "note": "A hose connector, timer unit and teal hose are attached to the tap outlet."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "outdoor tap",
+        "bbox_px": [
+          250,
+          0,
+          1090,
+          900
+        ]
+      },
+      {
+        "label": "hose connector and timer",
+        "bbox_px": [
+          30,
+          880,
+          520,
+          1390
+        ]
+      },
+      {
+        "label": "hose",
+        "bbox_px": [
+          60,
+          1370,
+          380,
+          1707
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": "Disconnect the hose, timer and connector from the tap before frost and drain them.",
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "sha256": "87c8d265771fc686629fefc52534b4cabc32b1cb0ea7913e765b0c3e4e8547fd",
+  "checkId": "F2",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:04:44.691Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "F2.board_visible",
+        "met": true,
+        "note": "An old fuse box with three ceramic fuse holders is clearly visible on the wall."
+      },
+      {
+        "id": "F2.no_damage",
+        "met": false,
+        "note": "The cover is missing, so the fuse holders and wiring are exposed. The box is rusty, with loose wires and cobwebs."
+      },
+      {
+        "id": "F2.clear_front",
+        "met": true,
+        "note": "Nothing is stored in front of or against the box."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "fuse box",
+        "bbox_px": [
+          345,
+          245,
+          1003,
+          925
+        ]
+      },
+      {
+        "label": "fuse holders",
+        "bbox_px": [
+          488,
+          388,
+          868,
+          690
+        ]
+      },
+      {
+        "label": "loose wires",
+        "bbox_px": [
+          930,
+          340,
+          1020,
+          475
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": "The cover is missing and the parts are exposed and rusty. Don't touch it, and call a qualified electrician to inspect and repair it.",
+    "urgent": true,
+    "model": "claude-sonnet-5-5"
+  }
+}

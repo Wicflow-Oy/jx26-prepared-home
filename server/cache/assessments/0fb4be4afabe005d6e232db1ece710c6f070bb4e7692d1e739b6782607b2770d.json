@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "sha256": "0fb4be4afabe005d6e232db1ece710c6f070bb4e7692d1e739b6782607b2770d",
+  "checkId": "L6",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:04:34.773Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "L6.seams_visible",
+        "met": true,
+        "note": "Close-up of the corner seams where the bath or shower base meets the tiled walls."
+      },
+      {
+        "id": "L6.seams_intact",
+        "met": false,
+        "note": "Black mould along the bottom seams and a discoloured, damaged vertical corner seam."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "black mould along base seam",
+        "bbox_px": [
+          20,
+          470,
+          1280,
+          960
+        ]
+      },
+      {
+        "label": "damaged vertical corner seam",
+        "bbox_px": [
+          470,
+          0,
+          590,
+          490
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": "Clean off the mould, then remove the old silicone and reseal the seams with fresh mould-resistant sanitary silicone.",
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

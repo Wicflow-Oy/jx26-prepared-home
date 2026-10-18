@@ -4,7 +4,7 @@ A voluntary moving-day check-up for your home, inside the home insurance app. Yo
 
 ![Start screen, a checked fuse box, and how the lower deductible works](docs/screenshots/overview.png)
 
-**Live demo:** https://preparedhome.demo.wicflow.com. It goes online with the first deploy (`DEPLOY.md`). The app itself is at `/app`, and opens straight into a partly checked example flat at `/app/?example=flat`.
+**Live demo:** https://preparedhome.demo.wicflow.com. The app runs in a virtual iPhone; **Play the guided tour** (or open `/?tour=1`) for a 90-second walkthrough, or use the phone freely. The app itself is at `/app`, and opens straight into a partly checked example flat at `/app/?example=flat`. On the web, a demo camera shows licensed example photos whose results were recorded once (`npm --prefix server run record:scenes`), so the demo works the same for everyone, even without an API key.
 
 ## Run it
 ```bash

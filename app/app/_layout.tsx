@@ -2,13 +2,14 @@ import { Stack } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useReducedMotion } from "react-native-reanimated";
 
-import { PreparedHomeProvider, ifTheme } from "@/prepared-home";
+import { GuidedTour, PreparedHomeProvider, ifTheme } from "@/prepared-home";
 
 export default function RootLayout() {
   const reduced = useReducedMotion();
   return (
     <GestureHandlerRootView style={{ flex: 1, backgroundColor: ifTheme.colors.background }}>
       <PreparedHomeProvider theme={ifTheme} lang="en">
+        <GuidedTour />
         <Stack
           screenOptions={{
             headerShown: false,

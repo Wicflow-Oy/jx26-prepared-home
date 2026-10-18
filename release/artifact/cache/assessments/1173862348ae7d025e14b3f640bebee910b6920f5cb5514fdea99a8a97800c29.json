@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "sha256": "1173862348ae7d025e14b3f640bebee910b6920f5cb5514fdea99a8a97800c29",
+  "checkId": "F5",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:04:58.138Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "F5.spot_visible",
+        "met": true,
+        "note": "A phone charging from a wall socket with a white charger and red cable is clearly visible."
+      },
+      {
+        "id": "F5.safe_surface",
+        "met": true,
+        "note": "The phone lies on a wooden floor, with no beds, sofas, curtains or fabric nearby."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "phone charger in socket",
+        "bbox_px": [
+          725,
+          115,
+          932,
+          340
+        ]
+      },
+      {
+        "label": "phone charging on floor",
+        "bbox_px": [
+          438,
+          594,
+          737,
+          836
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": null,
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

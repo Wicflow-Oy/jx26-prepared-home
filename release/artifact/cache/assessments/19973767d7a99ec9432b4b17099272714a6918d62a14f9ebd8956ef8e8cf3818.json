@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "sha256": "19973767d7a99ec9432b4b17099272714a6918d62a14f9ebd8956ef8e8cf3818",
+  "checkId": "F3",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:04:48.734Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "F3.back_visible",
+        "met": true,
+        "note": "The back of a small absorption fridge is open to view, with coils and cord visible."
+      },
+      {
+        "id": "F3.no_dust",
+        "met": true,
+        "note": "Coils and components look clean, with no thick dust visible, though the image is low resolution."
+      },
+      {
+        "id": "F3.cords_ok",
+        "met": null,
+        "note": "A cord and plug are visible, but the image is too blurry to judge insulation damage."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "coils",
+        "bbox_px": [
+          365,
+          550,
+          840,
+          900
+        ]
+      },
+      {
+        "label": "plug",
+        "bbox_px": [
+          540,
+          450,
+          585,
+          495
+        ]
+      },
+      {
+        "label": "cord",
+        "bbox_px": [
+          600,
+          1050,
+          830,
+          1170
+        ]
+      },
+      {
+        "label": "back of fridge",
+        "bbox_px": [
+          333,
+          465,
+          858,
+          1160
+        ]
+      }
+    ],
+    "retakeHint": "Take a sharper, closer photo of the plug and cord so any damage to the insulation can be seen.",
+    "fixSuggestion": null,
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

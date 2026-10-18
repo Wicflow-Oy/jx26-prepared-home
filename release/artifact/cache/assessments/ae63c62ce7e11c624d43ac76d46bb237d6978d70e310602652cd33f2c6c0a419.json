@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "sha256": "ae63c62ce7e11c624d43ac76d46bb237d6978d70e310602652cd33f2c6c0a419",
+  "checkId": "L1",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:04:05.379Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "L1.valve_visible",
+        "met": true,
+        "note": "Two ball valves are fitted in the pipework and clearly visible."
+      },
+      {
+        "id": "L1.handle_visible",
+        "met": true,
+        "note": "Both valves have red lever handles in clear view."
+      },
+      {
+        "id": "L1.no_leak",
+        "met": true,
+        "note": "No drips, water or stains at the valves; only minor tarnish and thread sealant."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "upper valve",
+        "bbox_px": [
+          565,
+          500,
+          740,
+          960
+        ]
+      },
+      {
+        "label": "upper handle",
+        "bbox_px": [
+          825,
+          805,
+          1180,
+          905
+        ]
+      },
+      {
+        "label": "lower valve",
+        "bbox_px": [
+          170,
+          1010,
+          460,
+          1200
+        ]
+      },
+      {
+        "label": "lower handle",
+        "bbox_px": [
+          420,
+          1095,
+          785,
+          1200
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": null,
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

@@ -5,7 +5,9 @@ import type { ClauseFit, CriterionKind, Lang, ReminderKind } from "@prepared-hom
 import { check } from "./check";
 import { claim } from "./claim";
 import { common } from "./common";
+import { demo } from "./demo";
 import { home } from "./home";
+import { quick } from "./quick";
 import { records } from "./records";
 import { result } from "./result";
 import { settings } from "./settings";
@@ -22,15 +24,30 @@ export {
   todayIso,
 } from "./format";
 
-const AREAS = [common, start, home, check, result, status, records, claim, settings, voice];
+const AREAS = [
+  common,
+  start,
+  home,
+  check,
+  demo,
+  result,
+  status,
+  quick,
+  records,
+  claim,
+  settings,
+  voice,
+];
 
 const en = {
   ...common.en,
   ...start.en,
   ...home.en,
   ...check.en,
+  ...demo.en,
   ...result.en,
   ...status.en,
+  ...quick.en,
   ...records.en,
   ...claim.en,
   ...settings.en,

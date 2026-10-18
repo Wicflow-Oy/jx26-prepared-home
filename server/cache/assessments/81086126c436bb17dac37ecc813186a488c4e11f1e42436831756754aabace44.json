@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "sha256": "81086126c436bb17dac37ecc813186a488c4e11f1e42436831756754aabace44",
+  "checkId": "S1",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:05:17.590Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "S1.gutter_visible",
+        "met": true,
+        "note": "A white downpipe runs down the brick wall and ends in an outward bend."
+      },
+      {
+        "id": "S1.clear_and_away",
+        "met": true,
+        "note": "The bend points away from the wall toward a ground drain, with no visible debris or overflow."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "downpipe",
+        "bbox_px": [
+          825,
+          0,
+          990,
+          637
+        ]
+      },
+      {
+        "label": "ground drain",
+        "bbox_px": [
+          775,
+          640,
+          890,
+          710
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": null,
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

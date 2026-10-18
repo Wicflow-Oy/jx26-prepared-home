@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "sha256": "8815a6652cecfe0d83707ddc9a5ed68aab30d209ff6a3c82ffbe48e54dd2d9ed",
+  "checkId": "L4",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:04:28.203Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "L4.floor_visible",
+        "met": true,
+        "note": "The washing machine stands on the tiled floor and the floor around and in front of it is visible."
+      },
+      {
+        "id": "L4.tray_or_drain",
+        "met": false,
+        "note": "No drip tray under the washing machine and no floor drain is visible; it only sits on small feet."
+      },
+      {
+        "id": "L4.dry",
+        "met": true,
+        "note": "The tiled floor near the washing machine looks dry, with no visible puddles or water stains."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "washing machine",
+        "bbox_px": [
+          590,
+          600,
+          900,
+          1130
+        ]
+      },
+      {
+        "label": "floor in front of washing machine",
+        "bbox_px": [
+          440,
+          980,
+          960,
+          1280
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": "Place a drip tray under the washing machine, or make sure a floor drain is nearby so a leak would show at once.",
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

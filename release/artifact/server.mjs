@@ -26077,8 +26077,8 @@ var init_headers = __esm({
     clearSentinel = /* @__PURE__ */ Symbol("clear");
     APPEND_HEADERS = /* @__PURE__ */ new Set(["x-stainless-helper"]);
     appendHeaderValue = (existing, addition) => {
-      const tokens = existing ? existing.split(",").map((t3) => t3.trim()).filter(Boolean) : [];
-      for (const tok of addition.split(",").map((t3) => t3.trim())) {
+      const tokens = existing ? existing.split(",").map((t4) => t4.trim()).filter(Boolean) : [];
+      for (const tok of addition.split(",").map((t4) => t4.trim())) {
         if (tok && !tokens.includes(tok))
           tokens.push(tok);
       }
@@ -28471,8 +28471,8 @@ function buildProvider(config2, credentialsPath, baseURL, options) {
       });
     }
     default: {
-      const t3 = config2.authentication.type;
-      throw new WorkloadIdentityError(`authentication.type "${t3}" is not a known authentication type`);
+      const t4 = config2.authentication.type;
+      throw new WorkloadIdentityError(`authentication.type "${t4}" is not a known authentication type`);
     }
   }
 }
@@ -32227,7 +32227,7 @@ var require_sha256 = __commonJS({
         var prf = new HMAC(password);
         var len = prf.digestLength;
         var ctr = new Uint8Array(4);
-        var t3 = new Uint8Array(len);
+        var t4 = new Uint8Array(len);
         var u = new Uint8Array(len);
         var dk = new Uint8Array(dkLen);
         for (var i = 0; i * len < dkLen; i++) {
@@ -32241,21 +32241,21 @@ var require_sha256 = __commonJS({
           prf.update(ctr);
           prf.finish(u);
           for (var j = 0; j < len; j++) {
-            t3[j] = u[j];
+            t4[j] = u[j];
           }
           for (var j = 2; j <= iterations; j++) {
             prf.reset();
             prf.update(u).finish(u);
             for (var k = 0; k < len; k++) {
-              t3[k] ^= u[k];
+              t4[k] ^= u[k];
             }
           }
           for (var j = 0; j < len && i * len + j < dkLen; j++) {
-            dk[i * len + j] = t3[j];
+            dk[i * len + j] = t4[j];
           }
         }
         for (var i = 0; i < len; i++) {
-          t3[i] = u[i] = 0;
+          t4[i] = u[i] = 0;
         }
         for (var i = 0; i < 4; i++) {
           ctr[i] = 0;
@@ -33248,7 +33248,7 @@ var init_SessionToolRunner = __esm({
           this.tools = opts.tools;
           this.maxIdleMs = opts.maxIdleMs ?? DEFAULT_MAX_IDLE_MS;
           __classPrivateFieldSet(this, _SessionToolRunner_logger, loggerFor(opts.client), "f");
-          __classPrivateFieldSet(this, _SessionToolRunner_toolByName, new Map(opts.tools.map((t3) => [toolName(t3), t3])), "f");
+          __classPrivateFieldSet(this, _SessionToolRunner_toolByName, new Map(opts.tools.map((t4) => [toolName(t4), t4])), "f");
           __classPrivateFieldSet(this, _SessionToolRunner_controller, new AbortController(), "f");
           __classPrivateFieldSet(this, _SessionToolRunner_detachExternal, linkAbort(opts.signal, __classPrivateFieldGet(this, _SessionToolRunner_controller, "f")), "f");
           __classPrivateFieldSet(this, _SessionToolRunner_requestOpts, opts.requestOptions, "f");
@@ -33315,11 +33315,11 @@ var init_SessionToolRunner = __esm({
               __classPrivateFieldGet(this, _SessionToolRunner_logger, "f").warn("drain failed", { error: String(e) });
             }
             __classPrivateFieldGet(this, _SessionToolRunner_results, "f").close();
-            for (const t3 of this.tools) {
+            for (const t4 of this.tools) {
               try {
-                await t3.close?.();
+                await t4.close?.();
               } catch (e) {
-                __classPrivateFieldGet(this, _SessionToolRunner_logger, "f").warn("tool.close failed", { tool: toolName(t3), error: String(e) });
+                __classPrivateFieldGet(this, _SessionToolRunner_logger, "f").warn("tool.close failed", { tool: toolName(t4), error: String(e) });
               }
             }
             __classPrivateFieldGet(this, _SessionToolRunner_detachExternal, "f").call(this);
@@ -38419,8 +38419,8 @@ var init_BetaMessageStream = __esm({
 function toolsetFamily(toolset) {
   return TOOLSET_TYPE_TO_FAMILY[toolset.type];
 }
-function isRunnableToolset(t3) {
-  return "run" in t3 && t3.type != null && Object.prototype.hasOwnProperty.call(TOOLSET_TYPE_TO_FAMILY, t3.type);
+function isRunnableToolset(t4) {
+  return "run" in t4 && t4.type != null && Object.prototype.hasOwnProperty.call(TOOLSET_TYPE_TO_FAMILY, t4.type);
 }
 var TOOLSET_TYPE_TO_FAMILY;
 var init_family = __esm({
@@ -45353,7 +45353,7 @@ async function generateToolResponse(params, runnable, available, lastMessage, re
       const family = toolUse.toolset_name;
       const sequence = sequences.get(family) ?? { tail: Promise.resolve(), failed: false };
       sequences.set(family, sequence);
-      const registered = params.tools.some((t3) => isRunnableToolset(t3) && toolsetFamily(t3) === family);
+      const registered = params.tools.some((t4) => isRunnableToolset(t4) && toolsetFamily(t4) === family);
       const run = started ?? sequence.tail.then(() => sequence.failed ? toolsetResultBlock(toolUse, notExecutedText(family), true) : runToolsetCall(params, family, toolUse, requestOptions, client, toolOtelContext));
       sequence.tail = run.then(({ is_error }) => {
         if (is_error && registered)
@@ -45368,7 +45368,7 @@ async function generateToolResponse(params, runnable, available, lastMessage, re
       return started;
     }
     const tool = available.has(toolUse.name) ? runnable.get(toolUse.name) : void 0;
-    if (!tool && params.tools.some((t3) => isRunnableToolset(t3) && toolsetFamily(t3) === toolUse.name)) {
+    if (!tool && params.tools.some((t4) => isRunnableToolset(t4) && toolsetFamily(t4) === toolUse.name)) {
       const sequence = sequences.get(toolUse.name) ?? { tail: Promise.resolve(), failed: false };
       sequences.set(toolUse.name, sequence);
       sequence.tail = sequence.tail.then(() => {
@@ -45386,7 +45386,7 @@ async function generateToolResponse(params, runnable, available, lastMessage, re
   };
 }
 async function runToolsetCall(params, family, toolUse, requestOptions, client, toolOtelContext) {
-  const toolset = params.tools.find((t3) => isRunnableToolset(t3) && toolsetFamily(t3) === family);
+  const toolset = params.tools.find((t4) => isRunnableToolset(t4) && toolsetFamily(t4) === family);
   if (!toolset) {
     return toolsetResultBlock(toolUse, `Error: Toolset '${quotedName(family)}' member '${quotedName(toolUse.name)}' not found`, true);
   }
@@ -51338,6 +51338,118 @@ function requiredChecks(homeType, group) {
   return checksFor(homeType).filter((c) => perilGroup(c.peril) === group).map((c) => c.id);
 }
 
+// ../packages/engine/src/quickCheck.ts
+var t3 = (fi, sv, en) => ({ fi, sv, en });
+var EVERY_TIME = [
+  {
+    id: "under-sink",
+    peril: "leak",
+    checkId: "L5",
+    text: t3(
+      "Tiskip\xF6yd\xE4n alla: onko kaapin pohja kuiva, eik\xE4 vesilukko tiputa?",
+      "Under diskb\xE4nken: \xE4r sk\xE5pets botten torr, utan droppar fr\xE5n vattenl\xE5set?",
+      "Under the kitchen sink: is the cabinet floor dry, with no drips from the trap?"
+    )
+  },
+  {
+    id: "washer",
+    peril: "leak",
+    checkId: "L2",
+    text: t3(
+      "Pesukone: letku ja hana eiv\xE4t tiputa, ja lattia on kuiva.",
+      "Tv\xE4ttmaskinen: slangen och kranen droppar inte, och golvet \xE4r torrt.",
+      "Washing machine: no drips at the hose or the tap, and the floor is dry."
+    )
+  },
+  {
+    id: "floor-drain",
+    peril: "leak",
+    checkId: "L5",
+    text: t3(
+      "Lattiakaivo: nosta kansi, poista hiukset ja valuta vett\xE4, ett\xE4 se vet\xE4\xE4.",
+      "Golvbrunnen: lyft locket, ta bort h\xE5r och spola vatten f\xF6r att se att den drar.",
+      "Floor drain: lift the cover, clear out the hair and run water to see it drains."
+    )
+  },
+  {
+    id: "smoke-alarm",
+    peril: "fire",
+    checkId: "F1",
+    text: t3(
+      "Palovaroitin: paina testinappia ja kuuntele piippaus.",
+      "Brandvarnaren: tryck p\xE5 testknappen och lyssna efter pipet.",
+      "Smoke alarm: press the test button and listen for the beep."
+    )
+  },
+  {
+    id: "fridge-dust",
+    peril: "fire",
+    checkId: "F3",
+    text: t3(
+      "J\xE4\xE4kaapin takana: imuroi p\xF6lyt takaosasta ja lattialta.",
+      "Bakom kylen: dammsug bort dammet fr\xE5n baksidan och golvet.",
+      "Behind the fridge: vacuum the dust off the back and the floor."
+    )
+  }
+];
+var SPRING = [3, 4, 5];
+var AUTUMN = [9, 10, 11];
+var WINTER = [12, 1, 2];
+var SEASONAL = [
+  {
+    months: AUTUMN,
+    item: {
+      id: "gutters-autumn",
+      peril: "storm_water",
+      checkId: "S1",
+      text: t3(
+        "R\xE4nnit: poista lehdet ennen sateita ja pakkasia.",
+        "Takr\xE4nnorna: rensa bort l\xF6ven f\xF6re regnen och frosten.",
+        "Gutters: clear out the leaves before the rains and the frost."
+      )
+    }
+  },
+  {
+    months: AUTUMN,
+    item: {
+      id: "outdoor-tap",
+      peril: "freeze",
+      checkId: "Z2",
+      text: t3(
+        "Ulkohana: sulje sen sis\xE4venttiili ja tyhjenn\xE4 hana ennen pakkasia.",
+        "Utekranen: st\xE4ng dess innerventil och t\xF6m kranen f\xF6re frosten.",
+        "Outdoor tap: close its indoor valve and drain the tap before the frost."
+      )
+    }
+  },
+  {
+    months: WINTER,
+    item: {
+      id: "heating",
+      peril: "freeze",
+      checkId: "Z1",
+      text: t3(
+        "L\xE4mmitys: pid\xE4 kaikki huoneet l\xE4mpimin\xE4, my\xF6s ne, joita et k\xE4yt\xE4.",
+        "V\xE4rmen: h\xE5ll alla rum varma, \xE4ven de du inte anv\xE4nder.",
+        "Heating: keep every room warm, including the ones you don't use."
+      )
+    }
+  },
+  {
+    months: SPRING,
+    item: {
+      id: "gutters-spring",
+      peril: "storm_water",
+      checkId: "S1",
+      text: t3(
+        "R\xE4nnit ja sy\xF6ksytorvet: puhdista ne lumien sulettua ja katso, ett\xE4 vesi ohjautuu pois talosta.",
+        "Takr\xE4nnor och stupr\xF6r: rensa dem n\xE4r sn\xF6n har sm\xE4lt och se att vattnet leds bort fr\xE5n huset.",
+        "Gutters and downpipes: clear them after the snow melts, and see that the water runs away from the house."
+      )
+    }
+  }
+];
+
 // ../packages/engine/src/adjuster.ts
 var normHash = (h) => typeof h === "string" ? h.trim().toLowerCase() : "";
 function matchesRecord(sha256, rec) {
@@ -52540,7 +52652,7 @@ var LiveGuard = class {
     }
   }
   recent(clientKey2, nowMs) {
-    const list = (this.hits.get(clientKey2) ?? []).filter((t3) => nowMs - t3 < WINDOW_MS);
+    const list = (this.hits.get(clientKey2) ?? []).filter((t4) => nowMs - t4 < WINDOW_MS);
     if (list.length) this.hits.set(clientKey2, list);
     else this.hits.delete(clientKey2);
     return list;
@@ -52640,8 +52752,8 @@ function fixtureForecast(place = FIXTURE_PLACE) {
 }
 function cleanPlace(raw) {
   if (typeof raw !== "string") return "Turku";
-  const t3 = raw.trim();
-  return /^[\p{L}][\p{L} .'-]{0,39}$/u.test(t3) ? t3 : "Turku";
+  const t4 = raw.trim();
+  return /^[\p{L}][\p{L} .'-]{0,39}$/u.test(t4) ? t4 : "Turku";
 }
 var FrostService = class {
   cache = /* @__PURE__ */ new Map();
@@ -52888,9 +53000,9 @@ function allNull(check, model, retakeHint = null) {
 }
 function cleanText(v) {
   if (typeof v !== "string") return null;
-  const t3 = v.replace(/\s+/g, " ").trim();
-  if (!t3) return null;
-  return t3.length > MAX_TEXT ? `${t3.slice(0, MAX_TEXT - 1)}\u2026` : t3;
+  const t4 = v.replace(/\s+/g, " ").trim();
+  if (!t4) return null;
+  return t4.length > MAX_TEXT ? `${t4.slice(0, MAX_TEXT - 1)}\u2026` : t4;
 }
 function cleanBoxes(raw, width, height) {
   if (!Array.isArray(raw)) return [];

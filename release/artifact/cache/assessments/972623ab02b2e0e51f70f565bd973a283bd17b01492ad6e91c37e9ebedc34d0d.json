@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "sha256": "972623ab02b2e0e51f70f565bd973a283bd17b01492ad6e91c37e9ebedc34d0d",
+  "checkId": "Z2",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:05:07.536Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "Z2.tap_visible",
+        "met": true,
+        "note": "An outdoor tap is mounted on a red wooden wall and is clearly in frame."
+      },
+      {
+        "id": "Z2.no_hose",
+        "met": true,
+        "note": "Only the bare threaded outlet and nozzle are visible, with no hose or hose connector attached."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "outdoor tap",
+        "bbox_px": [
+          148,
+          640,
+          912,
+          1382
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": null,
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

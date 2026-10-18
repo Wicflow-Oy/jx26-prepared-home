@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "sha256": "8b88dea654d560b55f6e20c827894d8046799e48cdab034891f76687e0e3e29f",
+  "checkId": "F5",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:05:01.523Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "F5.spot_visible",
+        "met": true,
+        "note": "A phone is plugged into a white charging cable and lying on a striped fabric surface."
+      },
+      {
+        "id": "F5.safe_surface",
+        "met": false,
+        "note": "The phone is charging on a fabric surface, which looks like a bedspread or blanket."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "charging phone",
+        "bbox_px": [
+          276,
+          108,
+          1052,
+          602
+        ]
+      },
+      {
+        "label": "charging cable",
+        "bbox_px": [
+          0,
+          375,
+          318,
+          460
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": "Charge the phone on a hard, non-flammable surface such as a table or shelf, away from bedding and other fabrics.",
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}

@@ -1,10 +1,11 @@
 // PreparedHomeProvider: the embeddable root of the feature. It owns the settings, the homes and records kept
 // on this device, and the API client. Status, reminders and the Home Card are computed with the engine.
 import type { AdjusterView, CheckRecord, Home, Lang } from "@prepared-home/engine";
-import { createContext, useCallback, useContext, useMemo, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
 
 import { createApi, type Api } from "./api";
 import { defaultApiBaseUrl } from "./config";
+import { urlLang } from "./embed";
 import { translate, type Translate } from "./i18n";
 import { makePaths, type Paths } from "./paths";
 import { useDeviceStore } from "./state/useDeviceStore";
@@ -84,14 +85,19 @@ export function PreparedHomeProvider({
   const { value: local } = store.homes;
 
   const fallbackBase = apiBaseUrl ?? defaultApiBaseUrl();
-  const lang: Lang = settings.lang ?? defaultLang;
+  // A framing page picks the language with ?lang= for this visit; choosing one in the app takes over.
+  const [visitLang, setVisitLang] = useState(urlLang);
+  const lang: Lang = visitLang ?? settings.lang ?? defaultLang;
   const effectiveBase = settings.apiBaseUrl ?? fallbackBase;
   const api = useMemo(() => createApi(effectiveBase), [effectiveBase]);
   const t = useCallback<Translate>((key, params) => translate(lang, key, params), [lang]);
   const paths = useMemo(() => makePaths(basePath, adjusterBasePath), [basePath, adjusterBasePath]);
 
   const setLang = useCallback(
-    (next: Lang) => updateSettings({ ...settingsNow.current, lang: next }),
+    (next: Lang) => {
+      setVisitLang(null);
+      updateSettings({ ...settingsNow.current, lang: next });
+    },
     [settingsNow, updateSettings],
   );
   const setApiBaseUrl = useCallback(

@@ -15,6 +15,7 @@
     "eval": "tsx --env-file-if-exists=../.env.local eval/run.ts",
     "eval:gate": "tsx eval/gate.ts",
     "record:samples": "tsx --env-file-if-exists=../.env.local scripts/record-samples.ts",
+    "record:scenes": "tsx --env-file-if-exists=../.env.local scripts/record-scenes.ts",
     "bundle": "node scripts/bundle.mjs"
   },
   "dependencies": {

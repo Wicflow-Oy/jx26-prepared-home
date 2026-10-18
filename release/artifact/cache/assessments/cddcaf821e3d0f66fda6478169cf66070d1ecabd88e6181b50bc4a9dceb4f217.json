@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "sha256": "cddcaf821e3d0f66fda6478169cf66070d1ecabd88e6181b50bc4a9dceb4f217",
+  "checkId": "F4",
+  "model": "claude-sonnet-5-5",
+  "recordedAt": "2026-10-18T06:04:54.768Z",
+  "assessment": {
+    "criteria": [
+      {
+        "id": "F4.stove_visible",
+        "met": true,
+        "note": "A gas hob with pan supports and burners is visible in the foreground."
+      },
+      {
+        "id": "F4.nothing_stored",
+        "met": false,
+        "note": "A moka pot sits on a lit burner and a kettle sits on another burner."
+      }
+    ],
+    "boxes": [
+      {
+        "label": "moka pot on burner",
+        "bbox_px": [
+          636,
+          100,
+          1082,
+          850
+        ]
+      },
+      {
+        "label": "kettle on hob",
+        "bbox_px": [
+          186,
+          248,
+          562,
+          665
+        ]
+      }
+    ],
+    "retakeHint": null,
+    "fixSuggestion": "Remove the kettle and coffee pot from the stove top when not in use, and keep the hob clear.",
+    "urgent": false,
+    "model": "claude-sonnet-5-5"
+  }
+}
