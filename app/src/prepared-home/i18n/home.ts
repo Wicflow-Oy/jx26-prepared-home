@@ -8,7 +8,7 @@ const en = {
   allDone: "All done. Next re-check on {date}.",
   allDoneNoDate: "All done.",
   rewardBody:
-    "Concept: when every check for a risk is current, its deductible could drop, for example from {standard} to {prepared}. If decides.",
+    "When every check for a risk is current, its deductible drops from {standard} to {prepared}.",
   navStatus: "Status and deductible",
   navCard: "Home Card",
   navReminders: "Reminders",
@@ -43,7 +43,7 @@ export const home: Area<typeof en> = {
     allDone: "Kaikki tehty. Seuraava uusintatarkistus {date}.",
     allDoneNoDate: "Kaikki tehty.",
     rewardBody:
-      "Konsepti: kun riskin kaikki tarkistukset ovat voimassa, sen omavastuu voisi laskea, esimerkiksi {standard} → {prepared}. If päättää.",
+      "Kun riskin kaikki tarkistukset ovat voimassa, sen omavastuu laskee: {standard} → {prepared}.",
     navStatus: "Tila ja omavastuu",
     navCard: "Kotikortti",
     navReminders: "Muistutukset",
@@ -75,7 +75,7 @@ export const home: Area<typeof en> = {
     allDone: "Allt klart. Nästa omkontroll {date}.",
     allDoneNoDate: "Allt klart.",
     rewardBody:
-      "Koncept: när alla kontroller för en risk är aktuella kan självrisken sjunka, till exempel från {standard} till {prepared}. If bestämmer.",
+      "När alla kontroller för en risk är aktuella sjunker självrisken från {standard} till {prepared}.",
     navStatus: "Status och självrisk",
     navCard: "Hemkort",
     navReminders: "Påminnelser",

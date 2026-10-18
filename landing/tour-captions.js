@@ -70,7 +70,7 @@ export const CAPTIONS = {
     status: {
       title: "Status for each risk",
       what: "Every risk shows its checks, what's left and when to check again.",
-      why: "While a risk's checks are current, its deductible could be lower. Concept: If decides the amount.",
+      why: "While a risk's checks are current, its deductible is lower.",
     },
     deductible: {
       title: "How the lower deductible works",
@@ -90,7 +90,7 @@ export const CAPTIONS = {
     claim: {
       title: "At a claim, a person decides",
       what: "The claims handler sees the dated checks and matches any shared photos to their fingerprints. In this demo, nothing is sent to If.",
-      why: "The model never decides. Verdicts, the deductible and the claim decision are code, with 147 tests.",
+      why: "The model never decides. Verdicts, the deductible and the claim decision are code, with 151 tests.",
     },
     settings: {
       title: "Built for every customer",
@@ -127,7 +127,7 @@ export const CAPTIONS = {
     status: {
       title: "Tila jokaiselle riskille",
       what: "Jokaisen riskin kohdalla näkyvät sen tarkistukset, mitä on jäljellä ja milloin tarkistetaan uudelleen.",
-      why: "Kun riskin tarkistukset ovat ajan tasalla, sen omavastuu voisi olla pienempi. Konsepti: summasta päättää If.",
+      why: "Kun riskin tarkistukset ovat ajan tasalla, sen omavastuu on pienempi.",
     },
     deductible: {
       title: "Näin pienempi omavastuu toimii",
@@ -147,7 +147,7 @@ export const CAPTIONS = {
     claim: {
       title: "Vahinkotilanteessa päättää ihminen",
       what: "Korvauskäsittelijä näkee päivätyt tarkistukset ja täsmää mahdolliset jaetut kuvat niiden sormenjälkiin. Tässä demossa Ifille ei lähetetä mitään.",
-      why: "Malli ei koskaan päätä. Ratkaisut, omavastuu ja korvauspäätös ovat koodia, ja niillä on 147 testiä.",
+      why: "Malli ei koskaan päätä. Ratkaisut, omavastuu ja korvauspäätös ovat koodia, ja niillä on 151 testiä.",
     },
     settings: {
       title: "Tehty jokaiselle asiakkaalle",
@@ -184,7 +184,7 @@ export const CAPTIONS = {
     status: {
       title: "Status för varje risk",
       what: "Varje risk visar sina kontroller, vad som återstår och när det är dags att kontrollera igen.",
-      why: "Så länge en risks kontroller är aktuella kan dess självrisk vara lägre. Koncept: If bestämmer beloppet.",
+      why: "Så länge en risks kontroller är aktuella är dess självrisk lägre.",
     },
     deductible: {
       title: "Så fungerar den lägre självrisken",
@@ -204,7 +204,7 @@ export const CAPTIONS = {
     claim: {
       title: "Vid en skada avgör en människa",
       what: "Skadehandläggaren ser de daterade kontrollerna och matchar eventuella delade foton mot deras fingeravtryck. I den här demon skickas inget till If.",
-      why: "Modellen avgör aldrig. Utlåtanden, självrisken och skadebeslutet är kod, med 147 tester.",
+      why: "Modellen avgör aldrig. Utlåtanden, självrisken och skadebeslutet är kod, med 151 tester.",
     },
     settings: {
       title: "Byggd för alla kunder",
@@ -245,9 +245,9 @@ export const FIGURES = {
   },
   status: {
     pill: {
-      en: "Concept: If decides the amount",
-      fi: "Konsepti: summasta päättää If",
-      sv: "Koncept: If bestämmer beloppet",
+      en: "Lower deductible",
+      fi: "Pienempi omavastuu",
+      sv: "Lägre självrisk",
     },
   },
   quick: {
@@ -255,7 +255,7 @@ export const FIGURES = {
     label: { en: "months", fi: "kuukautta", sv: "månader" },
   },
   claim: {
-    values: [147],
+    values: [151],
     label: { en: "tests", fi: "testiä", sv: "tester" },
   },
 };
@@ -265,7 +265,7 @@ export const CHIPS = {
   choose: { text: "Flat or house", x: 72, y: 34 },
   capture: { text: "Recorded demo photo", x: 66, y: 40 },
   fix: { text: "Fix first", x: 80, y: 47 },
-  status: { text: "Concept label", x: 70, y: 9 },
+  status: { text: "Deductible", x: 70, y: 9 },
   deductible: { text: "Five plain rules", x: 70, y: 46 },
   quick: { text: "Reminder", x: 82, y: 9 },
   card: { text: "Home Card", x: 70, y: 30 },

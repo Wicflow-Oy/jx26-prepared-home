@@ -1,7 +1,7 @@
 {
   "name": "Prepared Home",
   "short_name": "Prepared Home",
-  "description": "A voluntary moving-day check-up for your home. Prototype for JunctionX Turku 2026.",
+  "description": "A voluntary moving-day check-up for your home. Built at JunctionX Turku 2026.",
   "lang": "en",
   "start_url": "/app/",
   "display": "standalone",

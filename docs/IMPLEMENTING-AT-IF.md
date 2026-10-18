@@ -6,7 +6,7 @@ Prepared Home is a voluntary moving-day check-up inside the home insurance app. 
 | Part | State | Where |
 |---|---|---|
 | Check catalogue: 14 checks (flat 11, house 14, cottage 13) with fixed criteria; each check shows the related clause of If's home terms OMA 200.27, quoted verbatim in Finnish, Swedish and If's official English (protective instructions, one exclusion, and If's home guide where the terms are silent) | Built, unit-tested | `packages/engine/src/checks.ts`, `packages/engine/src/data/clauses.ts` |
-| Rules: verdicts (Verified / Retake / Fix first), due dates, status per risk, reminders, Home Card, the claim-time decision | Built, unit-tested (82 tests) | `packages/engine/src/` (`verdict.ts`, `status.ts`, `reminders.ts`, `homeCard.ts`, `adjuster.ts`) |
+| Rules: verdicts (Verified / Retake / Fix first), due dates, status per risk, reminders, Home Card, the claim-time decision | Built, unit-tested (87 tests) | `packages/engine/src/` (`verdict.ts`, `status.ts`, `reminders.ts`, `homeCard.ts`, `adjuster.ts`) |
 | Vision check behind one interface, with a fixed photo eval that gates every model change | Built, measured | `server/src/vision/`, `server/eval/` |
 | API with per-IP and daily spend limits, recorded-result fallback, no storage of photos | Built, tested (64 tests) | `server/src/` |
 | App in fi, sv and en, with voice guidance and screen-reader support | Built; runs on the web and as a standalone Android build (EAS); the same code builds for iOS | `app/` |

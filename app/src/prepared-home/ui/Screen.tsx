@@ -9,7 +9,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { IF_BRANDED } from "../brand";
+import { IF_BRANDED, SHOW_CONCEPT_LABELS } from "../brand";
 import { usePreparedHome, useTheme } from "../context";
 import { durations } from "../motion";
 import { useSystemBarIcons } from "./systemBars";
@@ -19,7 +19,7 @@ import { useBehindSheet } from "./a11y";
 import { IconButton } from "./Pressable";
 import { Txt } from "./Text";
 
-/** The neutral build's banner. The If-branded build shows a small Concept pill in the header instead. */
+/** The neutral build's banner. The If-branded build can show a small Concept pill in the header instead. */
 function PrototypeLabel({ inverse }: { inverse?: boolean }) {
   const theme = useTheme();
   const { t } = usePreparedHome();
@@ -191,7 +191,7 @@ export function Screen({
                 {barSubtitle ?? t("appNameLocal")}
               </Txt>
             </View>
-            {IF_BRANDED && !barTitle ? <ConceptPill /> : null}
+            {IF_BRANDED && SHOW_CONCEPT_LABELS && !barTitle ? <ConceptPill /> : null}
           </View>
           <View style={{ width: theme.layout.tapTarget, alignItems: "flex-end" }}>{right}</View>
         </View>

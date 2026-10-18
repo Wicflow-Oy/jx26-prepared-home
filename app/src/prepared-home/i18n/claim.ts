@@ -42,7 +42,7 @@ const en = {
   reportSentBody:
     "Demo report {id}. Nothing was sent to If. In a live service a claims handler would review it; open the claims handler view to see what they would see. Your cover is the same either way.",
   openHandlerView: "Open claims handler view",
-  handlerViewNote: "Concept of the claims handler's view",
+  handlerViewNote: "The claims handler's view",
   yourReports: "Your reports",
   reasonNotCounted: "{title}: checked with a gallery or example photo, which does not count.",
   "decision.relief_applies": "Relief applies",
@@ -94,7 +94,7 @@ export const claim: Area<typeof en> = {
     reportSentBody:
       "Demoilmoitus {id}. Mitään ei lähetetty Ifille. Oikeassa palvelussa korvauskäsittelijä kävisi sen läpi; avaa korvauskäsittelijän näkymä nähdäksesi, mitä hän näkisi. Vakuutusturvasi pysyy samana joka tapauksessa.",
     openHandlerView: "Avaa korvauskäsittelijän näkymä",
-    handlerViewNote: "Konsepti korvauskäsittelijän näkymästä",
+    handlerViewNote: "Korvauskäsittelijän näkymä",
     yourReports: "Ilmoituksesi",
     reasonNotCounted:
       "{title}: tarkistettu gallerian kuvalla tai esimerkkikuvalla, joka ei kelpaa.",
@@ -141,7 +141,7 @@ export const claim: Area<typeof en> = {
     reportSentBody:
       "Demoanmälan {id}. Inget skickades till If. I en riktig tjänst skulle en skadereglerare gå igenom den; öppna skadereglerarens vy för att se vad hen skulle se. Ditt försäkringsskydd är detsamma i båda fallen.",
     openHandlerView: "Öppna skadereglerarens vy",
-    handlerViewNote: "Koncept för skadereglerarens vy",
+    handlerViewNote: "Skadereglerarens vy",
     yourReports: "Dina anmälningar",
     reasonNotCounted:
       "{title}: kontrollerad med en bild ur galleriet eller en exempelbild, som inte räknas.",

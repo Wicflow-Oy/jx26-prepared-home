@@ -1,6 +1,7 @@
 import { DEDUCTIBLE_CONCEPT_LABEL } from "@prepared-home/engine";
 import { View } from "react-native";
 
+import { SHOW_CONCEPT_LABELS } from "../brand";
 import { usePreparedHome, useTheme } from "../context";
 import type { Theme, Tone } from "../theme";
 import { Txt } from "./Text";
@@ -52,10 +53,11 @@ export function Tag({
   );
 }
 
-/** "Concept: If decides the amount", shown next to every deductible figure. */
+/** "Concept: If decides the amount" next to every deductible figure, when SHOW_CONCEPT_LABELS is on. */
 export function AmountsTag({ testID }: { testID?: string }) {
   const theme = useTheme();
   const { lang } = usePreparedHome();
+  if (!SHOW_CONCEPT_LABELS) return null;
   return (
     <View
       testID={testID}

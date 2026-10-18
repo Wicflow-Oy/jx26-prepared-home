@@ -15,10 +15,28 @@ import {
   VOICE_CARD,
 } from "./tour-captions.js";
 
-// capture and fix wait for the app, then leave time to read; the fallback covers a silent app.
+// Two ways to play: a 30-second cut (the main button) and the full tour with every step.
+// capture and fix wait for the app's tour-done, then leave time to read; the fallback covers a
+// silent app. `read` is a fixed time per step; the full tour sizes it to the caption instead.
+const MODES = {
+  short: {
+    steps: ["start", "capture", "fix", "status", "quick", "claim", "end"],
+    read: 4000,
+    afterDone: 2500,
+    fallback: 12000,
+    notice: 1800,
+    figures: ["quick"], // title and What only; "3 months" is the one big number kept
+  },
+  full: {
+    steps: STEPS,
+    read: null,
+    afterDone: 5000,
+    fallback: 20000,
+    notice: 2500,
+    figures: Object.keys(FIGURES),
+  },
+};
 const WAIT_FOR_APP = new Set(["capture", "fix"]);
-const READ_AFTER_DONE = 5000;
-const DONE_FALLBACK = 20000;
 const LOCALES = { en: "en-GB", fi: "fi-FI", sv: "sv-FI" };
 
 const $ = (id) => document.getElementById(id);
@@ -29,21 +47,7 @@ const scene = $("tour-scene");
 const reduce = matchMedia("(prefers-reduced-motion: reduce)");
 const motion = () => !reduce.matches;
 
-// Film timeline: one clickable chapter per step; the current one fills as it plays.
-const timeline = $("timeline");
-timeline.style.setProperty("--chapters", CHAPTERS.length);
-const chapters = CHAPTERS.map((name, i) => {
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = "tl";
-  button.innerHTML = '<span class="tl-bar"><i></i></span><span class="tl-num"></span><span></span>';
-  button.querySelector(".tl-num").textContent = String(i + 1).padStart(2, "0");
-  button.lastChild.textContent = name;
-  button.addEventListener("click", () => go(i));
-  timeline.append(button);
-  return button;
-});
-
+let mode = MODES.short;
 let lang = "en";
 let appReady = false; // set by tour-ready, cleared whenever the iframe reloads
 let lastSent = null;
@@ -54,6 +58,26 @@ let elapsed = 0;
 let clockId = 0;
 let countId = 0;
 
+// Film timeline: one clickable chapter per step of the running mode; the current one fills.
+const timeline = $("timeline");
+let chapters = [];
+
+function buildTimeline() {
+  timeline.style.setProperty("--chapters", mode.steps.length);
+  chapters = mode.steps.map((step, i) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "tl";
+    button.innerHTML =
+      '<span class="tl-bar"><i></i></span><span class="tl-num"></span><span></span>';
+    button.querySelector(".tl-num").textContent = String(i + 1).padStart(2, "0");
+    button.lastChild.textContent = CHAPTERS[STEPS.indexOf(step)];
+    button.addEventListener("click", () => go(i));
+    return button;
+  });
+  timeline.replaceChildren(...chapters);
+}
+
 // ---- Talking to the app ----
 
 function post(step) {
@@ -63,7 +87,7 @@ function post(step) {
 
 // Until the app says it is ready, the current step simply waits and is sent on tour-ready.
 function sendStep() {
-  if (appReady && index >= 0) post(STEPS[index]);
+  if (appReady && index >= 0) post(mode.steps[index]);
 }
 
 window.addEventListener("message", (event) => {
@@ -73,7 +97,7 @@ window.addEventListener("message", (event) => {
     appReady = true;
     sendStep();
   } else if (type === "prepared-home:tour-done" && STEPS.includes(step)) {
-    if (index >= 0 && STEPS[index] === step && waiting) {
+    if (index >= 0 && mode.steps[index] === step && waiting) {
       waiting = false;
       elapsed = 0;
     }
@@ -121,7 +145,7 @@ function setTitle(title) {
 }
 
 function setFigure(step, animate) {
-  const figure = FIGURES[step];
+  const figure = mode.figures.includes(step) ? FIGURES[step] : undefined;
   const box = $("tour-figure");
   box.hidden = !figure;
   cancelAnimationFrame(countId);
@@ -161,12 +185,12 @@ function setChip(step) {
 }
 
 function fillStep(animate) {
-  const step = STEPS[index];
+  const step = mode.steps[index];
   const text = CAPTIONS[lang][step];
   const labels = LABELS[lang];
   tour.lang = lang;
   $("tour-numeral").textContent = String(index + 1).padStart(2, "0");
-  $("tour-count").textContent = labels.count(index + 1, STEPS.length);
+  $("tour-count").textContent = labels.count(index + 1, mode.steps.length);
   const words = setTitle(text.title);
   $("tour-what-label").textContent = labels.what;
   $("tour-what").textContent = text.what;
@@ -224,8 +248,8 @@ function openNotice() {
   $("notice-title").textContent = text.title;
   $("notice-body").textContent = text.body;
   notice.classList.add("is-open");
-  // About 0.6 s to unfold, 2.5 s to read, then it shrinks back into the island.
-  noticeTimer = setTimeout(closeNotice, 3100);
+  // About 0.6 s to unfold, then the mode's reading time, then it shrinks back into the island.
+  noticeTimer = setTimeout(closeNotice, 600 + mode.notice);
 }
 
 // ---- Settings step: what a blind user hears, typed line by line and optionally spoken ----
@@ -259,7 +283,7 @@ function voiceLine(text) {
 function stopVoice(complete = false) {
   voiceRun++;
   if (canSpeak) speechSynthesis.cancel();
-  if (complete && STEPS[index] === "settings") {
+  if (complete && mode.steps[index] === "settings") {
     $("voice-lines").replaceChildren(...VOICE[lang].map(voiceLine));
   }
 }
@@ -304,16 +328,17 @@ function setVoice(step) {
 // ---- Clock, steps, pause ----
 
 function readTime(step) {
+  if (mode.read) return mode.read;
   const { what, why } = CAPTIONS[lang][step];
   return Math.min(11000, Math.max(7000, 4000 + (what.length + why.length) * 22));
 }
 
 function stepTime() {
-  const step = STEPS[index];
+  const step = mode.steps[index];
   // The voice transcript needs longer, and longer still when it is spoken aloud.
   if (step === "settings") return Math.max(readTime(step), soundOn ? 15000 : 11000);
   if (!WAIT_FOR_APP.has(step)) return readTime(step);
-  return waiting ? DONE_FALLBACK : READ_AFTER_DONE;
+  return waiting ? mode.fallback : mode.afterDone;
 }
 
 function runClock() {
@@ -335,15 +360,15 @@ function runClock() {
 
 function go(i, crossfade = true) {
   if (index < 0 || i < 0) return;
-  if (i >= STEPS.length) return stop();
+  if (i >= mode.steps.length) return stop();
   index = i;
-  waiting = WAIT_FOR_APP.has(STEPS[i]);
+  waiting = WAIT_FOR_APP.has(mode.steps[i]);
   elapsed = 0;
   stopVoice();
   sendStep();
   showStep(crossfade);
   closeNotice();
-  if (STEPS[i] === "quick") noticeTimer = setTimeout(openNotice, 400);
+  if (mode.steps[i] === "quick") noticeTimer = setTimeout(openNotice, 400);
 }
 
 function setPaused(value, byJudge = false) {
@@ -356,8 +381,11 @@ function setPaused(value, byJudge = false) {
   else runClock();
 }
 
-function start() {
+function start(name) {
   if (index >= 0) return;
+  mode = MODES[name];
+  tour.classList.toggle("is-short", name === "short");
+  buildTimeline();
   root.classList.add("is-touring");
   document.dispatchEvent(new CustomEvent("prepared-home:tour-state", { detail: { active: true } }));
   index = 0;
@@ -388,7 +416,8 @@ function stop() {
 
 // ---- Controls ----
 
-$("tour-start").addEventListener("click", start);
+$("tour-start").addEventListener("click", () => start("short"));
+$("tour-full").addEventListener("click", () => start("full"));
 $("tour-back").addEventListener("click", () => go(index - 1));
 $("tour-next").addEventListener("click", () => go(index + 1));
 $("tour-pause").addEventListener("click", () => setPaused(!paused));
@@ -409,7 +438,7 @@ document.addEventListener("keydown", (event) => {
   if (event.metaKey || event.ctrlKey || event.altKey) return;
   if (event.target.closest("input, textarea, select, [contenteditable]")) return;
   if (index < 0) {
-    if (event.key.toLowerCase() === "t") start();
+    if (event.key.toLowerCase() === "t") start("short");
     return;
   }
   // Space is the tour's pause key, also on its own buttons; other buttons and links keep Space.
@@ -426,4 +455,7 @@ document.addEventListener("keydown", (event) => {
   keys[event.key]();
 });
 
-if (new URLSearchParams(location.search).get("tour") === "1") start();
+// ?tour=1 plays the 30-second cut, ?tour=full the whole tour.
+const autoplay = new URLSearchParams(location.search).get("tour");
+if (autoplay === "1") start("short");
+if (autoplay === "full") start("full");

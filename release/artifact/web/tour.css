@@ -24,11 +24,18 @@
 
 /* ---------- Start button (normal page) ---------- */
 
+.tour-launch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 22px;
+  margin-top: var(--space);
+}
+
 .tour-start {
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  margin-top: var(--space);
   padding: 8px 24px 8px 8px;
   border: 0;
   border-radius: 999px;
@@ -84,6 +91,28 @@
 .tour-start-text small {
   color: rgb(255 255 255 / 0.9);
   font-size: 13px;
+}
+
+/* The full tour is the quieter second choice. */
+.tour-full {
+  padding: 6px 2px;
+  border: 0;
+  background: none;
+  color: var(--blue);
+  font: 500 15px/1.2 var(--font);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.tour-full:hover {
+  color: var(--blue-press);
+}
+
+/* The 30-second cut shows the title and What only, and has no spoken step for Sound. */
+.tour.is-short .tour-why,
+.tour.is-short #tour-sound {
+  display: none;
 }
 
 /* ---------- Stage change: sand → navy ---------- */
@@ -830,7 +859,7 @@
 }
 
 @media (max-width: 500px) {
-  .tour-start {
+  .tour-launch {
     display: none;
   }
 }

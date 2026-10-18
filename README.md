@@ -40,7 +40,7 @@ docs/              architecture, implementing at If, accessibility, hosting, nat
 - `app/src/prepared-home/screens/check/`: the capture flow (camera, second angle, scan, check or X with tips).
 
 ## Tests
-- **`npm run check`:** 82 engine and 64 server tests, offline with mocked model calls, plus Maestro flows for the phone in `app/maestro/`.
+- **`npm run check`:** 87 engine and 64 server tests, offline with mocked model calls, plus Maestro flows for the phone in `app/maestro/`.
 - **Photo evals** (`server/eval`) gate every model or instruction change. These numbers are for `claude-sonnet-5-5`, the default:
   - **Gate set:** 24 licensed photos, hand-labelled. **24/24, with no false "Verified".**
   - **Large set** (`server/eval/large`): 414 licensed photos across all 14 checks, including 100 hard cases. It agrees with independent draft labels on **87.4%**, with 13 false "Verified".

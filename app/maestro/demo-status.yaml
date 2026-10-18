@@ -1,4 +1,4 @@
-# Example flat: Leak is 5 of 6, and the status screen shows the concept tag on the deductible.
+# Example flat: Leak is 5 of 6, and the status screen shows the leak deductible.
 # Expo Go. For a development build change appId to fi.wicflow.preparedhome and APP_LINK to preparedhome://?example=flat
 appId: host.exp.exponent
 env:
@@ -11,8 +11,6 @@ env:
 - assertVisible:
     id: home-peril-count-leak
     text: 5 of 6
-- assertVisible:
-    id: concept-pill
 - scrollUntilVisible:
     element:
       id: nav-status
@@ -27,4 +25,4 @@ env:
     id: peril-count-leak
     text: 5 of 6
 - assertVisible:
-    id: status-amounts-tag-leak
+    id: deductible-leak
