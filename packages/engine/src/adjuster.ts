@@ -20,6 +20,13 @@ import {
 const normHash = (h: string | null | undefined) =>
   typeof h === "string" ? h.trim().toLowerCase() : "";
 
+/** A shared photo matches when it is either angle recorded for the check. */
+function matchesRecord(sha256: string, rec: CheckRecord): boolean {
+  return [rec.photoSha256, rec.secondPhotoSha256].some(
+    (h) => !!h && normHash(sha256) === normHash(h),
+  );
+}
+
 /**
  * Relief applies only if the peril (its group) was prepared on the loss date, using records checked before
  * that date and due on or after it, and every shared photo's hash matches the record that counted.
@@ -72,13 +79,7 @@ export function adjusterView(
       checkedAt: rec.checkedAt,
       validAtLoss: current,
       photoShared: photos.length > 0,
-      hashMatches: photos.length
-        ? photos.every((p) =>
-            [rec.photoSha256, rec.secondPhotoSha256].some(
-              (h) => !!h && normHash(p.sha256) === normHash(h),
-            ),
-          )
-        : null,
+      hashMatches: photos.length ? photos.every((p) => matchesRecord(p.sha256, rec)) : null,
     });
     listed.add(checkId);
   };
@@ -123,7 +124,7 @@ export function adjusterView(
       reasons.push(
         `The shared photo for ${s.checkId} cannot be compared: that record has no photo.`,
       );
-    } else if (normHash(s.sha256) !== normHash(rec.photoSha256)) {
+    } else if (!matchesRecord(s.sha256, rec)) {
       hashesOk = false;
       reasons.push(`The shared photo for ${s.checkId} does not match the stored hash.`);
     } else {

@@ -97,6 +97,22 @@ describe("a second angle of the same item", () => {
     });
     expect(view.records.find((r) => r.checkId === "L2")?.hashMatches).toBe(true);
   });
+
+  it("both angles shared with a claim earn the relief; an unrelated photo does not", () => {
+    const records = leakRecords("camera");
+    const l2 = records.find((r) => r.checkId === "L2")!;
+    const claim = (shared: { checkId: string; sha256: string }[]) =>
+      adjusterView({ claimId: "c3", home, records, peril: "leak", lossDate: "2026-11-01", shared });
+
+    const both = claim([
+      { checkId: "L2", sha256: l2.photoSha256! },
+      { checkId: "L2", sha256: l2.secondPhotoSha256! },
+    ]);
+    expect(both.decision).toBe("relief_applies");
+
+    const unrelated = claim([{ checkId: "L2", sha256: "9".repeat(64) }]);
+    expect(unrelated.decision).toBe("bonus_not_applied");
+  });
 });
 
 describe("what counts toward the relief", () => {
