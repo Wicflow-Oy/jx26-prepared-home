@@ -2,7 +2,7 @@
 import type { CheckRecord, Lang, Verdict } from "@prepared-home/engine";
 
 import { formatDate, localizeDates, type StringKey, type Translate } from "../../i18n";
-import type { StoredOutcome } from "../../storage";
+import type { StoredOutcome } from "../../state/storage";
 
 export function explainKey(verdict: Verdict, hasDueDate: boolean): StringKey {
   switch (verdict) {

@@ -16,8 +16,8 @@ import {
 import { useCallback } from "react";
 
 import type { CheckResponse } from "../api";
-import { savePhoto } from "../photoStore";
-import type { StoredOutcome } from "../storage";
+import { savePhoto } from "../photo/store";
+import type { StoredOutcome } from "./storage";
 import type { DeviceStore } from "./useDeviceStore";
 
 export interface NewHome {
@@ -84,14 +84,6 @@ export function useHomeActions(store: DeviceStore, lang: Lang) {
         currentHomeId: home.homeId,
       });
       return home;
-    },
-    [homesNow, updateHomes],
-  );
-
-  const selectHome = useCallback(
-    (homeId: string) => {
-      const cur = homesNow.current;
-      if (cur.homes[homeId]) updateHomes({ ...cur, currentHomeId: homeId });
     },
     [homesNow, updateHomes],
   );
@@ -189,7 +181,6 @@ export function useHomeActions(store: DeviceStore, lang: Lang) {
   return {
     openDemo,
     createHome,
-    selectHome,
     saveCheckResult,
     markNotApplicable,
     saveClaim,

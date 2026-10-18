@@ -1,8 +1,8 @@
 // After the shutter: the photo shrinks into a card, a scan line runs while it is checked, then a badge draws
 // itself in on the card's edge and short guidance below says what to do next.
-import type { CheckDefinition, Home } from "@prepared-home/engine";
+import type { CheckDefinition } from "@prepared-home/engine";
 import { Image } from "expo-image";
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import Animated, {
   Easing,
@@ -14,11 +14,8 @@ import Animated, {
 
 import { useT, useTheme } from "../../context";
 import { springs } from "../../motion";
-import { useFontScale } from "../../ui/a11y";
-import { ScanLine } from "../../ui/ScanLine";
-import { VerdictBadge } from "../../ui/VerdictBadge";
-import { ReviewMessage } from "./ReviewMessage";
-import type { useCheckRun } from "./useCheckRun";
+import { ScanLine, useFontScale, VerdictBadge } from "../../ui";
+import type { ReviewRun } from "./useCheckRun";
 
 /** "Your photo of washing machine hose…": the title reads as part of the sentence, except in Finnish. */
 const lowerFirst = (title: string, lang: string) =>
@@ -30,39 +27,23 @@ const BADGE = 64;
 const TEXT_ROOM = 330;
 
 export function CheckReview({
-  flow,
+  run,
+  photoUri,
   check,
-  home,
   stage,
   viewfinderHeight,
-  onRetry,
-  onNext,
-  onDetails,
-  onHome,
-  autoAdvance,
-  secondAngle,
-  spokenResult,
-  onTakeSecond,
+  children,
 }: {
-  flow: ReturnType<typeof useCheckRun>;
+  run: ReviewRun;
+  photoUri: string | null;
   check: CheckDefinition;
-  home: Home;
   stage: { width: number; height: number };
   viewfinderHeight: number;
-  onRetry: () => void;
-  onNext: () => void;
-  onDetails: () => void;
-  onHome: () => void;
-  autoAdvance: boolean;
-  /** The fallback button for the second photo, shown when the phone did not settle by itself. */
-  secondAngle: { showButton: boolean; onTake: () => void };
-  /** The verdict and next steps as one sentence, for screen readers. */
-  spokenResult: string;
-  onTakeSecond: () => void;
+  /** The words under the card (ReviewMessage). */
+  children: ReactNode;
 }) {
   const { t, lang } = useT();
   const theme = useTheme();
-  const { run, photoUri } = flow;
   const width = stage.width - theme.space.lg * 2;
   const height = viewfinderHeight;
   // Larger text needs more room under the card; the card shrinks further and the text scrolls if needed.
@@ -167,19 +148,7 @@ export function CheckReview({
         }}
         contentContainerStyle={{ paddingBottom: theme.space.lg }}
       >
-        <ReviewMessage
-          flow={flow}
-          check={check}
-          home={home}
-          onRetry={onRetry}
-          onNext={onNext}
-          onDetails={onDetails}
-          onHome={onHome}
-          autoAdvance={autoAdvance}
-          secondAngle={secondAngle}
-          spokenResult={spokenResult}
-          onTakeSecond={onTakeSecond}
-        />
+        {children}
       </ScrollView>
     </View>
   );

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { View } from "react-native";
 
-import { useFocusOnShow } from "../../ui/a11y";
+import { useFocusOnShow } from "../../ui";
 
 /**
  * The words of a result, read by a screen reader as one sentence with what to do next. Focus moves here

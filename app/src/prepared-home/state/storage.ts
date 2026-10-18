@@ -1,5 +1,5 @@
-// Local persistence (docs/CONTRACTS.md §9.1): homes, check records, results, claims and settings live on the
-// device. AsyncStorage uses native storage on Android/iOS and localStorage on web.
+// Local persistence: homes, check records, results, claims and settings live on the device.
+// AsyncStorage uses native storage on Android/iOS and localStorage on web.
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type {
   AdjusterView,
@@ -11,7 +11,7 @@ import type {
   Verdict,
 } from "@prepared-home/engine";
 
-import type { CheckSource } from "./api";
+import type { CheckSource } from "../api";
 
 const KEYS = {
   settings: "prepared-home/settings/v1",

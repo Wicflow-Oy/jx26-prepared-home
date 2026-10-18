@@ -1,7 +1,6 @@
 import { useLocalSearchParams } from "expo-router";
 
-import { AdjusterScreen } from "@/prepared-home";
-import { param } from "@/prepared-home/routes";
+import { AdjusterScreen, param } from "@/prepared-home";
 
 export default function AdjusterRoute() {
   const { claimId } = useLocalSearchParams<{ claimId: string }>();

@@ -1,4 +1,4 @@
-// Derived view of one home, computed on the device with the engine (docs/CONTRACTS.md §9.1).
+// Derived view of one home, computed on the device with the engine.
 import {
   DEMO_FLAT_ID,
   DEMO_FRESH_ID,
@@ -29,6 +29,7 @@ import { useMemo } from "react";
 
 import { usePreparedHome } from "./context";
 import { allTranslations, type StringKey, type Translate } from "./i18n";
+import type { Tone } from "./theme";
 
 /** needs_camera: verified with a gallery or example photo, so it shows as done but does not count. */
 export type RowState =
@@ -184,8 +185,6 @@ export function rowLabel(state: RowState, t: Translate, lang: Lang): string {
   return verdictLabel(state, lang);
 }
 export const ownerLabel = (o: Owner, lang: Lang) => OWNER_LABELS[o][lang];
-
-export type Tone = "success" | "warning" | "danger" | "info" | "neutral";
 
 export const verdictTone = (v: Verdict): Tone =>
   v === "verified"

@@ -1,5 +1,5 @@
 // The home: progress, the next step, this week, every check and links to the other screens.
-import { useRouter, type Href } from "expo-router";
+import { useRouter } from "expo-router";
 import { View } from "react-native";
 
 import { usePreparedHome, useTheme } from "../../context";
@@ -16,8 +16,8 @@ import {
   Screen,
   Section,
   Txt,
+  useAfterTransition,
 } from "../../ui";
-import { useAfterTransition } from "../../useDeferred";
 import { AllChecksList } from "./AllChecksList";
 import { NextStepCard } from "./NextStepCard";
 import { ProgressSummary } from "./ProgressSummary";
@@ -29,7 +29,7 @@ export function HomeScreen() {
   const router = useRouter();
   const model = useHomeModel();
   const afterTransition = useAfterTransition();
-  const go = (path: string) => router.push(path as Href);
+  const go = (path: string) => router.push(path);
 
   const settingsButton = (
     <IconButton

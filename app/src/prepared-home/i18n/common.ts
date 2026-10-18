@@ -25,7 +25,6 @@ const en = {
   conceptPill: "Concept",
   nextButton: "Next",
   change: "Change",
-  tryAgain: "Try again",
   details: "Details",
   errOffline:
     "Cannot reach the check server. Check your connection or the server address in Settings, then try again.",
@@ -68,7 +67,6 @@ export const common: Area<typeof en> = {
     conceptPill: "Konsepti",
     nextButton: "Seuraava",
     change: "Muuta",
-    tryAgain: "Yritä uudelleen",
     details: "Lisätiedot",
     errOffline:
       "Tarkistuspalvelimeen ei saada yhteyttä. Tarkista verkkoyhteys tai palvelimen osoite asetuksista ja yritä uudelleen.",
@@ -108,7 +106,6 @@ export const common: Area<typeof en> = {
     conceptPill: "Koncept",
     nextButton: "Nästa",
     change: "Ändra",
-    tryAgain: "Försök igen",
     details: "Detaljer",
     errOffline:
       "Det går inte att nå kontrollservern. Kontrollera anslutningen eller serveradressen i inställningarna och försök igen.",

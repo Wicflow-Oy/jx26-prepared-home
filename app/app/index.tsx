@@ -1,7 +1,6 @@
 import { useLocalSearchParams } from "expo-router";
 
-import { StartScreen } from "@/prepared-home";
-import { param } from "@/prepared-home/routes";
+import { StartScreen, param } from "@/prepared-home";
 
 export default function StartRoute() {
   const { example } = useLocalSearchParams<{ example?: string }>();

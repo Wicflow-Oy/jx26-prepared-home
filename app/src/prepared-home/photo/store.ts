@@ -22,10 +22,6 @@ export async function savePhoto(sha256: string, bytes: Uint8Array): Promise<void
   await file.write(bytes);
 }
 
-export async function hasPhoto(sha256: string): Promise<boolean> {
-  return fileFor(sha256).exists;
-}
-
 export async function loadPhotoBase64(sha256: string): Promise<string | null> {
   const file = fileFor(sha256);
   return file.exists ? file.base64() : null;

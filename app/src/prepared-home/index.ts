@@ -1,6 +1,8 @@
 // Public surface of the Prepared Home feature. Another app can mount the provider and these screens.
-export { PreparedHomeProvider, usePreparedHome, useTheme, makePaths } from "./context";
-export type { PreparedHomeProviderProps, Paths } from "./context";
+export { PreparedHomeProvider, usePreparedHome, useTheme } from "./context";
+export type { PreparedHomeProviderProps } from "./context";
+export { makePaths, param } from "./paths";
+export type { Paths } from "./paths";
 export { ifTheme } from "./theme";
 export type { Theme } from "./theme";
 export { createApi } from "./api";

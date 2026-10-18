@@ -4,10 +4,9 @@ import { useState } from "react";
 import { View } from "react-native";
 
 import { useT, useTheme } from "../../context";
-import { formatDate, todayIso } from "../../i18n";
+import { addDaysIso, formatDate, todayIso } from "../../i18n";
 import { ownerLabel, perilLabel, PHOTO_COUNT_NOTE, type PhotoCount } from "../../model";
 import { Appear, Button, TextLink, Txt } from "../../ui";
-import { addDaysIso } from "../../ui/DateStepper";
 import { AutoNextButton } from "./AutoNextButton";
 import { ResultSummary } from "./ResultSummary";
 import type { Guidance } from "./guidance";
@@ -109,7 +108,7 @@ export function RetakeMessage({
         </View>
       </ResultSummary>
       <Button
-        label={t("tryAgain")}
+        label={t("retry")}
         onPress={onRetry}
         variant="light"
         style={{ marginTop: theme.space.lg }}

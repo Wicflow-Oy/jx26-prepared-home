@@ -1,4 +1,4 @@
-// Dates, money and numbers in each language's own style.
+// Dates, money and numbers in each language's own style, and the ISO date helpers the screens share.
 import type { Lang } from "@prepared-home/engine";
 
 const MONTHS: Record<"en" | "sv", string[]> = {
@@ -36,6 +36,12 @@ export function todayIso(now: Date = new Date()): string {
   const m = String(now.getMonth() + 1).padStart(2, "0");
   const d = String(now.getDate()).padStart(2, "0");
   return `${now.getFullYear()}-${m}-${d}`;
+}
+
+/** Moves an ISO date (YYYY-MM-DD) by whole days, in UTC so daylight saving never shifts it. */
+export function addDaysIso(iso: string, days: number): string {
+  const [y, m, d] = iso.split("-").map(Number);
+  return new Date(Date.UTC(y, m - 1, d + days)).toISOString().slice(0, 10);
 }
 
 /** Whole euros: "€300" in English, "300 €" in Finnish and Swedish. */

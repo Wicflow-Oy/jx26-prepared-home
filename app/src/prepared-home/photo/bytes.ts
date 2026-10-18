@@ -11,7 +11,7 @@ const LOOKUP = (() => {
 })();
 
 /** Strips an optional data-URI prefix. */
-export function stripDataUri(b64: string): string {
+function stripDataUri(b64: string): string {
   const comma = b64.indexOf(",");
   return b64.startsWith("data:") && comma >= 0 ? b64.slice(comma + 1) : b64;
 }
@@ -58,7 +58,7 @@ export function bytesToBase64(bytes: Uint8Array): string {
   return out;
 }
 
-export function bytesToHex(buffer: ArrayBuffer | Uint8Array): string {
+function bytesToHex(buffer: ArrayBuffer | Uint8Array): string {
   const bytes = buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer);
   let hex = "";
   for (let i = 0; i < bytes.length; i++) hex += bytes[i].toString(16).padStart(2, "0");

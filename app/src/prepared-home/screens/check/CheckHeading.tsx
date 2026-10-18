@@ -2,8 +2,7 @@ import type { CheckDefinition, HomeType } from "@prepared-home/engine";
 import { View } from "react-native";
 
 import { useT, useTheme } from "../../context";
-import { Txt } from "../../ui";
-import { useFocusOnShow } from "../../ui/a11y";
+import { Txt, useFocusOnShow } from "../../ui";
 import { checkInstruction } from "./checkInstruction";
 
 /**

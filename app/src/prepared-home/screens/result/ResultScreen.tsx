@@ -1,5 +1,5 @@
 import { getCheck, isCheckId } from "@prepared-home/engine";
-import { useRouter, type Href } from "expo-router";
+import { useRouter } from "expo-router";
 
 import { usePreparedHome } from "../../context";
 import { haptics } from "../../haptics";
@@ -29,7 +29,7 @@ export function ResultScreen({ checkId }: { checkId: string }) {
   const stored = outcomeFor(home.homeId, checkId);
   const record = model.effective.get(checkId);
   const verdict = stored?.outcome.verdict ?? record?.verdict;
-  const retake = () => router.replace(paths.check(checkId) as Href);
+  const retake = () => router.replace(paths.check(checkId));
 
   return (
     <Screen
@@ -71,7 +71,7 @@ export function ResultScreen({ checkId }: { checkId: string }) {
           ) : null}
           <Button
             label={t("backHome")}
-            onPress={() => router.replace(paths.home as Href)}
+            onPress={() => router.replace(paths.home)}
             testID="result-home"
             variant="ghost"
           />

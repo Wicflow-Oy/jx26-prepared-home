@@ -5,10 +5,10 @@ import { View } from "react-native";
 
 import { useT, useTheme } from "../../context";
 import { photoCount } from "../../model";
-import { guidanceFor } from "./guidance";
 import { Appear, Button, Segmented, TextLink, Txt } from "../../ui";
-import type { useCheckRun } from "./useCheckRun";
+import { guidanceFor } from "./guidance";
 import { ResultSummary } from "./ResultSummary";
+import type { useCheckRun } from "./useCheckRun";
 import { FixMessage, OkMessage, RetakeMessage } from "./VerdictMessages";
 
 export function ReviewMessage({
@@ -124,7 +124,7 @@ export function ReviewMessage({
             </Txt>
           </ResultSummary>
           <Button
-            label={t("tryAgain")}
+            label={t("retry")}
             onPress={onRetry}
             variant="light"
             style={{ marginTop: theme.space.xl }}

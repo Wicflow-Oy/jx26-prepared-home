@@ -1,5 +1,5 @@
 // How prepared the home is: one card per risk, then the alarm note and the next re-check.
-import { useRouter, type Href } from "expo-router";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { View } from "react-native";
 
@@ -49,7 +49,7 @@ export function StatusScreen() {
           <RiskCard
             status={p}
             model={model}
-            onOpen={(id) => router.push(paths.check(id) as Href)}
+            onOpen={(id) => router.push(paths.check(id))}
             onExplain={() => setExplainOpen(true)}
           />
         </Appear>

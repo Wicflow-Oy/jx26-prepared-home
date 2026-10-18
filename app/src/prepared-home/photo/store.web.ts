@@ -53,15 +53,6 @@ export async function savePhoto(sha256: string, bytes: Uint8Array): Promise<void
   await withStore("readwrite", (s) => s.put(copy.buffer, sha256));
 }
 
-export async function hasPhoto(sha256: string): Promise<boolean> {
-  try {
-    const count = await withStore<number>("readonly", (s) => s.count(sha256));
-    return count > 0;
-  } catch {
-    return false;
-  }
-}
-
 export async function loadPhotoBase64(sha256: string): Promise<string | null> {
   const bytes = await getBytes(sha256);
   return bytes ? bytesToBase64(bytes) : null;

@@ -1,4 +1,4 @@
-import { useRouter, type Href } from "expo-router";
+import { useRouter } from "expo-router";
 import { ActivityIndicator, View } from "react-native";
 
 import { usePreparedHome, useTheme } from "../context";
@@ -79,7 +79,7 @@ export function NoHome() {
       <Gap />
       <Button
         label={t("chooseHome")}
-        onPress={() => router.replace(paths.start as Href)}
+        onPress={() => router.replace(paths.start)}
         testID="choose-home"
       />
     </Card>

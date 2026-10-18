@@ -1,7 +1,7 @@
 // One JSON request with a timeout, turning every failure into an ApiError the screens can explain.
 import { ApiError } from "./types";
 
-export const DEFAULT_TIMEOUT_MS = 15_000;
+const DEFAULT_TIMEOUT_MS = 15_000;
 /** A live check sends a photo to the model, so it may take much longer than other calls. */
 export const CHECK_TIMEOUT_MS = 90_000;
 

@@ -3,7 +3,7 @@ import { View } from "react-native";
 
 import { useTheme } from "../context";
 import { Icon, type IconName } from "../icons";
-import type { Tone } from "../model";
+import type { Tone } from "../theme";
 import { Appear } from "./Appear";
 import { PressableScale } from "./Pressable";
 import { Tag } from "./Tag";

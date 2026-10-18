@@ -1,4 +1,4 @@
-import { useRouter, type Href } from "expo-router";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { TextInput } from "react-native";
 
@@ -68,7 +68,7 @@ export function SettingsScreen() {
   };
 
   const openExample = (key: ExampleKey) => {
-    if (openDemo(EXAMPLES[key].homeId)) router.replace(paths.home as Href);
+    if (openDemo(EXAMPLES[key].homeId)) router.replace(paths.home);
   };
 
   const clear = async () => {
@@ -87,7 +87,7 @@ export function SettingsScreen() {
       backTo={paths.home}
       overlay={<DeductibleSheet open={explainOpen} onClose={() => setExplainOpen(false)} />}
     >
-      <Txt variant="display">{t("settingsTitle")}</Txt>
+      <Txt variant="display">{t("settings")}</Txt>
       {!ready ? (
         <LoadingState />
       ) : (

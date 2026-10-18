@@ -6,7 +6,7 @@ import { useT, useTheme } from "../../context";
 import { Txt } from "../../ui";
 
 /** The deed page of a Creative Commons licence named like "CC BY-SA 4.0" or "CC0". */
-export function licenceUrl(licence: string): string | null {
+function licenceUrl(licence: string): string | null {
   if (/^CC0\b/i.test(licence)) return "https://creativecommons.org/publicdomain/zero/1.0/";
   const m = licence.match(/^CC (BY(?:-(?:SA|ND|NC))*) (\d\.\d)$/i);
   return m ? `https://creativecommons.org/licenses/${m[1].toLowerCase()}/${m[2]}/` : null;

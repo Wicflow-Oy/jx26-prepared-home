@@ -2,7 +2,6 @@
 import type { Area } from "./types";
 
 const en = {
-  settingsTitle: "Settings",
   language: "Language",
   serverUrl: "Check server address",
   serverUrlHelp: "Leave empty to use the default: {url}",
@@ -34,7 +33,6 @@ const en = {
 export const settings: Area<typeof en> = {
   en,
   fi: {
-    settingsTitle: "Asetukset",
     language: "Kieli",
     serverUrl: "Tarkistuspalvelimen osoite",
     serverUrlHelp: "Jätä tyhjäksi, niin käytetään oletusta: {url}",
@@ -64,7 +62,6 @@ export const settings: Area<typeof en> = {
       "Vain sovelluksessa otetut kuvat lasketaan. Vahinkotilanteessa kuvia verrataan kotiisi.",
   },
   sv: {
-    settingsTitle: "Inställningar",
     language: "Språk",
     serverUrl: "Kontrollserverns adress",
     serverUrlHelp: "Lämna tomt för att använda standardadressen: {url}",

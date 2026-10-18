@@ -1,15 +1,9 @@
 import { View } from "react-native";
 
 import { usePreparedHome, useTheme } from "../context";
-import { formatDate, todayIso } from "../i18n";
+import { addDaysIso, formatDate, todayIso } from "../i18n";
 import { Button, IconButton } from "./Pressable";
 import { Txt } from "./Text";
-
-/** Moves an ISO date (YYYY-MM-DD) by whole days, in UTC so daylight saving never shifts it. */
-export function addDaysIso(iso: string, days: number): string {
-  const [y, m, d] = iso.split("-").map(Number);
-  return new Date(Date.UTC(y, m - 1, d + days)).toISOString().slice(0, 10);
-}
 
 /** A day picker that works the same on phones and the web: previous day, the date, next day. */
 export function DateStepper({

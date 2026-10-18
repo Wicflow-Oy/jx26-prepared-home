@@ -29,7 +29,7 @@ const ROOM_NAMES: Record<Room, Localized> = {
   utility: { en: "Utility room", fi: "Tekninen tila", sv: "Tekniskt utrymme" },
 };
 
-export const roomOf = (checkId: string): Room | null => ROOM_OF[checkId] ?? null;
+const roomOf = (checkId: string): Room | null => ROOM_OF[checkId] ?? null;
 export const roomName = (room: Room, lang: Lang) => ROOM_NAMES[room][lang];
 
 /** Rooms for a set of checks, in first-seen order, with how many of each room's checks are done. */

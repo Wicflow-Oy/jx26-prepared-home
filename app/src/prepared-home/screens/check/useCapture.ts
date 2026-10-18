@@ -4,7 +4,7 @@ import { withSequence, withTiming, type SharedValue } from "react-native-reanima
 import type { SamplePhoto } from "../../api";
 import { usePreparedHome } from "../../context";
 import { haptics } from "../../haptics";
-import { pickFromLibrary, prepareImage, prepareSample } from "../../photoPipeline";
+import { pickFromLibrary, prepareImage, prepareSample } from "../../photo/pipeline";
 import type { useCamera } from "./useCamera";
 import type { useCheckRun } from "./useCheckRun";
 

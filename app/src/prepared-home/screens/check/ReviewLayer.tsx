@@ -13,7 +13,7 @@ import { CheckReview } from "./CheckReview";
  */
 export function ReviewLayer(props: ComponentProps<typeof CheckReview>) {
   const theme = useTheme();
-  const waitingForAngle = props.flow.run.status === "secondAngle";
+  const waitingForAngle = props.run.status === "secondAngle";
   const backdrop = useSharedValue(1);
   useEffect(() => {
     backdrop.set(withTiming(waitingForAngle ? 0.45 : 1, { duration: durations.base }));

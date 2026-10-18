@@ -15,14 +15,9 @@ import {
   type NewHome,
   type SaveResult,
 } from "./state/useHomeActions";
+import type { Claims, StoredOutcome } from "./state/storage";
 import { useScreenReader } from "./state/useScreenReader";
-import type { Claims, StoredOutcome } from "./storage";
 import { ifTheme, type Theme } from "./theme";
-
-export type { Paths } from "./paths";
-export type { FrostState } from "./state/useFrost";
-export type { SaveResult } from "./state/useHomeActions";
-export { makePaths };
 
 export interface PreparedHomeContextValue {
   ready: boolean;
@@ -38,7 +33,6 @@ export interface PreparedHomeContextValue {
   paths: Paths;
 
   api: Api;
-  apiBaseUrl: string;
   defaultApiBaseUrl: string;
   customApiBaseUrl: string | null;
   setApiBaseUrl: (url: string | null) => void;
@@ -48,7 +42,6 @@ export interface PreparedHomeContextValue {
   recordsFor: (homeId: string) => CheckRecord[];
   openDemo: (homeId: string) => Home | null;
   createHome: (input: NewHome) => Home;
-  selectHome: (homeId: string) => void;
 
   outcomeFor: (homeId: string, checkId: string) => StoredOutcome | undefined;
   saveCheckResult: (input: CheckResultInput) => Promise<SaveResult>;
@@ -131,7 +124,6 @@ export function PreparedHomeProvider({
     theme,
     paths,
     api,
-    apiBaseUrl: effectiveBase,
     defaultApiBaseUrl: fallbackBase,
     customApiBaseUrl: settings.apiBaseUrl,
     setApiBaseUrl,

@@ -1,7 +1,7 @@
 import { Platform } from "react-native";
 
 /**
- * Default API base URL (docs/CONTRACTS.md §9.4):
+ * Default API base URL:
  * - EXPO_PUBLIC_API_BASE_URL when set at build time;
  * - web production build: same-origin "/api";
  * - web dev server (expo start --web runs on its own port) and native dev: http://localhost:8787/api

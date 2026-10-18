@@ -2,8 +2,7 @@ import type { ReactNode } from "react";
 import { View, type StyleProp, type ViewStyle } from "react-native";
 
 import { useTheme } from "../context";
-import type { Tone } from "../model";
-import type { Theme } from "../theme";
+import type { Theme, Tone } from "../theme";
 import { Txt } from "./Text";
 import { toneColors } from "./Tag";
 

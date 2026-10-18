@@ -1,13 +1,12 @@
 import { checksFor, type HomeType } from "@prepared-home/engine";
-import { useRouter, type Href } from "expo-router";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { View } from "react-native";
 
 import { usePreparedHome, useTheme } from "../context";
 import { formatDate, todayIso, type StringKey } from "../i18n";
 import { Icon, type IconName } from "../icons";
-import { Appear, Gap, PressableScale, Screen, Segmented, Txt } from "../ui";
-import { DateStepper } from "../ui/DateStepper";
+import { Appear, DateStepper, Gap, PressableScale, Screen, Segmented, Txt } from "../ui";
 
 const HOME_TYPES: { type: HomeType; icon: IconName }[] = [
   { type: "flat", icon: "building" },
@@ -27,7 +26,7 @@ export function NewHomeScreen() {
   const start = (homeType: HomeType) => {
     createHome({ homeType, moveInDate, hasLeakAlarm: alarm === "yes", label: t("homeName") });
     const first = checksFor(homeType)[0];
-    router.replace((first ? paths.check(first.id) : paths.home) as Href);
+    router.replace(first ? paths.check(first.id) : paths.home);
   };
 
   return (

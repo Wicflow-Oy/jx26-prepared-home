@@ -3,6 +3,9 @@
 // Screens read tokens only through useTheme(), so the look can be swapped without touching them.
 import { Platform } from "react-native";
 
+/** What a tag, card or banner says with its colour; each tone maps to a colour pair (see toneColors). */
+export type Tone = "success" | "warning" | "danger" | "info" | "neutral";
+
 export interface Theme {
   colors: {
     background: string; // page sand
@@ -16,9 +19,7 @@ export interface Theme {
     textInverse: string;
     textInverseMuted: string;
     primary: string;
-    primaryPressed: string;
     primaryTint: string;
-    primaryTintStrong: string;
     primaryText: string;
     success: string;
     successBg: string;
@@ -31,7 +32,6 @@ export interface Theme {
     infoBg: string;
     line: string; // soft dividers
     border: string;
-    borderStrong: string;
     scrim: string;
   };
   space: { xxs: number; xs: number; sm: number; md: number; lg: number; xl: number; xxl: number };
@@ -56,7 +56,7 @@ export interface Theme {
       title: number;
       display: number;
     };
-    weight: { light: "300"; regular: "400"; bold: "600" };
+    weight: { light: "300"; bold: "600" };
   };
   shadow: { card: string };
   layout: { maxContentWidth: number; maxWideWidth: number; tapTarget: number; button: number };
@@ -75,9 +75,7 @@ export const ifTheme: Theme = {
     textInverse: "#FAF9F7",
     textInverseMuted: "#A8C2F0",
     primary: "#0054F0",
-    primaryPressed: "#1241A2",
     primaryTint: "#E1E9F6",
-    primaryTintStrong: "#A8C2F0",
     primaryText: "#FAF9F7",
     success: "#217331",
     successBg: "#E0F0DB",
@@ -90,7 +88,6 @@ export const ifTheme: Theme = {
     infoBg: "#E1E9F6",
     line: "#E8E0D9",
     border: "#6E625E",
-    borderStrong: "#331E11",
     scrim: "rgba(18, 65, 162, 0.32)",
   },
   space: { xxs: 2, xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 },
@@ -100,7 +97,7 @@ export const ifTheme: Theme = {
     family: Platform.OS === "web" ? '"If Sans Variable", "Segoe UI", Arial, sans-serif' : undefined,
     size: { caption: 12, small: 14, body: 16, lead: 20, h2: 24, title: 28, display: 32 },
     lineHeight: { caption: 16, small: 20, body: 24, lead: 28, h2: 32, title: 36, display: 40 },
-    weight: { light: "300", regular: "400", bold: "600" },
+    weight: { light: "300", bold: "600" },
   },
   shadow: {
     card: "0px 1px 2px rgba(51, 30, 17, 0.05), 0px 12px 32px -12px rgba(51, 30, 17, 0.16)",

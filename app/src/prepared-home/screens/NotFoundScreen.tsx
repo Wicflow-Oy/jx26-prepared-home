@@ -1,4 +1,4 @@
-import { useRouter, type Href } from "expo-router";
+import { useRouter } from "expo-router";
 
 import { usePreparedHome } from "../context";
 import { Button, Gap, Screen, Txt } from "../ui";
@@ -12,7 +12,7 @@ export function NotFoundScreen() {
       <Gap size="lg" />
       <Button
         label={t("goToStart")}
-        onPress={() => router.replace(paths.start as Href)}
+        onPress={() => router.replace(paths.start)}
         testID="go-start"
       />
     </Screen>

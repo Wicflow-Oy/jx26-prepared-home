@@ -30,3 +30,8 @@ export function makePaths(basePath: string, adjusterBase: string): Paths {
     adjuster: (id) => `${a}/${encodeURIComponent(id)}`,
   };
 }
+
+/** Reads a single route parameter (expo-router gives an array when a parameter repeats). */
+export function param(value: string | string[] | undefined): string {
+  return Array.isArray(value) ? (value[0] ?? "") : (value ?? "");
+}

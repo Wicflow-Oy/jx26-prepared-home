@@ -1,4 +1,4 @@
-import { useFocusEffect, useRouter, type Href } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useRef } from "react";
 import { View } from "react-native";
 
@@ -44,7 +44,7 @@ export function StartScreen({ example }: { example?: string }) {
         if (!openDemo(EXAMPLES[example].homeId)) return;
       } else if (!currentHome) return;
       redirecting.current = true;
-      router.replace(paths.home as Href);
+      router.replace(paths.home);
     }, [ready, example, currentHome, openDemo, router, paths.home]),
   );
 
@@ -52,7 +52,7 @@ export function StartScreen({ example }: { example?: string }) {
     <IconButton
       icon="sliders"
       label={t("settings")}
-      onPress={() => router.push(paths.settings as Href)}
+      onPress={() => router.push(paths.settings)}
       testID="open-settings"
     />
   );
@@ -98,7 +98,7 @@ export function StartScreen({ example }: { example?: string }) {
       <Appear index={1}>
         <Button
           label={t("getStarted")}
-          onPress={() => router.push(paths.newHome as Href)}
+          onPress={() => router.push(paths.newHome)}
           testID="get-started"
         />
       </Appear>

@@ -6,8 +6,8 @@ import { useCallback, useRef, useState } from "react";
 import { usePreparedHome } from "../../context";
 import { errorMessage } from "../../errors";
 import { haptics } from "../../haptics";
-import type { PreparedPhoto } from "../../photoPipeline";
-import type { StoredOutcome } from "../../storage";
+import type { PreparedPhoto } from "../../photo/pipeline";
+import type { StoredOutcome } from "../../state/storage";
 
 export type ReviewRun =
   | { status: "idle" | "preparing" | "secondAngle" | "question" | "checking" | "allDone" }

@@ -2,7 +2,7 @@
 // Every change is saved at once. The refs give callbacks the latest value before React re-renders.
 import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 
-import { clearPhotos } from "../photoStore";
+import { clearPhotos } from "../photo/store";
 import {
   clearHomeData,
   EMPTY_SETTINGS,
@@ -16,7 +16,7 @@ import {
   type LocalState,
   type Outcomes,
   type Settings,
-} from "../storage";
+} from "./storage";
 
 export interface Persisted<T> {
   value: T;

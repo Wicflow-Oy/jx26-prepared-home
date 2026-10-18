@@ -1,4 +1,4 @@
-import { useRouter, type Href } from "expo-router";
+import { useRouter } from "expo-router";
 import type { ReactNode } from "react";
 import { Platform, View, type StyleProp, type ViewStyle } from "react-native";
 import Animated, {
@@ -12,7 +12,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { IF_BRANDED } from "../brand";
 import { usePreparedHome, useTheme } from "../context";
 import { durations } from "../motion";
-import { useSystemBarIcons } from "../systemBars";
+import { useSystemBarIcons } from "./systemBars";
 import { Appear } from "./Appear";
 import { IfLogo } from "./IfLogo";
 import { useBehindSheet } from "./a11y";
@@ -20,7 +20,7 @@ import { IconButton } from "./Pressable";
 import { Txt } from "./Text";
 
 /** The neutral build's banner. The If-branded build shows a small Concept pill in the header instead. */
-export function PrototypeLabel({ inverse }: { inverse?: boolean }) {
+function PrototypeLabel({ inverse }: { inverse?: boolean }) {
   const theme = useTheme();
   const { t } = usePreparedHome();
   return (
@@ -73,7 +73,7 @@ function PageBody({ style, children }: { style: StyleProp<ViewStyle>; children: 
   );
 }
 
-export type ScreenTone = "sand" | "sandAlt" | "dark";
+type ScreenTone = "sand" | "sandAlt" | "dark";
 
 export function Screen({
   testID,
@@ -127,7 +127,7 @@ export function Screen({
 
   const goBack = () => {
     if (router.canGoBack()) router.back();
-    else router.replace((backTo ?? paths.home) as Href);
+    else router.replace(backTo ?? paths.home);
   };
 
   return (

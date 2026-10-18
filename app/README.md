@@ -28,9 +28,10 @@ Example homes open from Settings, or with a link: `/app/?example=flat|house|fres
   - `screens/`: one folder per screen group (`check/`, `result/`, `home/`, `status/`, `claim/`) and single-file screens.
   - `ui/`: shared components, including the gesture-driven bottom sheet and the progress ring.
   - `i18n/`: typed dictionaries by area (en, fi, sv); screens read them with `useT()`.
-  - `state/`: data kept on the device and the actions that change it; `context.tsx` wires them up.
+  - `state/`: data kept on the device (`storage.ts`) and the actions that change it; `context.tsx` wires them up.
   - `model.ts`: status, reminders and the Home Card from `@prepared-home/engine`.
-  - `api/`: typed client for the stateless `/api/v1` routes; `photoPipeline.ts`: resize, JPEG and SHA-256.
+  - `api/`: typed client for the stateless `/api/v1` routes.
+  - `photo/`: resize, JPEG and SHA-256 (`pipeline.ts`), and the copies kept on the device (`store.ts`, `store.web.ts`).
 - `maestro/`: end-to-end flows for Expo Go (`maestro test maestro/`).
 
 ## Checks

@@ -1,4 +1,4 @@
-import { useRouter, type Href } from "expo-router";
+import { useRouter } from "expo-router";
 
 import { FROST_PLACE } from "../config";
 import { usePreparedHome } from "../context";
@@ -82,9 +82,7 @@ export function RemindersScreen() {
                 label: t(reminderKey(r.kind)),
                 tone: r.kind === "frost" || r.kind === "fix_first" ? "warning" : "neutral",
               }}
-              onPress={
-                r.checkIds[0] ? () => router.push(paths.check(r.checkIds[0]) as Href) : undefined
-              }
+              onPress={r.checkIds[0] ? () => router.push(paths.check(r.checkIds[0])) : undefined}
             />
           ))}
         </ListGroup>

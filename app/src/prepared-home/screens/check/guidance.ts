@@ -22,8 +22,8 @@ export type Guidance =
 /**
  * Words in the model's (English) photo hint that point to a specific photo problem. Recorded results
  * keep their English hint, so the same rules work whatever language the app is in.
+ * A tip of "include" shows the check's own one-line instruction.
  */
-// "include" means: show the check's own one-line instruction as the tip.
 const HINT_RULES: { pattern: RegExp; problem: StringKey; tip: StringKey | "include" }[] = [
   {
     pattern: /\b(dark|dim|black|underexposed|lighting|shadow)/i,

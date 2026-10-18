@@ -1,5 +1,4 @@
-import type { CheckDefinition } from "@prepared-home/engine";
-import { clauseRefs } from "@prepared-home/engine";
+import { clauseRefs, type CheckDefinition } from "@prepared-home/engine";
 import { View } from "react-native";
 
 import { useT, useTheme } from "../../context";

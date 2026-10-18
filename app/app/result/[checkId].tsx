@@ -1,7 +1,6 @@
 import { useLocalSearchParams } from "expo-router";
 
-import { ResultScreen } from "@/prepared-home";
-import { param } from "@/prepared-home/routes";
+import { ResultScreen, param } from "@/prepared-home";
 
 export default function ResultRoute() {
   const { checkId } = useLocalSearchParams<{ checkId: string }>();

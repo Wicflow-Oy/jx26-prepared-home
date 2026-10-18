@@ -13,7 +13,14 @@ import { start } from "./start";
 import { status } from "./status";
 import { voice } from "./voice";
 
-export { formatDate, formatDecimal, formatMoney, localizeDates, todayIso } from "./format";
+export {
+  addDaysIso,
+  formatDate,
+  formatDecimal,
+  formatMoney,
+  localizeDates,
+  todayIso,
+} from "./format";
 
 const AREAS = [common, start, home, check, result, status, records, claim, settings, voice];
 

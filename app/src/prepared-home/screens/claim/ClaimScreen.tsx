@@ -1,5 +1,5 @@
 import type { AdjusterView, Peril } from "@prepared-home/engine";
-import { useRouter, type Href } from "expo-router";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { View } from "react-native";
 
@@ -9,11 +9,12 @@ import { errorMessage } from "../../errors";
 import { formatDate, todayIso } from "../../i18n";
 import { Icon } from "../../icons";
 import { perilLabel, useHomeModel } from "../../model";
-import { hasPhoto, loadPhotoBase64 } from "../../photoStore";
+import { loadPhotoBase64 } from "../../photo/store";
 import {
   Appear,
   Button,
   Card,
+  DateStepper,
   ErrorState,
   Gap,
   ListGroup,
@@ -26,7 +27,6 @@ import {
   Segmented,
   Txt,
 } from "../../ui";
-import { DateStepper } from "../../ui/DateStepper";
 
 /** Reporting damage. With the customer's consent the dated checks and photos go with the report. */
 export function ClaimScreen() {
@@ -61,8 +61,7 @@ export function ClaimScreen() {
           const record = model.effective.get(id);
           // Both angles go; either may match. Only photos on this device can go: examples were checked elsewhere.
           for (const sha of [record?.photoSha256, record?.secondPhotoSha256]) {
-            if (!sha || !(await hasPhoto(sha))) continue;
-            const imageBase64 = await loadPhotoBase64(sha);
+            const imageBase64 = sha ? await loadPhotoBase64(sha) : null;
             if (imageBase64) shared.push({ checkId: id, imageBase64 });
           }
         }
@@ -109,7 +108,7 @@ export function ClaimScreen() {
         <Gap size="xl" />
         <Button
           label={t("backHome")}
-          onPress={() => router.replace(paths.home as Href)}
+          onPress={() => router.replace(paths.home)}
           testID="result-home"
         />
         <Gap size="xl" />
@@ -117,7 +116,7 @@ export function ClaimScreen() {
           testID="open-handler-view"
           accessibilityRole="link"
           accessibilityLabel={`${t("openHandlerView")}, ${t("handlerViewNote")}`}
-          onPress={() => router.push(paths.adjuster(sent.claimId) as Href)}
+          onPress={() => router.push(paths.adjuster(sent.claimId))}
           style={{
             alignSelf: "flex-start",
             minHeight: theme.layout.tapTarget,
@@ -190,7 +189,7 @@ export function ClaimScreen() {
                 testID={`claim-row-${c.view.claimId}`}
                 title={`${perilLabel(c.view.peril, lang)} · ${formatDate(c.view.lossDate, lang)}`}
                 subtitle={t("claimId", { id: c.view.claimId })}
-                onPress={() => router.push(paths.adjuster(c.view.claimId) as Href)}
+                onPress={() => router.push(paths.adjuster(c.view.claimId))}
               />
             ))}
           </ListGroup>

@@ -1,14 +1,9 @@
 // Answers from the server are checked before the app relies on them.
-import type { AdjusterView, Verdict } from "@prepared-home/engine";
+import { VERDICT_LABELS, type AdjusterView, type Verdict } from "@prepared-home/engine";
 
 import { ApiError, type CheckResponse, type SamplePhoto } from "./types";
 
-const VERDICTS: string[] = [
-  "verified",
-  "retake",
-  "fix_first",
-  "not_applicable",
-] satisfies Verdict[];
+const isVerdict = (v: string): v is Verdict => Object.hasOwn(VERDICT_LABELS, v);
 
 const asString = (v: unknown): string | undefined =>
   typeof v === "string" && v.length > 0 ? v : undefined;
@@ -41,7 +36,7 @@ export function normalizeSamples(raw: unknown): SamplePhoto[] {
       author: asString(o.author),
       licence: asString(o.licence),
       sourceUrl: asString(o.sourceUrl),
-      expectedVerdict: expected && VERDICTS.includes(expected) ? (expected as Verdict) : undefined,
+      expectedVerdict: expected && isVerdict(expected) ? expected : undefined,
       urgent: typeof o.urgent === "boolean" ? o.urgent : undefined,
       title: asString(o.caption),
       width: asNumber(o.width),

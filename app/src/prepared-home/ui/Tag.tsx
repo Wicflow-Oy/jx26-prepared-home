@@ -2,8 +2,7 @@ import { DEDUCTIBLE_CONCEPT_LABEL } from "@prepared-home/engine";
 import { View } from "react-native";
 
 import { usePreparedHome, useTheme } from "../context";
-import type { Tone } from "../model";
-import type { Theme } from "../theme";
+import type { Theme, Tone } from "../theme";
 import { Txt } from "./Text";
 
 export function toneColors(theme: Theme, tone: Tone): { fg: string; bg: string } {

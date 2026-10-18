@@ -1,4 +1,4 @@
-// What the app sends to and gets from the stateless /api/v1 routes (docs/CONTRACTS.md §9.1).
+// What the app sends to and gets from the stateless /api/v1 routes.
 import type {
   CaptureSource,
   CheckOutcome,

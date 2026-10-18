@@ -12,12 +12,12 @@ import {
 } from "@prepared-home/engine";
 import { View } from "react-native";
 
-import { shortHash } from "../../bytes";
+import { shortHash } from "../../photo/bytes";
 import { useT, useTheme } from "../../context";
 import { formatDate } from "../../i18n";
 import { Icon, type IconName } from "../../icons";
 import { ownerLabel, photoCount, PHOTO_COUNT_NOTE, verdictLabel, verdictTone } from "../../model";
-import type { StoredOutcome } from "../../storage";
+import type { StoredOutcome } from "../../state/storage";
 import { Banner, Gap, Tag, toneColors, Txt } from "../../ui";
 import { CriterionLine } from "./CriterionLine";
 import { InfoBlock } from "./InfoBlock";

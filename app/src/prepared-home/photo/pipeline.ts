@@ -1,12 +1,13 @@
-// On-device photo pipeline (docs/CONTRACTS.md §8):
+// On-device photo pipeline:
 // capture or pick -> resize to PHOTO.maxLongEdge on the long edge -> re-encode JPEG (drops EXIF)
 // -> SHA-256 of the exact bytes that will be sent.
+import type { CaptureSource } from "@prepared-home/engine";
 import { ImageManipulator, SaveFormat } from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 
+import { PHOTO } from "../config";
 import { base64ToBytes, bytesToBase64, sha256Hex } from "./bytes";
-import { PHOTO } from "./config";
-import { downloadBytes } from "./photoStore";
+import { downloadBytes } from "./store";
 
 export interface PreparedPhoto {
   base64: string; // exactly the bytes below, base64 without a data-URI prefix
@@ -15,7 +16,7 @@ export interface PreparedPhoto {
   width: number;
   height: number;
   previewUri: string;
-  origin: "camera" | "library" | "sample";
+  origin: CaptureSource;
   sampleId?: string;
 }
 
@@ -36,7 +37,7 @@ export async function pickFromLibrary(): Promise<string | null> {
 /** Re-encodes a photo as a JPEG of at most PHOTO.maxLongEdge on the long edge. */
 export async function prepareImage(
   uri: string,
-  origin: "camera" | "library",
+  origin: Exclude<CaptureSource, "sample">,
   known?: { width: number; height: number },
 ): Promise<PreparedPhoto> {
   const fit = (w: number, h: number) =>
@@ -97,7 +98,7 @@ export async function prepareSample(
 }
 
 /** Reads width and height from a JPEG's start-of-frame marker. */
-export function jpegSize(bytes: Uint8Array): { width: number; height: number } | null {
+function jpegSize(bytes: Uint8Array): { width: number; height: number } | null {
   if (bytes.length < 4 || bytes[0] !== 0xff || bytes[1] !== 0xd8) return null;
   let i = 2;
   while (i + 9 < bytes.length) {

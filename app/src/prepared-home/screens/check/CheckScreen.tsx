@@ -1,9 +1,9 @@
 // The check flow: one check per screen with a live camera, then shrink → scan → verdict, then the next check.
 // Moving on swaps the check in place, so the camera stays open between checks.
 import { getCheck, isCheckId } from "@prepared-home/engine";
-import { useRouter, type Href } from "expo-router";
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { StyleSheet, View, type LayoutChangeEvent } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -11,20 +11,28 @@ import { usePreparedHome, useTheme } from "../../context";
 import { haptics } from "../../haptics";
 import { nextOpenCheck, useHomeModel, type HomeModel } from "../../model";
 import { durations, useMotion } from "../../motion";
-import { useSystemBarIcons } from "../../systemBars";
-import { Button, ErrorState, LoadingState, NoHome, Screen } from "../../ui";
-import { useBehindSheet, useFontScale } from "../../ui/a11y";
+import {
+  Button,
+  ErrorState,
+  LoadingState,
+  NoHome,
+  Screen,
+  useBehindSheet,
+  useFontScale,
+  useSystemBarIcons,
+} from "../../ui";
 import { CaptureControls } from "./CaptureControls";
 import { CheckHeading } from "./CheckHeading";
 import { CheckTopBar } from "./CheckTopBar";
 import { PhotoInfoSheet } from "./PhotoInfoSheet";
 import { ReviewLayer } from "./ReviewLayer";
+import { ReviewMessage } from "./ReviewMessage";
 import { SamplesSheet } from "./SamplesSheet";
+import { spokenIntro, spokenResult } from "./spokenText";
 import { useCamera } from "./useCamera";
 import { useCapture } from "./useCapture";
 import { useCheckRun } from "./useCheckRun";
 import { useCheckVoice } from "./useCheckVoice";
-import { spokenIntro, spokenResult } from "./spokenText";
 import { useSecondAngle } from "./useSecondAngle";
 import { Viewfinder } from "./Viewfinder";
 
@@ -46,7 +54,7 @@ export function CheckScreen({ checkId }: { checkId: string }) {
         <ErrorState message={t("checkNotFound")} testID="check-missing" />
         <Button
           label={t("backHome")}
-          onPress={() => router.replace(paths.home as Href)}
+          onPress={() => router.replace(paths.home)}
           testID="result-home"
         />
       </Screen>
@@ -120,13 +128,9 @@ function CheckFlow({ model, initialId }: { model: HomeModel; initialId: string }
     goNext();
   };
 
-  const onStageLayout = (e: LayoutChangeEvent) => {
-    const { width, height } = e.nativeEvent.layout;
-    setStage({ width, height });
-  };
   const controlsHeight = CONTROLS_HEIGHT + (fontScale - 1) * CONTROLS_PER_SCALE;
   const viewfinderHeight = Math.max(0, stage.height - controlsHeight);
-  const close = () => (router.canGoBack() ? router.back() : router.replace(paths.home as Href));
+  const close = () => (router.canGoBack() ? router.back() : router.replace(paths.home));
 
   return (
     <View testID="check-screen" style={{ flex: 1, backgroundColor: theme.colors.dark }}>
@@ -154,7 +158,7 @@ function CheckFlow({ model, initialId }: { model: HomeModel; initialId: string }
           focusKey={reviewing ? null : currentId}
         />
 
-        <View style={{ flex: 1 }} onLayout={onStageLayout}>
+        <View style={{ flex: 1 }} onLayout={(e) => setStage(e.nativeEvent.layout)}>
           <Viewfinder
             hidden={reviewing}
             cameraRef={camera.cameraRef}
@@ -198,24 +202,30 @@ function CheckFlow({ model, initialId }: { model: HomeModel; initialId: string }
             <Animated.View style={[StyleSheet.absoluteFill, overlayStyle]}>
               <ReviewLayer
                 key={currentId}
-                flow={flow}
+                run={flow.run}
+                photoUri={flow.photoUri}
                 check={check}
-                home={home}
                 stage={stage}
                 viewfinderHeight={viewfinderHeight}
-                onRetry={retry}
-                onNext={goNext}
-                onDetails={() => router.push(paths.result(check.id) as Href)}
-                onHome={() => router.replace(paths.home as Href)}
-                // Moving on by itself would cut off a spoken result.
-                autoAdvance={!motion.reduced && !voiceGuidance}
-                secondAngle={{ showButton: secondAngle.showButton, onTake: secondAngle.take }}
-                spokenResult={result}
-                onTakeSecond={() => {
-                  camera.resume();
-                  flow.retakeSecond();
-                }}
-              />
+              >
+                <ReviewMessage
+                  flow={flow}
+                  check={check}
+                  home={home}
+                  onRetry={retry}
+                  onNext={goNext}
+                  onDetails={() => router.push(paths.result(check.id))}
+                  onHome={() => router.replace(paths.home)}
+                  // Moving on by itself would cut off a spoken result.
+                  autoAdvance={!motion.reduced && !voiceGuidance}
+                  secondAngle={{ showButton: secondAngle.showButton, onTake: secondAngle.take }}
+                  spokenResult={result}
+                  onTakeSecond={() => {
+                    camera.resume();
+                    flow.retakeSecond();
+                  }}
+                />
+              </ReviewLayer>
             </Animated.View>
           ) : null}
         </View>
