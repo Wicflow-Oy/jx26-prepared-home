@@ -1,0 +1,814 @@
+{
+  "kind": "prepared-home-draft-labels",
+  "pass": "c",
+  "labelSource": "draft:opus-5-5-max",
+  "model": "claude-opus-5-5",
+  "effort": "max",
+  "promptVersion": "a-2026-10-18",
+  "spentUsd": 9.7586,
+  "rows": {
+    "L1-25.jpg": {
+      "sha256": "f4aee5312ab7ba2d448a642d651aa2e7cbe4f1649faff6d9da0c92a4719ded4a",
+      "checkId": "L1",
+      "homeType": "house",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "L1.valve_visible": true, "L1.handle_visible": true, "L1.no_leak": false },
+      "evidence": {
+        "L1.valve_visible": "Slightly blurry close-up of a Toyo gate valve on a tape-wrapped outdoor supply pipe; recognisable and not a fixture valve.",
+        "L1.handle_visible": "Teal plastic handwheel fills most of the frame.",
+        "L1.no_leak": "The central hex nut and stem are heavily rusted, with orange-brown rust staining spreading onto the label."
+      },
+      "reproduction": false,
+      "rationale": "The valve and its teal handwheel are clearly identifiable, but the stem nut shows heavy rust staining onto the label, so the corrosion needs attention.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 4211, "outputTokens": 3695, "usd": 0.09074 },
+      "ms": 36243
+    },
+    "L1-20.jpg": {
+      "sha256": "ad62837a50947f03f446c4848d8503a560cfef07601456a93cefac46d7fd7ae9",
+      "checkId": "L1",
+      "homeType": "house",
+      "verdict": "verified",
+      "modelOutcome": "verified",
+      "criteria": { "L1.valve_visible": true, "L1.handle_visible": true, "L1.no_leak": true },
+      "evidence": {
+        "L1.valve_visible": "Several gate valves are installed on the supply pipes beside a bank of water meters, shown close and clear.",
+        "L1.handle_visible": "Red wheel handles are clearly visible on each valve.",
+        "L1.no_leak": "The valve bodies show dark patina only, with no drips, puddles or crusted corrosion. The streaks on the wall are general wall marks, not at the valves."
+      },
+      "reproduction": false,
+      "rationale": "Several wheel-handled shut-off valves beside water meters are clearly visible, with only dark patina and no drips, stains or crusted corrosion at the valves.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 3705, "outputTokens": 4095, "usd": 0.09672 },
+      "ms": 44576
+    },
+    "L1-07.jpg": {
+      "sha256": "4a26a52bbaf36f378a91c11a03882b8f6496921c5db4138d261a827477881ba0",
+      "checkId": "L1",
+      "homeType": "house",
+      "verdict": "retake",
+      "modelOutcome": "retake",
+      "criteria": { "L1.valve_visible": false, "L1.handle_visible": false, "L1.no_leak": null },
+      "evidence": {
+        "L1.valve_visible": "Wide shot of a communal building wall with dozens of meters and gate valves. No single home main valve is identifiable, and each valve is small in frame.",
+        "L1.handle_visible": "Many small red wheel handles appear across the wall, but none belongs to an identifiable home main valve shown closely enough to inspect.",
+        "L1.no_leak": "The main valve is not identifiable or shown closely enough to judge leaks or corrosion."
+      },
+      "reproduction": false,
+      "rationale": "Wide view of a multi-unit building's communal meter and valve wall; no single home main valve is shown closely enough to inspect, so a retake is needed.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 4901, "outputTokens": 6101, "usd": 0.14162 },
+      "ms": 64890
+    },
+    "L2-02.jpg": {
+      "sha256": "95556b88e0686aac17c49beac99e575fa7de1cef94e2b350054c67e68756c546",
+      "checkId": "L2",
+      "homeType": "flat",
+      "verdict": "retake",
+      "modelOutcome": "retake",
+      "criteria": { "L2.hose_visible": false, "L2.tap_visible": true, "L2.hose_ok": null },
+      "evidence": {
+        "L2.hose_visible": "Only a short stub of blue corrugated hose below the blue safety-valve box; it runs off the bottom edge and the machine is not shown",
+        "L2.tap_visible": "Chrome wall tap with rosette and elbow outlet, shown close up and clearly, with the hose fitting screwed onto it",
+        "L2.hose_ok": "Hose visibility not met; the visible connection looks clean and dry but most of the hose run is out of frame"
+      },
+      "reproduction": false,
+      "rationale": "Clear close-up of the wall tap and hose connection, but only a short stub of hose is shown; the run to the machine is cut off, so retake.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 2628, "outputTokens": 12303, "usd": 0.25657 },
+      "ms": 121172
+    },
+    "L1-26.jpg": {
+      "sha256": "befc0f45a47c6059d60b5323cc64087a86ba31a1855f17c67960870b1d13d766",
+      "checkId": "L1",
+      "homeType": "house",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "L1.valve_visible": true, "L1.handle_visible": true, "L1.no_leak": false },
+      "evidence": {
+        "L1.valve_visible": "Two brass inline ball valves on copper supply pipes inside an opened wall. They are not small angle stops, so they count under the convention.",
+        "L1.handle_visible": "Orange lever handles clearly visible on both valves.",
+        "L1.no_leak": "Dark water-type stains with downward streaks on the wooden framing just behind and beside the valves. The valve bodies themselves look clean."
+      },
+      "reproduction": false,
+      "rationale": "Ball valves and orange lever handles are clearly visible, but dark water stains on the wooden framing directly behind the valves fail the no-leak criterion.",
+      "confidence": "low",
+      "usage": { "inputTokens": 3429, "outputTokens": 16053, "usd": 0.33478 },
+      "ms": 166997
+    },
+    "L3-01.jpg": {
+      "sha256": "55bcf8385d09d7251a8234caa7f7077864ef3d0fbb5358c96ceb97cdbb8ae8f9",
+      "checkId": "L3",
+      "homeType": "flat",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "L3.connection_visible": true, "L3.tap_present": true, "L3.no_leak": false },
+      "evidence": {
+        "L3.connection_visible": "A dual-outlet angle stop under the sink has a copper branch line running down, the typical dishwasher feed, shown close and clear.",
+        "L3.tap_present": "A chrome dual-outlet angle valve with a wheel handle sits on the supply, with the branch line attached to it.",
+        "L3.no_leak": "Green verdigris sits at the branch valve's compression nuts and a heavy green crust covers the adjacent valve, signs of weeping; no kinks seen."
+      },
+      "reproduction": false,
+      "rationale": "The dishwasher branch valve and line are clearly visible, but green crusted corrosion at the compression joints suggests slow leaks, so repair comes first.",
+      "confidence": "low",
+      "usage": { "inputTokens": 2619, "outputTokens": 13850, "usd": 0.28748 },
+      "ms": 134847
+    },
+    "L4-09.jpg": {
+      "sha256": "79e0d250320ab2deeef7fb26cdf7795edd681f781e209cf58e2ca5c1ffadc2a2",
+      "checkId": "L4",
+      "homeType": "flat",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "L4.floor_visible": true, "L4.tray_or_drain": false, "L4.dry": true },
+      "evidence": {
+        "L4.floor_visible": "In this wide bathroom shot the front-loading washer is large, and the tiled floor at its base and in front is clearly shown.",
+        "L4.tray_or_drain": "The washer stands directly on the floor tiles with no tray rim, and no floor drain is visible on the bathroom floor.",
+        "L4.dry": "The glossy tiles show only window reflections, with no puddles, drips or water marks near the machine."
+      },
+      "reproduction": false,
+      "rationale": "The washing machine sits directly on a dry tiled floor with no drip tray and no visible floor drain, so a tray or drain is needed.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 4873, "outputTokens": 4396, "usd": 0.10741 },
+      "ms": 43026
+    },
+    "L4-12.jpg": {
+      "sha256": "f751cfc20a5cc4b839584aa885afc050f5598d4f884de5bb45d2384e62c903da",
+      "checkId": "L4",
+      "homeType": "flat",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "L4.floor_visible": true, "L4.tray_or_drain": false, "L4.dry": true },
+      "evidence": {
+        "L4.floor_visible": "Beige tile floor is clearly visible at the base of and in front of the front-loading Samsung washer.",
+        "L4.tray_or_drain": "Washer sits directly on the tiles with grout lines running to its base. No tray lip or floor drain is visible on the exposed floor.",
+        "L4.dry": "Tiles around the washer base look clean and dry, with no puddles, water marks or stains."
+      },
+      "reproduction": false,
+      "rationale": "Floor at the washer's base is clearly visible and dry, but no drip tray or floor drain is visible, so leak protection needs fixing.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 4873, "outputTokens": 3652, "usd": 0.09253 },
+      "ms": 34695
+    },
+    "L4-08.jpg": {
+      "sha256": "8aff2133fa896df7931a5671f7cacae8eadcbce9034c968a711d5ec8d6e2afbc",
+      "checkId": "L4",
+      "homeType": "flat",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "L4.floor_visible": true, "L4.tray_or_drain": false, "L4.dry": true },
+      "evidence": {
+        "L4.floor_visible": "Tiled floor at the front base of the stacked washer is visible between the hanging mop and the green dustpan.",
+        "L4.tray_or_drain": "The washer sits directly on the tiles with no tray lip at its base, and no floor drain shows in the visible floor.",
+        "L4.dry": "Tiles at the washer base look dry. The bright patches nearer the window are sunlight reflections, not puddles or water marks."
+      },
+      "reproduction": false,
+      "rationale": "The floor at the washer base is visible and dry, but no drip tray or floor drain is visible, so leak protection needs fixing.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 3677, "outputTokens": 9322, "usd": 0.20115 },
+      "ms": 94080
+    },
+    "L3-02.jpg": {
+      "sha256": "f39e854f4f6699cfdc9ecf0efa83528424e45dfbdea1050d4f8467e5e0d4c3dd",
+      "checkId": "L3",
+      "homeType": "flat",
+      "verdict": "retake",
+      "modelOutcome": "retake",
+      "criteria": { "L3.connection_visible": null, "L3.tap_present": null, "L3.no_leak": null },
+      "evidence": {
+        "L3.connection_visible": "Under-sink chrome angle valve with a copper riser and a copper branch line running out of frame to the left; no hose or dishwasher identifiable.",
+        "L3.tap_present": "An angle valve is clearly visible, but it cannot be confirmed as serving the dishwasher supply.",
+        "L3.no_leak": "The dishwasher connection is not confirmed in frame, so its condition cannot be judged."
+      },
+      "reproduction": false,
+      "rationale": "A sink angle valve with a copper branch line is shown, but nothing confirms the line feeds the dishwasher, so the connection cannot be verified.",
+      "confidence": "low",
+      "usage": { "inputTokens": 2909, "outputTokens": 22593, "usd": 0.4635 },
+      "ms": 221368
+    },
+    "L4-14.jpg": {
+      "sha256": "4652e1684238d6e2d77f3ec6c993f17b1c5ce1cb9ad0dfa524a3b4783f599ae3",
+      "checkId": "L4",
+      "homeType": "flat",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "L4.floor_visible": true, "L4.tray_or_drain": false, "L4.dry": true },
+      "evidence": {
+        "L4.floor_visible": "Beige floor tiles are clearly visible at the base of and in front of the washing machine.",
+        "L4.tray_or_drain": "The machine stands directly on the tiles. There is no drip tray edge and no floor drain in the visible floor.",
+        "L4.dry": "The tiles at the machine base and in front look clean and dry, with only normal glossy light reflections."
+      },
+      "reproduction": false,
+      "rationale": "The floor at the washing machine base is clearly visible and dry, but there is no drip tray under the machine and no visible floor drain.",
+      "confidence": "high",
+      "usage": { "inputTokens": 4873, "outputTokens": 3670, "usd": 0.09289 },
+      "ms": 35738
+    },
+    "L4-04.jpg": {
+      "sha256": "6307b6fddb2fa542d962df1c4e6b6141633a0e1430a09f7423f4fc402d540f2d",
+      "checkId": "L4",
+      "homeType": "flat",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "L4.floor_visible": true, "L4.tray_or_drain": false, "L4.dry": true },
+      "evidence": {
+        "L4.floor_visible": "Concrete floor beside the washing machine's raised base is visible in the foreground. The floor directly in front is cut off by the frame edge.",
+        "L4.tray_or_drain": "Machine sits on a plain raised plinth with no tray lip, and no floor drain is visible anywhere on the visible room floor.",
+        "L4.dry": "Concrete floor shows cracks but no puddles, standing water or water marks."
+      },
+      "reproduction": false,
+      "rationale": "Floor beside the washing machine is visible and dry, but there is no drip tray under it and no floor drain visible in the room.",
+      "confidence": "low",
+      "usage": { "inputTokens": 3631, "outputTokens": 14912, "usd": 0.31276 },
+      "ms": 146212
+    },
+    "L5-07.jpg": {
+      "sha256": "b506db8e2ed44501d158f1166445c8e1d47c8f735597ad2bf27c763183f4142b",
+      "checkId": "L5",
+      "homeType": "flat",
+      "verdict": "verified",
+      "modelOutcome": "verified",
+      "criteria": { "L5.drain_visible": true, "L5.clear": true },
+      "evidence": {
+        "L5.drain_visible": "Close-up of a metal U-shaped P-trap connected to the wall drain; no sink attached and the threaded top inlet is open.",
+        "L5.clear": "Trap, slip-nut joint and wall connection look dry. There is green patina and a rust-coloured spot, but no drips, wet stains, standing water or visible blockage."
+      },
+      "reproduction": false,
+      "rationale": "The U-shaped trap is clearly visible and connected to the wall drain; it is old and patinated but dry, with no drips, wet stains, standing water or blockage.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 4639, "outputTokens": 4799, "usd": 0.11454 },
+      "ms": 48897
+    },
+    "L5-10.jpg": {
+      "sha256": "9db677dee8add68b6dd9f121e40284613666adcb92077c3ee4df0cbee5231f8c",
+      "checkId": "L5",
+      "homeType": "flat",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "L5.drain_visible": true, "L5.clear": false },
+      "evidence": {
+        "L5.drain_visible": "A white plastic bottle trap under the sink basin is shown close and clearly, from the basin waste down to the wall outlet.",
+        "L5.clear": "Brownish crusted water stains surround the basin waste joint at the top of the trap. No drips or standing water are visible."
+      },
+      "reproduction": false,
+      "rationale": "The bottle trap is clearly visible, but brown crusted water stains around the basin waste joint at its top suggest leakage, so it needs fixing first.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 3443, "outputTokens": 5518, "usd": 0.12413 },
+      "ms": 59505
+    },
+    "L5-19.jpg": {
+      "sha256": "a8982986c553a436aed9fb21ef64a5a55d80f75f91937d12c3b3d78505ea6b93",
+      "checkId": "L5",
+      "homeType": "flat",
+      "verdict": "verified",
+      "modelOutcome": "verified",
+      "criteria": { "L5.drain_visible": true, "L5.clear": true },
+      "evidence": {
+        "L5.drain_visible": "An installed stainless linear grate drain runs along the shower's left side and front edge, clearly visible from above.",
+        "L5.clear": "The grate slots look clean with no hair or debris, and the granite floor around it appears dry with no standing water."
+      },
+      "reproduction": false,
+      "rationale": "The linear shower floor drain is clearly visible, clean and dry, with no blockage or standing water. The copyright text is a digital overlay, not a screen or printout.",
+      "confidence": "high",
+      "usage": { "inputTokens": 2683, "outputTokens": 3664, "usd": 0.08401 },
+      "ms": 36606
+    },
+    "L5-21.jpg": {
+      "sha256": "389a96f655cc0bb7068354c7a69911ecdfc6e195d0ded0e09a74df0e27f0472e",
+      "checkId": "L5",
+      "homeType": "flat",
+      "verdict": "verified",
+      "modelOutcome": "verified",
+      "criteria": { "L5.drain_visible": true, "L5.clear": true },
+      "evidence": {
+        "L5.drain_visible": "Linear stainless steel slot drain with a perforated grate, installed in the tiled shower floor along the wall; individual holes are discernible.",
+        "L5.clear": "Grate holes are open with no hair or debris, and the surrounding tiles look dry with no standing water."
+      },
+      "reproduction": false,
+      "rationale": "A linear shower floor drain is clearly visible, its perforated grate is unobstructed and the surrounding tiles are dry, so the check passes.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 2238, "outputTokens": 2174, "usd": 0.05243 },
+      "ms": 21593
+    },
+    "L5-13.jpg": {
+      "sha256": "2f54d8f4cf317b00792e8b81c45958cfc4584364e8ed6be7ddd9604b765dcdd3",
+      "checkId": "L5",
+      "homeType": "flat",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "L5.drain_visible": true, "L5.clear": false },
+      "evidence": {
+        "L5.drain_visible": "Installed beige bottle trap under a basin waste, shown close up and in sharp focus.",
+        "L5.clear": "Outlet port is open with no pipe connected; black sludge and crusted debris inside; dark crusted residue and stains at the top joint."
+      },
+      "reproduction": false,
+      "rationale": "The sink bottle trap is clearly visible, but its outlet is disconnected and it shows black sludge and crusted residue at the joint, so it needs fixing.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 4639, "outputTokens": 7174, "usd": 0.16204 },
+      "ms": 72807
+    },
+    "L5-11.jpg": {
+      "sha256": "1ea4775ba3c7001a28ab146e678783ed0f7cb62217710f431b912fd92b5d6a71",
+      "checkId": "L5",
+      "homeType": "flat",
+      "verdict": "verified",
+      "modelOutcome": "verified",
+      "criteria": { "L5.drain_visible": true, "L5.clear": true },
+      "evidence": {
+        "L5.drain_visible": "Close-up of a beige bottle trap under a basin, showing the waste, backnut, bottom cap and the outlet into the wall.",
+        "L5.clear": "No drips, puddles or wet stains at the joints. The white streaks look like dried paint splashes. A cracked white waste collar and dry brown staining on the wall pipe are visible but are not clear leak signs."
+      },
+      "reproduction": false,
+      "rationale": "The bottle trap is clearly visible with no drips, standing water or wet stains; the paint splashes, cracked waste collar and dry staining are not named leak signs.",
+      "confidence": "low",
+      "usage": { "inputTokens": 4317, "outputTokens": 11839, "usd": 0.25405 },
+      "ms": 121825
+    },
+    "L5-20.jpg": {
+      "sha256": "b01dfdda3596d3eee5276eedf6e40281e2caad3caadaa316c2c91faa00e92e28",
+      "checkId": "L5",
+      "homeType": "flat",
+      "verdict": "retake",
+      "modelOutcome": "retake",
+      "criteria": { "L5.drain_visible": false, "L5.clear": null },
+      "evidence": {
+        "L5.drain_visible": "A drain grate with a white flange appears to rest loose on a torn-up shower floor. A capped riser and pipes are exposed in a broken hole. No installed floor drain or sink trap is shown.",
+        "L5.clear": "No installed drain or sink trap is shown, so blockage, standing water or leaks cannot be judged."
+      },
+      "reproduction": false,
+      "rationale": "The drain grate appears to rest loose on a torn-up shower floor beside exposed pipework, so no installed floor drain or sink trap can be inspected.",
+      "confidence": "low",
+      "usage": { "inputTokens": 3121, "outputTokens": 12460, "usd": 0.26168 },
+      "ms": 122741
+    },
+    "L6-12.jpg": {
+      "sha256": "e66e059eb7959f967bebb3aef14ca1af56d97651a5f415da8fa3b8f97ffab080",
+      "checkId": "L6",
+      "homeType": "flat",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "L6.seams_visible": true, "L6.seams_intact": false },
+      "evidence": {
+        "L6.seams_visible": "Tray-to-ledge seam and tray-to-back-wall seam visible from about a metre, not a true close-up; right side hidden by curtain.",
+        "L6.seams_intact": "Dark brownish line along the seam between the tray rim and the tiled ledge, consistent with mould."
+      },
+      "reproduction": false,
+      "rationale": "The shower tray seams are visible, and the joint between the tray and tiled ledge shows dark mould-like discoloration, though the photo is not a true close-up.",
+      "confidence": "low",
+      "usage": { "inputTokens": 4694, "outputTokens": 11952, "usd": 0.25782 },
+      "ms": 119375
+    },
+    "F1-03.jpg": {
+      "sha256": "bfb89abab0bcc15b06a25dc329bd722e1dc02439a5f1df543d637e59cfcb168c",
+      "checkId": "F1",
+      "homeType": "flat",
+      "verdict": "retake",
+      "modelOutcome": "retake",
+      "criteria": { "F1.alarm_visible": true, "F1.mounted": null },
+      "evidence": {
+        "F1.alarm_visible": "Close, sharp view of a used, yellowed First Alert smoke and CO alarm; not boxed and not a studio shot.",
+        "F1.mounted": "Alarm sits flat against a plain brown board; the tight crop shows no ceiling context, so fixed versus lying on a surface is unclear."
+      },
+      "reproduction": false,
+      "rationale": "The alarm is clearly visible, but the tight crop against a brown board does not show whether it is fixed to a ceiling or lying on a surface.",
+      "confidence": "low",
+      "usage": { "inputTokens": 3959, "outputTokens": 8484, "usd": 0.18552 },
+      "ms": 85986
+    },
+    "F1-05.jpg": {
+      "sha256": "e25e61d73ae683144e0eaa047230ea332621b38f5ab8d18ec43ddc08e4aa1b9e",
+      "checkId": "F1",
+      "homeType": "flat",
+      "verdict": "retake",
+      "modelOutcome": "retake",
+      "criteria": { "F1.alarm_visible": false, "F1.mounted": null },
+      "evidence": {
+        "F1.alarm_visible": "Wide shot of an ornate ceiling and chandelier; only a tiny round white fitting beside the rosette, too small to identify as an alarm or inspect.",
+        "F1.mounted": "No smoke alarm is clearly visible, so its mounting cannot be judged."
+      },
+      "reproduction": false,
+      "rationale": "A small round fitting near the ceiling medallion might be an alarm, but this wide ceiling view makes it too small to identify or inspect.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 3269, "outputTokens": 4234, "usd": 0.09776 },
+      "ms": 41348
+    },
+    "F1-12.jpg": {
+      "sha256": "d3a2bca4dff4e239e16fbdbcda697ee52847d7fce80899b3bfc3503c60c3979a",
+      "checkId": "F1",
+      "homeType": "flat",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "F1.alarm_visible": true, "F1.mounted": false },
+      "evidence": {
+        "F1.alarm_visible": "A white smoke detector head is shown close up and recognisably on a wooden table. It is not a studio shot and not in a box.",
+        "F1.mounted": "The detector lies loose on a wooden tabletop, detached from any base, and is not fixed to a ceiling or wall."
+      },
+      "reproduction": false,
+      "rationale": "The smoke alarm is clearly visible but lies loose on a table instead of being fixed to the ceiling, so it needs reinstalling.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 3453, "outputTokens": 2253, "usd": 0.05887 },
+      "ms": 20998
+    },
+    "F1-14.jpg": {
+      "sha256": "71342e221666c0c2843b085697a982e0dd0f96d11054bc874c606978571fdff0",
+      "checkId": "F1",
+      "homeType": "flat",
+      "verdict": "verified",
+      "modelOutcome": "verified",
+      "criteria": { "F1.alarm_visible": true, "F1.mounted": true },
+      "evidence": {
+        "F1.alarm_visible": "Round white ceiling detector with vent slots and a central sensor, centred in frame; small but clear and recognisable.",
+        "F1.mounted": "Fixed flush against the ceiling; no bag, tape, cap or loose or hanging parts."
+      },
+      "reproduction": false,
+      "rationale": "A smoke detector is clearly visible fixed flush to the ceiling with no cover, cap or loose parts, so the check is verified.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 3453, "outputTokens": 2993, "usd": 0.07367 },
+      "ms": 31224
+    },
+    "F1-06.jpg": {
+      "sha256": "7c462a5e536fc5cfeb0bac527c40061f33f0d596dffc731f92879664bf7073db",
+      "checkId": "F1",
+      "homeType": "flat",
+      "verdict": "retake",
+      "modelOutcome": "retake",
+      "criteria": { "F1.alarm_visible": false, "F1.mounted": null },
+      "evidence": {
+        "F1.alarm_visible": "Wide view of an ornate coffered ceiling; only a tiny round white disc sits at a beam junction, too small to confirm as a smoke alarm or inspect.",
+        "F1.mounted": "Visibility is not yes. The small disc appears to sit on the ceiling, but it is too small to check for a cap, tape or other cover."
+      },
+      "reproduction": false,
+      "rationale": "The photo shows a decorative ceiling. A small round detector-like disc is present but too small to recognise or inspect, so a closer photo of the alarm is needed.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 3453, "outputTokens": 9080, "usd": 0.19541 },
+      "ms": 90526
+    },
+    "L5-22.jpg": {
+      "sha256": "6829fb6762ecb5a8101b90302bda2363545e16277a0b24cdbca82aabdd87a8be",
+      "checkId": "L5",
+      "homeType": "flat",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "L5.drain_visible": true, "L5.clear": false },
+      "evidence": {
+        "L5.drain_visible": "Sharp close-up of a slotted stainless-steel floor drain grate held by a screw, set against a white surface.",
+        "L5.clear": "The space under the grate slots is packed with dark stones and brownish fragments. No standing water is visible."
+      },
+      "reproduction": false,
+      "rationale": "The floor drain grate is clearly shown, but stones and debris appear to fill the drain beneath the slots, indicating a blockage.",
+      "confidence": "low",
+      "usage": { "inputTokens": 3769, "outputTokens": 22079, "usd": 0.45666 },
+      "ms": 228087
+    },
+    "F1-27.jpg": {
+      "sha256": "2011cdf3ed56514f0d03ae74253e32254c4618d3684d2e199d70c12388feb788",
+      "checkId": "F1",
+      "homeType": "flat",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "F1.alarm_visible": true, "F1.mounted": false },
+      "evidence": {
+        "F1.alarm_visible": "Close-up of a smoke alarm's interior: ionisation chamber with radioactive warning label, 9V battery, buzzer and circuit board clearly recognisable.",
+        "F1.mounted": "Cover is removed and the alarm is opened, exposing the circuit board, chamber and battery."
+      },
+      "reproduction": false,
+      "rationale": "The smoke alarm is clearly visible, but it has been opened with its cover removed, exposing the internals, so it is not in place as required.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 3453, "outputTokens": 3240, "usd": 0.07861 },
+      "ms": 30774
+    },
+    "F1-28.jpg": {
+      "sha256": "508e911114d08259d4d68b22f5db72e397573e8acf3b0902caa5599f41f17b42",
+      "checkId": "F1",
+      "homeType": "flat",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "F1.alarm_visible": true, "F1.mounted": false },
+      "evidence": {
+        "F1.alarm_visible": "Cream smoke alarm with test button and moulded text, shown close up and filling the frame on a carpet, not a plain studio background.",
+        "F1.mounted": "The alarm lies loose on a carpeted floor surface and is not fixed to a ceiling or wall."
+      },
+      "reproduction": false,
+      "rationale": "The smoke alarm is clearly visible but lies loose on a carpet rather than being fixed to a ceiling or wall, so it is not mounted.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 3959, "outputTokens": 2520, "usd": 0.06624 },
+      "ms": 23884
+    },
+    "F1-16.jpg": {
+      "sha256": "4458d7c86ec4537be0c4cf441b98b56f6bb70c37db0c8ca6eb0c3f532f641789",
+      "checkId": "F1",
+      "homeType": "flat",
+      "verdict": "retake",
+      "modelOutcome": "retake",
+      "criteria": { "F1.alarm_visible": false, "F1.mounted": null },
+      "evidence": {
+        "F1.alarm_visible": "Round ceiling device at a grid junction has a dark maroon lens-like face with no vents or test button; it looks like a beacon or dome, not a smoke alarm.",
+        "F1.mounted": "No smoke alarm was identified, so its mounting cannot be judged; the device shown is fixed to the ceiling."
+      },
+      "reproduction": false,
+      "rationale": "The round ceiling fitting has a dark red lens-like face without smoke-alarm features, so no smoke alarm is recognisable; a retake showing the actual alarm is needed.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 3959, "outputTokens": 10440, "usd": 0.22464 },
+      "ms": 107342
+    },
+    "F1-26.jpg": {
+      "sha256": "abac2308bf8facbf60395113e6977c538f06e61f2c4b481304b1774d5fa25509",
+      "checkId": "F1",
+      "homeType": "flat",
+      "verdict": "verified",
+      "modelOutcome": "verified",
+      "criteria": { "F1.alarm_visible": true, "F1.mounted": true },
+      "evidence": {
+        "F1.alarm_visible": "Round white detector with a concentric-ring face and ribbed vented sides, wired and fixed on the wall pillar beside the window. It is shown clearly, though at an angle.",
+        "F1.mounted": "Fixed flat to the wall pillar, with its cable run along the wall. No bag, tape or cap covers it."
+      },
+      "reproduction": false,
+      "rationale": "A round smoke detector is clearly fixed to a wall pillar and uncovered, so both criteria pass. Identifying it took some judgement because it could resemble a sounder.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 4633, "outputTokens": 13282, "usd": 0.28417 },
+      "ms": 138272
+    },
+    "F2-18.jpg": {
+      "sha256": "7b350ad196c5e7a19ca1a1bd8c640ba05f51506d2a5b0e3135b117d7721508d8",
+      "checkId": "F2",
+      "homeType": "flat",
+      "verdict": "retake",
+      "modelOutcome": "retake",
+      "criteria": { "F2.board_visible": false, "F2.no_damage": null, "F2.clear_front": null },
+      "evidence": {
+        "F2.board_visible": "Industrial steel control panel with terminal rows, relays, 3-phase breakers and a taped schematic, in a plant room with a painted floor; not a home's board",
+        "F2.no_damage": "Not assessed because this is not a home board; heavy soot blackening covers the cabinet interior and door",
+        "F2.clear_front": "Not assessed because this is not a home board; nothing appears stored in front"
+      },
+      "reproduction": false,
+      "rationale": "The photo shows a fire-blackened industrial control panel in a plant room, not a flat's fuse box, so the board criterion fails and a retake is needed.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 3699, "outputTokens": 11366, "usd": 0.24212 },
+      "ms": 115132
+    },
+    "F2-15.jpg": {
+      "sha256": "60552d61dafefb86d5aa4786d86eebde9d3d95cc35145f7cdcd0b0579244d6ef",
+      "checkId": "F2",
+      "homeType": "flat",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "F2.board_visible": true, "F2.no_damage": true, "F2.clear_front": false },
+      "evidence": {
+        "F2.board_visible": "Old home fuse panel with two pull-out blocks and four screw-in fuses, door open, close frontal view; left block partly covered by a hand.",
+        "F2.no_damage": "Cover and screws in place, blocks and fuses intact; no scorch marks, exposed busbars or loose wires visible, only scuffs and a small rust spot.",
+        "F2.clear_front": "A cardboard product box is resting on top of the enclosure at the upper right."
+      },
+      "reproduction": false,
+      "rationale": "Fuse board clearly visible with cover intact and no visible damage, but a cardboard box rests on top of the enclosure, so it is not kept clear.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 4849, "outputTokens": 17563, "usd": 0.37066 },
+      "ms": 177839
+    },
+    "F1-31.jpg": {
+      "sha256": "804a2bc7f6bab54a26b9ec90bf11b3454ef64daaa6bffc0eb232fdcc0bbc366d",
+      "checkId": "F1",
+      "homeType": "flat",
+      "verdict": "retake",
+      "modelOutcome": "retake",
+      "criteria": { "F1.alarm_visible": false, "F1.mounted": null },
+      "evidence": {
+        "F1.alarm_visible": "A red detector on a tiled commercial-style ceiling. It looks like a heat detector or sounder rather than a domestic smoke alarm.",
+        "F1.mounted": "The device is fixed to the ceiling, but it is not confirmed to be a smoke alarm."
+      },
+      "reproduction": false,
+      "rationale": "The red ceiling device looks like a commercial heat detector or sounder rather than a smoke alarm, so the alarm is not confirmed and a retake is needed.",
+      "confidence": "low",
+      "usage": { "inputTokens": 3959, "outputTokens": 20386, "usd": 0.42356 },
+      "ms": 214973
+    },
+    "F1-30.jpg": {
+      "sha256": "5d3f6b6f586187c940f808cd1d21f652836c9cda3f4b9060e50b945a3c2aaa61",
+      "checkId": "F1",
+      "homeType": "flat",
+      "verdict": "verified",
+      "modelOutcome": "verified",
+      "criteria": { "F1.alarm_visible": true, "F1.mounted": true },
+      "evidence": {
+        "F1.alarm_visible": "Small vented round detector with a perforated sensing disc, shown close up and clearly; the unusual exposed design could also be a heat detector.",
+        "F1.mounted": "Fixed in a screwed plate on the ceiling, uncovered and not hanging loose."
+      },
+      "reproduction": false,
+      "rationale": "A ceiling detector is clearly shown fixed in a screwed plate and uncovered, though its unusual design leaves doubt whether it is a smoke or heat detector.",
+      "confidence": "low",
+      "usage": { "inputTokens": 3959, "outputTokens": 25353, "usd": 0.5229 },
+      "ms": 263000
+    },
+    "F2-30.jpg": {
+      "sha256": "cfbf48bcd964e64b69ac603432a008c28b7fd0316c226964f52c9a0dedb03ba4",
+      "checkId": "F2",
+      "homeType": "flat",
+      "verdict": "retake",
+      "modelOutcome": "retake",
+      "criteria": { "F2.board_visible": false, "F2.no_damage": null, "F2.clear_front": null },
+      "evidence": {
+        "F2.board_visible": "Large commercial building switchboard ('CENTRAL J1 A2') with about 76 numbered fuse holders, main switch, meter and air-con relays for rooms 1425/1427; not a home's fuse box.",
+        "F2.no_damage": "Not assessed because the board shown is not a home's fuse box.",
+        "F2.clear_front": "Not assessed because the board shown is not a home's fuse box; a long white strip leans against the lower right panels."
+      },
+      "reproduction": false,
+      "rationale": "The photo shows a large commercial building switchboard with dozens of fuse groups and room labels, not a flat's fuse box, so a retake is needed.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 4895, "outputTokens": 5067, "usd": 0.12092 },
+      "ms": 48610
+    },
+    "F2-25.jpg": {
+      "sha256": "0d560c05ca5d8e2300160af7d2fa81d15b6edbd22cdcd975cffe9c300dec5436",
+      "checkId": "F2",
+      "homeType": "flat",
+      "verdict": "retake",
+      "modelOutcome": "retake",
+      "criteria": { "F2.board_visible": false, "F2.no_damage": null, "F2.clear_front": null },
+      "evidence": {
+        "F2.board_visible": "Closed, scorched metal stairwell cabinet with doors shut; no breakers, fuses or DIN-rail devices visible, only glimpses of wiring through small windows.",
+        "F2.no_damage": "Board not visible. Cabinet doors and wall are heavily scorched, but the inner board's condition cannot be inspected.",
+        "F2.clear_front": "Board not visible; nothing appears stored in front of the closed cabinet."
+      },
+      "reproduction": false,
+      "rationale": "Cabinet doors are closed, so no breakers or fuses are visible; despite heavy scorching on the doors, the board cannot be inspected and a retake is needed.",
+      "confidence": "low",
+      "usage": { "inputTokens": 2503, "outputTokens": 14954, "usd": 0.30909 },
+      "ms": 143434
+    },
+    "F3-06.jpg": {
+      "sha256": "e32f760abc0a0eb9ff2f5d29c3401fb803c7986ba37a2bedbe97f6cb8e2e38c3",
+      "checkId": "F3",
+      "homeType": "flat",
+      "verdict": "verified",
+      "modelOutcome": "verified",
+      "criteria": { "F3.back_visible": true, "F3.no_dust": true, "F3.cords_ok": true },
+      "evidence": {
+        "F3.back_visible": "Close, clear view of an installed Embraco compressor with copper lines, wiring and drip tray in a household fridge's rear machine compartment.",
+        "F3.no_dust": "Compressor shell is shiny with only light dust specks and small lint bits; no thick felt-like grey layer.",
+        "F3.cords_ok": "Visible wiring insulation is intact with no fraying, cuts, crushing or burns; only a bundling tape wrap and a cable tie; no plug in view."
+      },
+      "reproduction": false,
+      "rationale": "The compressor compartment is clearly shown, the compressor has only light dust, and the visible wiring is intact apart from bundling tape and a cable tie.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 3704, "outputTokens": 6682, "usd": 0.14846 },
+      "ms": 66571
+    },
+    "F4-04.jpg": {
+      "sha256": "aac14135588e6f870ef7c08660a5c69bb890d711f3fb7721bfc9ea99f8e06116",
+      "checkId": "F4",
+      "homeType": "flat",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "F4.stove_visible": true, "F4.nothing_stored": false },
+      "evidence": {
+        "F4.stove_visible": "Glossy black glass cooktop with stainless back trim, visible around the dish",
+        "F4.nothing_stored": "Foil-lined glass baking dish with water and white objects resting on the cooktop"
+      },
+      "reproduction": false,
+      "rationale": "The glass cooktop is recognisable, but a foil-lined baking dish rests directly on its cooking surface, so the stove top is not clear.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 3457, "outputTokens": 1879, "usd": 0.05141 },
+      "ms": 19894
+    },
+    "F3-11.jpg": {
+      "sha256": "71029e7461b475cb1105750b8daa7e4c972e366ceac3057ab63eb24ba62c2057",
+      "checkId": "F3",
+      "homeType": "flat",
+      "verdict": "retake",
+      "modelOutcome": "retake",
+      "criteria": { "F3.back_visible": false, "F3.no_dust": null, "F3.cords_ok": null },
+      "evidence": {
+        "F3.back_visible": "The back of a discarded fridge is seen standing outdoors on a street pavement beside rubbish bags. It is not an installed fridge in a flat.",
+        "F3.no_dust": "Not judged because visibility is not met. No coil or compressor is clearly in view.",
+        "F3.cords_ok": "Not judged because visibility is not met. A loose cord hangs at the back."
+      },
+      "reproduction": false,
+      "rationale": "The photo shows a discarded fridge standing on a street pavement, not an installed fridge in the flat, so the check needs a retake.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 3658, "outputTokens": 4158, "usd": 0.09779 },
+      "ms": 39726
+    },
+    "F2-32.jpg": {
+      "sha256": "27aeabb3fcb82d1578b54bee39fd1bff70816adddfbba4a1e759fa617c811eea",
+      "checkId": "F2",
+      "homeType": "flat",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "F2.board_visible": true, "F2.no_damage": false, "F2.clear_front": true },
+      "evidence": {
+        "F2.board_visible": "Residential distribution board with CHINT breakers, Schneider main switch and RCD, labelled for flats 133–138, shown clearly from the front.",
+        "F2.no_damage": "A middle section of the metal front plate is open, exposing bundled internal cabling; no scorch marks or broken devices seen.",
+        "F2.clear_front": "Nothing is stored in front of or against the board; only its own installed wiring is visible."
+      },
+      "reproduction": false,
+      "rationale": "The board is clearly visible and unobstructed, but an open section in the front plate exposes internal wiring, which counts as a missing cover.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 3285, "outputTokens": 12267, "usd": 0.25848 },
+      "ms": 125115
+    },
+    "F4-07.jpg": {
+      "sha256": "ac8fedec2cd79e5947ca48fb462214df90397ce9d00a14d666b24233db223c5b",
+      "checkId": "F4",
+      "homeType": "flat",
+      "verdict": "verified",
+      "modelOutcome": "verified",
+      "criteria": { "F4.stove_visible": true, "F4.nothing_stored": true },
+      "evidence": {
+        "F4.stove_visible": "Five-burner stainless gas cooktop installed in a counter, with the whole cooking surface clearly shown at close range; it appears to be a showroom display.",
+        "F4.nothing_stored": "Only grates, burners and control knobs are on the surface. The black hoses and faucet display sit beside the hob, not on it."
+      },
+      "reproduction": false,
+      "rationale": "Installed gas hob (showroom display) is fully visible with only grates, burners and knobs on its surface; nearby hoses lie beside it, so verified.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 3457, "outputTokens": 8181, "usd": 0.17745 },
+      "ms": 82091
+    },
+    "F4-23.jpg": {
+      "sha256": "e12c39f27a4c9ab4292a4d35015dfeba0b22048098ad09e7fc8a60f75f8d6bd8",
+      "checkId": "F4",
+      "homeType": "flat",
+      "verdict": "retake",
+      "modelOutcome": "retake",
+      "criteria": { "F4.stove_visible": false, "F4.nothing_stored": null },
+      "evidence": {
+        "F4.stove_visible": "Two-burner glass-top gas stove sits loose on a marble floor with its gas inlet bare. It is an uninstalled appliance, not a kitchen hob as usually used.",
+        "F4.nothing_stored": "Only burners and pan supports are on the surface, but the stove is not installed, so condition is not judged."
+      },
+      "reproduction": false,
+      "rationale": "The stove sits loose on the floor with its gas inlet unconnected, so it does not show an installed stove top as usually used; a retake is needed.",
+      "confidence": "low",
+      "usage": { "inputTokens": 3457, "outputTokens": 6713, "usd": 0.14809 },
+      "ms": 66502
+    },
+    "F2-28.jpg": {
+      "sha256": "7dee972224201c64632970d764db15efbfd06d60e635643c090c8df692d6b441",
+      "checkId": "F2",
+      "homeType": "flat",
+      "verdict": "verified",
+      "modelOutcome": "verified",
+      "criteria": { "F2.board_visible": true, "F2.no_damage": true, "F2.clear_front": true },
+      "evidence": {
+        "F2.board_visible": "Open cabinet clearly shows three porcelain screw-in fuse holders above an old kWh meter.",
+        "F2.no_damage": "Very dusty, with dark dirt specks, but no scorch marks, broken parts, missing covers or exposed wiring are visible.",
+        "F2.clear_front": "Nothing sits in front of the board; a few loose spare fuses lie on the cabinet floor below it."
+      },
+      "reproduction": false,
+      "rationale": "Fuse holders and meter are clearly visible, with no named damage or exposed parts. Nothing blocks the front, though dust is heavy and loose fuses lie below.",
+      "confidence": "low",
+      "usage": { "inputTokens": 5861, "outputTokens": 27976, "usd": 0.58296 },
+      "ms": 282696
+    },
+    "F4-16.jpg": {
+      "sha256": "b6d1ab73daafe47ca33f657b99040e299e9287bca5beafa1ddb94e297ace63af",
+      "checkId": "F4",
+      "homeType": "flat",
+      "verdict": "retake",
+      "modelOutcome": "retake",
+      "criteria": { "F4.stove_visible": true, "F4.nothing_stored": null },
+      "evidence": {
+        "F4.stove_visible": "Black glass-ceramic electric stove top with white frame, shown close up from above.",
+        "F4.nothing_stored": "No pans, paper or boxes are visible, but a cat standing on the hob hides the rear-left and rear-centre surface. The towel hangs on the oven door, not on the hob."
+      },
+      "reproduction": false,
+      "rationale": "The stove top is clearly shown with no stored items visible, but a cat standing on it hides the rear-left surface, so it cannot be confirmed clear.",
+      "confidence": "low",
+      "usage": { "inputTokens": 3457, "outputTokens": 16215, "usd": 0.33813 },
+      "ms": 160065
+    },
+    "F5-03.jpg": {
+      "sha256": "400f7529b9358d6273d332e4b189466bac18826c59674af9fc00cbf18104cf50",
+      "checkId": "F5",
+      "homeType": "flat",
+      "verdict": "verified",
+      "modelOutcome": "verified",
+      "criteria": { "F5.spot_visible": true, "F5.safe_surface": true },
+      "evidence": {
+        "F5.spot_visible": "Close, clear view of a lit inova USB charger plugged into a wall socket with two charging cables attached.",
+        "F5.safe_surface": "Charger is in a wall socket on a bare painted wall with no textile touching or near it; the connected devices are out of frame."
+      },
+      "reproduction": false,
+      "rationale": "The charger is clearly shown plugged into a bare wall socket, with no bed, sofa, curtain or other textile touching or near it.",
+      "confidence": "medium",
+      "usage": { "inputTokens": 4729, "outputTokens": 9132, "usd": 0.20156 },
+      "ms": 88965
+    },
+    "F5-02.jpg": {
+      "sha256": "a85eab50768d980f9fd8a58bfbb83980f73e2a8441b56b2b87e01c5b156ca1d7",
+      "checkId": "F5",
+      "homeType": "flat",
+      "verdict": "fix_first",
+      "modelOutcome": "fix_first",
+      "criteria": { "F5.spot_visible": true, "F5.safe_surface": false },
+      "evidence": {
+        "F5.spot_visible": "Several phones and power banks are plugged via cables into chargers on a power strip and cable reel, clearly shown outdoors on the ground.",
+        "F5.safe_surface": "Phones, chargers and the power strip lie directly on a black woven tarp or fabric ground sheet over soil, not on a hard surface."
+      },
+      "reproduction": false,
+      "rationale": "Devices are clearly charging, but they lie directly on a woven fabric ground sheet outdoors rather than a hard surface, so the surface needs fixing.",
+      "confidence": "low",
+      "usage": { "inputTokens": 4729, "outputTokens": 11787, "usd": 0.25466 },
+      "ms": 112770
+    }
+  },
+  "failures": {}
+}
