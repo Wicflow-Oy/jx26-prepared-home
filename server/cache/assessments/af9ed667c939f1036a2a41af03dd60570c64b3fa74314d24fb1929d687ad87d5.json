@@ -3,23 +3,18 @@
   "sha256": "af9ed667c939f1036a2a41af03dd60570c64b3fa74314d24fb1929d687ad87d5",
   "checkId": "F2",
   "model": "claude-sonnet-5-5",
-  "recordedAt": "2026-10-17T17:35:20.723Z",
+  "recordedAt": "2026-10-18T01:39:42.738Z",
   "assessment": {
     "criteria": [
       {
         "id": "F2.board_visible",
         "met": true,
-        "note": "A distribution board with circuit breakers and wiring fills the frame."
+        "note": "A distribution board with RCBOs and breakers is fully in frame, mounted on a wall."
       },
       {
         "id": "F2.no_damage",
         "met": false,
-        "note": "The front cover is off, so terminals, screws and wiring are exposed; no scorch marks seen."
-      },
-      {
-        "id": "F2.rcd_visible",
-        "met": true,
-        "note": "Devices labelled RCBO1 and RCBO2 are visible, with round test button markings."
+        "note": "The cover is missing, so wiring, terminals and busbar are openly exposed."
       },
       {
         "id": "F2.clear_front",
@@ -29,44 +24,17 @@
     ],
     "boxes": [
       {
-        "label": "distribution board",
+        "label": "fuse box",
         "bbox_px": [
           245,
           50,
           950,
           668
         ]
-      },
-      {
-        "label": "RCBO devices",
-        "bbox_px": [
-          355,
-          365,
-          660,
-          445
-        ]
-      },
-      {
-        "label": "exposed terminals and wiring",
-        "bbox_px": [
-          285,
-          270,
-          800,
-          300
-        ]
-      },
-      {
-        "label": "breakers QF1-QF3",
-        "bbox_px": [
-          650,
-          320,
-          800,
-          440
-        ]
       }
     ],
     "retakeHint": null,
-    "fixSuggestion": "The board cover appears to be missing with live parts exposed; do not touch it and call a qualified electrician to refit the cover.",
+    "fixSuggestion": "The cover is missing and live parts are exposed; don't touch it and call a qualified electrician to fit a cover.",
     "urgent": true,
     "model": "claude-sonnet-5-5"
   }

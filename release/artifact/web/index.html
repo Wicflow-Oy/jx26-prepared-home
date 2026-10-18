@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Prepared Home: prototype</title>
+    <title>Prepared Home: concept for If</title>
     <meta
       name="description"
-      content="Prepared Home (Valmis koti): a voluntary moving-day check-up for your home, inside a home insurance app. A JunctionX Turku 2026 prototype."
+      content="Prepared Home: check your new home's water and fire risks with your phone. A concept for If, built at JunctionX Turku 2026."
     />
     <meta name="robots" content="noindex, nofollow" />
     <meta name="theme-color" content="#FAF9F7" />
@@ -19,69 +19,32 @@
   <body>
     <div class="page">
       <main class="intro">
-        <p class="tag">Prototype for JunctionX Turku 2026, not an If service</p>
-        <h1>Prepared Home</h1>
+        <p class="tag">Concept prototype for If · JunctionX Turku 2026</p>
+        <h1 class="brand">
+          <img class="brand-logo" src="/if-logo.svg" alt="If" width="44" height="44" />
+          <span>Prepared Home</span>
+        </h1>
         <p class="subtitle" lang="fi">Valmis koti</p>
-        <p class="lede">
-          A voluntary moving-day check-up for your home, inside your home insurance app. Photograph
-          about a dozen everyday risk points, and while the checks are current, your deductible for
-          that risk could be lower.
-        </p>
-        <ul class="points">
-          <li>
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="12" cy="12" r="9" />
-              <path d="M12 7v5l3 2" />
-            </svg>
-            Check about a dozen spots in 15 minutes
-          </li>
-          <li>
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 3 5 6v5c0 4.4 3 8.3 7 10 4-1.7 7-5.6 7-10V6z" />
-              <path d="m9 12 2 2 4-4" />
-            </svg>
-            Verified checks could lower your deductible (concept)
-          </li>
-          <li>
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 8h3l2-3h6l2 3h3v11H4z" />
-              <circle cx="12" cy="13" r="3.5" />
-            </svg>
-            Photos are checked and discarded
-          </li>
-        </ul>
+        <p class="lede">Check your new home's water and fire risks with your phone.</p>
 
         <a class="button open-app" href="/app/">Open the app</a>
 
         <div class="next">
           <div class="next-grid">
             <section class="qr-card" aria-labelledby="qr-title">
-              <div id="qr" class="qr">
-                <noscript>Turn on JavaScript to show the QR code, or use the link.</noscript>
-              </div>
+              <img
+                id="qr"
+                class="qr"
+                src="/qr.svg"
+                alt="QR code that opens the app"
+                width="132"
+                height="132"
+              />
               <div>
                 <h2 id="qr-title">Open on your phone</h2>
                 <p>Scan with your phone's camera to try it full screen. No install needed.</p>
                 <a id="app-url" class="url" href="/app/">/app/</a>
               </div>
-            </section>
-
-            <section class="steps" aria-labelledby="steps-title">
-              <h2 id="steps-title">How it works</h2>
-              <ol>
-                <li>
-                  <h3>Photograph</h3>
-                  <p>About a dozen spots, with a coach line for each.</p>
-                </li>
-                <li>
-                  <h3>Get it checked</h3>
-                  <p>Each photo is checked: verified, retake or fix first.</p>
-                </li>
-                <li>
-                  <h3>Stay prepared</h3>
-                  <p>While checks are current, your deductible could be lower.</p>
-                </li>
-              </ol>
             </section>
           </div>
         </div>
@@ -107,7 +70,7 @@
             </div>
             <div class="app-area">
               <p class="app-loading" aria-hidden="true">Loading the app…</p>
-              <iframe src="/app/" title="Prepared Home app"></iframe>
+              <iframe src="/app/?example=flat" title="Prepared Home app"></iframe>
             </div>
           </div>
         </div>
@@ -115,9 +78,9 @@
 
       <footer class="footnote">
         <p>
-          Prototype for JunctionX Turku 2026, If track. Not an If service. No If logo or
-          endorsement. Photos are checked in memory and discarded; nothing is stored on our server.
-          Hosted in Helsinki.
+          Concept for If, built at JunctionX Turku 2026. Not a live If service: nothing here changes
+          any insurance. Each photo is checked by Anthropic's Claude AI; our server doesn't keep
+          photos, and copies stay only in your browser.
         </p>
       </footer>
     </div>

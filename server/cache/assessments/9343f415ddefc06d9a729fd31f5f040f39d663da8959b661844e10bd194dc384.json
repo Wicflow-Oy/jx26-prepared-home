@@ -3,74 +3,60 @@
   "sha256": "9343f415ddefc06d9a729fd31f5f040f39d663da8959b661844e10bd194dc384",
   "checkId": "F2",
   "model": "claude-sonnet-5-5",
-  "recordedAt": "2026-10-17T17:35:09.972Z",
+  "recordedAt": "2026-10-18T01:39:36.888Z",
   "assessment": {
     "criteria": [
       {
         "id": "F2.board_visible",
         "met": true,
-        "note": "A distribution board with rows of circuit breakers and blank cover plates is visible."
+        "note": "Distribution board with ABB breakers and RCDs fills the frame."
       },
       {
         "id": "F2.no_damage",
         "met": true,
-        "note": "Covers and blanking plates are in place; no scorching, damage or exposed parts seen."
-      },
-      {
-        "id": "F2.rcd_visible",
-        "met": true,
-        "note": "RCDs with TEST buttons are visible at the left of the top and bottom rows and at lower centre-right."
+        "note": "Covers and blanking plates are in place; no scorch marks or exposed parts visible."
       },
       {
         "id": "F2.clear_front",
         "met": true,
-        "note": "Nothing is stored in front of or against the board in this close view."
+        "note": "Nothing is stored in front of or against the board."
       }
     ],
     "boxes": [
       {
-        "label": "RCD top left",
+        "label": "left breaker row top",
         "bbox_px": [
           0,
-          97,
-          117,
-          245
+          96,
+          472,
+          247
         ]
       },
       {
-        "label": "RCD bottom left",
+        "label": "left breaker row bottom",
         "bbox_px": [
           0,
-          504,
-          112,
-          657
+          502,
+          466,
+          658
         ]
       },
       {
-        "label": "RCD bottom right",
+        "label": "right breaker row",
         "bbox_px": [
-          692,
-          501,
-          923,
-          655
-        ]
-      },
-      {
-        "label": "Top breaker row",
-        "bbox_px": [
-          117,
-          97,
-          471,
-          246
-        ]
-      },
-      {
-        "label": "Bottom right breakers",
-        "bbox_px": [
-          922,
-          503,
+          690,
+          500,
           1280,
-          657
+          658
+        ]
+      },
+      {
+        "label": "blanking cover",
+        "bbox_px": [
+          688,
+          86,
+          1280,
+          262
         ]
       }
     ],

@@ -3,23 +3,23 @@
   "sha256": "58f1ae16fff9cc8bfeb259d58b4e775def51664e25a06a14ccdacee9a5869e1d",
   "checkId": "L1",
   "model": "claude-sonnet-5-5",
-  "recordedAt": "2026-10-17T17:35:00.979Z",
+  "recordedAt": "2026-10-18T01:39:33.431Z",
   "assessment": {
     "criteria": [
       {
         "id": "L1.valve_visible",
         "met": true,
-        "note": "A brass shut-off valve on a copper pipe is clearly visible."
+        "note": "A brass ball valve is installed on a copper pipe against a wall."
       },
       {
         "id": "L1.handle_visible",
         "met": true,
-        "note": "The lever handle with a green grip is fully in frame."
+        "note": "A metal lever with a green grip is clearly visible beside the valve."
       },
       {
         "id": "L1.no_leak",
         "met": true,
-        "note": "No drips, water stains or heavy corrosion seen; only normal tarnish and solder marks."
+        "note": "No drips, water stains or corrosion visible; only ordinary patina and old solder on the pipe."
       }
     ],
     "boxes": [
@@ -35,10 +35,10 @@
       {
         "label": "handle",
         "bbox_px": [
-          745,
+          740,
           200,
           1010,
-          1160
+          1170
         ]
       },
       {

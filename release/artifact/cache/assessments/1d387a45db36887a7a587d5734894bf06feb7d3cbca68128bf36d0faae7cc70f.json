@@ -3,41 +3,41 @@
   "sha256": "1d387a45db36887a7a587d5734894bf06feb7d3cbca68128bf36d0faae7cc70f",
   "checkId": "L5",
   "model": "claude-sonnet-5-5",
-  "recordedAt": "2026-10-17T17:35:26.771Z",
+  "recordedAt": "2026-10-18T01:39:47.948Z",
   "assessment": {
     "criteria": [
       {
         "id": "L5.drain_visible",
         "met": false,
-        "note": "Only the sink basin strainers are visible; the trap is hidden behind closed cabinet doors and no floor drain is shown."
+        "note": "Only the sink strainers are visible; the trap is hidden behind closed cabinet doors and no floor drain is in frame."
       },
       {
         "id": "L5.clear",
         "met": null,
-        "note": "The basins show no standing water, but the trap and pipes can't be seen to check for leaks."
+        "note": "Trap is not visible, so leaks or blockage there cannot be judged; the sink basin shows no standing water."
       }
     ],
     "boxes": [
       {
-        "label": "sink strainers",
+        "label": "sink drain",
         "bbox_px": [
-          815,
-          205,
-          1228,
-          372
+          920,
+          335,
+          990,
+          365
         ]
       },
       {
-        "label": "closed cabinet under sink area",
+        "label": "sink drain 2",
         "bbox_px": [
-          798,
-          410,
-          1230,
-          695
+          1075,
+          305,
+          1130,
+          335
         ]
       }
     ],
-    "retakeHint": "Open the cupboard under the sink and photograph the trap and pipes from the front, with good light.",
+    "retakeHint": "Open the sink cabinet and photograph the pipe trap under the sink, with the whole trap and its joints in frame.",
     "fixSuggestion": null,
     "urgent": false,
     "model": "claude-sonnet-5-5"

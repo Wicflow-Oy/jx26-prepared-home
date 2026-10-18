@@ -15245,11 +15245,11 @@ var require_mime_types = __commonJS({
       }
       return exts[0];
     }
-    function lookup(path9) {
-      if (!path9 || typeof path9 !== "string") {
+    function lookup(path8) {
+      if (!path8 || typeof path8 !== "string") {
         return false;
       }
-      var extension2 = extname("x." + path9).toLowerCase().slice(1);
+      var extension2 = extname("x." + path8).toLowerCase().slice(1);
       if (!extension2) {
         return false;
       }
@@ -16046,10 +16046,10 @@ var require_object_inspect = __commonJS({
       }
       if (!isDate(obj) && !isRegExp(obj)) {
         var ys = arrObjKeys(obj, inspect);
-        var isPlainObject = gPO ? gPO(obj) === Object.prototype : obj instanceof Object || obj.constructor === Object;
+        var isPlainObject2 = gPO ? gPO(obj) === Object.prototype : obj instanceof Object || obj.constructor === Object;
         var protoTag = obj instanceof Object ? "" : "null prototype";
-        var stringTag = !isPlainObject && toStringTag && Object(obj) === obj && toStringTag in obj ? $slice.call(toStr(obj), 8, -1) : protoTag ? "Object" : "";
-        var constructorTag = isPlainObject || typeof obj.constructor !== "function" ? "" : obj.constructor.name ? obj.constructor.name + " " : "";
+        var stringTag = !isPlainObject2 && toStringTag && Object(obj) === obj && toStringTag in obj ? $slice.call(toStr(obj), 8, -1) : protoTag ? "Object" : "";
+        var constructorTag = isPlainObject2 || typeof obj.constructor !== "function" ? "" : obj.constructor.name ? obj.constructor.name + " " : "";
         var tag = constructorTag + (stringTag || protoTag ? "[" + $join.call($concat.call([], stringTag || [], protoTag || []), ": ") + "] " : "");
         if (ys.length === 0) {
           return tag + "{}";
@@ -18968,13 +18968,13 @@ var require_view = __commonJS({
   "node_modules/express/lib/view.js"(exports, module) {
     "use strict";
     var debug = require_src()("express:view");
-    var path9 = __require("node:path");
-    var fs8 = __require("node:fs");
-    var dirname2 = path9.dirname;
-    var basename = path9.basename;
-    var extname = path9.extname;
-    var join2 = path9.join;
-    var resolve2 = path9.resolve;
+    var path8 = __require("node:path");
+    var fs7 = __require("node:fs");
+    var dirname2 = path8.dirname;
+    var basename = path8.basename;
+    var extname = path8.extname;
+    var join2 = path8.join;
+    var resolve2 = path8.resolve;
     module.exports = View;
     function View(name, options) {
       var opts = options || {};
@@ -19003,17 +19003,17 @@ var require_view = __commonJS({
       this.path = this.lookup(fileName);
     }
     View.prototype.lookup = function lookup(name) {
-      var path10;
+      var path9;
       var roots = [].concat(this.root);
       debug('lookup "%s"', name);
-      for (var i = 0; i < roots.length && !path10; i++) {
+      for (var i = 0; i < roots.length && !path9; i++) {
         var root = roots[i];
         var loc = resolve2(root, name);
         var dir = dirname2(loc);
         var file = basename(loc);
-        path10 = this.resolve(dir, file);
+        path9 = this.resolve(dir, file);
       }
-      return path10;
+      return path9;
     };
     View.prototype.render = function render(options, callback) {
       var sync = true;
@@ -19035,21 +19035,21 @@ var require_view = __commonJS({
     };
     View.prototype.resolve = function resolve3(dir, file) {
       var ext = this.ext;
-      var path10 = join2(dir, file);
-      var stat2 = tryStat(path10);
+      var path9 = join2(dir, file);
+      var stat2 = tryStat(path9);
       if (stat2 && stat2.isFile()) {
-        return path10;
+        return path9;
       }
-      path10 = join2(dir, basename(file, ext), "index" + ext);
-      stat2 = tryStat(path10);
+      path9 = join2(dir, basename(file, ext), "index" + ext);
+      stat2 = tryStat(path9);
       if (stat2 && stat2.isFile()) {
-        return path10;
+        return path9;
       }
     };
-    function tryStat(path10) {
-      debug('stat "%s"', path10);
+    function tryStat(path9) {
+      debug('stat "%s"', path9);
       try {
-        return fs8.statSync(path10);
+        return fs7.statSync(path9);
       } catch (e) {
         return void 0;
       }
@@ -20201,15 +20201,15 @@ var require_dist2 = __commonJS({
       let index = 0;
       function consumeUntil(end) {
         const output = [];
-        let path9 = "";
+        let path8 = "";
         function writePath() {
-          if (!path9)
+          if (!path8)
             return;
           output.push({
             type: "text",
-            value: encodePath(path9)
+            value: encodePath(path8)
           });
-          path9 = "";
+          path8 = "";
         }
         while (index < chars.length) {
           const value = chars[index++];
@@ -20221,7 +20221,7 @@ var require_dist2 = __commonJS({
             if (index === chars.length) {
               throw new PathError(`Unexpected end after \\ at index ${index}`, str);
             }
-            path9 += chars[index++];
+            path8 += chars[index++];
             continue;
           }
           if (value === ":" || value === "*") {
@@ -20265,7 +20265,7 @@ var require_dist2 = __commonJS({
           if (value === "}" || value === "(" || value === ")" || value === "[" || value === "]" || value === "+" || value === "?" || value === "!") {
             throw new PathError(`Unexpected ${value} at index ${index - 1}`, str);
           }
-          path9 += value;
+          path8 += value;
         }
         if (end) {
           throw new PathError(`Unexpected end at index ${index}, expected ${end}`, str);
@@ -20275,17 +20275,17 @@ var require_dist2 = __commonJS({
       }
       return new TokenData(consumeUntil(""), str);
     }
-    function compile(path9, options = {}) {
+    function compile(path8, options = {}) {
       const { encode: encode2 = encodeURIComponent, delimiter: delimiter2 = DEFAULT_DELIMITER } = options;
-      const data = typeof path9 === "object" ? path9 : parse(path9, options);
+      const data = typeof path8 === "object" ? path8 : parse(path8, options);
       const fn = tokensToFunction(data.tokens, delimiter2, encode2);
-      return function path10(params = {}) {
+      return function path9(params = {}) {
         const missing = [];
-        const path11 = fn(params, missing);
+        const path10 = fn(params, missing);
         if (missing.length) {
           throw new TypeError(`Missing parameters: ${missing.join(", ")}`);
         }
-        return path11;
+        return path10;
       };
     }
     function tokensToFunction(tokens, delimiter2, encode2) {
@@ -20347,9 +20347,9 @@ var require_dist2 = __commonJS({
         return encodeValue(value);
       };
     }
-    function match(path9, options = {}) {
+    function match(path8, options = {}) {
       const { decode = decodeURIComponent, delimiter: delimiter2 = DEFAULT_DELIMITER } = options;
-      const { regexp, keys } = pathToRegexp(path9, options);
+      const { regexp, keys } = pathToRegexp(path8, options);
       const decoders = keys.map((key) => {
         if (decode === false)
           return NOOP_VALUE;
@@ -20361,7 +20361,7 @@ var require_dist2 = __commonJS({
         const m = regexp.exec(input);
         if (!m)
           return false;
-        const path10 = m[0];
+        const path9 = m[0];
         const params = /* @__PURE__ */ Object.create(null);
         for (let i = 1; i < m.length; i++) {
           if (m[i] === void 0)
@@ -20370,21 +20370,21 @@ var require_dist2 = __commonJS({
           const decoder = decoders[i - 1];
           params[key.name] = decoder(m[i]);
         }
-        return { path: path10, params };
+        return { path: path9, params };
       };
     }
-    function pathToRegexp(path9, options = {}) {
+    function pathToRegexp(path8, options = {}) {
       const { delimiter: delimiter2 = DEFAULT_DELIMITER, end = true, sensitive = false, trailing = true } = options;
       const keys = [];
       let source = "";
       let combinations = 0;
-      function process2(path10) {
-        if (Array.isArray(path10)) {
-          for (const p of path10)
+      function process2(path9) {
+        if (Array.isArray(path9)) {
+          for (const p of path9)
             process2(p);
           return;
         }
-        const data = typeof path10 === "object" ? path10 : parse(path10, options);
+        const data = typeof path9 === "object" ? path9 : parse(path9, options);
         flatten(data.tokens, 0, [], (tokens) => {
           if (combinations >= 256) {
             throw new PathError("Too many path combinations", data.originalPath);
@@ -20395,7 +20395,7 @@ var require_dist2 = __commonJS({
           combinations++;
         });
       }
-      process2(path9);
+      process2(path8);
       let pattern = `^(?:${source})`;
       if (trailing)
         pattern += "(?:" + escape2(delimiter2) + "$)?";
@@ -20535,18 +20535,18 @@ var require_layer = __commonJS({
     var TRAILING_SLASH_REGEXP = /\/+$/;
     var MATCHING_GROUP_REGEXP = /\((?:\?<(.*?)>)?(?!\?)/g;
     module.exports = Layer;
-    function Layer(path9, options, fn) {
+    function Layer(path8, options, fn) {
       if (!(this instanceof Layer)) {
-        return new Layer(path9, options, fn);
+        return new Layer(path8, options, fn);
       }
-      debug("new %o", path9);
+      debug("new %o", path8);
       const opts = options || {};
       this.handle = fn;
       this.keys = [];
       this.name = fn.name || "<anonymous>";
       this.params = void 0;
       this.path = void 0;
-      this.slash = path9 === "/" && opts.end === false;
+      this.slash = path8 === "/" && opts.end === false;
       function matcher(_path) {
         if (_path instanceof RegExp) {
           const keys = [];
@@ -20585,7 +20585,7 @@ var require_layer = __commonJS({
           decode: decodeParam
         });
       }
-      this.matchers = Array.isArray(path9) ? path9.map(matcher) : [matcher(path9)];
+      this.matchers = Array.isArray(path8) ? path8.map(matcher) : [matcher(path8)];
     }
     Layer.prototype.handleError = function handleError(error, req, res, next) {
       const fn = this.handle;
@@ -20625,9 +20625,9 @@ var require_layer = __commonJS({
         next(err);
       }
     };
-    Layer.prototype.match = function match(path9) {
+    Layer.prototype.match = function match(path8) {
       let match2;
-      if (path9 != null) {
+      if (path8 != null) {
         if (this.slash) {
           this.params = {};
           this.path = "";
@@ -20635,7 +20635,7 @@ var require_layer = __commonJS({
         }
         let i = 0;
         while (!match2 && i < this.matchers.length) {
-          match2 = this.matchers[i](path9);
+          match2 = this.matchers[i](path8);
           i++;
         }
       }
@@ -20663,13 +20663,13 @@ var require_layer = __commonJS({
         throw err;
       }
     }
-    function loosen(path9) {
-      if (path9 instanceof RegExp || path9 === "/") {
-        return path9;
+    function loosen(path8) {
+      if (path8 instanceof RegExp || path8 === "/") {
+        return path8;
       }
-      return Array.isArray(path9) ? path9.map(function(p) {
+      return Array.isArray(path8) ? path8.map(function(p) {
         return loosen(p);
-      }) : String(path9).replace(TRAILING_SLASH_REGEXP, "");
+      }) : String(path8).replace(TRAILING_SLASH_REGEXP, "");
     }
   }
 });
@@ -20685,9 +20685,9 @@ var require_route = __commonJS({
     var flatten = Array.prototype.flat;
     var methods = METHODS.map((method) => method.toLowerCase());
     module.exports = Route;
-    function Route(path9) {
-      debug("new %o", path9);
-      this.path = path9;
+    function Route(path8) {
+      debug("new %o", path8);
+      this.path = path8;
       this.stack = [];
       this.methods = /* @__PURE__ */ Object.create(null);
     }
@@ -20808,11 +20808,11 @@ var require_router = __commonJS({
     var slice = Array.prototype.slice;
     var flatten = Array.prototype.flat;
     var methods = METHODS.map((method) => method.toLowerCase());
-    module.exports = Router3;
+    module.exports = Router2;
     module.exports.Route = Route;
-    function Router3(options) {
-      if (!(this instanceof Router3)) {
-        return new Router3(options);
+    function Router2(options) {
+      if (!(this instanceof Router2)) {
+        return new Router2(options);
       }
       const opts = options || {};
       function router(req, res, next) {
@@ -20826,9 +20826,9 @@ var require_router = __commonJS({
       router.stack = [];
       return router;
     }
-    Router3.prototype = function() {
+    Router2.prototype = function() {
     };
-    Router3.prototype.param = function param(name, fn) {
+    Router2.prototype.param = function param(name, fn) {
       if (!name) {
         throw new TypeError("argument name is required");
       }
@@ -20848,7 +20848,7 @@ var require_router = __commonJS({
       params.push(fn);
       return this;
     };
-    Router3.prototype.handle = function handle(req, res, callback) {
+    Router2.prototype.handle = function handle(req, res, callback) {
       if (!callback) {
         throw new TypeError("argument callback is required");
       }
@@ -20895,8 +20895,8 @@ var require_router = __commonJS({
         if (++sync > 100) {
           return setImmediate(next, err);
         }
-        const path9 = getPathname(req);
-        if (path9 == null) {
+        const path8 = getPathname(req);
+        if (path8 == null) {
           return done(layerError);
         }
         let layer;
@@ -20904,7 +20904,7 @@ var require_router = __commonJS({
         let route;
         while (match !== true && idx < stack.length) {
           layer = stack[idx++];
-          match = matchLayer(layer, path9);
+          match = matchLayer(layer, path8);
           route = layer.route;
           if (typeof match !== "boolean") {
             layerError = layerError || match;
@@ -20942,18 +20942,18 @@ var require_router = __commonJS({
           } else if (route) {
             layer.handleRequest(req, res, next);
           } else {
-            trimPrefix(layer, layerError, layerPath, path9);
+            trimPrefix(layer, layerError, layerPath, path8);
           }
           sync = 0;
         });
       }
-      function trimPrefix(layer, layerError, layerPath, path9) {
+      function trimPrefix(layer, layerError, layerPath, path8) {
         if (layerPath.length !== 0) {
-          if (layerPath !== path9.substring(0, layerPath.length)) {
+          if (layerPath !== path8.substring(0, layerPath.length)) {
             next(layerError);
             return;
           }
-          const c = path9[layerPath.length];
+          const c = path8[layerPath.length];
           if (c && c !== "/") {
             next(layerError);
             return;
@@ -20975,9 +20975,9 @@ var require_router = __commonJS({
         }
       }
     };
-    Router3.prototype.use = function use(handler) {
+    Router2.prototype.use = function use(handler) {
       let offset = 0;
-      let path9 = "/";
+      let path8 = "/";
       if (typeof handler !== "function") {
         let arg = handler;
         while (Array.isArray(arg) && arg.length !== 0) {
@@ -20985,7 +20985,7 @@ var require_router = __commonJS({
         }
         if (typeof arg !== "function") {
           offset = 1;
-          path9 = handler;
+          path8 = handler;
         }
       }
       const callbacks = flatten.call(slice.call(arguments, offset), Infinity);
@@ -20997,8 +20997,8 @@ var require_router = __commonJS({
         if (typeof fn !== "function") {
           throw new TypeError("argument handler must be a function");
         }
-        debug("use %o %s", path9, fn.name || "<anonymous>");
-        const layer = new Layer(path9, {
+        debug("use %o %s", path8, fn.name || "<anonymous>");
+        const layer = new Layer(path8, {
           sensitive: this.caseSensitive,
           strict: false,
           end: false
@@ -21008,9 +21008,9 @@ var require_router = __commonJS({
       }
       return this;
     };
-    Router3.prototype.route = function route(path9) {
-      const route2 = new Route(path9);
-      const layer = new Layer(path9, {
+    Router2.prototype.route = function route(path8) {
+      const route2 = new Route(path8);
+      const layer = new Layer(path8, {
         sensitive: this.caseSensitive,
         strict: this.strict,
         end: true
@@ -21023,8 +21023,8 @@ var require_router = __commonJS({
       return route2;
     };
     methods.concat("all").forEach(function(method) {
-      Router3.prototype[method] = function(path9) {
-        const route = this.route(path9);
+      Router2.prototype[method] = function(path8) {
+        const route = this.route(path8);
         route[method].apply(route, slice.call(arguments, 1));
         return this;
       };
@@ -21053,9 +21053,9 @@ var require_router = __commonJS({
       const fqdnIndex = url.substring(0, pathLength).indexOf("://");
       return fqdnIndex !== -1 ? url.substring(0, url.indexOf("/", 3 + fqdnIndex)) : void 0;
     }
-    function matchLayer(layer, path9) {
+    function matchLayer(layer, path8) {
       try {
-        return layer.match(path9);
+        return layer.match(path8);
       } catch (err) {
         return err;
       }
@@ -21206,7 +21206,7 @@ var require_application = __commonJS({
     var compileTrust = require_utils3().compileTrust;
     var resolve2 = __require("node:path").resolve;
     var once = require_once();
-    var Router3 = require_router();
+    var Router2 = require_router();
     var slice = Array.prototype.slice;
     var flatten = Array.prototype.flat;
     var app2 = exports = module.exports = {};
@@ -21222,7 +21222,7 @@ var require_application = __commonJS({
         enumerable: true,
         get: function getrouter() {
           if (router === null) {
-            router = new Router3({
+            router = new Router2({
               caseSensitive: this.enabled("case sensitive routing"),
               strict: this.enabled("strict routing")
             });
@@ -21283,7 +21283,7 @@ var require_application = __commonJS({
     };
     app2.use = function use(fn) {
       var offset = 0;
-      var path9 = "/";
+      var path8 = "/";
       if (typeof fn !== "function") {
         var arg = fn;
         while (Array.isArray(arg) && arg.length !== 0) {
@@ -21291,7 +21291,7 @@ var require_application = __commonJS({
         }
         if (typeof arg !== "function") {
           offset = 1;
-          path9 = fn;
+          path8 = fn;
         }
       }
       var fns = flatten.call(slice.call(arguments, offset), Infinity);
@@ -21301,12 +21301,12 @@ var require_application = __commonJS({
       var router = this.router;
       fns.forEach(function(fn2) {
         if (!fn2 || !fn2.handle || !fn2.set) {
-          return router.use(path9, fn2);
+          return router.use(path8, fn2);
         }
-        debug(".use app under %s", path9);
-        fn2.mountpath = path9;
+        debug(".use app under %s", path8);
+        fn2.mountpath = path8;
         fn2.parent = this;
-        router.use(path9, function mounted_app(req, res, next) {
+        router.use(path8, function mounted_app(req, res, next) {
           var orig = req.app;
           fn2.handle(req, res, function(err) {
             Object.setPrototypeOf(req, orig.request);
@@ -21318,8 +21318,8 @@ var require_application = __commonJS({
       }, this);
       return this;
     };
-    app2.route = function route(path9) {
-      return this.router.route(path9);
+    app2.route = function route(path8) {
+      return this.router.route(path8);
     };
     app2.engine = function engine(ext, fn) {
       if (typeof fn !== "function") {
@@ -21362,7 +21362,7 @@ var require_application = __commonJS({
       }
       return this;
     };
-    app2.path = function path9() {
+    app2.path = function path8() {
       return this.parent ? this.parent.path() + this.mountpath : "";
     };
     app2.enabled = function enabled(setting) {
@@ -21378,17 +21378,17 @@ var require_application = __commonJS({
       return this.set(setting, false);
     };
     methods.forEach(function(method) {
-      app2[method] = function(path9) {
+      app2[method] = function(path8) {
         if (method === "get" && arguments.length === 1) {
-          return this.set(path9);
+          return this.set(path8);
         }
-        var route = this.route(path9);
+        var route = this.route(path8);
         route[method].apply(route, slice.call(arguments, 1));
         return this;
       };
     });
-    app2.all = function all(path9) {
-      var route = this.route(path9);
+    app2.all = function all(path8) {
+      var route = this.route(path8);
       var args = slice.call(arguments, 1);
       for (var i = 0; i < methods.length; i++) {
         route[methods[i]].apply(route, args);
@@ -22234,7 +22234,7 @@ var require_request = __commonJS({
       var subdomains2 = !isIP(hostname) ? hostname.split(".").reverse() : [hostname];
       return subdomains2.slice(offset);
     });
-    defineGetter(req, "path", function path9() {
+    defineGetter(req, "path", function path8() {
       return parse(this).pathname;
     });
     defineGetter(req, "host", function host() {
@@ -22767,32 +22767,32 @@ var require_send = __commonJS({
     var escapeHtml = require_escape_html();
     var etag = require_etag();
     var fresh = require_fresh();
-    var fs8 = __require("fs");
+    var fs7 = __require("fs");
     var mime = require_mime_types();
     var ms = require_ms();
     var onFinished = require_on_finished();
     var parseRange = require_range_parser();
-    var path9 = __require("path");
+    var path8 = __require("path");
     var statuses = require_statuses();
     var Stream2 = __require("stream");
     var util2 = __require("util");
-    var extname = path9.extname;
-    var join2 = path9.join;
-    var normalize = path9.normalize;
-    var resolve2 = path9.resolve;
-    var sep = path9.sep;
+    var extname = path8.extname;
+    var join2 = path8.join;
+    var normalize = path8.normalize;
+    var resolve2 = path8.resolve;
+    var sep = path8.sep;
     var BYTES_RANGE_REGEXP = /^ *bytes=/;
     var MAX_MAXAGE = 60 * 60 * 24 * 365 * 1e3;
     var UP_PATH_REGEXP = /(?:^|[\\/])\.\.(?:[\\/]|$)/;
     module.exports = send;
-    function send(req, path10, options) {
-      return new SendStream(req, path10, options);
+    function send(req, path9, options) {
+      return new SendStream(req, path9, options);
     }
-    function SendStream(req, path10, options) {
+    function SendStream(req, path9, options) {
       Stream2.call(this);
       var opts = options || {};
       this.options = opts;
-      this.path = path10;
+      this.path = path9;
       this.req = req;
       this._acceptRanges = opts.acceptRanges !== void 0 ? Boolean(opts.acceptRanges) : true;
       this._cacheControl = opts.cacheControl !== void 0 ? Boolean(opts.cacheControl) : true;
@@ -22906,10 +22906,10 @@ var require_send = __commonJS({
       var lastModified = this.res.getHeader("Last-Modified");
       return parseHttpDate(lastModified) <= parseHttpDate(ifRange);
     };
-    SendStream.prototype.redirect = function redirect(path10) {
+    SendStream.prototype.redirect = function redirect(path9) {
       var res = this.res;
       if (hasListeners(this, "directory")) {
-        this.emit("directory", res, path10);
+        this.emit("directory", res, path9);
         return;
       }
       if (this.hasTrailingSlash()) {
@@ -22929,38 +22929,38 @@ var require_send = __commonJS({
     SendStream.prototype.pipe = function pipe(res) {
       var root = this._root;
       this.res = res;
-      var path10 = decode(this.path);
-      if (path10 === -1) {
+      var path9 = decode(this.path);
+      if (path9 === -1) {
         this.error(400);
         return res;
       }
-      if (~path10.indexOf("\0")) {
+      if (~path9.indexOf("\0")) {
         this.error(400);
         return res;
       }
       var parts2;
       if (root !== null) {
-        if (path10) {
-          path10 = normalize("." + sep + path10);
+        if (path9) {
+          path9 = normalize("." + sep + path9);
         }
-        if (UP_PATH_REGEXP.test(path10)) {
-          debug('malicious path "%s"', path10);
+        if (UP_PATH_REGEXP.test(path9)) {
+          debug('malicious path "%s"', path9);
           this.error(403);
           return res;
         }
-        parts2 = path10.split(sep);
-        path10 = normalize(join2(root, path10));
+        parts2 = path9.split(sep);
+        path9 = normalize(join2(root, path9));
       } else {
-        if (UP_PATH_REGEXP.test(path10)) {
-          debug('malicious path "%s"', path10);
+        if (UP_PATH_REGEXP.test(path9)) {
+          debug('malicious path "%s"', path9);
           this.error(403);
           return res;
         }
-        parts2 = normalize(path10).split(sep);
-        path10 = resolve2(path10);
+        parts2 = normalize(path9).split(sep);
+        path9 = resolve2(path9);
       }
       if (containsDotFile(parts2)) {
-        debug('%s dotfile "%s"', this._dotfiles, path10);
+        debug('%s dotfile "%s"', this._dotfiles, path9);
         switch (this._dotfiles) {
           case "allow":
             break;
@@ -22974,13 +22974,13 @@ var require_send = __commonJS({
         }
       }
       if (this._index.length && this.hasTrailingSlash()) {
-        this.sendIndex(path10);
+        this.sendIndex(path9);
         return res;
       }
-      this.sendFile(path10);
+      this.sendFile(path9);
       return res;
     };
-    SendStream.prototype.send = function send2(path10, stat2) {
+    SendStream.prototype.send = function send2(path9, stat2) {
       var len = stat2.size;
       var options = this.options;
       var opts = {};
@@ -22992,9 +22992,9 @@ var require_send = __commonJS({
         this.headersAlreadySent();
         return;
       }
-      debug('pipe "%s"', path10);
-      this.setHeader(path10, stat2);
-      this.type(path10);
+      debug('pipe "%s"', path9);
+      this.setHeader(path9, stat2);
+      this.type(path9);
       if (this.isConditionalGET()) {
         if (this.isPreconditionFailure()) {
           this.error(412);
@@ -23043,30 +23043,30 @@ var require_send = __commonJS({
         res.end();
         return;
       }
-      this.stream(path10, opts);
+      this.stream(path9, opts);
     };
-    SendStream.prototype.sendFile = function sendFile(path10) {
+    SendStream.prototype.sendFile = function sendFile(path9) {
       var i = 0;
       var self2 = this;
-      debug('stat "%s"', path10);
-      fs8.stat(path10, function onstat(err, stat2) {
-        var pathEndsWithSep = path10[path10.length - 1] === sep;
-        if (err && err.code === "ENOENT" && !extname(path10) && !pathEndsWithSep) {
+      debug('stat "%s"', path9);
+      fs7.stat(path9, function onstat(err, stat2) {
+        var pathEndsWithSep = path9[path9.length - 1] === sep;
+        if (err && err.code === "ENOENT" && !extname(path9) && !pathEndsWithSep) {
           return next(err);
         }
         if (err) return self2.onStatError(err);
-        if (stat2.isDirectory()) return self2.redirect(path10);
+        if (stat2.isDirectory()) return self2.redirect(path9);
         if (pathEndsWithSep) return self2.error(404);
-        self2.emit("file", path10, stat2);
-        self2.send(path10, stat2);
+        self2.emit("file", path9, stat2);
+        self2.send(path9, stat2);
       });
       function next(err) {
         if (self2._extensions.length <= i) {
           return err ? self2.onStatError(err) : self2.error(404);
         }
-        var p = path10 + "." + self2._extensions[i++];
+        var p = path9 + "." + self2._extensions[i++];
         debug('stat "%s"', p);
-        fs8.stat(p, function(err2, stat2) {
+        fs7.stat(p, function(err2, stat2) {
           if (err2) return next(err2);
           if (stat2.isDirectory()) return next();
           self2.emit("file", p, stat2);
@@ -23074,7 +23074,7 @@ var require_send = __commonJS({
         });
       }
     };
-    SendStream.prototype.sendIndex = function sendIndex(path10) {
+    SendStream.prototype.sendIndex = function sendIndex(path9) {
       var i = -1;
       var self2 = this;
       function next(err) {
@@ -23082,9 +23082,9 @@ var require_send = __commonJS({
           if (err) return self2.onStatError(err);
           return self2.error(404);
         }
-        var p = join2(path10, self2._index[i]);
+        var p = join2(path9, self2._index[i]);
         debug('stat "%s"', p);
-        fs8.stat(p, function(err2, stat2) {
+        fs7.stat(p, function(err2, stat2) {
           if (err2) return next(err2);
           if (stat2.isDirectory()) return next();
           self2.emit("file", p, stat2);
@@ -23093,10 +23093,10 @@ var require_send = __commonJS({
       }
       next();
     };
-    SendStream.prototype.stream = function stream2(path10, options) {
+    SendStream.prototype.stream = function stream2(path9, options) {
       var self2 = this;
       var res = this.res;
-      var stream3 = fs8.createReadStream(path10, options);
+      var stream3 = fs7.createReadStream(path9, options);
       this.emit("stream", stream3);
       stream3.pipe(res);
       function cleanup() {
@@ -23111,17 +23111,17 @@ var require_send = __commonJS({
         self2.emit("end");
       });
     };
-    SendStream.prototype.type = function type(path10) {
+    SendStream.prototype.type = function type(path9) {
       var res = this.res;
       if (res.getHeader("Content-Type")) return;
-      var ext = extname(path10);
+      var ext = extname(path9);
       var type2 = mime.contentType(ext) || "application/octet-stream";
       debug("content-type %s", type2);
       res.setHeader("Content-Type", type2);
     };
-    SendStream.prototype.setHeader = function setHeader(path10, stat2) {
+    SendStream.prototype.setHeader = function setHeader(path9, stat2) {
       var res = this.res;
-      this.emit("headers", res, path10, stat2);
+      this.emit("headers", res, path9, stat2);
       if (this._acceptRanges && !res.getHeader("Accept-Ranges")) {
         debug("accept ranges");
         res.setHeader("Accept-Ranges", "bytes");
@@ -23179,9 +23179,9 @@ var require_send = __commonJS({
       }
       return err instanceof Error ? createError(status, err, { expose: false }) : createError(status, err);
     }
-    function decode(path10) {
+    function decode(path9) {
       try {
-        return decodeURIComponent(path10);
+        return decodeURIComponent(path9);
       } catch (err) {
         return -1;
       }
@@ -23325,7 +23325,7 @@ var require_response = __commonJS({
     var http = __require("node:http");
     var onFinished = require_on_finished();
     var mime = require_mime_types();
-    var path9 = __require("node:path");
+    var path8 = __require("node:path");
     var pathIsAbsolute = __require("node:path").isAbsolute;
     var statuses = require_statuses();
     var sign = require_cookie_signature().sign;
@@ -23334,9 +23334,9 @@ var require_response = __commonJS({
     var setCharset = require_utils3().setCharset;
     var cookie = require_cookie();
     var send = require_send();
-    var extname = path9.extname;
-    var resolve2 = path9.resolve;
-    var basename = path9.basename;
+    var extname = path8.extname;
+    var resolve2 = path8.resolve;
+    var basename = path8.basename;
     var vary = require_vary();
     var { Buffer: Buffer2 } = __require("node:buffer");
     var res = Object.create(http.ServerResponse.prototype);
@@ -23480,26 +23480,26 @@ var require_response = __commonJS({
       this.type("txt");
       return this.send(body);
     };
-    res.sendFile = function sendFile(path10, options, callback) {
+    res.sendFile = function sendFile(path9, options, callback) {
       var done = callback;
       var req = this.req;
       var res2 = this;
       var next = req.next;
       var opts = options || {};
-      if (!path10) {
+      if (!path9) {
         throw new TypeError("path argument is required to res.sendFile");
       }
-      if (typeof path10 !== "string") {
+      if (typeof path9 !== "string") {
         throw new TypeError("path must be a string to res.sendFile");
       }
       if (typeof options === "function") {
         done = options;
         opts = {};
       }
-      if (!opts.root && !pathIsAbsolute(path10)) {
+      if (!opts.root && !pathIsAbsolute(path9)) {
         throw new TypeError("path must be absolute or specify root to res.sendFile");
       }
-      var pathname = encodeURI(path10);
+      var pathname = encodeURI(path9);
       opts.etag = this.app.enabled("etag");
       var file = send(req, pathname, opts);
       sendfile(res2, file, opts, function(err) {
@@ -23510,7 +23510,7 @@ var require_response = __commonJS({
         }
       });
     };
-    res.download = function download(path10, filename, options, callback) {
+    res.download = function download(path9, filename, options, callback) {
       var done = callback;
       var name = filename;
       var opts = options || null;
@@ -23527,7 +23527,7 @@ var require_response = __commonJS({
         opts = filename;
       }
       var headers = {
-        "Content-Disposition": contentDisposition.create(basename(name || path10))
+        "Content-Disposition": contentDisposition.create(basename(name || path9))
       };
       if (opts && opts.headers) {
         var keys = Object.keys(opts.headers);
@@ -23540,7 +23540,7 @@ var require_response = __commonJS({
       }
       opts = Object.create(opts);
       opts.headers = headers;
-      var fullPath = !opts.root ? resolve2(path10) : path10;
+      var fullPath = !opts.root ? resolve2(path9) : path9;
       return this.sendFile(fullPath, opts, done);
     };
     res.contentType = res.type = function contentType(type) {
@@ -23824,11 +23824,11 @@ var require_serve_static = __commonJS({
         }
         var forwardError = !fallthrough;
         var originalUrl = parseUrl.original(req);
-        var path9 = parseUrl(req).pathname;
-        if (path9 === "/" && originalUrl.pathname.substr(-1) !== "/") {
-          path9 = "";
+        var path8 = parseUrl(req).pathname;
+        if (path8 === "/" && originalUrl.pathname.substr(-1) !== "/") {
+          path8 = "";
         }
-        var stream2 = send(req, path9, opts);
+        var stream2 = send(req, path8, opts);
         stream2.on("directory", onDirectory);
         if (setHeaders) {
           stream2.on("headers", setHeaders);
@@ -23895,7 +23895,7 @@ var require_express = __commonJS({
     var EventEmitter = __require("node:events").EventEmitter;
     var mixin = require_merge_descriptors();
     var proto = require_application();
-    var Router3 = require_router();
+    var Router2 = require_router();
     var req = require_request();
     var res = require_response();
     exports = module.exports = createApplication;
@@ -23917,8 +23917,8 @@ var require_express = __commonJS({
     exports.application = proto;
     exports.request = req;
     exports.response = res;
-    exports.Route = Router3.Route;
-    exports.Router = Router3;
+    exports.Route = Router2.Route;
+    exports.Router = Router2;
     exports.json = bodyParser.json;
     exports.raw = bodyParser.raw;
     exports.static = require_serve_static();
@@ -26822,17 +26822,17 @@ var node_exports = {};
 __export(node_exports, {
   child_process: () => child_process,
   crypto: () => crypto,
-  fs: () => fs3,
+  fs: () => fs2,
   os: () => os,
-  path: () => path5,
+  path: () => path4,
   stream: () => stream,
   util: () => util
 });
 import * as child_process from "node:child_process";
 import * as crypto from "node:crypto";
-import * as fs3 from "node:fs";
+import * as fs2 from "node:fs";
 import * as os from "node:os";
-import * as path5 from "node:path";
+import * as path4 from "node:path";
 import * as stream from "node:stream";
 import * as util from "node:util";
 var init_node = __esm({
@@ -26898,15 +26898,15 @@ function redactSensitive(body) {
   }
   return null;
 }
-async function checkCredentialsFileSafety(path9, onWarn = (m) => console.warn(`anthropic-sdk: ${m}`)) {
+async function checkCredentialsFileSafety(path8, onWarn = (m) => console.warn(`anthropic-sdk: ${m}`)) {
   if (typeof process === "undefined" || process.platform === "win32")
     return;
-  const { fs: fs8 } = await Promise.resolve().then(() => (init_node(), node_exports));
-  let resolved = path9;
+  const { fs: fs7 } = await Promise.resolve().then(() => (init_node(), node_exports));
+  let resolved = path8;
   let st;
   try {
-    resolved = await fs8.promises.realpath(path9);
-    st = await fs8.promises.stat(resolved);
+    resolved = await fs7.promises.realpath(path8);
+    st = await fs7.promises.stat(resolved);
   } catch {
     return;
   }
@@ -26922,26 +26922,26 @@ async function checkCredentialsFileSafety(path9, onWarn = (m) => console.warn(`a
   }
 }
 async function writeCredentialsFileAtomic(targetPath, data) {
-  const { fs: fs8, path: path9 } = await Promise.resolve().then(() => (init_node(), node_exports));
-  const dir = path9.dirname(targetPath);
-  await fs8.promises.mkdir(dir, { recursive: true, mode: 448 });
+  const { fs: fs7, path: path8 } = await Promise.resolve().then(() => (init_node(), node_exports));
+  const dir = path8.dirname(targetPath);
+  await fs7.promises.mkdir(dir, { recursive: true, mode: 448 });
   const tmpPath = `${targetPath}.${process.pid}.${Math.random().toString(36).slice(2)}.tmp`;
   try {
-    const fh = await fs8.promises.open(tmpPath, "w", 384);
+    const fh = await fs7.promises.open(tmpPath, "w", 384);
     try {
       await fh.writeFile(JSON.stringify(data, null, 2));
       await fh.sync();
     } finally {
       await fh.close();
     }
-    await fs8.promises.rename(tmpPath, targetPath);
+    await fs7.promises.rename(tmpPath, targetPath);
   } catch (err) {
-    await fs8.promises.unlink(tmpPath).catch(() => {
+    await fs7.promises.unlink(tmpPath).catch(() => {
     });
     throw err;
   }
   try {
-    const dirFh = await fs8.promises.open(dir, "r");
+    const dirFh = await fs7.promises.open(dir, "r");
     try {
       await dirFh.sync();
     } finally {
@@ -28075,11 +28075,11 @@ var init_credentials = __esm({
         return null;
       }
       validateProfileName(profileName);
-      const { fs: fs8, path: path9 } = await Promise.resolve().then(() => (init_node(), node_exports));
-      const configPath = path9.join(rootConfigPath, "configs", `${profileName}.json`);
+      const { fs: fs7, path: path8 } = await Promise.resolve().then(() => (init_node(), node_exports));
+      const configPath = path8.join(rootConfigPath, "configs", `${profileName}.json`);
       let configRaw;
       try {
-        configRaw = await fs8.promises.readFile(configPath, "utf-8");
+        configRaw = await fs7.promises.readFile(configPath, "utf-8");
       } catch (err) {
         if (err?.code !== "ENOENT") {
           throw new Error(`failed to read config file ${configPath}: ${err}`);
@@ -28160,14 +28160,14 @@ var init_credentials = __esm({
         return null;
       }
       validateProfileName(profileName);
-      const { path: path9 } = await Promise.resolve().then(() => (init_node(), node_exports));
-      return path9.join(rootConfigPath, "credentials", `${profileName}.json`);
+      const { path: path8 } = await Promise.resolve().then(() => (init_node(), node_exports));
+      return path8.join(rootConfigPath, "credentials", `${profileName}.json`);
     };
     getRootConfigPath = async () => {
       if (!supportsLocalConfigFiles()) {
         return null;
       }
-      const { path: path9 } = await Promise.resolve().then(() => (init_node(), node_exports));
+      const { path: path8 } = await Promise.resolve().then(() => (init_node(), node_exports));
       const configDir = readEnv("ANTHROPIC_CONFIG_DIR");
       if (configDir) {
         return configDir;
@@ -28176,21 +28176,21 @@ var init_credentials = __esm({
       if (os2 === "Windows") {
         const appData = readEnv("APPDATA");
         if (appData) {
-          return path9.join(appData, "Anthropic");
+          return path8.join(appData, "Anthropic");
         }
         const userProfile = readEnv("USERPROFILE");
         if (userProfile) {
-          return path9.join(userProfile, "AppData", "Roaming", "Anthropic");
+          return path8.join(userProfile, "AppData", "Roaming", "Anthropic");
         }
         return null;
       }
       const xdgConfigHome = readEnv("XDG_CONFIG_HOME");
       if (xdgConfigHome) {
-        return path9.join(xdgConfigHome, "anthropic");
+        return path8.join(xdgConfigHome, "anthropic");
       }
       const home = readEnv("HOME");
       if (home) {
-        return path9.join(home, ".config", "anthropic");
+        return path8.join(home, ".config", "anthropic");
       }
       return null;
     };
@@ -28207,10 +28207,10 @@ var init_credentials = __esm({
       if (profileName) {
         return profileName;
       }
-      const { fs: fs8, path: path9 } = await Promise.resolve().then(() => (init_node(), node_exports));
-      const filePath = path9.join(rootConfigPath, "active_config");
+      const { fs: fs7, path: path8 } = await Promise.resolve().then(() => (init_node(), node_exports));
+      const filePath = path8.join(rootConfigPath, "active_config");
       try {
-        return (await fs8.promises.readFile(filePath, "utf-8")).trim() || "default";
+        return (await fs7.promises.readFile(filePath, "utf-8")).trim() || "default";
       } catch (err) {
         if (err?.code !== "ENOENT") {
           throw new Error(`failed to read ${filePath}: ${err}`);
@@ -28222,21 +28222,21 @@ var init_credentials = __esm({
 });
 
 // node_modules/@anthropic-ai/sdk/lib/credentials/identity-token.mjs
-function identityTokenFromFile(path9) {
-  if (!path9) {
+function identityTokenFromFile(path8) {
+  if (!path8) {
     throw new AnthropicError("Identity token file path is empty");
   }
   return async () => {
-    const { fs: fs8 } = await Promise.resolve().then(() => (init_node(), node_exports));
+    const { fs: fs7 } = await Promise.resolve().then(() => (init_node(), node_exports));
     let content;
     try {
-      content = await fs8.promises.readFile(path9, "utf-8");
+      content = await fs7.promises.readFile(path8, "utf-8");
     } catch (err) {
-      throw new AnthropicError(`Failed to read identity token file at ${path9}: ${err}`);
+      throw new AnthropicError(`Failed to read identity token file at ${path8}: ${err}`);
     }
     const token = content.trim();
     if (!token) {
-      throw new AnthropicError(`Identity token file at ${path9} is empty`);
+      throw new AnthropicError(`Identity token file at ${path8} is empty`);
     }
     return token;
   };
@@ -28322,11 +28322,11 @@ var init_oidc_federation = __esm({
 // node_modules/@anthropic-ai/sdk/lib/credentials/user-oauth.mjs
 function userOAuthProvider(config2) {
   return async (opts) => {
-    const { fs: fs8 } = await Promise.resolve().then(() => (init_node(), node_exports));
+    const { fs: fs7 } = await Promise.resolve().then(() => (init_node(), node_exports));
     await checkCredentialsFileSafety(config2.credentialsPath, config2.onSafetyWarning);
     let raw;
     try {
-      raw = await fs8.promises.readFile(config2.credentialsPath, "utf-8");
+      raw = await fs7.promises.readFile(config2.credentialsPath, "utf-8");
     } catch (err) {
       throw new WorkloadIdentityError(`Credentials file not found at ${config2.credentialsPath}: ${err}`);
     }
@@ -28499,11 +28499,11 @@ function resolveIdentityTokenProvider(auth) {
 }
 function cachedExchangeProvider(exchange, credentialsPath, onCacheWriteError, onSafetyWarning) {
   return async (opts) => {
-    const { fs: fs8 } = await Promise.resolve().then(() => (init_node(), node_exports));
+    const { fs: fs7 } = await Promise.resolve().then(() => (init_node(), node_exports));
     await checkCredentialsFileSafety(credentialsPath, onSafetyWarning);
     let existing;
     try {
-      const raw = await fs8.promises.readFile(credentialsPath, "utf-8");
+      const raw = await fs7.promises.readFile(credentialsPath, "utf-8");
       existing = JSON.parse(raw);
       const token = existing?.["access_token"];
       if (token && !opts?.forceRefresh) {
@@ -30245,17 +30245,17 @@ var init_jsonl = __esm({
 function encodeURIPath(str) {
   return str.replace(/[^A-Za-z0-9\-._~!$&'()*+,;=:@]+/g, encodeURIComponent);
 }
-var EMPTY, createPathTagFunction, path6;
+var EMPTY, createPathTagFunction, path5;
 var init_path = __esm({
   "node_modules/@anthropic-ai/sdk/internal/utils/path.mjs"() {
     init_error();
     EMPTY = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.create(null));
-    createPathTagFunction = (pathEncoder = encodeURIPath) => function path9(statics, ...params) {
+    createPathTagFunction = (pathEncoder = encodeURIPath) => function path8(statics, ...params) {
       if (statics.length === 1)
         return statics[0];
       let postPath = false;
       const invalidSegments = [];
-      const path10 = statics.reduce((previousValue, currentValue, index) => {
+      const path9 = statics.reduce((previousValue, currentValue, index) => {
         if (/[?#]/.test(currentValue)) {
           postPath = true;
         }
@@ -30279,7 +30279,7 @@ var init_path = __esm({
         }
         return previousValue + currentValue + (index === params.length ? "" : encoded);
       }, "");
-      const pathOnly = path10.split(/[?#]/, 1)[0];
+      const pathOnly = path9.split(/[?#]/, 1)[0];
       const invalidSegmentPattern = /(?<=^|\/)(?:\.|%2e){1,2}(?=\/|$)/gi;
       let match;
       while ((match = invalidSegmentPattern.exec(pathOnly)) !== null) {
@@ -30300,12 +30300,12 @@ var init_path = __esm({
         const underline = Array.from(marks, (mark) => mark ?? " ").join("");
         throw new AnthropicError(`Path parameters result in path with invalid segments:
 ${invalidSegments.map((e) => e.error).join("\n")}
-${path10}
+${path9}
 ${underline}`);
       }
-      return path10;
+      return path9;
     };
-    path6 = /* @__PURE__ */ createPathTagFunction(encodeURIPath);
+    path5 = /* @__PURE__ */ createPathTagFunction(encodeURIPath);
   }
 });
 
@@ -30386,7 +30386,7 @@ var init_batches = __esm({
        */
       retrieve(messageBatchID, params = {}, options) {
         const { workspace_id } = params ?? {};
-        return this._client.get(path6`/v1/messages/batches/${messageBatchID}`, {
+        return this._client.get(path5`/v1/messages/batches/${messageBatchID}`, {
           ...options,
           headers: buildHeaders([
             { ...workspace_id != null ? { "anthropic-workspace-id": workspace_id } : void 0 },
@@ -30445,7 +30445,7 @@ var init_batches = __esm({
        */
       delete(messageBatchID, params = {}, options) {
         const { workspace_id } = params ?? {};
-        return this._client.delete(path6`/v1/messages/batches/${messageBatchID}`, {
+        return this._client.delete(path5`/v1/messages/batches/${messageBatchID}`, {
           ...options,
           headers: buildHeaders([
             { ...workspace_id != null ? { "anthropic-workspace-id": workspace_id } : void 0 },
@@ -30480,7 +30480,7 @@ var init_batches = __esm({
        */
       cancel(messageBatchID, params = {}, options) {
         const { workspace_id } = params ?? {};
-        return this._client.post(path6`/v1/messages/batches/${messageBatchID}/cancel`, {
+        return this._client.post(path5`/v1/messages/batches/${messageBatchID}/cancel`, {
           ...options,
           headers: buildHeaders([
             { ...workspace_id != null ? { "anthropic-workspace-id": workspace_id } : void 0 },
@@ -30728,7 +30728,7 @@ var init_deployment_runs = __esm({
        */
       retrieve(deploymentRunID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.get(path6`/v1/deployment_runs/${deploymentRunID}?beta=true`, {
+        return this._client.get(path5`/v1/deployment_runs/${deploymentRunID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -30851,7 +30851,7 @@ var init_deployments = __esm({
        */
       retrieve(deploymentID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.get(path6`/v1/deployments/${deploymentID}?beta=true`, {
+        return this._client.get(path5`/v1/deployments/${deploymentID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -30879,7 +30879,7 @@ var init_deployments = __esm({
        */
       update(deploymentID, params, options) {
         const { betas, workspace_id, ...body } = params;
-        return this._client.post(path6`/v1/deployments/${deploymentID}?beta=true`, {
+        return this._client.post(path5`/v1/deployments/${deploymentID}?beta=true`, {
           body,
           ...options,
           headers: buildHeaders([
@@ -30945,7 +30945,7 @@ var init_deployments = __esm({
        */
       archive(deploymentID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.post(path6`/v1/deployments/${deploymentID}/archive?beta=true`, {
+        return this._client.post(path5`/v1/deployments/${deploymentID}/archive?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -30973,7 +30973,7 @@ var init_deployments = __esm({
        */
       pause(deploymentID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.post(path6`/v1/deployments/${deploymentID}/pause?beta=true`, {
+        return this._client.post(path5`/v1/deployments/${deploymentID}/pause?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -31001,7 +31001,7 @@ var init_deployments = __esm({
        */
       run(deploymentID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.post(path6`/v1/deployments/${deploymentID}/run?beta=true`, {
+        return this._client.post(path5`/v1/deployments/${deploymentID}/run?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -31029,7 +31029,7 @@ var init_deployments = __esm({
        */
       unpause(deploymentID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.post(path6`/v1/deployments/${deploymentID}/unpause?beta=true`, {
+        return this._client.post(path5`/v1/deployments/${deploymentID}/unpause?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -31115,7 +31115,7 @@ var init_dreams = __esm({
        */
       retrieve(dreamID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.get(path6`/v1/dreams/${dreamID}?beta=true`, {
+        return this._client.get(path5`/v1/dreams/${dreamID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -31186,7 +31186,7 @@ var init_dreams = __esm({
        */
       archive(dreamID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.post(path6`/v1/dreams/${dreamID}/archive?beta=true`, {
+        return this._client.post(path5`/v1/dreams/${dreamID}/archive?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -31222,7 +31222,7 @@ var init_dreams = __esm({
        */
       cancel(dreamID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.post(path6`/v1/dreams/${dreamID}/cancel?beta=true`, {
+        return this._client.post(path5`/v1/dreams/${dreamID}/cancel?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -31294,7 +31294,7 @@ var init_files = __esm({
        */
       delete(fileID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.delete(path6`/v1/files/${fileID}?beta=true`, {
+        return this._client.delete(path5`/v1/files/${fileID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -31324,7 +31324,7 @@ var init_files = __esm({
        */
       download(fileID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.get(path6`/v1/files/${fileID}/content?beta=true`, {
+        return this._client.get(path5`/v1/files/${fileID}/content?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -31352,7 +31352,7 @@ var init_files = __esm({
        */
       retrieveMetadata(fileID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.get(path6`/v1/files/${fileID}?beta=true`, {
+        return this._client.get(path5`/v1/files/${fileID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -31425,7 +31425,7 @@ var init_models = __esm({
        */
       retrieve(modelID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.get(path6`/v1/models/${modelID}?beta=true`, {
+        return this._client.get(path5`/v1/models/${modelID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -31526,7 +31526,7 @@ var init_user_profiles = __esm({
        */
       retrieve(userProfileID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.get(path6`/v1/user_profiles/${userProfileID}?beta=true`, {
+        return this._client.get(path5`/v1/user_profiles/${userProfileID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -31554,7 +31554,7 @@ var init_user_profiles = __esm({
        */
       update(userProfileID, params, options) {
         const { betas, workspace_id, ...body } = params;
-        return this._client.post(path6`/v1/user_profiles/${userProfileID}?beta=true`, {
+        return this._client.post(path5`/v1/user_profiles/${userProfileID}?beta=true`, {
           body,
           ...options,
           headers: buildHeaders([
@@ -31612,7 +31612,7 @@ var init_user_profiles = __esm({
        */
       createEnrollmentURL(userProfileID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.post(path6`/v1/user_profiles/${userProfileID}/enrollment_url?beta=true`, {
+        return this._client.post(path5`/v1/user_profiles/${userProfileID}/enrollment_url?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -32478,7 +32478,7 @@ var init_versions = __esm({
        */
       list(agentID, params = {}, options) {
         const { betas, workspace_id, ...query } = params ?? {};
-        return this._client.getAPIList(path6`/v1/agents/${agentID}/versions?beta=true`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/agents/${agentID}/versions?beta=true`, PageCursor, {
           query,
           ...options,
           headers: buildHeaders([
@@ -32559,7 +32559,7 @@ var init_agents = __esm({
          */
         retrieve(agentID, params = {}, options) {
           const { betas, workspace_id, ...query } = params ?? {};
-          return this._client.get(path6`/v1/agents/${agentID}?beta=true`, {
+          return this._client.get(path5`/v1/agents/${agentID}?beta=true`, {
             query,
             ...options,
             headers: buildHeaders([
@@ -32590,7 +32590,7 @@ var init_agents = __esm({
          */
         update(agentID, params, options) {
           const { betas, workspace_id, ...body } = params;
-          return this._client.post(path6`/v1/agents/${agentID}?beta=true`, {
+          return this._client.post(path5`/v1/agents/${agentID}?beta=true`, {
             body,
             ...options,
             headers: buildHeaders([
@@ -32648,7 +32648,7 @@ var init_agents = __esm({
          */
         archive(agentID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.post(path6`/v1/agents/${agentID}/archive?beta=true`, {
+          return this._client.post(path5`/v1/agents/${agentID}/archive?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -33719,12 +33719,12 @@ var init_promise = __esm({
 
 // node_modules/@anthropic-ai/sdk/tools/agent-toolset/fs-util.mjs
 function isWithin(root, p) {
-  const rel = path5.relative(root, p);
-  return rel === "" || !rel.startsWith(".." + path5.sep) && rel !== ".." && !path5.isAbsolute(rel);
+  const rel = path4.relative(root, p);
+  return rel === "" || !rel.startsWith(".." + path4.sep) && rel !== ".." && !path4.isAbsolute(rel);
 }
 async function containingRoot(roots, target) {
   for (const root of roots) {
-    if (isWithin(await canonicalize(path5.resolve(root)), target))
+    if (isWithin(await canonicalize(path4.resolve(root)), target))
       return root;
   }
   return void 0;
@@ -33740,19 +33740,19 @@ async function canonicalize(abs) {
   for (; ; ) {
     let real;
     try {
-      real = await fs4.realpath(prefix);
+      real = await fs3.realpath(prefix);
     } catch (realpathErr) {
       let isLink;
       try {
-        isLink = (await fs4.lstat(prefix)).isSymbolicLink();
+        isLink = (await fs3.lstat(prefix)).isSymbolicLink();
       } catch (lstatErr) {
         const code = errnoCode(lstatErr);
         if (code !== "ENOENT" && code !== "ENOTDIR")
           throw lstatErr;
-        const parent = path5.dirname(prefix);
+        const parent = path4.dirname(prefix);
         if (parent === prefix)
           throw lstatErr;
-        tail.push(path5.basename(prefix));
+        tail.push(path4.basename(prefix));
         prefix = parent;
         continue;
       }
@@ -33761,18 +33761,18 @@ async function canonicalize(abs) {
       if (++hops > MAX_SYMLINK_HOPS) {
         throw Object.assign(new Error("too many levels of symbolic links"), { code: "ELOOP" });
       }
-      prefix = path5.resolve(path5.dirname(prefix), await fs4.readlink(prefix));
+      prefix = path4.resolve(path4.dirname(prefix), await fs3.readlink(prefix));
       continue;
     }
-    return tail.length ? path5.join(real, ...tail.reverse()) : real;
+    return tail.length ? path4.join(real, ...tail.reverse()) : real;
   }
 }
 async function confineToRoot(root, p, opts) {
   const allowedRoots = opts?.allowedRoots ?? [];
-  const realRoot = await canonicalize(path5.resolve(root));
+  const realRoot = await canonicalize(path4.resolve(root));
   let real;
   try {
-    real = await canonicalize(path5.resolve(realRoot, p));
+    real = await canonicalize(path4.resolve(realRoot, p));
   } catch (err) {
     throw new ToolError(fsErrorMessage(err, `path ${JSON.stringify(p)}`));
   }
@@ -33783,24 +33783,24 @@ async function confineToRoot(root, p, opts) {
   throw new ToolError(`path ${JSON.stringify(p)} is outside ${permitted}`);
 }
 async function atomicWriteFile(targetPath, content) {
-  const dir = path5.dirname(targetPath);
-  const tempPath = path5.join(dir, `.tmp-${process.pid}-${crypto.randomUUID()}`);
-  const existingMode = await fs4.stat(targetPath).then((st) => st.mode & 511, () => void 0);
+  const dir = path4.dirname(targetPath);
+  const tempPath = path4.join(dir, `.tmp-${process.pid}-${crypto.randomUUID()}`);
+  const existingMode = await fs3.stat(targetPath).then((st) => st.mode & 511, () => void 0);
   let handle;
   try {
-    handle = await fs4.open(tempPath, "wx", FILE_CREATE_MODE);
+    handle = await fs3.open(tempPath, "wx", FILE_CREATE_MODE);
     if (existingMode !== void 0)
       await handle.chmod(existingMode);
     await handle.writeFile(content, "utf-8");
     await handle.sync();
     await handle.close();
     handle = void 0;
-    await fs4.rename(tempPath, targetPath);
+    await fs3.rename(tempPath, targetPath);
   } catch (err) {
     if (handle)
       await handle.close().catch(() => {
       });
-    await fs4.unlink(tempPath).catch(() => {
+    await fs3.unlink(tempPath).catch(() => {
     });
     throw err;
   }
@@ -33830,12 +33830,12 @@ function fsErrorMessage(err, file) {
       return `${file}: ${code !== void 0 ? `i/o error (${code})` : "i/o error"}`;
   }
 }
-var fs4, DIR_CREATE_MODE, FILE_CREATE_MODE, MAX_SYMLINK_HOPS;
+var fs3, DIR_CREATE_MODE, FILE_CREATE_MODE, MAX_SYMLINK_HOPS;
 var init_fs_util = __esm({
   "node_modules/@anthropic-ai/sdk/tools/agent-toolset/fs-util.mjs"() {
     init_node();
     init_ToolError();
-    fs4 = fs3.promises;
+    fs3 = fs2.promises;
     DIR_CREATE_MODE = 448;
     FILE_CREATE_MODE = 384;
     MAX_SYMLINK_HOPS = 40;
@@ -33857,16 +33857,16 @@ async function setupSkills(ctx) {
     log.warn("AgentToolContext.sessionId is deprecated and costs an extra session fetch; fetch the session once and set `session` instead", { component: "agent-tool-context" });
     session = await client.beta.sessions.retrieve(sessionId);
   }
-  const skillsRoot = path5.resolve(ctx.workdir, "skills");
+  const skillsRoot = path4.resolve(ctx.workdir, "skills");
   const created = [];
   for (const skill of session.agent.skills) {
     try {
       const version = await client.beta.skills.versions.retrieve(skill.version, { skill_id: skill.skill_id });
-      let dirname2 = path5.basename(version.name.trim());
+      let dirname2 = path4.basename(version.name.trim());
       if (dirname2 === "" || dirname2 === "." || dirname2 === "..")
         dirname2 = skill.skill_id;
-      const dest = path5.resolve(skillsRoot, dirname2);
-      if (dest !== skillsRoot && !dest.startsWith(skillsRoot + path5.sep)) {
+      const dest = path4.resolve(skillsRoot, dirname2);
+      if (dest !== skillsRoot && !dest.startsWith(skillsRoot + path4.sep)) {
         log.warn("skill name escapes the skills dir; skipping", {
           component: "agent-tool-context",
           name: version.name
@@ -33874,8 +33874,8 @@ async function setupSkills(ctx) {
         continue;
       }
       const resp = await client.beta.skills.versions.download(version.id, { skill_id: skill.skill_id });
-      await fs5.rm(dest, { recursive: true, force: true });
-      await fs5.mkdir(dest, { recursive: true, mode: DIR_CREATE_MODE });
+      await fs4.rm(dest, { recursive: true, force: true });
+      await fs4.mkdir(dest, { recursive: true, mode: DIR_CREATE_MODE });
       created.push(dest);
       await extractSkillArchive(resp, dest);
       log.info("downloaded skill", {
@@ -33894,7 +33894,7 @@ async function setupSkills(ctx) {
   }
   return async () => {
     for (const dest of created) {
-      await fs5.rm(dest, { recursive: true, force: true }).catch((e) => {
+      await fs4.rm(dest, { recursive: true, force: true }).catch((e) => {
         log.warn("failed to clean up skill", { component: "agent-tool-context", dest, error: String(e) });
       });
     }
@@ -33905,7 +33905,7 @@ function assertSafeMemberNames(names) {
     const entry = raw.trim();
     if (!entry)
       continue;
-    if (path5.isAbsolute(entry) || entry.split(/[\\/]/).includes("..")) {
+    if (path4.isAbsolute(entry) || entry.split(/[\\/]/).includes("..")) {
       throw new AnthropicError(`refusing to extract unsafe archive member: ${entry}`);
     }
   }
@@ -33939,9 +33939,9 @@ function classifyArchiveListing(cmd, names, typed) {
   return { plain, special };
 }
 async function assertOnlyPlainEntries(dir) {
-  for (const entry of await fs5.readdir(dir, { withFileTypes: true })) {
+  for (const entry of await fs4.readdir(dir, { withFileTypes: true })) {
     if (entry.isDirectory())
-      await assertOnlyPlainEntries(path5.join(dir, entry.name));
+      await assertOnlyPlainEntries(path4.join(dir, entry.name));
     else if (!entry.isFile())
       throw new AnthropicError(INCONSISTENT_LISTING);
   }
@@ -33975,13 +33975,13 @@ function archiveTopDir(names) {
   return top !== void 0 && nested ? top : "";
 }
 async function extractSkillArchive(resp, dest) {
-  const tmp = path5.join(dest, `.skill-archive-${process.pid}-${Date.now()}`);
+  const tmp = path4.join(dest, `.skill-archive-${process.pid}-${Date.now()}`);
   if (!resp.body) {
     throw new AnthropicError("skill download response had no body");
   }
-  await stream.promises.pipeline(stream.Readable.fromWeb(resp.body), fs3.createWriteStream(tmp));
-  const stage = path5.join(path5.dirname(dest), `.skill-stage-${process.pid}-${Date.now()}`);
-  const excludeFile = path5.join(path5.dirname(dest), `.skill-exclude-${process.pid}-${Date.now()}`);
+  await stream.promises.pipeline(stream.Readable.fromWeb(resp.body), fs2.createWriteStream(tmp));
+  const stage = path4.join(path4.dirname(dest), `.skill-stage-${process.pid}-${Date.now()}`);
+  const excludeFile = path4.join(path4.dirname(dest), `.skill-exclude-${process.pid}-${Date.now()}`);
   try {
     const head = await readHead(tmp, 4);
     const isZip = head.length >= 4 && head[0] === 80 && head[1] === 75 && head[2] === 3 && head[3] === 4;
@@ -33991,22 +33991,22 @@ async function extractSkillArchive(resp, dest) {
     const { plain, special } = classifyArchiveListing(archiveCmd, names, typed);
     assertSafeMemberNames([...plain, ...special]);
     const top = archiveTopDir(plain);
-    await fs5.mkdir(stage, { recursive: true, mode: DIR_CREATE_MODE });
+    await fs4.mkdir(stage, { recursive: true, mode: DIR_CREATE_MODE });
     if (plain.length > 0) {
       await runArchiveTool(archiveCmd, await extractArgs(archiveCmd, tmp, stage, special, excludeFile));
     }
     await assertOnlyPlainEntries(stage);
-    const srcRoot = top ? path5.join(stage, top) : stage;
-    const entries = await fs5.readdir(srcRoot).catch((e) => {
+    const srcRoot = top ? path4.join(stage, top) : stage;
+    const entries = await fs4.readdir(srcRoot).catch((e) => {
       throw errnoCode(e) === "ENOENT" ? new AnthropicError(INCONSISTENT_LISTING) : e;
     });
     for (const entry of entries) {
-      await fs5.rename(path5.join(srcRoot, entry), path5.join(dest, entry));
+      await fs4.rename(path4.join(srcRoot, entry), path4.join(dest, entry));
     }
   } finally {
-    await fs5.rm(tmp, { force: true });
-    await fs5.rm(excludeFile, { force: true });
-    await fs5.rm(stage, { recursive: true, force: true });
+    await fs4.rm(tmp, { force: true });
+    await fs4.rm(excludeFile, { force: true });
+    await fs4.rm(stage, { recursive: true, force: true });
   }
 }
 async function extractArgs(cmd, archive, stage, special, excludeFile) {
@@ -34016,11 +34016,11 @@ async function extractArgs(cmd, archive, stage, special, excludeFile) {
   }
   if (patterns.length === 0)
     return ["-xf", archive, "-C", stage];
-  await fs5.writeFile(excludeFile, patterns.join("\n") + "\n", { flag: "wx", mode: 384 });
+  await fs4.writeFile(excludeFile, patterns.join("\n") + "\n", { flag: "wx", mode: 384 });
   return ["-xf", archive, "-C", stage, "-X", excludeFile];
 }
 async function readHead(file, n) {
-  const handle = await fs5.open(file, "r");
+  const handle = await fs4.open(file, "r");
   try {
     const buf = Buffer.alloc(n);
     const { bytesRead } = await handle.read(buf, 0, n, 0);
@@ -34029,14 +34029,14 @@ async function readHead(file, n) {
     await handle.close();
   }
 }
-var fs5, execFileAsync, INCONSISTENT_LISTING, PLAIN_TYPE_CHARS;
+var fs4, execFileAsync, INCONSISTENT_LISTING, PLAIN_TYPE_CHARS;
 var init_skills = __esm({
   "node_modules/@anthropic-ai/sdk/tools/agent-toolset/skills.mjs"() {
     init_node();
     init_error();
     init_log();
     init_fs_util();
-    fs5 = fs3.promises;
+    fs4 = fs2.promises;
     execFileAsync = util.promisify(child_process.execFile);
     INCONSISTENT_LISTING = "skill archive listing is inconsistent; refusing to extract";
     PLAIN_TYPE_CHARS = { unzip: /* @__PURE__ */ new Set(["-", "d", "?"]), tar: /* @__PURE__ */ new Set(["-", "d", "C"]) };
@@ -34063,7 +34063,7 @@ async function makeDirAndAncestors(dir) {
         throw e;
     }
     missing.push(current);
-    const parent = path5.dirname(current);
+    const parent = path4.dirname(current);
     if (parent === current)
       break;
     current = parent;
@@ -34078,12 +34078,12 @@ async function makeDirAndAncestors(dir) {
   }
 }
 async function makeDirsBelowRoot(root, dir) {
-  const below = path5.relative(root, dir);
+  const below = path4.relative(root, dir);
   if (below === "")
     return;
   let current = root;
-  for (const part of below.split(path5.sep)) {
-    current = path5.join(current, part);
+  for (const part of below.split(path4.sep)) {
+    current = path4.join(current, part);
     try {
       await fsp.mkdir(current, { mode: OWNER_ONLY_DIR_MODE });
     } catch (e) {
@@ -34094,7 +34094,7 @@ async function makeDirsBelowRoot(root, dir) {
 }
 async function replaceViaTemp(dest, data, isExecutable) {
   const mode = isExecutable ? OWNER_ONLY_EXEC_MODE : OWNER_ONLY_FILE_MODE;
-  const tmp = path5.join(path5.dirname(dest), `.fs-${crypto.randomBytes(8).toString("hex")}.tmp`);
+  const tmp = path4.join(path4.dirname(dest), `.fs-${crypto.randomBytes(8).toString("hex")}.tmp`);
   let handle;
   try {
     handle = await fsp.open(tmp, C.O_WRONLY | C.O_CREAT | C.O_EXCL | O_NOFOLLOW, mode);
@@ -34135,7 +34135,7 @@ async function openRegularFile(relPath, dest) {
 }
 async function hashFile(full) {
   const digest = crypto.createHash("sha256");
-  const handle = await openRegularFile(path5.basename(full), full);
+  const handle = await openRegularFile(path4.basename(full), full);
   const buf = new Uint8Array(1024 * 1024);
   try {
     for (; ; ) {
@@ -34155,13 +34155,13 @@ async function filenamesInDir(root, under, base) {
   const out = [];
   await walk(base, (full, entry) => {
     if (entry.isFile())
-      out.push([path5.relative(root, full).split(path5.sep).join("/"), full]);
+      out.push([path4.relative(root, full).split(path4.sep).join("/"), full]);
   });
   out.sort();
   return out;
 }
 async function symlinksInDir(root, under, base) {
-  const relOf = (full) => path5.relative(root, full).split(path5.sep).join("/");
+  const relOf = (full) => path4.relative(root, full).split(path4.sep).join("/");
   let st;
   try {
     st = await fsp.lstat(base, { bigint: true });
@@ -34209,7 +34209,7 @@ async function walk(base, visit) {
       throw e;
     }
     for (const entry of entries) {
-      const full = path5.join(dir, entry.name);
+      const full = path4.join(dir, entry.name);
       visit(full, entry);
       if (entry.isDirectory() && !entry.isSymbolicLink())
         stack.push(full);
@@ -34223,13 +34223,13 @@ function oldEnoughToCache(st, walkStartNs) {
   const newestNs = st.mtimeNs > st.ctimeNs ? st.mtimeNs : st.ctimeNs;
   return newestNs < walkStartNs - _internals.timestampTrustMarginNs;
 }
-var fsp, C, OWNER_ONLY_DIR_MODE, OWNER_ONLY_FILE_MODE, OWNER_ONLY_EXEC_MODE, O_NOFOLLOW, O_NONBLOCK, FileStoreError, FileStore2, TIMESTAMP_TRUST_MARGIN_NS, _internals, LocalFileStore, asyncDispose;
+var fsp, C, OWNER_ONLY_DIR_MODE, OWNER_ONLY_FILE_MODE, OWNER_ONLY_EXEC_MODE, O_NOFOLLOW, O_NONBLOCK, FileStoreError, FileStore, TIMESTAMP_TRUST_MARGIN_NS, _internals, LocalFileStore, asyncDispose;
 var init_file_store = __esm({
   "node_modules/@anthropic-ai/sdk/internal/file-store.mjs"() {
     init_node();
     init_bytes();
-    fsp = fs3.promises;
-    C = fs3.constants;
+    fsp = fs2.promises;
+    C = fs2.constants;
     OWNER_ONLY_DIR_MODE = 448;
     OWNER_ONLY_FILE_MODE = 384;
     OWNER_ONLY_EXEC_MODE = 448;
@@ -34252,8 +34252,8 @@ var init_file_store = __esm({
       FileStoreError2.MOVE_DESTINATION_EXISTS = "already exists";
       return FileStoreError2;
     })();
-    FileStore2 = /* @__PURE__ */ (() => {
-      class FileStore3 {
+    FileStore = /* @__PURE__ */ (() => {
+      class FileStore2 {
         /** @internal — use {@link FileStore.open} / {@link openFileStore}. */
         constructor(root, removedOnDispose, utf8Only = false) {
           this.hashes = /* @__PURE__ */ new Map();
@@ -34274,7 +34274,7 @@ var init_file_store = __esm({
               throw e;
             removedOnDispose = true;
           }
-          return new FileStore3(path5.resolve(root), removedOnDispose, opts?.utf8 ?? false);
+          return new FileStore2(path4.resolve(root), removedOnDispose, opts?.utf8 ?? false);
         }
         /** Create the root directory and any missing ancestors; already existing is fine. */
         async createRoot() {
@@ -34309,7 +34309,7 @@ var init_file_store = __esm({
           const dest = this.resolveUnderRoot(relPath);
           const payload = typeof data === "string" ? encodeUTF8(data) : data;
           this.requireUtf8(relPath, payload);
-          await makeDirsBelowRoot(this.rootPath, path5.dirname(dest));
+          await makeDirsBelowRoot(this.rootPath, path4.dirname(dest));
           await replaceViaTemp(dest, payload, opts?.executable ?? false);
         }
         /** The file's bytes; `null` when absent. */
@@ -34378,7 +34378,7 @@ var init_file_store = __esm({
             throw new FileStoreError(FileStoreError.IS_A_SYMLINK, relPath);
           if (!st.isFile())
             throw new FileStoreError(FileStoreError.NOT_A_FILE, relPath);
-          const rel = path5.relative(this.rootPath, dest).split(path5.sep).join("/");
+          const rel = path4.relative(this.rootPath, dest).split(path4.sep).join("/");
           return this.hashViaCache(rel, dest, _internals.nowNs());
         }
         /**
@@ -34393,7 +34393,7 @@ var init_file_store = __esm({
           const dstExists = await fsp.stat(d).then(() => true, () => false);
           if (dstExists)
             throw new FileStoreError(FileStoreError.MOVE_DESTINATION_EXISTS, dst);
-          await makeDirsBelowRoot(this.rootPath, path5.dirname(d));
+          await makeDirsBelowRoot(this.rootPath, path4.dirname(d));
           await fsp.rename(s, d);
         }
         /** Delete a file or subtree; absent — and the banned store root — do nothing. */
@@ -34423,10 +34423,10 @@ var init_file_store = __esm({
         resolveUnderRoot(relPath) {
           const norm = relPath.replace(/\\/g, "/").replace(/^\/+/, "");
           const parts2 = norm.split("/").filter((p) => p !== "" && p !== ".");
-          if (path5.posix.isAbsolute(norm) || parts2.includes("..")) {
+          if (path4.posix.isAbsolute(norm) || parts2.includes("..")) {
             throw new FileStoreError(FileStoreError.ESCAPES_ROOT, relPath);
           }
-          return parts2.length === 0 ? this.rootPath : path5.join(this.rootPath, ...parts2);
+          return parts2.length === 0 ? this.rootPath : path4.join(this.rootPath, ...parts2);
         }
         requireUtf8(relPath, data) {
           if (!this.decoder)
@@ -34470,8 +34470,8 @@ var init_file_store = __esm({
           return sha;
         }
       }
-      FileStore3.isPathLegal = isPathLegal;
-      return FileStore3;
+      FileStore2.isPathLegal = isPathLegal;
+      return FileStore2;
     })();
     TIMESTAMP_TRUST_MARGIN_NS = 2000000000n;
     _internals = {
@@ -34479,11 +34479,11 @@ var init_file_store = __esm({
       timestampTrustMarginNs: TIMESTAMP_TRUST_MARGIN_NS,
       nowNs: () => BigInt(Date.now()) * 1000000n
     };
-    LocalFileStore = FileStore2;
+    LocalFileStore = FileStore;
     asyncDispose = Symbol.asyncDispose;
     if (asyncDispose) {
-      Object.defineProperty(FileStore2.prototype, asyncDispose, {
-        value: FileStore2.prototype.dispose,
+      Object.defineProperty(FileStore.prototype, asyncDispose, {
+        value: FileStore.prototype.dispose,
         configurable: true,
         writable: true
       });
@@ -34735,7 +34735,7 @@ var init_memories = __esm({
           }
           return resource.mount_path;
         }
-        return path5.join(__classPrivateFieldGet(this, _SessionMemoryStores_workdir, "f"), "memory", resource.name || resource.memory_store_id);
+        return path4.join(__classPrivateFieldGet(this, _SessionMemoryStores_workdir, "f"), "memory", resource.name || resource.memory_store_id);
       }, _SessionMemoryStores_scanMarker = async function _SessionMemoryStores_scanMarker2(store) {
         const local = await store.files.hashtree();
         const marker = local[MARKER_PATH];
@@ -35247,9 +35247,9 @@ __export(node_exports2, {
   resolvePath: () => resolvePath2,
   setupSkills: () => setupSkills
 });
-import * as fs6 from "node:fs/promises";
+import * as fs5 from "node:fs/promises";
 import * as fssync from "node:fs";
-import * as path7 from "node:path";
+import * as path6 from "node:path";
 import * as cp from "node:child_process";
 import * as crypto2 from "node:crypto";
 import * as readline from "node:readline";
@@ -35372,7 +35372,7 @@ function betaReadTool(ctx) {
       }
       let data;
       try {
-        const st = await fs6.stat(abs);
+        const st = await fs5.stat(abs);
         if (!st.isFile()) {
           throw new ToolError(`read: ${file_path} is not a regular file`);
         }
@@ -35384,7 +35384,7 @@ function betaReadTool(ctx) {
           const [startLine2, endLine2] = view_range;
           return await readRangeStreaming(abs, file_path, startLine2, endLine2, limit2);
         }
-        data = await fs6.readFile(abs, "utf8");
+        data = await fs5.readFile(abs, "utf8");
       } catch (e) {
         if (e instanceof ToolError)
           throw e;
@@ -35435,7 +35435,7 @@ function betaWriteTool(ctx) {
         throw new ToolError(`write: ${file_path} is inside read-only directory ${ro}`);
       }
       try {
-        await fs6.mkdir(path7.dirname(abs), { recursive: true, mode: DIR_CREATE_MODE });
+        await fs5.mkdir(path6.dirname(abs), { recursive: true, mode: DIR_CREATE_MODE });
         await atomicWriteFile(abs, content ?? "");
       } catch (e) {
         throw new ToolError(`write: ${fsErrorMessage(e, file_path)}`);
@@ -35471,7 +35471,7 @@ function betaEditTool(ctx) {
       }
       let data;
       try {
-        const st = await fs6.stat(abs);
+        const st = await fs5.stat(abs);
         if (!st.isFile()) {
           throw new ToolError(`edit: ${file_path} is not a regular file`);
         }
@@ -35479,7 +35479,7 @@ function betaEditTool(ctx) {
         if (limit2 !== null && st.size > limit2) {
           throw new ToolError(`edit: ${file_path} is ${st.size} bytes, exceeds ${limit2}-byte limit. The edit tool loads the whole file and cannot modify a file this large.`);
         }
-        data = await fs6.readFile(abs, "utf8");
+        data = await fs5.readFile(abs, "utf8");
       } catch (e) {
         if (e instanceof ToolError)
           throw e;
@@ -35524,13 +35524,13 @@ function betaGlobTool(ctx) {
     run: async ({ pattern, path: searchPath }) => {
       if (!pattern)
         throw new ToolError("glob: pattern is required");
-      if (path7.isAbsolute(pattern)) {
+      if (path6.isAbsolute(pattern)) {
         throw new ToolError("glob: absolute pattern not permitted; pass a relative pattern (and optionally path)");
       }
       if (patternCanAscend(pattern)) {
         throw new ToolError('glob: ".." is not permitted in the pattern');
       }
-      const root = searchPath ? await resolvePath2(ctx, searchPath) : path7.resolve(ctx.workdir);
+      const root = searchPath ? await resolvePath2(ctx, searchPath) : path6.resolve(ctx.workdir);
       const realRoot = searchPath ? root : await canonicalize(root);
       const matches = [];
       let remaining = WALK_MAX_ENTRIES;
@@ -35544,10 +35544,10 @@ function betaGlobTool(ctx) {
             break;
           if (!entry.isFile())
             continue;
-          const full = path7.join(entry.parentPath, entry.name);
+          const full = path6.join(entry.parentPath, entry.name);
           let real;
           try {
-            real = await fs6.realpath(full);
+            real = await fs5.realpath(full);
           } catch {
             continue;
           }
@@ -35555,7 +35555,7 @@ function betaGlobTool(ctx) {
             continue;
           let mtime = 0;
           try {
-            mtime = (await fs6.stat(full)).mtimeMs;
+            mtime = (await fs5.stat(full)).mtimeMs;
           } catch {
           }
           matches.push({ path: full, mtime });
@@ -35583,7 +35583,7 @@ function betaGrepTool(ctx) {
     run: async ({ pattern, path: p }, context2) => {
       if (!pattern)
         throw new ToolError("grep: pattern is required");
-      let searchPath = path7.resolve(ctx.workdir);
+      let searchPath = path6.resolve(ctx.workdir);
       if (p)
         searchPath = await resolvePath2(ctx, p);
       const rg = await findRg();
@@ -35647,11 +35647,11 @@ async function runWalkGrep(pattern, root, signal) {
     hits.push(line2);
     return true;
   };
-  const stat2 = await fs6.stat(root).catch(() => null);
+  const stat2 = await fs5.stat(root).catch(() => null);
   if (stat2?.isFile()) {
     await grepFile(root, re2, push);
   } else {
-    await walk2(root, "", (rel) => grepFile(path7.join(root, rel), re2, push), signal);
+    await walk2(root, "", (rel) => grepFile(path6.join(root, rel), re2, push), signal);
   }
   if (signal?.aborted)
     throw new ToolError("grep: aborted");
@@ -35686,7 +35686,7 @@ async function walk2(root, rel, fn, signal) {
       return false;
     let entries;
     try {
-      entries = await fs6.readdir(path7.join(root, rel2), { withFileTypes: true });
+      entries = await fs5.readdir(path6.join(root, rel2), { withFileTypes: true });
     } catch {
       return true;
     }
@@ -35697,7 +35697,7 @@ async function walk2(root, rel, fn, signal) {
         return false;
       if (signal?.aborted)
         return false;
-      const childRel = rel2 ? path7.join(rel2, e.name) : e.name;
+      const childRel = rel2 ? path6.join(rel2, e.name) : e.name;
       if (e.isDirectory()) {
         if (!await inner(childRel, depth + 1))
           return false;
@@ -35711,11 +35711,11 @@ async function walk2(root, rel, fn, signal) {
   await inner(rel, 0);
 }
 async function findRg() {
-  const dirs = (process.env["PATH"] ?? "").split(path7.delimiter);
+  const dirs = (process.env["PATH"] ?? "").split(path6.delimiter);
   for (const d of dirs) {
-    const candidate = path7.join(d, "rg");
+    const candidate = path6.join(d, "rg");
     try {
-      await fs6.access(candidate, fssync.constants.X_OK);
+      await fs5.access(candidate, fssync.constants.X_OK);
       return candidate;
     } catch {
     }
@@ -35749,7 +35749,7 @@ var init_node2 = __esm({
       }
     };
     ANSI_RE = /\x1b\[[0-9;?]*[ -/]*[@-~]/g;
-    fsGlob = fs6.glob;
+    fsGlob = fs5.glob;
     BashSession = /* @__PURE__ */ (() => {
       class BashSession2 {
         constructor(dir, env = scrubbedShellEnv()) {
@@ -36403,7 +36403,7 @@ var init_work = __esm({
          */
         retrieve(workID, params, options) {
           const { environment_id, betas, workspace_id } = params;
-          return this._client.get(path6`/v1/environments/${environment_id}/work/${workID}?beta=true`, {
+          return this._client.get(path5`/v1/environments/${environment_id}/work/${workID}?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -36437,7 +36437,7 @@ var init_work = __esm({
          */
         update(workID, params, options) {
           const { environment_id, betas, workspace_id, ...body } = params;
-          return this._client.post(path6`/v1/environments/${environment_id}/work/${workID}?beta=true`, {
+          return this._client.post(path5`/v1/environments/${environment_id}/work/${workID}?beta=true`, {
             body,
             ...options,
             headers: buildHeaders([
@@ -36473,7 +36473,7 @@ var init_work = __esm({
          */
         list(environmentID, params = {}, options) {
           const { betas, ...query } = params ?? {};
-          return this._client.getAPIList(path6`/v1/environments/${environmentID}/work?beta=true`, PageCursor, {
+          return this._client.getAPIList(path5`/v1/environments/${environmentID}/work?beta=true`, PageCursor, {
             query,
             ...options,
             headers: buildHeaders([
@@ -36506,7 +36506,7 @@ var init_work = __esm({
          */
         ack(workID, params, options) {
           const { environment_id, betas } = params;
-          return this._client.post(path6`/v1/environments/${environment_id}/work/${workID}/ack?beta=true`, {
+          return this._client.post(path5`/v1/environments/${environment_id}/work/${workID}/ack?beta=true`, {
             ...options,
             headers: buildHeaders([
               { "anthropic-beta": [...betas ?? [], "managed-agents-2026-04-01"].toString() },
@@ -36536,7 +36536,7 @@ var init_work = __esm({
          */
         heartbeat(workID, params, options) {
           const { environment_id, desired_ttl_seconds, expected_last_heartbeat, betas } = params;
-          return this._client.post(path6`/v1/environments/${environment_id}/work/${workID}/heartbeat?beta=true`, {
+          return this._client.post(path5`/v1/environments/${environment_id}/work/${workID}/heartbeat?beta=true`, {
             query: { desired_ttl_seconds, expected_last_heartbeat },
             ...options,
             headers: buildHeaders([
@@ -36568,7 +36568,7 @@ var init_work = __esm({
          */
         poll(environmentID, params = {}, options) {
           const { betas, "Anthropic-Worker-ID": anthropicWorkerID, ...query } = params ?? {};
-          return this._client.get(path6`/v1/environments/${environmentID}/work/poll?beta=true`, {
+          return this._client.get(path5`/v1/environments/${environmentID}/work/poll?beta=true`, {
             query,
             ...options,
             headers: buildHeaders([
@@ -36598,7 +36598,7 @@ var init_work = __esm({
          */
         stats(environmentID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.get(path6`/v1/environments/${environmentID}/work/stats?beta=true`, {
+          return this._client.get(path5`/v1/environments/${environmentID}/work/stats?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -36631,7 +36631,7 @@ var init_work = __esm({
          */
         stop(workID, params, options) {
           const { environment_id, betas, workspace_id, ...body } = params;
-          return this._client.post(path6`/v1/environments/${environment_id}/work/${workID}/stop?beta=true`, {
+          return this._client.post(path5`/v1/environments/${environment_id}/work/${workID}/stop?beta=true`, {
             body,
             ...options,
             headers: buildHeaders([
@@ -36736,7 +36736,7 @@ var init_environments2 = __esm({
          */
         retrieve(environmentID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.get(path6`/v1/environments/${environmentID}?beta=true`, {
+          return this._client.get(path5`/v1/environments/${environmentID}?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -36764,7 +36764,7 @@ var init_environments2 = __esm({
          */
         update(environmentID, params, options) {
           const { betas, workspace_id, ...body } = params;
-          return this._client.post(path6`/v1/environments/${environmentID}?beta=true`, {
+          return this._client.post(path5`/v1/environments/${environmentID}?beta=true`, {
             body,
             ...options,
             headers: buildHeaders([
@@ -36822,7 +36822,7 @@ var init_environments2 = __esm({
          */
         delete(environmentID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.delete(path6`/v1/environments/${environmentID}?beta=true`, {
+          return this._client.delete(path5`/v1/environments/${environmentID}?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -36851,7 +36851,7 @@ var init_environments2 = __esm({
          */
         archive(environmentID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.post(path6`/v1/environments/${environmentID}/archive?beta=true`, {
+          return this._client.post(path5`/v1/environments/${environmentID}/archive?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -36897,7 +36897,7 @@ var init_memories2 = __esm({
        */
       create(memoryStoreID, params, options) {
         const { view, betas, workspace_id, ...body } = params;
-        return this._client.post(path6`/v1/memory_stores/${memoryStoreID}/memories?beta=true`, {
+        return this._client.post(path5`/v1/memory_stores/${memoryStoreID}/memories?beta=true`, {
           query: { view },
           body,
           ...options,
@@ -36930,7 +36930,7 @@ var init_memories2 = __esm({
        */
       retrieve(memoryID, params, options) {
         const { memory_store_id, betas, workspace_id, ...query } = params;
-        return this._client.get(path6`/v1/memory_stores/${memory_store_id}/memories/${memoryID}?beta=true`, {
+        return this._client.get(path5`/v1/memory_stores/${memory_store_id}/memories/${memoryID}?beta=true`, {
           query,
           ...options,
           headers: buildHeaders([
@@ -36961,7 +36961,7 @@ var init_memories2 = __esm({
        */
       update(memoryID, params, options) {
         const { memory_store_id, view, betas, workspace_id, ...body } = params;
-        return this._client.post(path6`/v1/memory_stores/${memory_store_id}/memories/${memoryID}?beta=true`, {
+        return this._client.post(path5`/v1/memory_stores/${memory_store_id}/memories/${memoryID}?beta=true`, {
           query: { view },
           body,
           ...options,
@@ -36994,7 +36994,7 @@ var init_memories2 = __esm({
        */
       list(memoryStoreID, params = {}, options) {
         const { betas, workspace_id, ...query } = params ?? {};
-        return this._client.getAPIList(path6`/v1/memory_stores/${memoryStoreID}/memories?beta=true`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/memory_stores/${memoryStoreID}/memories?beta=true`, PageCursor, {
           query,
           ...options,
           headers: buildHeaders([
@@ -37026,7 +37026,7 @@ var init_memories2 = __esm({
        */
       delete(memoryID, params, options) {
         const { memory_store_id, expected_content_sha256, betas, workspace_id } = params;
-        return this._client.delete(path6`/v1/memory_stores/${memory_store_id}/memories/${memoryID}?beta=true`, {
+        return this._client.delete(path5`/v1/memory_stores/${memory_store_id}/memories/${memoryID}?beta=true`, {
           query: { expected_content_sha256 },
           ...options,
           headers: buildHeaders([
@@ -37071,7 +37071,7 @@ var init_memory_versions = __esm({
        */
       retrieve(memoryVersionID, params, options) {
         const { memory_store_id, betas, workspace_id, ...query } = params;
-        return this._client.get(path6`/v1/memory_stores/${memory_store_id}/memory_versions/${memoryVersionID}?beta=true`, {
+        return this._client.get(path5`/v1/memory_stores/${memory_store_id}/memory_versions/${memoryVersionID}?beta=true`, {
           query,
           ...options,
           headers: buildHeaders([
@@ -37106,7 +37106,7 @@ var init_memory_versions = __esm({
        */
       list(memoryStoreID, params = {}, options) {
         const { betas, workspace_id, ...query } = params ?? {};
-        return this._client.getAPIList(path6`/v1/memory_stores/${memoryStoreID}/memory_versions?beta=true`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/memory_stores/${memoryStoreID}/memory_versions?beta=true`, PageCursor, {
           query,
           ...options,
           headers: buildHeaders([
@@ -37148,7 +37148,7 @@ var init_memory_versions = __esm({
        */
       redact(memoryVersionID, params, options) {
         const { memory_store_id, betas, workspace_id } = params;
-        return this._client.post(path6`/v1/memory_stores/${memory_store_id}/memory_versions/${memoryVersionID}/redact?beta=true`, {
+        return this._client.post(path5`/v1/memory_stores/${memory_store_id}/memory_versions/${memoryVersionID}/redact?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -37230,7 +37230,7 @@ var init_memory_stores = __esm({
          */
         retrieve(memoryStoreID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.get(path6`/v1/memory_stores/${memoryStoreID}?beta=true`, {
+          return this._client.get(path5`/v1/memory_stores/${memoryStoreID}?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -37256,7 +37256,7 @@ var init_memory_stores = __esm({
          */
         update(memoryStoreID, params, options) {
           const { betas, workspace_id, ...body } = params;
-          return this._client.post(path6`/v1/memory_stores/${memoryStoreID}?beta=true`, {
+          return this._client.post(path5`/v1/memory_stores/${memoryStoreID}?beta=true`, {
             body,
             ...options,
             headers: buildHeaders([
@@ -37312,7 +37312,7 @@ var init_memory_stores = __esm({
          */
         delete(memoryStoreID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.delete(path6`/v1/memory_stores/${memoryStoreID}?beta=true`, {
+          return this._client.delete(path5`/v1/memory_stores/${memoryStoreID}?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -37338,7 +37338,7 @@ var init_memory_stores = __esm({
          */
         archive(memoryStoreID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.post(path6`/v1/memory_stores/${memoryStoreID}/archive?beta=true`, {
+          return this._client.post(path5`/v1/memory_stores/${memoryStoreID}/archive?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -37441,7 +37441,7 @@ var init_batches2 = __esm({
        */
       retrieve(messageBatchID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.get(path6`/v1/messages/batches/${messageBatchID}?beta=true`, {
+        return this._client.get(path5`/v1/messages/batches/${messageBatchID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -37508,7 +37508,7 @@ var init_batches2 = __esm({
        */
       delete(messageBatchID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.delete(path6`/v1/messages/batches/${messageBatchID}?beta=true`, {
+        return this._client.delete(path5`/v1/messages/batches/${messageBatchID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -37547,7 +37547,7 @@ var init_batches2 = __esm({
        */
       cancel(messageBatchID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.post(path6`/v1/messages/batches/${messageBatchID}/cancel?beta=true`, {
+        return this._client.post(path5`/v1/messages/batches/${messageBatchID}/cancel?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -38536,7 +38536,7 @@ var init_api_keys = __esm({
        * ```
        */
       retrieve(apiKeyID, options) {
-        return this._client.get(path6`/v1/organizations/api_keys/${apiKeyID}?beta=true`, {
+        return this._client.get(path5`/v1/organizations/api_keys/${apiKeyID}?beta=true`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.api_keys.retrieve", options, {
             route: "/v1/organizations/api_keys/{api_key_id}",
@@ -38556,7 +38556,7 @@ var init_api_keys = __esm({
        * ```
        */
       update(apiKeyID, body, options) {
-        return this._client.post(path6`/v1/organizations/api_keys/${apiKeyID}?beta=true`, {
+        return this._client.post(path5`/v1/organizations/api_keys/${apiKeyID}?beta=true`, {
           body,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.api_keys.update", options, {
@@ -39380,7 +39380,7 @@ var init_external_keys = __esm({
        * ```
        */
       retrieve(externalKeyID, options) {
-        return this._client.get(path6`/v1/organizations/external_keys/${externalKeyID}?beta=true`, {
+        return this._client.get(path5`/v1/organizations/external_keys/${externalKeyID}?beta=true`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.external_keys.retrieve", options, {
             route: "/v1/organizations/external_keys/{external_key_id}",
@@ -39404,7 +39404,7 @@ var init_external_keys = __esm({
        * ```
        */
       update(externalKeyID, body, options) {
-        return this._client.post(path6`/v1/organizations/external_keys/${externalKeyID}?beta=true`, {
+        return this._client.post(path5`/v1/organizations/external_keys/${externalKeyID}?beta=true`, {
           body,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.external_keys.update", options, {
@@ -39451,7 +39451,7 @@ var init_external_keys = __esm({
        * ```
        */
       delete(externalKeyID, options) {
-        return this._client.delete(path6`/v1/organizations/external_keys/${externalKeyID}?beta=true`, {
+        return this._client.delete(path5`/v1/organizations/external_keys/${externalKeyID}?beta=true`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.external_keys.delete", options, {
             route: "/v1/organizations/external_keys/{external_key_id}",
@@ -39476,7 +39476,7 @@ var init_external_keys = __esm({
        * ```
        */
       validate(externalKeyID, options) {
-        return this._client.post(path6`/v1/organizations/external_keys/${externalKeyID}/validate?beta=true`, {
+        return this._client.post(path5`/v1/organizations/external_keys/${externalKeyID}/validate?beta=true`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.external_keys.validate", options, {
             route: "/v1/organizations/external_keys/{external_key_id}/validate",
@@ -39558,7 +39558,7 @@ var init_issuers = __esm({
        */
       retrieve(federationIssuerID, params = {}, options) {
         const { betas } = params ?? {};
-        return this._client.get(path6`/v1/organizations/federation_issuers/${federationIssuerID}?beta=true`, {
+        return this._client.get(path5`/v1/organizations/federation_issuers/${federationIssuerID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             { ...betas?.toString() != null ? { "anthropic-beta": betas?.toString() } : void 0 },
@@ -39594,7 +39594,7 @@ var init_issuers = __esm({
        */
       update(federationIssuerID, params, options) {
         const { betas, ...body } = params;
-        return this._client.post(path6`/v1/organizations/federation_issuers/${federationIssuerID}?beta=true`, {
+        return this._client.post(path5`/v1/organizations/federation_issuers/${federationIssuerID}?beta=true`, {
           body,
           ...options,
           headers: buildHeaders([
@@ -39663,7 +39663,7 @@ var init_issuers = __esm({
        */
       archive(federationIssuerID, params = {}, options) {
         const { betas } = params ?? {};
-        return this._client.post(path6`/v1/organizations/federation_issuers/${federationIssuerID}/archive?beta=true`, {
+        return this._client.post(path5`/v1/organizations/federation_issuers/${federationIssuerID}/archive?beta=true`, {
           ...options,
           headers: buildHeaders([
             { ...betas?.toString() != null ? { "anthropic-beta": betas?.toString() } : void 0 },
@@ -39715,7 +39715,7 @@ var init_workspaces = __esm({
        */
       list(federationRuleID, params = {}, options) {
         const { betas, ...query } = params ?? {};
-        return this._client.getAPIList(path6`/v1/organizations/federation_rules/${federationRuleID}/workspaces?beta=true`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/organizations/federation_rules/${federationRuleID}/workspaces?beta=true`, PageCursor, {
           query,
           ...options,
           headers: buildHeaders([
@@ -39756,7 +39756,7 @@ var init_workspaces = __esm({
        */
       add(federationRuleID, params, options) {
         const { betas, ...body } = params;
-        return this._client.post(path6`/v1/organizations/federation_rules/${federationRuleID}/workspaces?beta=true`, {
+        return this._client.post(path5`/v1/organizations/federation_rules/${federationRuleID}/workspaces?beta=true`, {
           body,
           ...options,
           headers: buildHeaders([
@@ -39794,7 +39794,7 @@ var init_workspaces = __esm({
        */
       remove(workspaceID, params, options) {
         const { federation_rule_id, betas } = params;
-        return this._client.delete(path6`/v1/organizations/federation_rules/${federation_rule_id}/workspaces/${workspaceID}?beta=true`, {
+        return this._client.delete(path5`/v1/organizations/federation_rules/${federation_rule_id}/workspaces/${workspaceID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             { ...betas?.toString() != null ? { "anthropic-beta": betas?.toString() } : void 0 },
@@ -39899,7 +39899,7 @@ var init_rules = __esm({
          */
         retrieve(federationRuleID, params = {}, options) {
           const { betas } = params ?? {};
-          return this._client.get(path6`/v1/organizations/federation_rules/${federationRuleID}?beta=true`, {
+          return this._client.get(path5`/v1/organizations/federation_rules/${federationRuleID}?beta=true`, {
             ...options,
             headers: buildHeaders([
               { ...betas?.toString() != null ? { "anthropic-beta": betas?.toString() } : void 0 },
@@ -39944,7 +39944,7 @@ var init_rules = __esm({
          */
         update(federationRuleID, params, options) {
           const { betas, ...body } = params;
-          return this._client.post(path6`/v1/organizations/federation_rules/${federationRuleID}?beta=true`, {
+          return this._client.post(path5`/v1/organizations/federation_rules/${federationRuleID}?beta=true`, {
             body,
             ...options,
             headers: buildHeaders([
@@ -40016,7 +40016,7 @@ var init_rules = __esm({
          */
         archive(federationRuleID, params = {}, options) {
           const { betas } = params ?? {};
-          return this._client.post(path6`/v1/organizations/federation_rules/${federationRuleID}/archive?beta=true`, {
+          return this._client.post(path5`/v1/organizations/federation_rules/${federationRuleID}/archive?beta=true`, {
             ...options,
             headers: buildHeaders([
               { ...betas?.toString() != null ? { "anthropic-beta": betas?.toString() } : void 0 },
@@ -40107,7 +40107,7 @@ var init_invites = __esm({
        * ```
        */
       retrieve(inviteID, options) {
-        return this._client.get(path6`/v1/organizations/invites/${inviteID}?beta=true`, {
+        return this._client.get(path5`/v1/organizations/invites/${inviteID}?beta=true`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.invites.retrieve", options, {
             route: "/v1/organizations/invites/{invite_id}",
@@ -40148,7 +40148,7 @@ var init_invites = __esm({
        * ```
        */
       delete(inviteID, options) {
-        return this._client.delete(path6`/v1/organizations/invites/${inviteID}?beta=true`, {
+        return this._client.delete(path5`/v1/organizations/invites/${inviteID}?beta=true`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.invites.delete", options, {
             route: "/v1/organizations/invites/{invite_id}",
@@ -40195,7 +40195,7 @@ var init_plugin_marketplaces = __esm({
        */
       retrieve(marketplaceID, params = {}, options) {
         const { betas, ...query } = params ?? {};
-        return this._client.get(path6`/v1/organizations/plugin_marketplaces/${marketplaceID}?beta=true`, {
+        return this._client.get(path5`/v1/organizations/plugin_marketplaces/${marketplaceID}?beta=true`, {
           query,
           ...options,
           headers: buildHeaders([
@@ -40237,7 +40237,7 @@ var init_plugin_marketplaces = __esm({
        */
       update(marketplaceID, params, options) {
         const { betas, ...body } = params;
-        return this._client.post(path6`/v1/organizations/plugin_marketplaces/${marketplaceID}?beta=true`, {
+        return this._client.post(path5`/v1/organizations/plugin_marketplaces/${marketplaceID}?beta=true`, {
           body,
           ...options,
           headers: buildHeaders([
@@ -40466,7 +40466,7 @@ var init_users2 = __esm({
        * ```
        */
       retrieve(userID, options) {
-        return this._client.get(path6`/v1/organizations/users/${userID}?beta=true`, {
+        return this._client.get(path5`/v1/organizations/users/${userID}?beta=true`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.users.retrieve", options, {
             route: "/v1/organizations/users/{user_id}",
@@ -40486,7 +40486,7 @@ var init_users2 = __esm({
        * ```
        */
       update(userID, body, options) {
-        return this._client.post(path6`/v1/organizations/users/${userID}?beta=true`, {
+        return this._client.post(path5`/v1/organizations/users/${userID}?beta=true`, {
           body,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.users.update", options, {
@@ -40527,7 +40527,7 @@ var init_users2 = __esm({
        * ```
        */
       remove(userID, options) {
-        return this._client.delete(path6`/v1/organizations/users/${userID}?beta=true`, {
+        return this._client.delete(path5`/v1/organizations/users/${userID}?beta=true`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.users.remove", options, {
             route: "/v1/organizations/users/{user_id}",
@@ -40580,7 +40580,7 @@ var init_installation_settings = __esm({
        */
       list(pluginID, params = {}, options) {
         const { betas, ...query } = params ?? {};
-        return this._client.getAPIList(path6`/v1/organizations/plugins/${pluginID}/installation_settings?beta=true`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/organizations/plugins/${pluginID}/installation_settings?beta=true`, PageCursor, {
           query,
           ...options,
           headers: buildHeaders([
@@ -40634,7 +40634,7 @@ var init_installation_settings = __esm({
        */
       remove(target, params, options) {
         const { plugin_id, betas } = params;
-        return this._client.delete(path6`/v1/organizations/plugins/${plugin_id}/installation_settings/${target}?beta=true`, {
+        return this._client.delete(path5`/v1/organizations/plugins/${plugin_id}/installation_settings/${target}?beta=true`, {
           ...options,
           headers: buildHeaders([
             { "anthropic-beta": [...betas ?? [], "ce-plugins-2026-09-01"].toString() },
@@ -40687,7 +40687,7 @@ var init_installation_settings = __esm({
        */
       set(target, params, options) {
         const { plugin_id, betas, ...body } = params;
-        return this._client.post(path6`/v1/organizations/plugins/${plugin_id}/installation_settings/${target}?beta=true`, {
+        return this._client.post(path5`/v1/organizations/plugins/${plugin_id}/installation_settings/${target}?beta=true`, {
           body,
           ...options,
           headers: buildHeaders([
@@ -40750,7 +40750,7 @@ var init_shares = __esm({
        */
       list(pluginID, params = {}, options) {
         const { betas, ...query } = params ?? {};
-        return this._client.getAPIList(path6`/v1/organizations/plugins/${pluginID}/shares?beta=true`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/organizations/plugins/${pluginID}/shares?beta=true`, PageCursor, {
           query,
           ...options,
           headers: buildHeaders([
@@ -40822,7 +40822,7 @@ var init_versions2 = __esm({
        */
       create(pluginID, params, options) {
         const { betas, ...body } = params;
-        return this._client.post(path6`/v1/organizations/plugins/${pluginID}/versions?beta=true`, multipartFormRequestOptions({
+        return this._client.post(path5`/v1/organizations/plugins/${pluginID}/versions?beta=true`, multipartFormRequestOptions({
           body,
           ...options,
           headers: buildHeaders([
@@ -40861,7 +40861,7 @@ var init_versions2 = __esm({
        */
       retrieve(version, params, options) {
         const { plugin_id, betas, ...query } = params;
-        return this._client.get(path6`/v1/organizations/plugins/${plugin_id}/versions/${version}?beta=true`, {
+        return this._client.get(path5`/v1/organizations/plugins/${plugin_id}/versions/${version}?beta=true`, {
           query,
           ...options,
           headers: buildHeaders([
@@ -40907,7 +40907,7 @@ var init_versions2 = __esm({
        */
       list(pluginID, params = {}, options) {
         const { betas, ...query } = params ?? {};
-        return this._client.getAPIList(path6`/v1/organizations/plugins/${pluginID}/versions?beta=true`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/organizations/plugins/${pluginID}/versions?beta=true`, PageCursor, {
           query,
           ...options,
           headers: buildHeaders([
@@ -40965,7 +40965,7 @@ var init_versions2 = __esm({
        */
       download(version, params, options) {
         const { plugin_id, betas, ...query } = params;
-        return this._client.get(path6`/v1/organizations/plugins/${plugin_id}/versions/${version}/content?beta=true`, {
+        return this._client.get(path5`/v1/organizations/plugins/${plugin_id}/versions/${version}/content?beta=true`, {
           query,
           ...options,
           headers: buildHeaders([
@@ -41099,7 +41099,7 @@ var init_plugins2 = __esm({
          */
         retrieve(pluginID, params = {}, options) {
           const { betas, ...query } = params ?? {};
-          return this._client.get(path6`/v1/organizations/plugins/${pluginID}?beta=true`, {
+          return this._client.get(path5`/v1/organizations/plugins/${pluginID}?beta=true`, {
             query,
             ...options,
             headers: buildHeaders([
@@ -41160,7 +41160,7 @@ var init_plugins2 = __esm({
          */
         update(pluginID, params, options) {
           const { betas, ...body } = params;
-          return this._client.post(path6`/v1/organizations/plugins/${pluginID}?beta=true`, {
+          return this._client.post(path5`/v1/organizations/plugins/${pluginID}?beta=true`, {
             body,
             ...options,
             headers: buildHeaders([
@@ -41261,7 +41261,7 @@ var init_plugins2 = __esm({
          */
         delete(pluginID, params = {}, options) {
           const { betas } = params ?? {};
-          return this._client.delete(path6`/v1/organizations/plugins/${pluginID}?beta=true`, {
+          return this._client.delete(path5`/v1/organizations/plugins/${pluginID}?beta=true`, {
             ...options,
             headers: buildHeaders([
               { "anthropic-beta": [...betas ?? [], "ce-plugins-2026-09-01"].toString() },
@@ -41307,7 +41307,7 @@ var init_members = __esm({
        * ```
        */
       list(rbacGroupID, query = {}, options) {
-        return this._client.getAPIList(path6`/v1/organizations/rbac_groups/${rbacGroupID}/members?beta=true`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/organizations/rbac_groups/${rbacGroupID}/members?beta=true`, PageCursor, {
           query,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.rbac_groups.members.list", options, {
@@ -41334,7 +41334,7 @@ var init_members = __esm({
        * ```
        */
       add(rbacGroupID, body, options) {
-        return this._client.post(path6`/v1/organizations/rbac_groups/${rbacGroupID}/members?beta=true`, {
+        return this._client.post(path5`/v1/organizations/rbac_groups/${rbacGroupID}/members?beta=true`, {
           body,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.rbac_groups.members.add", options, {
@@ -41363,7 +41363,7 @@ var init_members = __esm({
        */
       remove(userID, params, options) {
         const { rbac_group_id } = params;
-        return this._client.delete(path6`/v1/organizations/rbac_groups/${rbac_group_id}/members/${userID}?beta=true`, {
+        return this._client.delete(path5`/v1/organizations/rbac_groups/${rbac_group_id}/members/${userID}?beta=true`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.rbac_groups.members.remove", options, {
             route: "/v1/organizations/rbac_groups/{rbac_group_id}/members/{user_id}",
@@ -41432,7 +41432,7 @@ var init_rbac_groups = __esm({
          * ```
          */
         retrieve(rbacGroupID, options) {
-          return this._client.get(path6`/v1/organizations/rbac_groups/${rbacGroupID}?beta=true`, {
+          return this._client.get(path5`/v1/organizations/rbac_groups/${rbacGroupID}?beta=true`, {
             ...options,
             __span: startApiCallSpan(this._client, "anthropic.organization.rbac_groups.retrieve", options, {
               route: "/v1/organizations/rbac_groups/{rbac_group_id}",
@@ -41456,7 +41456,7 @@ var init_rbac_groups = __esm({
          * ```
          */
         update(rbacGroupID, body, options) {
-          return this._client.post(path6`/v1/organizations/rbac_groups/${rbacGroupID}?beta=true`, {
+          return this._client.post(path5`/v1/organizations/rbac_groups/${rbacGroupID}?beta=true`, {
             body,
             ...options,
             __span: startApiCallSpan(this._client, "anthropic.organization.rbac_groups.update", options, {
@@ -41504,7 +41504,7 @@ var init_rbac_groups = __esm({
          * ```
          */
         delete(rbacGroupID, options) {
-          return this._client.delete(path6`/v1/organizations/rbac_groups/${rbacGroupID}?beta=true`, {
+          return this._client.delete(path5`/v1/organizations/rbac_groups/${rbacGroupID}?beta=true`, {
             ...options,
             __span: startApiCallSpan(this._client, "anthropic.organization.rbac_groups.delete", options, {
               route: "/v1/organizations/rbac_groups/{rbac_group_id}",
@@ -41544,7 +41544,7 @@ var init_permissions = __esm({
        * ```
        */
       list(rbacRoleID, query = {}, options) {
-        return this._client.getAPIList(path6`/v1/organizations/rbac_roles/${rbacRoleID}/permissions?beta=true`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/organizations/rbac_roles/${rbacRoleID}/permissions?beta=true`, PageCursor, {
           query,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.rbac_roles.permissions.list", options, {
@@ -41588,7 +41588,7 @@ var init_rbac_roles = __esm({
          * ```
          */
         retrieve(rbacRoleID, options) {
-          return this._client.get(path6`/v1/organizations/rbac_roles/${rbacRoleID}?beta=true`, {
+          return this._client.get(path5`/v1/organizations/rbac_roles/${rbacRoleID}?beta=true`, {
             ...options,
             __span: startApiCallSpan(this._client, "anthropic.organization.rbac_roles.retrieve", options, {
               route: "/v1/organizations/rbac_roles/{rbac_role_id}",
@@ -41668,7 +41668,7 @@ var init_workspaces2 = __esm({
        */
       list(serviceAccountID, params = {}, options) {
         const { betas, ...query } = params ?? {};
-        return this._client.getAPIList(path6`/v1/organizations/service_accounts/${serviceAccountID}/workspaces?beta=true`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/organizations/service_accounts/${serviceAccountID}/workspaces?beta=true`, PageCursor, {
           query,
           ...options,
           headers: buildHeaders([
@@ -41710,7 +41710,7 @@ var init_workspaces2 = __esm({
        */
       add(serviceAccountID, params, options) {
         const { betas, ...body } = params;
-        return this._client.post(path6`/v1/organizations/service_accounts/${serviceAccountID}/workspaces?beta=true`, {
+        return this._client.post(path5`/v1/organizations/service_accounts/${serviceAccountID}/workspaces?beta=true`, {
           body,
           ...options,
           headers: buildHeaders([
@@ -41752,7 +41752,7 @@ var init_workspaces2 = __esm({
        */
       remove(workspaceID, params, options) {
         const { service_account_id, betas } = params;
-        return this._client.delete(path6`/v1/organizations/service_accounts/${service_account_id}/workspaces/${workspaceID}?beta=true`, {
+        return this._client.delete(path5`/v1/organizations/service_accounts/${service_account_id}/workspaces/${workspaceID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             { ...betas?.toString() != null ? { "anthropic-beta": betas?.toString() } : void 0 },
@@ -41844,7 +41844,7 @@ var init_service_accounts = __esm({
          */
         retrieve(serviceAccountID, params = {}, options) {
           const { betas } = params ?? {};
-          return this._client.get(path6`/v1/organizations/service_accounts/${serviceAccountID}?beta=true`, {
+          return this._client.get(path5`/v1/organizations/service_accounts/${serviceAccountID}?beta=true`, {
             ...options,
             headers: buildHeaders([
               { ...betas?.toString() != null ? { "anthropic-beta": betas?.toString() } : void 0 },
@@ -41879,7 +41879,7 @@ var init_service_accounts = __esm({
          */
         update(serviceAccountID, params, options) {
           const { betas, ...body } = params;
-          return this._client.post(path6`/v1/organizations/service_accounts/${serviceAccountID}?beta=true`, {
+          return this._client.post(path5`/v1/organizations/service_accounts/${serviceAccountID}?beta=true`, {
             body,
             ...options,
             headers: buildHeaders([
@@ -41950,7 +41950,7 @@ var init_service_accounts = __esm({
          */
         archive(serviceAccountID, params = {}, options) {
           const { betas } = params ?? {};
-          return this._client.post(path6`/v1/organizations/service_accounts/${serviceAccountID}/archive?beta=true`, {
+          return this._client.post(path5`/v1/organizations/service_accounts/${serviceAccountID}/archive?beta=true`, {
             ...options,
             headers: buildHeaders([
               { ...betas?.toString() != null ? { "anthropic-beta": betas?.toString() } : void 0 },
@@ -42031,7 +42031,7 @@ var init_increase_requests = __esm({
        * ```
        */
       retrieve(spendLimitIncreaseRequestID, options) {
-        return this._client.get(path6`/v1/organizations/spend_limit_increase_requests/${spendLimitIncreaseRequestID}?beta=true`, {
+        return this._client.get(path5`/v1/organizations/spend_limit_increase_requests/${spendLimitIncreaseRequestID}?beta=true`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.spend_limits.increase_requests.retrieve", options, {
             route: "/v1/organizations/spend_limit_increase_requests/{spend_limit_increase_request_id}",
@@ -42082,7 +42082,7 @@ var init_increase_requests = __esm({
        * ```
        */
       approve(spendLimitIncreaseRequestID, body, options) {
-        return this._client.post(path6`/v1/organizations/spend_limit_increase_requests/${spendLimitIncreaseRequestID}/approve?beta=true`, {
+        return this._client.post(path5`/v1/organizations/spend_limit_increase_requests/${spendLimitIncreaseRequestID}/approve?beta=true`, {
           body,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.spend_limits.increase_requests.approve", options, {
@@ -42108,7 +42108,7 @@ var init_increase_requests = __esm({
        * ```
        */
       deny(spendLimitIncreaseRequestID, body, options) {
-        return this._client.post(path6`/v1/organizations/spend_limit_increase_requests/${spendLimitIncreaseRequestID}/deny?beta=true`, {
+        return this._client.post(path5`/v1/organizations/spend_limit_increase_requests/${spendLimitIncreaseRequestID}/deny?beta=true`, {
           body,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.spend_limits.increase_requests.deny", options, {
@@ -42155,7 +42155,7 @@ var init_spend_limits = __esm({
          * ```
          */
         retrieve(spendLimitID, options) {
-          return this._client.get(path6`/v1/organizations/spend_limits/${spendLimitID}?beta=true`, {
+          return this._client.get(path5`/v1/organizations/spend_limits/${spendLimitID}?beta=true`, {
             ...options,
             __span: startApiCallSpan(this._client, "anthropic.organization.spend_limits.retrieve", options, {
               route: "/v1/organizations/spend_limits/{spend_limit_id}",
@@ -42213,7 +42213,7 @@ var init_spend_limits = __esm({
          * ```
          */
         delete(spendLimitID, options) {
-          return this._client.delete(path6`/v1/organizations/spend_limits/${spendLimitID}?beta=true`, {
+          return this._client.delete(path5`/v1/organizations/spend_limits/${spendLimitID}?beta=true`, {
             ...options,
             __span: startApiCallSpan(this._client, "anthropic.organization.spend_limits.delete", options, {
               route: "/v1/organizations/spend_limits/{spend_limit_id}",
@@ -42298,7 +42298,7 @@ var init_workspaces3 = __esm({
        */
       list(destinationID, params = {}, options) {
         const { betas, ...query } = params ?? {};
-        return this._client.getAPIList(path6`/v1/organizations/telemetry_destinations/${destinationID}/workspaces?beta=true`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/organizations/telemetry_destinations/${destinationID}/workspaces?beta=true`, PageCursor, {
           query,
           ...options,
           headers: buildHeaders([
@@ -42339,7 +42339,7 @@ var init_workspaces3 = __esm({
        */
       add(workspaceID, params, options) {
         const { destination_id, betas } = params;
-        return this._client.post(path6`/v1/organizations/telemetry_destinations/${destination_id}/workspaces/${workspaceID}?beta=true`, {
+        return this._client.post(path5`/v1/organizations/telemetry_destinations/${destination_id}/workspaces/${workspaceID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             { "anthropic-beta": [...betas ?? [], "telemetry-destinations-2026-08-11"].toString() },
@@ -42378,7 +42378,7 @@ var init_workspaces3 = __esm({
        */
       remove(workspaceID, params, options) {
         const { destination_id, betas } = params;
-        return this._client.delete(path6`/v1/organizations/telemetry_destinations/${destination_id}/workspaces/${workspaceID}?beta=true`, {
+        return this._client.delete(path5`/v1/organizations/telemetry_destinations/${destination_id}/workspaces/${workspaceID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             { "anthropic-beta": [...betas ?? [], "telemetry-destinations-2026-08-11"].toString() },
@@ -42467,7 +42467,7 @@ var init_telemetry_destinations = __esm({
          */
         retrieve(destinationID, params = {}, options) {
           const { betas } = params ?? {};
-          return this._client.get(path6`/v1/organizations/telemetry_destinations/${destinationID}?beta=true`, {
+          return this._client.get(path5`/v1/organizations/telemetry_destinations/${destinationID}?beta=true`, {
             ...options,
             headers: buildHeaders([
               { "anthropic-beta": [...betas ?? [], "telemetry-destinations-2026-08-11"].toString() },
@@ -42506,7 +42506,7 @@ var init_telemetry_destinations = __esm({
          */
         update(destinationID, params, options) {
           const { betas, ...body } = params;
-          return this._client.post(path6`/v1/organizations/telemetry_destinations/${destinationID}?beta=true`, {
+          return this._client.post(path5`/v1/organizations/telemetry_destinations/${destinationID}?beta=true`, {
             body,
             ...options,
             headers: buildHeaders([
@@ -42571,7 +42571,7 @@ var init_telemetry_destinations = __esm({
          */
         delete(destinationID, params = {}, options) {
           const { betas } = params ?? {};
-          return this._client.delete(path6`/v1/organizations/telemetry_destinations/${destinationID}?beta=true`, {
+          return this._client.delete(path5`/v1/organizations/telemetry_destinations/${destinationID}?beta=true`, {
             ...options,
             headers: buildHeaders([
               { "anthropic-beta": [...betas ?? [], "telemetry-destinations-2026-08-11"].toString() },
@@ -42603,7 +42603,7 @@ var init_telemetry_destinations = __esm({
          */
         test(destinationID, params = {}, options) {
           const { betas } = params ?? {};
-          return this._client.post(path6`/v1/organizations/telemetry_destinations/${destinationID}/test?beta=true`, {
+          return this._client.post(path5`/v1/organizations/telemetry_destinations/${destinationID}/test?beta=true`, {
             ...options,
             headers: buildHeaders([
               { "anthropic-beta": [...betas ?? [], "telemetry-destinations-2026-08-11"].toString() },
@@ -42645,7 +42645,7 @@ var init_members2 = __esm({
        */
       retrieve(userID, params, options) {
         const { workspace_id } = params;
-        return this._client.get(path6`/v1/organizations/workspaces/${workspace_id}/members/${userID}?beta=true`, {
+        return this._client.get(path5`/v1/organizations/workspaces/${workspace_id}/members/${userID}?beta=true`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.members.retrieve", options, {
             route: "/v1/organizations/workspaces/{workspace_id}/members/{user_id}",
@@ -42673,7 +42673,7 @@ var init_members2 = __esm({
        */
       update(userID, params, options) {
         const { workspace_id, ...body } = params;
-        return this._client.post(path6`/v1/organizations/workspaces/${workspace_id}/members/${userID}?beta=true`, {
+        return this._client.post(path5`/v1/organizations/workspaces/${workspace_id}/members/${userID}?beta=true`, {
           body,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.members.update", options, {
@@ -42699,7 +42699,7 @@ var init_members2 = __esm({
        * ```
        */
       list(workspaceID, query = {}, options) {
-        return this._client.getAPIList(path6`/v1/organizations/workspaces/${workspaceID}/members?beta=true`, Page, {
+        return this._client.getAPIList(path5`/v1/organizations/workspaces/${workspaceID}/members?beta=true`, Page, {
           query,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.members.list", options, {
@@ -42725,7 +42725,7 @@ var init_members2 = __esm({
        * ```
        */
       add(workspaceID, body, options) {
-        return this._client.post(path6`/v1/organizations/workspaces/${workspaceID}/members?beta=true`, {
+        return this._client.post(path5`/v1/organizations/workspaces/${workspaceID}/members?beta=true`, {
           body,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.members.add", options, {
@@ -42750,7 +42750,7 @@ var init_members2 = __esm({
        */
       remove(userID, params, options) {
         const { workspace_id } = params;
-        return this._client.delete(path6`/v1/organizations/workspaces/${workspace_id}/members/${userID}?beta=true`, {
+        return this._client.delete(path5`/v1/organizations/workspaces/${workspace_id}/members/${userID}?beta=true`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.members.remove", options, {
             route: "/v1/organizations/workspaces/{workspace_id}/members/{user_id}",
@@ -42797,7 +42797,7 @@ var init_rate_limits2 = __esm({
        * ```
        */
       list(workspaceID, query = {}, options) {
-        return this._client.getAPIList(path6`/v1/organizations/workspaces/${workspaceID}/rate_limits?beta=true`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/organizations/workspaces/${workspaceID}/rate_limits?beta=true`, PageCursor, {
           query,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.rate_limits.list", options, {
@@ -42846,7 +42846,7 @@ var init_service_accounts2 = __esm({
        */
       retrieve(serviceAccountID, params, options) {
         const { workspace_id, betas } = params;
-        return this._client.get(path6`/v1/organizations/workspaces/${workspace_id}/service_accounts/${serviceAccountID}?beta=true`, {
+        return this._client.get(path5`/v1/organizations/workspaces/${workspace_id}/service_accounts/${serviceAccountID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             { ...betas?.toString() != null ? { "anthropic-beta": betas?.toString() } : void 0 },
@@ -42889,7 +42889,7 @@ var init_service_accounts2 = __esm({
        */
       update(serviceAccountID, params, options) {
         const { workspace_id, betas, ...body } = params;
-        return this._client.post(path6`/v1/organizations/workspaces/${workspace_id}/service_accounts/${serviceAccountID}?beta=true`, {
+        return this._client.post(path5`/v1/organizations/workspaces/${workspace_id}/service_accounts/${serviceAccountID}?beta=true`, {
           body,
           ...options,
           headers: buildHeaders([
@@ -42931,7 +42931,7 @@ var init_service_accounts2 = __esm({
        */
       list(workspaceID, params = {}, options) {
         const { betas, ...query } = params ?? {};
-        return this._client.getAPIList(path6`/v1/organizations/workspaces/${workspaceID}/service_accounts?beta=true`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/organizations/workspaces/${workspaceID}/service_accounts?beta=true`, PageCursor, {
           query,
           ...options,
           headers: buildHeaders([
@@ -42975,7 +42975,7 @@ var init_service_accounts2 = __esm({
        */
       add(workspaceID, params, options) {
         const { betas, ...body } = params;
-        return this._client.post(path6`/v1/organizations/workspaces/${workspaceID}/service_accounts?beta=true`, {
+        return this._client.post(path5`/v1/organizations/workspaces/${workspaceID}/service_accounts?beta=true`, {
           body,
           ...options,
           headers: buildHeaders([
@@ -43015,7 +43015,7 @@ var init_service_accounts2 = __esm({
        */
       remove(serviceAccountID, params, options) {
         const { workspace_id, betas } = params;
-        return this._client.delete(path6`/v1/organizations/workspaces/${workspace_id}/service_accounts/${serviceAccountID}?beta=true`, {
+        return this._client.delete(path5`/v1/organizations/workspaces/${workspace_id}/service_accounts/${serviceAccountID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             { ...betas?.toString() != null ? { "anthropic-beta": betas?.toString() } : void 0 },
@@ -43095,7 +43095,7 @@ var init_workspaces4 = __esm({
          * ```
          */
         retrieve(workspaceID, options) {
-          return this._client.get(path6`/v1/organizations/workspaces/${workspaceID}?beta=true`, {
+          return this._client.get(path5`/v1/organizations/workspaces/${workspaceID}?beta=true`, {
             ...options,
             __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.retrieve", options, {
               route: "/v1/organizations/workspaces/{workspace_id}",
@@ -43115,7 +43115,7 @@ var init_workspaces4 = __esm({
          * ```
          */
         update(workspaceID, body, options) {
-          return this._client.post(path6`/v1/organizations/workspaces/${workspaceID}?beta=true`, {
+          return this._client.post(path5`/v1/organizations/workspaces/${workspaceID}?beta=true`, {
             body,
             ...options,
             __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.update", options, {
@@ -43157,7 +43157,7 @@ var init_workspaces4 = __esm({
          * ```
          */
         archive(workspaceID, options) {
-          return this._client.post(path6`/v1/organizations/workspaces/${workspaceID}/archive?beta=true`, {
+          return this._client.post(path5`/v1/organizations/workspaces/${workspaceID}/archive?beta=true`, {
             ...options,
             __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.archive", options, {
               route: "/v1/organizations/workspaces/{workspace_id}/archive",
@@ -43300,7 +43300,7 @@ var init_events = __esm({
          */
         list(sessionID, params = {}, options) {
           const { betas, workspace_id, ...query } = params ?? {};
-          return this._client.getAPIList(path6`/v1/sessions/${sessionID}/events?beta=true`, PageCursor, {
+          return this._client.getAPIList(path5`/v1/sessions/${sessionID}/events?beta=true`, PageCursor, {
             query,
             ...options,
             headers: buildHeaders([
@@ -43352,7 +43352,7 @@ var init_events = __esm({
          */
         send(sessionID, params, options) {
           const { betas, workspace_id, ...body } = params;
-          return this._client.post(path6`/v1/sessions/${sessionID}/events?beta=true`, {
+          return this._client.post(path5`/v1/sessions/${sessionID}/events?beta=true`, {
             body,
             ...options,
             headers: buildHeaders([
@@ -43383,7 +43383,7 @@ var init_events = __esm({
          */
         stream(sessionID, params = {}, options) {
           const { betas, workspace_id, ...query } = params ?? {};
-          return this._client.get(path6`/v1/sessions/${sessionID}/events/stream?beta=true`, {
+          return this._client.get(path5`/v1/sessions/${sessionID}/events/stream?beta=true`, {
             query,
             ...options,
             headers: buildHeaders([
@@ -43454,7 +43454,7 @@ var init_resources = __esm({
        */
       retrieve(resourceID, params, options) {
         const { session_id, betas, workspace_id } = params;
-        return this._client.get(path6`/v1/sessions/${session_id}/resources/${resourceID}?beta=true`, {
+        return this._client.get(path5`/v1/sessions/${session_id}/resources/${resourceID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -43486,7 +43486,7 @@ var init_resources = __esm({
        */
       update(resourceID, params, options) {
         const { session_id, betas, workspace_id, ...body } = params;
-        return this._client.post(path6`/v1/sessions/${session_id}/resources/${resourceID}?beta=true`, {
+        return this._client.post(path5`/v1/sessions/${session_id}/resources/${resourceID}?beta=true`, {
           body,
           ...options,
           headers: buildHeaders([
@@ -43517,7 +43517,7 @@ var init_resources = __esm({
        */
       list(sessionID, params = {}, options) {
         const { betas, workspace_id, ...query } = params ?? {};
-        return this._client.getAPIList(path6`/v1/sessions/${sessionID}/resources?beta=true`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/sessions/${sessionID}/resources?beta=true`, PageCursor, {
           query,
           ...options,
           headers: buildHeaders([
@@ -43548,7 +43548,7 @@ var init_resources = __esm({
        */
       delete(resourceID, params, options) {
         const { session_id, betas, workspace_id } = params;
-        return this._client.delete(path6`/v1/sessions/${session_id}/resources/${resourceID}?beta=true`, {
+        return this._client.delete(path5`/v1/sessions/${session_id}/resources/${resourceID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -43580,7 +43580,7 @@ var init_resources = __esm({
        */
       add(sessionID, params, options) {
         const { betas, workspace_id, ...body } = params;
-        return this._client.post(path6`/v1/sessions/${sessionID}/resources?beta=true`, {
+        return this._client.post(path5`/v1/sessions/${sessionID}/resources?beta=true`, {
           body,
           ...options,
           headers: buildHeaders([
@@ -43627,7 +43627,7 @@ var init_events2 = __esm({
        */
       list(threadID, params, options) {
         const { session_id, betas, workspace_id, ...query } = params;
-        return this._client.getAPIList(path6`/v1/sessions/${session_id}/threads/${threadID}/events?beta=true`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/sessions/${session_id}/threads/${threadID}/events?beta=true`, PageCursor, {
           query,
           ...options,
           headers: buildHeaders([
@@ -43661,7 +43661,7 @@ var init_events2 = __esm({
        */
       stream(threadID, params, options) {
         const { session_id, betas, workspace_id, ...query } = params;
-        return this._client.get(path6`/v1/sessions/${session_id}/threads/${threadID}/stream?beta=true`, {
+        return this._client.get(path5`/v1/sessions/${session_id}/threads/${threadID}/stream?beta=true`, {
           query,
           ...options,
           headers: buildHeaders([
@@ -43714,7 +43714,7 @@ var init_threads = __esm({
          */
         retrieve(threadID, params, options) {
           const { session_id, betas, workspace_id } = params;
-          return this._client.get(path6`/v1/sessions/${session_id}/threads/${threadID}?beta=true`, {
+          return this._client.get(path5`/v1/sessions/${session_id}/threads/${threadID}?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -43744,7 +43744,7 @@ var init_threads = __esm({
          */
         list(sessionID, params = {}, options) {
           const { betas, workspace_id, ...query } = params ?? {};
-          return this._client.getAPIList(path6`/v1/sessions/${sessionID}/threads?beta=true`, PageCursor, {
+          return this._client.getAPIList(path5`/v1/sessions/${sessionID}/threads?beta=true`, PageCursor, {
             query,
             ...options,
             headers: buildHeaders([
@@ -43775,7 +43775,7 @@ var init_threads = __esm({
          */
         archive(threadID, params, options) {
           const { session_id, betas, workspace_id } = params;
-          return this._client.post(path6`/v1/sessions/${session_id}/threads/${threadID}/archive?beta=true`, {
+          return this._client.post(path5`/v1/sessions/${session_id}/threads/${threadID}/archive?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -43886,7 +43886,7 @@ var init_sessions = __esm({
          */
         retrieve(sessionID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.get(path6`/v1/sessions/${sessionID}?beta=true`, {
+          return this._client.get(path5`/v1/sessions/${sessionID}?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -43914,7 +43914,7 @@ var init_sessions = __esm({
          */
         update(sessionID, params, options) {
           const { betas, workspace_id, ...body } = params;
-          return this._client.post(path6`/v1/sessions/${sessionID}?beta=true`, {
+          return this._client.post(path5`/v1/sessions/${sessionID}?beta=true`, {
             body,
             ...options,
             headers: buildHeaders([
@@ -43986,7 +43986,7 @@ var init_sessions = __esm({
          */
         delete(sessionID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.delete(path6`/v1/sessions/${sessionID}?beta=true`, {
+          return this._client.delete(path5`/v1/sessions/${sessionID}?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -44014,7 +44014,7 @@ var init_sessions = __esm({
          */
         archive(sessionID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.post(path6`/v1/sessions/${sessionID}/archive?beta=true`, {
+          return this._client.post(path5`/v1/sessions/${sessionID}/archive?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -44062,7 +44062,7 @@ var init_versions3 = __esm({
        */
       create(skillID, params, options) {
         const { betas, workspace_id, ...body } = params;
-        return this._client.post(path6`/v1/skills/${skillID}/versions?beta=true`, multipartFormRequestOptions({
+        return this._client.post(path5`/v1/skills/${skillID}/versions?beta=true`, multipartFormRequestOptions({
           body,
           ...options,
           headers: buildHeaders([
@@ -44092,7 +44092,7 @@ var init_versions3 = __esm({
        */
       retrieve(version, params, options) {
         const { skill_id, betas, workspace_id } = params;
-        return this._client.get(path6`/v1/skills/${skill_id}/versions/${version}?beta=true`, {
+        return this._client.get(path5`/v1/skills/${skill_id}/versions/${version}?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -44122,7 +44122,7 @@ var init_versions3 = __esm({
        */
       list(skillID, params = {}, options) {
         const { betas, workspace_id, ...query } = params ?? {};
-        return this._client.getAPIList(path6`/v1/skills/${skillID}/versions?beta=true`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/skills/${skillID}/versions?beta=true`, PageCursor, {
           query,
           ...options,
           headers: buildHeaders([
@@ -44152,7 +44152,7 @@ var init_versions3 = __esm({
        */
       delete(version, params, options) {
         const { skill_id, betas, workspace_id } = params;
-        return this._client.delete(path6`/v1/skills/${skill_id}/versions/${version}?beta=true`, {
+        return this._client.delete(path5`/v1/skills/${skill_id}/versions/${version}?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -44183,7 +44183,7 @@ var init_versions3 = __esm({
        */
       download(version, params, options) {
         const { skill_id, betas, workspace_id } = params;
-        return this._client.get(path6`/v1/skills/${skill_id}/versions/${version}/content?beta=true`, {
+        return this._client.get(path5`/v1/skills/${skill_id}/versions/${version}/content?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -44262,7 +44262,7 @@ var init_skills3 = __esm({
          */
         retrieve(skillID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.get(path6`/v1/skills/${skillID}?beta=true`, {
+          return this._client.get(path5`/v1/skills/${skillID}?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -44318,7 +44318,7 @@ var init_skills3 = __esm({
          */
         delete(skillID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.delete(path6`/v1/skills/${skillID}?beta=true`, {
+          return this._client.delete(path5`/v1/skills/${skillID}?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -44371,7 +44371,7 @@ var init_certificates = __esm({
        */
       create(tunnelID, params, options) {
         const { betas, workspace_id, ...body } = params;
-        return this._client.post(path6`/v1/tunnels/${tunnelID}/certificates?beta=true`, {
+        return this._client.post(path5`/v1/tunnels/${tunnelID}/certificates?beta=true`, {
           body,
           ...options,
           headers: buildHeaders([
@@ -44407,7 +44407,7 @@ var init_certificates = __esm({
        */
       retrieve(certificateID, params, options) {
         const { tunnel_id, betas, workspace_id } = params;
-        return this._client.get(path6`/v1/tunnels/${tunnel_id}/certificates/${certificateID}?beta=true`, {
+        return this._client.get(path5`/v1/tunnels/${tunnel_id}/certificates/${certificateID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -44443,7 +44443,7 @@ var init_certificates = __esm({
        */
       list(tunnelID, params = {}, options) {
         const { betas, workspace_id, ...query } = params ?? {};
-        return this._client.getAPIList(path6`/v1/tunnels/${tunnelID}/certificates?beta=true`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/tunnels/${tunnelID}/certificates?beta=true`, PageCursor, {
           query,
           ...options,
           headers: buildHeaders([
@@ -44482,7 +44482,7 @@ var init_certificates = __esm({
        */
       archive(certificateID, params, options) {
         const { tunnel_id, betas, workspace_id } = params;
-        return this._client.post(path6`/v1/tunnels/${tunnel_id}/certificates/${certificateID}/archive?beta=true`, {
+        return this._client.post(path5`/v1/tunnels/${tunnel_id}/certificates/${certificateID}/archive?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -44568,7 +44568,7 @@ var init_tunnels = __esm({
          */
         retrieve(tunnelID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.get(path6`/v1/tunnels/${tunnelID}?beta=true`, {
+          return this._client.get(path5`/v1/tunnels/${tunnelID}?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -44638,7 +44638,7 @@ var init_tunnels = __esm({
          */
         archive(tunnelID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.post(path6`/v1/tunnels/${tunnelID}/archive?beta=true`, {
+          return this._client.post(path5`/v1/tunnels/${tunnelID}/archive?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -44672,7 +44672,7 @@ var init_tunnels = __esm({
          */
         revealToken(tunnelID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.post(path6`/v1/tunnels/${tunnelID}/reveal_token?beta=true`, {
+          return this._client.post(path5`/v1/tunnels/${tunnelID}/reveal_token?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -44705,7 +44705,7 @@ var init_tunnels = __esm({
          */
         rotateToken(tunnelID, params, options) {
           const { betas, workspace_id, ...body } = params;
-          return this._client.post(path6`/v1/tunnels/${tunnelID}/rotate_token?beta=true`, {
+          return this._client.post(path5`/v1/tunnels/${tunnelID}/rotate_token?beta=true`, {
             body,
             ...options,
             headers: buildHeaders([
@@ -44759,7 +44759,7 @@ var init_credentials2 = __esm({
        */
       create(vaultID, params, options) {
         const { betas, workspace_id, ...body } = params;
-        return this._client.post(path6`/v1/vaults/${vaultID}/credentials?beta=true`, {
+        return this._client.post(path5`/v1/vaults/${vaultID}/credentials?beta=true`, {
           body,
           ...options,
           headers: buildHeaders([
@@ -44790,7 +44790,7 @@ var init_credentials2 = __esm({
        */
       retrieve(credentialID, params, options) {
         const { vault_id, betas, workspace_id } = params;
-        return this._client.get(path6`/v1/vaults/${vault_id}/credentials/${credentialID}?beta=true`, {
+        return this._client.get(path5`/v1/vaults/${vault_id}/credentials/${credentialID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -44819,7 +44819,7 @@ var init_credentials2 = __esm({
        */
       update(credentialID, params, options) {
         const { vault_id, betas, workspace_id, ...body } = params;
-        return this._client.post(path6`/v1/vaults/${vault_id}/credentials/${credentialID}?beta=true`, {
+        return this._client.post(path5`/v1/vaults/${vault_id}/credentials/${credentialID}?beta=true`, {
           body,
           ...options,
           headers: buildHeaders([
@@ -44850,7 +44850,7 @@ var init_credentials2 = __esm({
        */
       list(vaultID, params = {}, options) {
         const { betas, workspace_id, ...query } = params ?? {};
-        return this._client.getAPIList(path6`/v1/vaults/${vaultID}/credentials?beta=true`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/vaults/${vaultID}/credentials?beta=true`, PageCursor, {
           query,
           ...options,
           headers: buildHeaders([
@@ -44881,7 +44881,7 @@ var init_credentials2 = __esm({
        */
       delete(credentialID, params, options) {
         const { vault_id, betas, workspace_id } = params;
-        return this._client.delete(path6`/v1/vaults/${vault_id}/credentials/${credentialID}?beta=true`, {
+        return this._client.delete(path5`/v1/vaults/${vault_id}/credentials/${credentialID}?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -44910,7 +44910,7 @@ var init_credentials2 = __esm({
        */
       archive(credentialID, params, options) {
         const { vault_id, betas, workspace_id } = params;
-        return this._client.post(path6`/v1/vaults/${vault_id}/credentials/${credentialID}/archive?beta=true`, {
+        return this._client.post(path5`/v1/vaults/${vault_id}/credentials/${credentialID}/archive?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -44939,7 +44939,7 @@ var init_credentials2 = __esm({
        */
       mcpOAuthValidate(credentialID, params, options) {
         const { vault_id, betas, workspace_id } = params;
-        return this._client.post(path6`/v1/vaults/${vault_id}/credentials/${credentialID}/mcp_oauth_validate?beta=true`, {
+        return this._client.post(path5`/v1/vaults/${vault_id}/credentials/${credentialID}/mcp_oauth_validate?beta=true`, {
           ...options,
           headers: buildHeaders([
             {
@@ -45017,7 +45017,7 @@ var init_vaults = __esm({
          */
         retrieve(vaultID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.get(path6`/v1/vaults/${vaultID}?beta=true`, {
+          return this._client.get(path5`/v1/vaults/${vaultID}?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -45045,7 +45045,7 @@ var init_vaults = __esm({
          */
         update(vaultID, params, options) {
           const { betas, workspace_id, ...body } = params;
-          return this._client.post(path6`/v1/vaults/${vaultID}?beta=true`, {
+          return this._client.post(path5`/v1/vaults/${vaultID}?beta=true`, {
             body,
             ...options,
             headers: buildHeaders([
@@ -45103,7 +45103,7 @@ var init_vaults = __esm({
          */
         delete(vaultID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.delete(path6`/v1/vaults/${vaultID}?beta=true`, {
+          return this._client.delete(path5`/v1/vaults/${vaultID}?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -45131,7 +45131,7 @@ var init_vaults = __esm({
          */
         archive(vaultID, params = {}, options) {
           const { betas, workspace_id } = params ?? {};
-          return this._client.post(path6`/v1/vaults/${vaultID}/archive?beta=true`, {
+          return this._client.post(path5`/v1/vaults/${vaultID}/archive?beta=true`, {
             ...options,
             headers: buildHeaders([
               {
@@ -46435,7 +46435,7 @@ var init_files2 = __esm({
        */
       delete(fileID, params = {}, options) {
         const { workspace_id } = params ?? {};
-        return this._client.delete(path6`/v1/files/${fileID}`, {
+        return this._client.delete(path5`/v1/files/${fileID}`, {
           ...options,
           headers: buildHeaders([
             { ...workspace_id != null ? { "anthropic-workspace-id": workspace_id } : void 0 },
@@ -46460,7 +46460,7 @@ var init_files2 = __esm({
        */
       download(fileID, params = {}, options) {
         const { workspace_id } = params ?? {};
-        return this._client.get(path6`/v1/files/${fileID}/content`, {
+        return this._client.get(path5`/v1/files/${fileID}/content`, {
           ...options,
           headers: buildHeaders([
             {
@@ -46488,7 +46488,7 @@ var init_files2 = __esm({
        */
       retrieveMetadata(fileID, params = {}, options) {
         const { workspace_id } = params ?? {};
-        return this._client.get(path6`/v1/files/${fileID}`, {
+        return this._client.get(path5`/v1/files/${fileID}`, {
           ...options,
           headers: buildHeaders([
             { ...workspace_id != null ? { "anthropic-workspace-id": workspace_id } : void 0 },
@@ -46553,7 +46553,7 @@ var init_models2 = __esm({
        */
       retrieve(modelID, params = {}, options) {
         const { betas, workspace_id } = params ?? {};
-        return this._client.get(path6`/v1/models/${modelID}`, {
+        return this._client.get(path5`/v1/models/${modelID}`, {
           ...options,
           headers: buildHeaders([
             {
@@ -46624,7 +46624,7 @@ var init_api_keys2 = __esm({
        * ```
        */
       retrieve(apiKeyID, options) {
-        return this._client.get(path6`/v1/organizations/api_keys/${apiKeyID}`, {
+        return this._client.get(path5`/v1/organizations/api_keys/${apiKeyID}`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.api_keys.retrieve", options, {
             route: "/v1/organizations/api_keys/{api_key_id}",
@@ -46643,7 +46643,7 @@ var init_api_keys2 = __esm({
        * ```
        */
       update(apiKeyID, body, options) {
-        return this._client.post(path6`/v1/organizations/api_keys/${apiKeyID}`, {
+        return this._client.post(path5`/v1/organizations/api_keys/${apiKeyID}`, {
           body,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.api_keys.update", options, {
@@ -46788,7 +46788,7 @@ var init_external_keys2 = __esm({
        * ```
        */
       retrieve(externalKeyID, options) {
-        return this._client.get(path6`/v1/organizations/external_keys/${externalKeyID}`, {
+        return this._client.get(path5`/v1/organizations/external_keys/${externalKeyID}`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.external_keys.retrieve", options, {
             route: "/v1/organizations/external_keys/{external_key_id}",
@@ -46812,7 +46812,7 @@ var init_external_keys2 = __esm({
        * ```
        */
       update(externalKeyID, body, options) {
-        return this._client.post(path6`/v1/organizations/external_keys/${externalKeyID}`, {
+        return this._client.post(path5`/v1/organizations/external_keys/${externalKeyID}`, {
           body,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.external_keys.update", options, {
@@ -46859,7 +46859,7 @@ var init_external_keys2 = __esm({
        * ```
        */
       delete(externalKeyID, options) {
-        return this._client.delete(path6`/v1/organizations/external_keys/${externalKeyID}`, {
+        return this._client.delete(path5`/v1/organizations/external_keys/${externalKeyID}`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.external_keys.delete", options, {
             route: "/v1/organizations/external_keys/{external_key_id}",
@@ -46884,7 +46884,7 @@ var init_external_keys2 = __esm({
        * ```
        */
       validate(externalKeyID, options) {
-        return this._client.post(path6`/v1/organizations/external_keys/${externalKeyID}/validate`, {
+        return this._client.post(path5`/v1/organizations/external_keys/${externalKeyID}/validate`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.external_keys.validate", options, {
             route: "/v1/organizations/external_keys/{external_key_id}/validate",
@@ -46942,7 +46942,7 @@ var init_invites2 = __esm({
        * ```
        */
       retrieve(inviteID, options) {
-        return this._client.get(path6`/v1/organizations/invites/${inviteID}`, {
+        return this._client.get(path5`/v1/organizations/invites/${inviteID}`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.invites.retrieve", options, {
             route: "/v1/organizations/invites/{invite_id}",
@@ -46982,7 +46982,7 @@ var init_invites2 = __esm({
        * ```
        */
       delete(inviteID, options) {
-        return this._client.delete(path6`/v1/organizations/invites/${inviteID}`, {
+        return this._client.delete(path5`/v1/organizations/invites/${inviteID}`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.invites.delete", options, {
             route: "/v1/organizations/invites/{invite_id}",
@@ -47053,7 +47053,7 @@ var init_users3 = __esm({
        * ```
        */
       retrieve(userID, options) {
-        return this._client.get(path6`/v1/organizations/users/${userID}`, {
+        return this._client.get(path5`/v1/organizations/users/${userID}`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.users.retrieve", options, {
             route: "/v1/organizations/users/{user_id}",
@@ -47073,7 +47073,7 @@ var init_users3 = __esm({
        * ```
        */
       update(userID, body, options) {
-        return this._client.post(path6`/v1/organizations/users/${userID}`, {
+        return this._client.post(path5`/v1/organizations/users/${userID}`, {
           body,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.users.update", options, {
@@ -47114,7 +47114,7 @@ var init_users3 = __esm({
        * ```
        */
       remove(userID, options) {
-        return this._client.delete(path6`/v1/organizations/users/${userID}`, {
+        return this._client.delete(path5`/v1/organizations/users/${userID}`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.users.remove", options, {
             route: "/v1/organizations/users/{user_id}",
@@ -47189,7 +47189,7 @@ var init_issuers2 = __esm({
        * ```
        */
       retrieve(federationIssuerID, options) {
-        return this._client.get(path6`/v1/organizations/federation_issuers/${federationIssuerID}`, {
+        return this._client.get(path5`/v1/organizations/federation_issuers/${federationIssuerID}`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.federation.issuers.retrieve", options, {
             route: "/v1/organizations/federation_issuers/{federation_issuer_id}",
@@ -47220,7 +47220,7 @@ var init_issuers2 = __esm({
        * ```
        */
       update(federationIssuerID, body, options) {
-        return this._client.post(path6`/v1/organizations/federation_issuers/${federationIssuerID}`, {
+        return this._client.post(path5`/v1/organizations/federation_issuers/${federationIssuerID}`, {
           body,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.federation.issuers.update", options, {
@@ -47279,7 +47279,7 @@ var init_issuers2 = __esm({
        * ```
        */
       archive(federationIssuerID, options) {
-        return this._client.post(path6`/v1/organizations/federation_issuers/${federationIssuerID}/archive`, {
+        return this._client.post(path5`/v1/organizations/federation_issuers/${federationIssuerID}/archive`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.federation.issuers.archive", options, {
             route: "/v1/organizations/federation_issuers/{federation_issuer_id}/archive",
@@ -47325,7 +47325,7 @@ var init_workspaces5 = __esm({
        * ```
        */
       list(federationRuleID, query = {}, options) {
-        return this._client.getAPIList(path6`/v1/organizations/federation_rules/${federationRuleID}/workspaces`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/organizations/federation_rules/${federationRuleID}/workspaces`, PageCursor, {
           query,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.federation.rules.workspaces.list", options, {
@@ -47361,7 +47361,7 @@ var init_workspaces5 = __esm({
        * ```
        */
       add(federationRuleID, body, options) {
-        return this._client.post(path6`/v1/organizations/federation_rules/${federationRuleID}/workspaces`, {
+        return this._client.post(path5`/v1/organizations/federation_rules/${federationRuleID}/workspaces`, {
           body,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.federation.rules.workspaces.add", options, {
@@ -47395,7 +47395,7 @@ var init_workspaces5 = __esm({
        */
       remove(workspaceID, params, options) {
         const { federation_rule_id } = params;
-        return this._client.delete(path6`/v1/organizations/federation_rules/${federation_rule_id}/workspaces/${workspaceID}`, {
+        return this._client.delete(path5`/v1/organizations/federation_rules/${federation_rule_id}/workspaces/${workspaceID}`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.federation.rules.workspaces.remove", options, {
             route: "/v1/organizations/federation_rules/{federation_rule_id}/workspaces/{workspace_id}",
@@ -47489,7 +47489,7 @@ var init_rules2 = __esm({
          * ```
          */
         retrieve(federationRuleID, options) {
-          return this._client.get(path6`/v1/organizations/federation_rules/${federationRuleID}`, {
+          return this._client.get(path5`/v1/organizations/federation_rules/${federationRuleID}`, {
             ...options,
             __span: startApiCallSpan(this._client, "anthropic.organization.federation.rules.retrieve", options, {
               route: "/v1/organizations/federation_rules/{federation_rule_id}",
@@ -47529,7 +47529,7 @@ var init_rules2 = __esm({
          * ```
          */
         update(federationRuleID, body, options) {
-          return this._client.post(path6`/v1/organizations/federation_rules/${federationRuleID}`, {
+          return this._client.post(path5`/v1/organizations/federation_rules/${federationRuleID}`, {
             body,
             ...options,
             __span: startApiCallSpan(this._client, "anthropic.organization.federation.rules.update", options, {
@@ -47591,7 +47591,7 @@ var init_rules2 = __esm({
          * ```
          */
         archive(federationRuleID, options) {
-          return this._client.post(path6`/v1/organizations/federation_rules/${federationRuleID}/archive`, {
+          return this._client.post(path5`/v1/organizations/federation_rules/${federationRuleID}/archive`, {
             ...options,
             __span: startApiCallSpan(this._client, "anthropic.organization.federation.rules.archive", options, {
               route: "/v1/organizations/federation_rules/{federation_rule_id}/archive",
@@ -47670,7 +47670,7 @@ var init_workspaces6 = __esm({
        * ```
        */
       list(serviceAccountID, query = {}, options) {
-        return this._client.getAPIList(path6`/v1/organizations/service_accounts/${serviceAccountID}/workspaces`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/organizations/service_accounts/${serviceAccountID}/workspaces`, PageCursor, {
           query,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.service_accounts.workspaces.list", options, {
@@ -47707,7 +47707,7 @@ var init_workspaces6 = __esm({
        * ```
        */
       add(serviceAccountID, body, options) {
-        return this._client.post(path6`/v1/organizations/service_accounts/${serviceAccountID}/workspaces`, {
+        return this._client.post(path5`/v1/organizations/service_accounts/${serviceAccountID}/workspaces`, {
           body,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.service_accounts.workspaces.add", options, {
@@ -47745,7 +47745,7 @@ var init_workspaces6 = __esm({
        */
       remove(workspaceID, params, options) {
         const { service_account_id } = params;
-        return this._client.delete(path6`/v1/organizations/service_accounts/${service_account_id}/workspaces/${workspaceID}`, {
+        return this._client.delete(path5`/v1/organizations/service_accounts/${service_account_id}/workspaces/${workspaceID}`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.service_accounts.workspaces.remove", options, {
             route: "/v1/organizations/service_accounts/{service_account_id}/workspaces/{workspace_id}",
@@ -47826,7 +47826,7 @@ var init_service_accounts3 = __esm({
          * ```
          */
         retrieve(serviceAccountID, options) {
-          return this._client.get(path6`/v1/organizations/service_accounts/${serviceAccountID}`, {
+          return this._client.get(path5`/v1/organizations/service_accounts/${serviceAccountID}`, {
             ...options,
             __span: startApiCallSpan(this._client, "anthropic.organization.service_accounts.retrieve", options, {
               route: "/v1/organizations/service_accounts/{service_account_id}",
@@ -47856,7 +47856,7 @@ var init_service_accounts3 = __esm({
          * ```
          */
         update(serviceAccountID, body, options) {
-          return this._client.post(path6`/v1/organizations/service_accounts/${serviceAccountID}`, {
+          return this._client.post(path5`/v1/organizations/service_accounts/${serviceAccountID}`, {
             body,
             ...options,
             __span: startApiCallSpan(this._client, "anthropic.organization.service_accounts.update", options, {
@@ -47917,7 +47917,7 @@ var init_service_accounts3 = __esm({
          * ```
          */
         archive(serviceAccountID, options) {
-          return this._client.post(path6`/v1/organizations/service_accounts/${serviceAccountID}/archive`, {
+          return this._client.post(path5`/v1/organizations/service_accounts/${serviceAccountID}/archive`, {
             ...options,
             __span: startApiCallSpan(this._client, "anthropic.organization.service_accounts.archive", options, {
               route: "/v1/organizations/service_accounts/{service_account_id}/archive",
@@ -47955,7 +47955,7 @@ var init_members3 = __esm({
        */
       retrieve(userID, params, options) {
         const { workspace_id } = params;
-        return this._client.get(path6`/v1/organizations/workspaces/${workspace_id}/members/${userID}`, {
+        return this._client.get(path5`/v1/organizations/workspaces/${workspace_id}/members/${userID}`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.members.retrieve", options, {
             route: "/v1/organizations/workspaces/{workspace_id}/members/{user_id}",
@@ -47983,7 +47983,7 @@ var init_members3 = __esm({
        */
       update(userID, params, options) {
         const { workspace_id, ...body } = params;
-        return this._client.post(path6`/v1/organizations/workspaces/${workspace_id}/members/${userID}`, {
+        return this._client.post(path5`/v1/organizations/workspaces/${workspace_id}/members/${userID}`, {
           body,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.members.update", options, {
@@ -48009,7 +48009,7 @@ var init_members3 = __esm({
        * ```
        */
       list(workspaceID, query = {}, options) {
-        return this._client.getAPIList(path6`/v1/organizations/workspaces/${workspaceID}/members`, Page, {
+        return this._client.getAPIList(path5`/v1/organizations/workspaces/${workspaceID}/members`, Page, {
           query,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.members.list", options, {
@@ -48035,7 +48035,7 @@ var init_members3 = __esm({
        * ```
        */
       add(workspaceID, body, options) {
-        return this._client.post(path6`/v1/organizations/workspaces/${workspaceID}/members`, {
+        return this._client.post(path5`/v1/organizations/workspaces/${workspaceID}/members`, {
           body,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.members.add", options, {
@@ -48060,7 +48060,7 @@ var init_members3 = __esm({
        */
       remove(userID, params, options) {
         const { workspace_id } = params;
-        return this._client.delete(path6`/v1/organizations/workspaces/${workspace_id}/members/${userID}`, {
+        return this._client.delete(path5`/v1/organizations/workspaces/${workspace_id}/members/${userID}`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.members.remove", options, {
             route: "/v1/organizations/workspaces/{workspace_id}/members/{user_id}",
@@ -48107,7 +48107,7 @@ var init_rate_limits4 = __esm({
        * ```
        */
       list(workspaceID, query = {}, options) {
-        return this._client.getAPIList(path6`/v1/organizations/workspaces/${workspaceID}/rate_limits`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/organizations/workspaces/${workspaceID}/rate_limits`, PageCursor, {
           query,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.rate_limits.list", options, {
@@ -48155,7 +48155,7 @@ var init_service_accounts4 = __esm({
        */
       retrieve(serviceAccountID, params, options) {
         const { workspace_id } = params;
-        return this._client.get(path6`/v1/organizations/workspaces/${workspace_id}/service_accounts/${serviceAccountID}`, {
+        return this._client.get(path5`/v1/organizations/workspaces/${workspace_id}/service_accounts/${serviceAccountID}`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.service_accounts.retrieve", options, {
             route: "/v1/organizations/workspaces/{workspace_id}/service_accounts/{service_account_id}",
@@ -48194,7 +48194,7 @@ var init_service_accounts4 = __esm({
        */
       update(serviceAccountID, params, options) {
         const { workspace_id, ...body } = params;
-        return this._client.post(path6`/v1/organizations/workspaces/${workspace_id}/service_accounts/${serviceAccountID}`, {
+        return this._client.post(path5`/v1/organizations/workspaces/${workspace_id}/service_accounts/${serviceAccountID}`, {
           body,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.service_accounts.update", options, {
@@ -48231,7 +48231,7 @@ var init_service_accounts4 = __esm({
        * ```
        */
       list(workspaceID, query = {}, options) {
-        return this._client.getAPIList(path6`/v1/organizations/workspaces/${workspaceID}/service_accounts`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/organizations/workspaces/${workspaceID}/service_accounts`, PageCursor, {
           query,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.service_accounts.list", options, {
@@ -48270,7 +48270,7 @@ var init_service_accounts4 = __esm({
        * ```
        */
       add(workspaceID, body, options) {
-        return this._client.post(path6`/v1/organizations/workspaces/${workspaceID}/service_accounts`, {
+        return this._client.post(path5`/v1/organizations/workspaces/${workspaceID}/service_accounts`, {
           body,
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.service_accounts.add", options, {
@@ -48306,7 +48306,7 @@ var init_service_accounts4 = __esm({
        */
       remove(serviceAccountID, params, options) {
         const { workspace_id } = params;
-        return this._client.delete(path6`/v1/organizations/workspaces/${workspace_id}/service_accounts/${serviceAccountID}`, {
+        return this._client.delete(path5`/v1/organizations/workspaces/${workspace_id}/service_accounts/${serviceAccountID}`, {
           ...options,
           __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.service_accounts.remove", options, {
             route: "/v1/organizations/workspaces/{workspace_id}/service_accounts/{service_account_id}",
@@ -48376,7 +48376,7 @@ var init_workspaces7 = __esm({
          * ```
          */
         retrieve(workspaceID, options) {
-          return this._client.get(path6`/v1/organizations/workspaces/${workspaceID}`, {
+          return this._client.get(path5`/v1/organizations/workspaces/${workspaceID}`, {
             ...options,
             __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.retrieve", options, {
               route: "/v1/organizations/workspaces/{workspace_id}",
@@ -48396,7 +48396,7 @@ var init_workspaces7 = __esm({
          * ```
          */
         update(workspaceID, body, options) {
-          return this._client.post(path6`/v1/organizations/workspaces/${workspaceID}`, {
+          return this._client.post(path5`/v1/organizations/workspaces/${workspaceID}`, {
             body,
             ...options,
             __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.update", options, {
@@ -48438,7 +48438,7 @@ var init_workspaces7 = __esm({
          * ```
          */
         archive(workspaceID, options) {
-          return this._client.post(path6`/v1/organizations/workspaces/${workspaceID}/archive`, {
+          return this._client.post(path5`/v1/organizations/workspaces/${workspaceID}/archive`, {
             ...options,
             __span: startApiCallSpan(this._client, "anthropic.organization.workspaces.archive", options, {
               route: "/v1/organizations/workspaces/{workspace_id}/archive",
@@ -48550,7 +48550,7 @@ var init_versions4 = __esm({
        */
       create(skillID, params, options) {
         const { workspace_id, ...body } = params;
-        return this._client.post(path6`/v1/skills/${skillID}/versions`, multipartFormRequestOptions({
+        return this._client.post(path5`/v1/skills/${skillID}/versions`, multipartFormRequestOptions({
           body,
           ...options,
           headers: buildHeaders([
@@ -48577,7 +48577,7 @@ var init_versions4 = __esm({
        */
       retrieve(version, params, options) {
         const { skill_id, workspace_id } = params;
-        return this._client.get(path6`/v1/skills/${skill_id}/versions/${version}`, {
+        return this._client.get(path5`/v1/skills/${skill_id}/versions/${version}`, {
           ...options,
           headers: buildHeaders([
             { ...workspace_id != null ? { "anthropic-workspace-id": workspace_id } : void 0 },
@@ -48604,7 +48604,7 @@ var init_versions4 = __esm({
        */
       list(skillID, params = {}, options) {
         const { workspace_id, ...query } = params ?? {};
-        return this._client.getAPIList(path6`/v1/skills/${skillID}/versions`, PageCursor, {
+        return this._client.getAPIList(path5`/v1/skills/${skillID}/versions`, PageCursor, {
           query,
           ...options,
           headers: buildHeaders([
@@ -48631,7 +48631,7 @@ var init_versions4 = __esm({
        */
       delete(version, params, options) {
         const { skill_id, workspace_id } = params;
-        return this._client.delete(path6`/v1/skills/${skill_id}/versions/${version}`, {
+        return this._client.delete(path5`/v1/skills/${skill_id}/versions/${version}`, {
           ...options,
           headers: buildHeaders([
             { ...workspace_id != null ? { "anthropic-workspace-id": workspace_id } : void 0 },
@@ -48700,7 +48700,7 @@ var init_skills4 = __esm({
          */
         retrieve(skillID, params = {}, options) {
           const { workspace_id } = params ?? {};
-          return this._client.get(path6`/v1/skills/${skillID}`, {
+          return this._client.get(path5`/v1/skills/${skillID}`, {
             ...options,
             headers: buildHeaders([
               { ...workspace_id != null ? { "anthropic-workspace-id": workspace_id } : void 0 },
@@ -48748,7 +48748,7 @@ var init_skills4 = __esm({
          */
         delete(skillID, params = {}, options) {
           const { workspace_id } = params ?? {};
-          return this._client.delete(path6`/v1/skills/${skillID}`, {
+          return this._client.delete(path5`/v1/skills/${skillID}`, {
             ...options,
             headers: buildHeaders([
               { ...workspace_id != null ? { "anthropic-workspace-id": workspace_id } : void 0 },
@@ -49167,9 +49167,9 @@ var init_client = __esm({
         makeStatusError(status, error, message, headers) {
           return APIError.generate(status, error, message, headers);
         }
-        buildURL(path9, query, defaultBaseURL) {
+        buildURL(path8, query, defaultBaseURL) {
           const baseURL = !__classPrivateFieldGet(this, _BaseAnthropic_instances, "m", _BaseAnthropic_baseURLOverridden).call(this) && defaultBaseURL || this.baseURL;
-          const url = isAbsoluteURL(path9) ? new URL(path9) : new URL(baseURL + (baseURL.endsWith("/") && path9.startsWith("/") ? path9.slice(1) : path9));
+          const url = isAbsoluteURL(path8) ? new URL(path8) : new URL(baseURL + (baseURL.endsWith("/") && path8.startsWith("/") ? path8.slice(1) : path8));
           const defaultQuery = this.defaultQuery();
           const pathQuery = Object.fromEntries(url.searchParams);
           if (!isEmptyObj(defaultQuery) || !isEmptyObj(pathQuery)) {
@@ -49245,24 +49245,24 @@ var init_client = __esm({
         backendMiddleware() {
           return [];
         }
-        get(path9, opts) {
-          return this.methodRequest("get", path9, opts);
+        get(path8, opts) {
+          return this.methodRequest("get", path8, opts);
         }
-        post(path9, opts) {
-          return this.methodRequest("post", path9, opts);
+        post(path8, opts) {
+          return this.methodRequest("post", path8, opts);
         }
-        patch(path9, opts) {
-          return this.methodRequest("patch", path9, opts);
+        patch(path8, opts) {
+          return this.methodRequest("patch", path8, opts);
         }
-        put(path9, opts) {
-          return this.methodRequest("put", path9, opts);
+        put(path8, opts) {
+          return this.methodRequest("put", path8, opts);
         }
-        delete(path9, opts) {
-          return this.methodRequest("delete", path9, opts);
+        delete(path8, opts) {
+          return this.methodRequest("delete", path8, opts);
         }
-        methodRequest(method, path9, opts) {
+        methodRequest(method, path8, opts) {
           return this.request(Promise.resolve(opts).then((opts2) => {
-            return { method, path: path9, ...opts2 };
+            return { method, path: path8, ...opts2 };
           }));
         }
         request(options, remainingRetries = null) {
@@ -49409,8 +49409,8 @@ var init_client = __esm({
           armAbandonmentBackstop(response.body ?? response, controller);
           return { response, options, controller, requestLogID, retryOfRequestLogID, startTime };
         }
-        getAPIList(path9, Page2, opts) {
-          return this.requestAPIList(Page2, opts && "then" in opts ? opts.then((opts2) => ({ method: "get", path: path9, ...opts2 })) : { method: "get", path: path9, ...opts });
+        getAPIList(path8, Page2, opts) {
+          return this.requestAPIList(Page2, opts && "then" in opts ? opts.then((opts2) => ({ method: "get", path: path8, ...opts2 })) : { method: "get", path: path8, ...opts });
         }
         requestAPIList(Page2, options) {
           if (!this._tracer) {
@@ -49544,14 +49544,14 @@ var init_client = __esm({
         }
         async buildRequest(inputOptions, { retryCount = 0 } = {}) {
           const options = { ...inputOptions };
-          const { method, path: path9, query, defaultBaseURL } = options;
+          const { method, path: path8, query, defaultBaseURL } = options;
           if (this._authState.resolution) {
             await this._authState.resolution;
           }
           if (!this._baseURLIsExplicit && this._authState.baseURL && this.baseURL !== this._authState.baseURL) {
             this.baseURL = this._authState.baseURL;
           }
-          const url = this.buildURL(path9, query, defaultBaseURL);
+          const url = this.buildURL(path8, query, defaultBaseURL);
           if ("timeout" in options)
             validatePositiveInteger("timeout", options.timeout);
           options.timeout = options.timeout ?? this.timeout;
@@ -49689,7 +49689,7 @@ var init_sdk = __esm({
 });
 
 // src/app.ts
-var import_express3 = __toESM(require_express2(), 1);
+var import_express2 = __toESM(require_express2(), 1);
 import { existsSync } from "node:fs";
 import path2 from "node:path";
 
@@ -49704,8 +49704,8 @@ var CHECKS = [
     title: t("Mist\xE4 vesi suljetaan", "Var vattnet st\xE4ngs av", "Where the water shuts off"),
     coach: t(
       "Etsi veden sulkuventtiili ja kuvaa se niin, ett\xE4 kahva n\xE4kyy.",
-      "Leta upp vattnets avst\xE4ngningsventil och fotografera den s\xE5 att handtaget syns.",
-      "Find the water shut-off valve and photograph it so the handle shows."
+      "Leta upp avst\xE4ngningsventilen f\xF6r vattnet. Ta en bild d\xE4r handtaget syns.",
+      "Find the water shut-off valve. Take a photo with the handle in view."
     ),
     criteria: [
       {
@@ -49721,9 +49721,9 @@ var CHECKS = [
         id: "L1.handle_visible",
         kind: "visibility",
         text: t(
-          "Sen kahva tai vipu n\xE4kyy",
-          "Dess handtag eller spak syns",
-          "Its handle or lever is visible"
+          "Venttiilin kahva tai vipu n\xE4kyy",
+          "Ventilens handtag eller spak syns",
+          "The valve's handle or lever is visible"
         )
       },
       {
@@ -49732,7 +49732,7 @@ var CHECKS = [
         text: t(
           "Venttiiliss\xE4 ei ole vuotoa, tippumista, ruostetta eik\xE4 vesij\xE4lki\xE4",
           "Inget l\xE4ckage, dropp, korrosion eller vattenfl\xE4ckar vid ventilen",
-          "No leak, drip, corrosion or water stains at the valve"
+          "No leaks, drips, corrosion or water stains at the valve"
         )
       },
       {
@@ -49746,8 +49746,8 @@ var CHECKS = [
     notApplicableAllowed: false,
     defaultOwner: { default: "me", flat: "property_manager" },
     fixHint: t(
-      "Jos venttiili vuotaa tai on jumissa, ota yhteys putkimieheen tai taloyhti\xF6ss\xE4 is\xE4nn\xF6itsij\xE4\xE4n. Opettele sulkemaan se ennen kuin tarvitset sit\xE4.",
-      "Om ventilen droppar eller sitter fast, kontakta en r\xF6rmokare eller disponenten i ett bostadsbolag. L\xE4r dig st\xE4nga den innan du beh\xF6ver det.",
+      "Jos venttiili vuotaa tai on jumissa, ota yhteys putkimieheen tai taloyhti\xF6ss\xE4 is\xE4nn\xF6itsij\xE4\xE4n. Opettele sulkemaan se, ennen kuin tarvitset sit\xE4.",
+      "Om ventilen droppar eller sitter fast, kontakta en r\xF6rmokare eller, i ett husbolag, disponenten. L\xE4r dig st\xE4nga den innan det beh\xF6vs.",
       "If the valve drips or is stuck, call a plumber or, in a flat, the property manager. Learn how to close it before you need to."
     ),
     recheck: { kind: "yearly" }
@@ -49757,41 +49757,41 @@ var CHECKS = [
     peril: "leak",
     homeTypes: ["flat", "house", "cottage"],
     title: t(
-      "Pesukoneen letku ja oma hana",
-      "Tv\xE4ttmaskinens slang och egen kran",
-      "Washing-machine hose and its own tap"
+      "Pesukoneen letku ja sulkuventtiili",
+      "Tv\xE4ttmaskinens slang och avst\xE4ngningsventil",
+      "Washing machine hose and valve"
     ),
     coach: t(
-      "Ved\xE4 konetta tarvittaessa hieman esiin. Kuvaa letku hanasta koneeseen sek\xE4 hana.",
-      "Dra vid behov ut maskinen lite. Fotografera slangen fr\xE5n kranen till maskinen, och kranen.",
-      "Pull the machine out a little if needed. Show the hose from the tap to the machine, and the tap."
+      "Ved\xE4 konetta tarvittaessa hieman esiin. Kuvaa sulkuventtiili ja letku venttiilist\xE4 koneeseen asti.",
+      "Dra vid behov ut maskinen lite. Ta en bild d\xE4r ventilen och hela slangen fram till maskinen syns.",
+      "Pull the machine out a little if needed. Take a photo of the valve and the hose all the way to the machine."
     ),
     criteria: [
       {
         id: "L2.hose_visible",
         kind: "visibility",
         text: t(
-          "T\xE4ytt\xF6letku n\xE4kyy hanasta koneeseen asti",
-          "P\xE5fyllningsslangen syns fr\xE5n kranen till maskinen",
-          "The fill hose is visible from the tap to the machine"
+          "T\xE4ytt\xF6letku n\xE4kyy venttiilist\xE4 koneeseen asti",
+          "P\xE5fyllningsslangen syns fr\xE5n ventilen till maskinen",
+          "The inlet hose is visible from the valve to the machine"
         )
       },
       {
         id: "L2.tap_visible",
         kind: "visibility",
         text: t(
-          "Koneen oma sulkuhana n\xE4kyy",
-          "Maskinens egen avst\xE4ngningskran syns",
-          "The machine's own shut-off tap is visible"
+          "Koneen oma sulkuventtiili n\xE4kyy",
+          "Maskinens egen avst\xE4ngningsventil syns",
+          "The machine's own shut-off valve is visible"
         )
       },
       {
         id: "L2.hose_ok",
         kind: "condition",
         text: t(
-          "Letkussa ja liitoksissa ei ole tippumista, taitetta, pullistumaa, halkeamaa eik\xE4 ruostetta",
-          "Inget dropp, veck, bula, spricka eller rost p\xE5 slangen eller kopplingarna",
-          "No drip, kink, bulge, crack or rust on the hose or its connections"
+          "Letkussa tai liitoksissa ei ole tippumista, taitteita, pullistumia, halkeamia eik\xE4 ruostetta",
+          "Inga droppar, veck, bulor, sprickor eller rost p\xE5 slangen eller kopplingarna",
+          "No drips, kinks, bulges, cracks or rust on the hose or its connections"
         )
       }
     ],
@@ -49800,9 +49800,9 @@ var CHECKS = [
     notApplicableAllowed: true,
     defaultOwner: { default: "me" },
     fixHint: t(
-      "Vaihda kulunut letku uuteen paineenkest\xE4v\xE4\xE4n letkuun. Sulje hana, kun kone ei ole k\xE4yt\xF6ss\xE4.",
-      "Byt en sliten slang mot en ny tryckt\xE5lig slang. St\xE4ng kranen n\xE4r maskinen inte anv\xE4nds.",
-      "Replace a worn hose with a new pressure-proof hose. Close the tap when the machine is not in use."
+      "Vaihda kulunut letku uuteen paineenkest\xE4v\xE4\xE4n letkuun. Sulje venttiili, kun kone ei ole k\xE4yt\xF6ss\xE4.",
+      "Byt ut en sliten slang mot en ny, tryckt\xE5lig slang. St\xE4ng ventilen n\xE4r maskinen inte anv\xE4nds.",
+      "Replace a worn hose with a new pressure-proof one. Close the valve when the machine is not in use."
     ),
     recheck: { kind: "yearly" }
   },
@@ -49811,14 +49811,14 @@ var CHECKS = [
     peril: "leak",
     homeTypes: ["flat", "house", "cottage"],
     title: t(
-      "Astianpesukoneen letku ja hana",
-      "Diskmaskinens slang och kran",
-      "Dishwasher hose and tap"
+      "Astianpesukoneen letku ja sulkuventtiili",
+      "Diskmaskinens slang och avst\xE4ngningsventil",
+      "Dishwasher hose and valve"
     ),
     coach: t(
-      "Avaa altaan alakaappi tai astianpesukoneen vieress\xE4 oleva sokkeli. Kuvaa vesiliit\xE4nt\xE4.",
-      "\xD6ppna sk\xE5pet under diskb\xE4nken eller sockeln bredvid diskmaskinen. Fotografera vattenanslutningen.",
-      "Open the cabinet under the sink, or the plinth next to the dishwasher. Show the water connection."
+      "Avaa tiskialtaan alakaappi tai irrota astianpesukoneen vieress\xE4 oleva sokkelilista. Kuvaa vesiliit\xE4nt\xE4.",
+      "\xD6ppna sk\xE5pet under diskb\xE4nken eller ta loss sockeln bredvid diskmaskinen. Ta en bild av vattenanslutningen.",
+      "Open the cabinet under the sink, or take off the kickboard next to the dishwasher. Take a photo of the water connection."
     ),
     criteria: [
       {
@@ -49834,34 +49834,34 @@ var CHECKS = [
         id: "L3.tap_present",
         kind: "condition",
         text: t(
-          "Astianpesukoneen sulkuhana n\xE4kyy",
-          "En avst\xE4ngningskran f\xF6r diskmaskinen syns",
-          "A shut-off tap for the dishwasher is visible"
+          "Astianpesukoneen sulkuventtiili n\xE4kyy",
+          "En avst\xE4ngningsventil f\xF6r diskmaskinen syns",
+          "A shut-off valve for the dishwasher is visible"
         )
       },
       {
         id: "L3.no_leak",
         kind: "condition",
         text: t(
-          "Ei tippumista, taitetta, pullistumaa eik\xE4 vesij\xE4lki\xE4",
-          "Inget dropp, veck, bula eller vattenfl\xE4ckar",
-          "No drip, kink, bulge or water stains"
+          "Ei tippumista, taitteita, pullistumia eik\xE4 vesij\xE4lki\xE4",
+          "Inga droppar, veck, bulor eller vattenfl\xE4ckar",
+          "No drips, kinks, bulges or water stains"
         )
       }
     ],
-    clauseIds: [],
-    clauseFit: "none",
+    clauseIds: ["OMA-5.5.6", "OMA-5.5.8"],
+    clauseFit: "section",
     guideNote: t(
-      "Ifin kotiopas: astianpesukoneelle oma sulkuhana ja kaukalo. Ehtojen kohta 5.5.6 soveltuvin osin.",
-      "Ifs hemguide: en egen avst\xE4ngningskran och ett tr\xE5g f\xF6r diskmaskinen. Villkorens punkt 5.5.6 i till\xE4mpliga delar.",
-      "If's home guide: a shut-off tap and a drip tray for the dishwasher. Terms 5.5.6 by analogy."
+      "Ifin ohjeiden mukaan n\xE4m\xE4 suojeluohjeet koskevat my\xF6s astianpesukonetta: sulje sen venttiili, kun kone ei ole k\xE4yt\xF6ss\xE4, ja laita turvakaukalo alle, jos tilassa ei ole lattiakaivoa.",
+      "Enligt Ifs anvisningar g\xE4ller de h\xE4r s\xE4kerhetsf\xF6reskrifterna \xE4ven diskmaskinen: st\xE4ng ventilen n\xE4r den inte anv\xE4nds, och st\xE4ll ett tr\xE5g under den om rummet saknar golvbrunn.",
+      "If's guidance applies these instructions to dishwashers: close the dishwasher's valve when not in use, and put a drip tray under it in a room with no floor drain."
     ),
     notApplicableAllowed: true,
     defaultOwner: { default: "me" },
     fixHint: t(
-      "Pyyd\xE4 putkimiest\xE4 asentamaan astianpesukoneelle oma sulkuhana. Vaihda kulunut letku.",
-      "L\xE5t en r\xF6rmokare montera en egen avst\xE4ngningskran f\xF6r diskmaskinen. Byt en sliten slang.",
-      "Have a plumber fit a shut-off tap for the dishwasher. Replace a worn hose."
+      "Pyyd\xE4 putkimiest\xE4 asentamaan astianpesukoneelle oma sulkuventtiili. Vaihda kulunut letku.",
+      "L\xE5t en r\xF6rmokare montera en egen avst\xE4ngningsventil f\xF6r diskmaskinen. Byt ut en sliten slang.",
+      "Have a plumber fit a shut-off valve for the dishwasher. Replace a worn hose."
     ),
     recheck: { kind: "yearly" }
   },
@@ -49875,16 +49875,16 @@ var CHECKS = [
       "Drip trays under the washing machine and fridge"
     ),
     coach: t(
-      "Kuvaa lattia pesukoneen tai j\xE4\xE4kaapin alta ja edest\xE4. N\xE4yt\xE4 kaukalon reuna tai l\xE4hin lattiakaivo.",
-      "Fotografera golvet under och framf\xF6r tv\xE4ttmaskinen eller kylsk\xE5pet. Visa tr\xE5gets kant eller n\xE4rmaste golvbrunn.",
-      "Photograph the floor under and in front of the washing machine or fridge. Show the tray edge or the nearest floor drain."
+      "Kuvaa lattia pesukoneen tai j\xE4\xE4kaapin alta ja edest\xE4 niin, ett\xE4 turvakaukalon reuna tai l\xE4hin lattiakaivo n\xE4kyy.",
+      "Ta en bild av golvet under och framf\xF6r tv\xE4ttmaskinen eller kylsk\xE5pet. Visa tr\xE5gets kant eller n\xE4rmaste golvbrunn.",
+      "Take a photo of the floor under and in front of the washing machine or fridge. Show the edge of the drip tray or the nearest floor drain."
     ),
     criteria: [
       {
         id: "L4.floor_visible",
         kind: "visibility",
         text: t(
-          "Lattia laitteen alla n\xE4kyy",
+          "Laitteen alla oleva lattia n\xE4kyy",
           "Golvet under apparaten syns",
           "The floor under the appliance is visible"
         )
@@ -49893,18 +49893,18 @@ var CHECKS = [
         id: "L4.tray_or_drain",
         kind: "condition",
         text: t(
-          "Laitteen alla on kaukalo tai aivan vieress\xE4 on lattiakaivo",
-          "Det finns ett tr\xE5g under apparaten eller en golvbrunn alldeles intill",
-          "A drip tray is under it, or a floor drain is right next to it"
+          "Laitteen alla on turvakaukalo, tai tilassa on lattiakaivo ja vuoto n\xE4kyisi heti",
+          "Det finns ett tr\xE5g under apparaten, eller rummet har golvbrunn och ett l\xE4ckage skulle synas genast",
+          "There is a drip tray under the appliance, or the room has a floor drain and a leak would show at once"
         )
       },
       {
         id: "L4.dry",
         kind: "condition",
         text: t(
-          "Lattialla tai kaukalossa ei ole vett\xE4 eik\xE4 j\xE4lki\xE4",
-          "Inget vatten eller fl\xE4ckar p\xE5 golvet eller i tr\xE5get",
-          "No water or stains on the floor or tray"
+          "Lattialla tai turvakaukalossa ei ole vett\xE4 eik\xE4 vesij\xE4lki\xE4",
+          "Inget vatten och inga fl\xE4ckar p\xE5 golvet eller i tr\xE5get",
+          "No water or stains on the floor or in the tray"
         )
       }
     ],
@@ -49914,7 +49914,7 @@ var CHECKS = [
     defaultOwner: { default: "me" },
     fixHint: t(
       "Laita laitteen alle turvakaukalo. Niit\xE4 saa edullisesti rautakaupasta.",
-      "St\xE4ll ett tr\xE5g under apparaten. Det finns billigt i j\xE4rnhandeln.",
+      "St\xE4ll ett tr\xE5g under apparaten. S\xE5dana f\xE5r du billigt i j\xE4rnhandeln.",
       "Put a drip tray under the appliance. Hardware stores sell them cheaply."
     ),
     recheck: { kind: "yearly" }
@@ -49923,18 +49923,18 @@ var CHECKS = [
     id: "L5",
     peril: "leak",
     homeTypes: ["flat", "house", "cottage"],
-    title: t("Lattiakaivo ja vesilukko", "Golvbrunn och vattenl\xE5s", "Floor drain and sink trap"),
+    title: t("Lattiakaivo ja hajulukko", "Golvbrunn och vattenl\xE5s", "Floor drain and sink trap"),
     coach: t(
-      "Kuvaa kylpyhuoneen lattiakaivo ylh\xE4\xE4lt\xE4 tai altaan alla oleva vesilukko.",
-      "Fotografera badrummets golvbrunn uppifr\xE5n eller vattenl\xE5set under ett handfat.",
-      "Photograph the bathroom floor drain from above, or the trap under a sink."
+      "Kuvaa kylpyhuoneen lattiakaivo ylh\xE4\xE4lt\xE4 tai pesualtaan alla oleva hajulukko.",
+      "Ta en bild av golvbrunnen i badrummet uppifr\xE5n, eller av vattenl\xE5set under ett handfat.",
+      "Take a photo of the bathroom floor drain from above, or of the trap under a sink."
     ),
     criteria: [
       {
         id: "L5.drain_visible",
         kind: "visibility",
         text: t(
-          "Lattiakaivo tai vesilukko n\xE4kyy",
+          "Lattiakaivo tai hajulukko n\xE4kyy",
           "En golvbrunn eller ett vattenl\xE5s syns",
           "A floor drain or a sink trap is visible"
         )
@@ -49943,9 +49943,9 @@ var CHECKS = [
         id: "L5.clear",
         kind: "condition",
         text: t(
-          "Kaivossa tai vesilukossa ei ole tukosta, seisovaa vett\xE4 eik\xE4 vuotoa",
+          "Kaivossa tai hajulukossa ei ole tukosta, seisovaa vett\xE4 eik\xE4 vuotoa",
           "Inget stopp, st\xE5ende vatten eller l\xE4ckage vid brunnen eller vattenl\xE5set",
-          "No blockage, standing water or leak at the drain or trap"
+          "No blockage, standing water or leaks at the drain or trap"
         )
       }
     ],
@@ -49954,9 +49954,9 @@ var CHECKS = [
     notApplicableAllowed: false,
     defaultOwner: { default: "me" },
     fixHint: t(
-      "Puhdista kaivo tai vesilukko: nosta kansi, poista hiukset ja lika ja huuhtele. Kirist\xE4 vuotava mutteri.",
-      "Reng\xF6r brunnen eller vattenl\xE5set: lyft locket, ta bort h\xE5r och smuts och spola. Dra \xE5t en l\xE4ckande mutter.",
-      "Clean the drain or trap: lift the cover, remove hair and dirt, and rinse. Tighten a leaking nut."
+      "Puhdista kaivo tai hajulukko: nosta kansi pois, poista hiukset ja lika ja huuhtele. Kirist\xE4 vuotava mutteri.",
+      "Reng\xF6r brunnen eller vattenl\xE5set: lyft av locket, ta bort h\xE5r och smuts och spola. Dra \xE5t muttern om den l\xE4cker.",
+      "Clean the drain or trap: lift off the cover, remove hair and dirt, and rinse. If a nut leaks, tighten it."
     ),
     recheck: { kind: "yearly" }
   },
@@ -49966,9 +49966,9 @@ var CHECKS = [
     homeTypes: ["flat", "house", "cottage"],
     title: t("Kylpyhuoneen silikonisaumat", "Badrummets silikonfogar", "Bathroom silicone seams"),
     coach: t(
-      "Kuvaa l\xE4helt\xE4 lattian ja sein\xE4n liitosta sek\xE4 suihkun tai ammeen reunoja. K\xE4yt\xE4 hyv\xE4\xE4 valoa.",
-      "Fotografera n\xE4ra d\xE4r golvet m\xF6ter v\xE4ggen och vid duschens eller badkarets kanter. Anv\xE4nd bra ljus.",
-      "Get close to where the floor meets the wall, and to the shower or bath edges. Use good light."
+      "Kuvaa l\xE4helt\xE4 saumat lattian ja sein\xE4n rajassa sek\xE4 suihkun tai ammeen ymp\xE4rill\xE4. Varmista, ett\xE4 valoa on riitt\xE4v\xE4sti.",
+      "Ta en n\xE4rbild av fogarna d\xE4r golvet m\xF6ter v\xE4ggen och runt duschen eller badkaret. Se till att det \xE4r ljust.",
+      "Take close-ups of the seams where the floor meets the wall and around the shower or bath. Use good light."
     ),
     criteria: [
       {
@@ -49977,7 +49977,7 @@ var CHECKS = [
         text: t(
           "Lattian ja sein\xE4n sek\xE4 suihkun tai ammeen saumat n\xE4kyv\xE4t l\xE4helt\xE4",
           "Fogarna mellan golv och v\xE4gg och vid dusch eller badkar syns p\xE5 n\xE4ra h\xE5ll",
-          "The seams at floor-wall joints and shower or bath edges are visible up close"
+          "The seams where the floor meets the wall and around the shower or bath are visible up close"
         )
       },
       {
@@ -49985,8 +49985,8 @@ var CHECKS = [
         kind: "condition",
         text: t(
           "Saumat ovat ehj\xE4t: ei halkeamia, rakoja, irtoamista eik\xE4 mustaa hometta",
-          "Fogarna \xE4r hela: inga sprickor, glipor, lossnade fogar eller svart m\xF6gel",
-          "Seams intact, with no cracks, gaps, peeling or black mould"
+          "Fogarna \xE4r hela: inga sprickor, glipor, l\xF6sa kanter eller svart m\xF6gel",
+          "The seams are intact: no cracks, gaps, peeling or black mould"
         )
       }
     ],
@@ -49995,8 +49995,8 @@ var CHECKS = [
     notApplicableAllowed: false,
     defaultOwner: { default: "me" },
     fixHint: t(
-      "Leikkaa vaurioitunut sauma pois ja tee uusi saniteettisilikonilla. Anna kuivua vuorokausi ennen suihkua.",
-      "Sk\xE4r bort den skadade fogen och foga om med sanitetssilikon. L\xE5t torka ett dygn innan du duschar.",
+      "Leikkaa vaurioitunut sauma pois ja tee tilalle uusi saniteettisilikonilla. Anna sauman kuivua vuorokausi, ennen kuin k\xE4yt\xE4t suihkua.",
+      "Sk\xE4r bort den skadade fogen och foga om med sanitetssilikon. L\xE5t fogen torka ett dygn innan du duschar.",
       "Cut out the damaged seam and apply new sanitary silicone. Let it dry for a day before you shower."
     ),
     recheck: { kind: "yearly" }
@@ -50009,8 +50009,8 @@ var CHECKS = [
     title: t("Toimiva palovaroitin", "Fungerande brandvarnare", "Working smoke alarm"),
     coach: t(
       "Kuvaa katossa oleva palovaroitin. Paina sitten sen testinappia.",
-      "Fotografera brandvarnaren i taket. Tryck sedan p\xE5 testknappen.",
-      "Photograph the smoke alarm on the ceiling. Then press its test button."
+      "Ta en bild av brandvarnaren i taket. Tryck sedan p\xE5 testknappen.",
+      "Take a photo of the smoke alarm on the ceiling. Then press its test button."
     ),
     criteria: [
       {
@@ -50022,9 +50022,9 @@ var CHECKS = [
         id: "F1.mounted",
         kind: "condition",
         text: t(
-          "Se on kiinni paikallaan, ei irrotettu eik\xE4 peitetty",
+          "Se on paikallaan, ei irrotettu eik\xE4 peitetty",
           "Den sitter p\xE5 plats, inte nedtagen eller \xF6vert\xE4ckt",
-          "It is mounted, not removed or covered"
+          "It is in place, not taken down or covered"
         )
       },
       {
@@ -50040,11 +50040,11 @@ var CHECKS = [
     clauseIds: ["OMA-5.2.6"],
     clauseFit: "direct",
     notApplicableAllowed: false,
-    defaultOwner: { default: "me" },
+    defaultOwner: { default: "me", flat: "property_manager" },
     fixHint: t(
-      "Vaihda paristo tai osta uusi varoitin, jos se ei piippaa. Asenna v\xE4hint\xE4\xE4n yksi jokaisen kerroksen kattoon.",
-      "Byt batteri eller k\xF6p en ny varnare om den inte piper. S\xE4tt minst en i taket p\xE5 varje v\xE5ning.",
-      "Change the battery, or buy a new alarm if it does not beep. Fit at least one on the ceiling of every floor."
+      "Jos palovaroitin ei piippaa, vaihda paristo tai varoitin. Jokaisessa kerroksessa tarvitaan kattoon v\xE4hint\xE4\xE4n yksi palovaroitin jokaista alkavaa 60 neli\xF6metri\xE4 kohti.",
+      "Om den inte piper, byt batteri eller varnare. Varje v\xE5ning beh\xF6ver minst en brandvarnare i taket per p\xE5b\xF6rjade 60 m\xB2.",
+      "If it does not beep, change the battery or replace the alarm. You need at least one alarm on the ceiling for every started 60 m\xB2 of each floor."
     ),
     recheck: { kind: "yearly" }
   },
@@ -50054,9 +50054,9 @@ var CHECKS = [
     homeTypes: ["flat", "house", "cottage"],
     title: t("S\xE4hk\xF6keskus", "Elcentral", "Fuse box"),
     coach: t(
-      "Avaa kaapin ovi ja kuvaa koko s\xE4hk\xF6keskus edest\xE4. \xC4l\xE4 koske mihink\xE4\xE4n sis\xE4ll\xE4.",
-      "\xD6ppna sk\xE5pluckan och fotografera hela elcentralen framifr\xE5n. R\xF6r inget inuti.",
-      "Open the cabinet door and photograph the whole fuse box from the front. Don't touch anything inside."
+      "Avaa kaapin ovi ja kuvaa koko s\xE4hk\xF6keskus edest\xE4. \xC4l\xE4 koske mihink\xE4\xE4n keskuksen sis\xE4ll\xE4.",
+      "\xD6ppna sk\xE5pluckan och ta en bild av hela elcentralen framifr\xE5n. R\xF6r ingenting inuti.",
+      "Open the cabinet door and take a photo of the whole fuse box from the front. Do not touch anything inside."
     ),
     criteria: [
       {
@@ -50073,37 +50073,34 @@ var CHECKS = [
         kind: "condition",
         text: t(
           "Ei vaurioita, k\xE4rventymisj\xE4lki\xE4, puuttuvaa kantta eik\xE4 paljaita j\xE4nnitteisi\xE4 osia",
-          "Inga skador, br\xE4nnm\xE4rken, saknat lock eller blottade str\xF6mf\xF6rande delar",
+          "Inga skador, br\xE4nnm\xE4rken, saknade lock eller blottade str\xF6mf\xF6rande delar",
           "No damage, scorch marks, missing cover or exposed live parts"
-        )
-      },
-      {
-        id: "F2.rcd_visible",
-        kind: "condition",
-        text: t(
-          "Vikavirtasuojakytkin (jossa TEST-painike) n\xE4kyy",
-          "En jordfelsbrytare (med TEST-knapp) syns",
-          "A residual-current device (RCD, with a TEST button) is visible"
         )
       },
       {
         id: "F2.clear_front",
         kind: "condition",
         text: t(
-          "Keskuksen edess\xE4 tai sit\xE4 vasten ei ole tavaraa",
+          "Keskuksen edess\xE4 tai sit\xE4 vasten ei ole tavaroita",
           "Inget f\xF6rvaras framf\xF6r eller mot centralen",
-          "Nothing stored against or in front of it"
+          "Nothing is stored in front of it or against it"
         )
       }
     ],
     clauseIds: ["OMA-5.2.7", "OMA-5.2.8"],
     clauseFit: "section",
+    // A missing RCD is not a fault: older wiring may lack one if it met the rules when installed (Tukes).
+    guideNote: t(
+      "Keskuksen edustan pit\xE4minen tyhj\xE4n\xE4 on turvallisuusvinkki, ei ehtojen m\xE4\xE4r\xE4ys. Eik\xF6 vikavirtasuojaa n\xE4y? Vanhemmissa s\xE4hk\xF6asennuksissa sit\xE4 ei usein ole, ja se on sallittua, jos asennus t\xE4ytti tekohetkens\xE4 m\xE4\xE4r\xE4ykset. S\xE4hk\xF6asentaja voi lis\xE4t\xE4 sen turvallisuuden parantamiseksi.",
+      "Att h\xE5lla fritt framf\xF6r elcentralen \xE4r ett s\xE4kerhetstips, inte en regel i villkoren. Syns ingen jordfelsbrytare? \xC4ldre elinstallationer saknar ofta en, och det \xE4r till\xE5tet om installationen uppfyllde reglerna n\xE4r den gjordes. En elektriker kan installera en f\xF6r \xF6kad s\xE4kerhet.",
+      "Keeping the front of the fuse box clear is a safety tip, not a rule in the terms. No RCD visible? Older wiring often has none, and that is allowed if it met the rules when it was installed. An electrician can add one for extra safety."
+    ),
     notApplicableAllowed: false,
     defaultOwner: { default: "professional" },
     fixHint: t(
-      "Raivaa tila keskuksen edest\xE4. Jos n\xE4et vaurioita tai k\xE4rventymist\xE4 tai vikavirtasuoja puuttuu, tilaa s\xE4hk\xF6asentaja. \xC4l\xE4 korjaa itse.",
-      "R\xF6j undan framf\xF6r centralen. Ser du skador eller br\xE4nnm\xE4rken, eller saknas jordfelsbrytare, anlita en beh\xF6rig elinstallat\xF6r. Laga inte sj\xE4lv.",
-      "Clear the space in front. For damage, scorch marks or a missing RCD, call an authorised electrician. Don't fix it yourself."
+      "Raivaa tavarat keskuksen edest\xE4. Jos n\xE4et vaurioita tai k\xE4rventymisj\xE4lki\xE4, tilaa s\xE4hk\xF6asentaja. \xC4l\xE4 korjaa itse.",
+      "Flytta bort saker framf\xF6r centralen. Om du ser skador eller br\xE4nnm\xE4rken, anlita en beh\xF6rig elektriker. Laga inget sj\xE4lv.",
+      "Clear the space in front of the fuse box. If you see damage or scorch marks, call an authorised electrician. Do not fix it yourself."
     ),
     recheck: { kind: "yearly" }
   },
@@ -50114,8 +50111,8 @@ var CHECKS = [
     title: t("J\xE4\xE4kaapin takana", "Bakom kylsk\xE5pet", "Behind the fridge"),
     coach: t(
       "Ved\xE4 j\xE4\xE4kaappia hieman esiin tai k\xE4yt\xE4 puhelimen valoa. Kuvaa takana oleva lauhdutin ja johdot.",
-      "Dra ut kylsk\xE5pet lite eller anv\xE4nd mobilens lampa. Fotografera kondensorn p\xE5 baksidan och sladdarna.",
-      "Pull the fridge out a little, or use your phone's light. Show the coil at the back and the cords."
+      "Dra ut kylsk\xE5pet lite eller anv\xE4nd mobilens ficklampa. Ta en bild av kondensorn p\xE5 baksidan och sladdarna.",
+      "Pull the fridge out a little, or use your phone's light. Take a photo of the coil at the back and the cords."
     ),
     criteria: [
       {
@@ -50131,7 +50128,7 @@ var CHECKS = [
         id: "F3.no_dust",
         kind: "condition",
         text: t(
-          "Lauhduttimessa tai kompressorissa ei ole paksua p\xF6ly\xE4",
+          "Lauhduttimessa tai kompressorissa ei ole paksua p\xF6lykerrosta",
           "Inget tjockt damm p\xE5 kondensorn eller kompressorn",
           "No thick dust on the coil or compressor"
         )
@@ -50142,17 +50139,22 @@ var CHECKS = [
         text: t(
           "Johdot ja pistokkeet ovat ehj\xE4t",
           "Sladdar och stickproppar \xE4r hela",
-          "Cords and plugs undamaged"
+          "The cords and plugs are undamaged"
         )
       }
     ],
     clauseIds: ["OMA-5.2.7"],
     clauseFit: "section",
+    guideNote: t(
+      "Paksun p\xF6lyn poistaminen lauhduttimesta on turvallisuusvinkki, ei ehtojen m\xE4\xE4r\xE4ys. Ehtojen kohta 5.2.7 koskee viallisia s\xE4hk\xF6laitteita, kuten vaurioituneita johtoja ja pistokkeita.",
+      "Att ta bort tjockt damm fr\xE5n kondensorn \xE4r ett s\xE4kerhetstips, inte en regel i villkoren. Villkorens punkt 5.2.7 g\xE4ller trasiga elektriska anordningar, till exempel skadade sladdar och stickproppar.",
+      "Removing thick dust from the coil is a safety tip, not a rule in the terms. The terms (5.2.7) cover faulty appliances, such as damaged cords and plugs."
+    ),
     notApplicableAllowed: false,
     defaultOwner: { default: "me" },
     fixHint: t(
-      "Irrota pistoke ja imuroi p\xF6lyt takaa. Vaihdata vaurioitunut johto tai korjauta laite.",
-      "Dra ur kontakten och dammsug baksidan. L\xE5t byta en skadad sladd eller reparera apparaten.",
+      "Irrota pistoke ja imuroi p\xF6lyt laitteen takaa. Vaihdata vaurioitunut johto tai korjauta laite.",
+      "Dra ur kontakten och dammsug baksidan. L\xE5t en fackman byta en skadad sladd eller reparera apparaten.",
       "Unplug the fridge and vacuum the dust off the back. Have a damaged cord replaced or the appliance repaired."
     ),
     recheck: { kind: "yearly" }
@@ -50161,11 +50163,11 @@ var CHECKS = [
     id: "F4",
     peril: "fire",
     homeTypes: ["flat", "house", "cottage"],
-    title: t("Liesitaso tyhj\xE4n\xE4", "Spish\xE4llen tom", "Stove top clear"),
+    title: t("Liesitaso tyhj\xE4n\xE4", "Tom spish\xE4ll", "Clear stove top"),
     coach: t(
       "Kuvaa koko liesitaso ylh\xE4\xE4lt\xE4 sellaisena kuin se yleens\xE4 on.",
-      "Fotografera hela spish\xE4llen uppifr\xE5n, s\xE5 som den brukar se ut.",
-      "Photograph the whole stove top from above, as it usually is."
+      "Ta en bild av hela spish\xE4llen uppifr\xE5n, s\xE5 som den brukar se ut.",
+      "Take a photo of the whole stove top from above, as it usually looks."
     ),
     criteria: [
       {
@@ -50179,21 +50181,21 @@ var CHECKS = [
         text: t(
           "Sen p\xE4\xE4ll\xE4 ei s\xE4ilytet\xE4 mit\xE4\xE4n (ei papereita, laatikoita, pyyhkeit\xE4 eik\xE4 kattiloita)",
           "Inget f\xF6rvaras p\xE5 den (inga papper, l\xE5dor, handdukar eller kastruller)",
-          "Nothing stored on it (no paper, boxes, towels or pans left on)"
+          "Nothing is stored on it (no paper, boxes, towels or pans)"
         )
       }
     ],
-    clauseIds: [],
-    clauseFit: "none",
+    clauseIds: ["OMA-5.2.15"],
+    clauseFit: "direct",
     guideNote: t(
-      "Liedell\xE4 tai sen l\xE4hell\xE4 olevat tavarat ovat keitti\xF6palojen yleisin syy (SPEK).",
-      "F\xF6rem\xE5l p\xE5 eller n\xE4ra spisen \xE4r den vanligaste orsaken till k\xF6ksbr\xE4nder (SPEK).",
-      "Items on or near the stove are the top cause of kitchen fires (SPEK)."
+      "Liedelle j\xE4tetty tavara oli yleisin liesipalojen syy vakuutusyhti\xF6lle ilmoitetuissa vahingoissa (SPEK 2023).",
+      "Saker som l\xE4mnats p\xE5 spisen var den vanligaste orsaken till spisbr\xE4nder i f\xF6rs\xE4kringsskador (SPEK 2023).",
+      "In stove-fire insurance claims, things left on the stove were the most common cause (SPEK 2023)."
     ),
     notApplicableAllowed: false,
     defaultOwner: { default: "me" },
     fixHint: t(
-      "Pid\xE4 liesitaso tyhj\xE4n\xE4 ja s\xE4ilyt\xE4 tavarat muualla. Liesivahti lis\xE4\xE4 turvaa.",
+      "Pid\xE4 liesitaso tyhj\xE4n\xE4 ja s\xE4ilyt\xE4 tavarat muualla. Liesivahti lis\xE4\xE4 turvallisuutta.",
       "H\xE5ll spish\xE4llen tom och f\xF6rvara saker n\xE5gon annanstans. En spisvakt ger extra s\xE4kerhet.",
       "Keep the stove top empty and store things elsewhere. A stove guard adds safety."
     ),
@@ -50203,18 +50205,18 @@ var CHECKS = [
     id: "F5",
     peril: "fire",
     homeTypes: ["flat", "house", "cottage"],
-    title: t("Miss\xE4 lataat laitteita", "D\xE4r du laddar apparater", "Where you charge devices"),
+    title: t("Miss\xE4 lataat laitteita", "Var du laddar apparater", "Where you charge devices"),
     coach: t(
-      "Kuvaa paikka, jossa yleens\xE4 lataat puhelinta, l\xE4pp\xE4ri\xE4 tai s\xE4hk\xF6py\xF6r\xE4n akkua, ja sen ymp\xE4rist\xF6.",
-      "Fotografera platsen d\xE4r du brukar ladda telefon, dator eller elcykelbatteri, och det som finns runt omkring.",
-      "Photograph the spot where you usually charge phones, laptops or e-bike batteries, and what is around it."
+      "Kuvaa paikka, jossa yleens\xE4 lataat puhelinta, kannettavaa tai s\xE4hk\xF6py\xF6r\xE4n akkua, ja sen ymp\xE4rist\xF6.",
+      "Ta en bild av platsen d\xE4r du brukar ladda telefonen, datorn eller elcykelns batteri, och det som finns runt omkring.",
+      "Take a photo of where you usually charge your phone, laptop or e-bike battery, and what is around it."
     ),
     criteria: [
       {
         id: "F5.spot_visible",
         kind: "visibility",
         text: t(
-          "Puhelinten, l\xE4pp\xE4rien tai s\xE4hk\xF6py\xF6r\xE4n akkujen latauspaikka n\xE4kyy",
+          "Puhelinten, kannettavien tai s\xE4hk\xF6py\xF6r\xE4n akkujen latauspaikka n\xE4kyy",
           "Laddplatsen f\xF6r telefoner, datorer eller elcykelbatterier syns",
           "The charging spot for phones, laptops or e-bike batteries is visible"
         )
@@ -50223,9 +50225,9 @@ var CHECKS = [
         id: "F5.safe_surface",
         kind: "condition",
         text: t(
-          "Lataus tapahtuu kovalla alustalla, kaukana s\xE4ngyist\xE4, sohvista, verhoista ja tekstiileist\xE4",
-          "Laddningen sker p\xE5 ett h\xE5rt underlag, l\xE5ngt fr\xE5n s\xE4ngar, soffor, gardiner och textilier",
-          "Charging on a hard surface, away from beds, sofas, curtains and textiles"
+          "Lataus tapahtuu kaukana s\xE4ngyist\xE4, sohvista, verhoista ja muista tekstiileist\xE4",
+          "Laddningen sker l\xE5ngt fr\xE5n s\xE4ngar, soffor, gardiner och andra textilier",
+          "Charging happens away from beds, sofas, curtains and other textiles"
         )
       }
     ],
@@ -50235,8 +50237,8 @@ var CHECKS = [
     defaultOwner: { default: "me" },
     fixHint: t(
       "Siirr\xE4 lataus kovalle alustalle, kuten p\xF6yd\xE4lle tai laattalattialle, kauas tekstiileist\xE4. \xC4l\xE4 j\xE4t\xE4 latausta valvomatta.",
-      "Flytta laddningen till ett h\xE5rt underlag, som ett bord eller klinkergolv, bort fr\xE5n textilier. L\xE4mna inte laddningen utan uppsikt.",
-      "Move charging to a hard surface, such as a table or tiled floor, away from textiles. Don't leave it charging unattended."
+      "Ladda p\xE5 ett h\xE5rt underlag, som ett bord eller ett klinkergolv, l\xE5ngt fr\xE5n textilier. L\xE4mna inget p\xE5 laddning utan uppsikt.",
+      "Charge on a hard surface, such as a table or a tiled floor, away from textiles. Do not leave anything charging unattended."
     ),
     recheck: { kind: "yearly" }
   },
@@ -50252,8 +50254,8 @@ var CHECKS = [
     ),
     coach: t(
       "Kuvaa termostaatti, l\xE4mmityksen s\xE4\xE4din tai patterin asetus.",
-      "Fotografera termostaten, v\xE4rmeregleringen eller ett elements inst\xE4llning.",
-      "Photograph the thermostat, the heating controller or a radiator setting."
+      "Ta en bild av termostaten, v\xE4rmeregleringen eller inst\xE4llningen p\xE5 ett element.",
+      "Take a photo of the thermostat, the heating control or a radiator setting."
     ),
     criteria: [
       {
@@ -50261,8 +50263,8 @@ var CHECKS = [
         kind: "visibility",
         text: t(
           "Termostaatti, l\xE4mmityksen s\xE4\xE4din tai patterin s\xE4\xE4t\xF6 n\xE4kyy",
-          "En termostat, v\xE4rmereglering eller elementinst\xE4llning syns",
-          "A thermostat, heating controller or radiator setting is visible"
+          "En termostat, v\xE4rmereglering eller inst\xE4llningen p\xE5 ett element syns",
+          "A thermostat, heating control or radiator setting is visible"
         )
       },
       {
@@ -50271,7 +50273,7 @@ var CHECKS = [
         text: t(
           "L\xE4mmitys on p\xE4\xE4ll\xE4 kaikissa tiloissa, joissa on vesiputkia",
           "V\xE4rmen \xE4r p\xE5 i alla rum med vattenr\xF6r",
-          "Heating is on in every room with water pipes"
+          "The heating is on in every room with water pipes"
         )
       }
     ],
@@ -50280,7 +50282,7 @@ var CHECKS = [
     notApplicableAllowed: false,
     defaultOwner: { default: "me" },
     fixHint: t(
-      "Laita l\xE4mmitys p\xE4\xE4lle kaikkiin tiloihin, joissa on vesiputkia, ennen kylm\xE4\xE4 kautta.",
+      "Laita l\xE4mmitys p\xE4\xE4lle kaikkiin tiloihin, joissa on vesiputkia, ennen kylm\xE4\xE4 vuodenaikaa.",
       "S\xE4tt p\xE5 v\xE4rmen i alla rum med vattenr\xF6r f\xF6re den kalla \xE5rstiden.",
       "Turn the heating on in every room with water pipes before the cold season."
     ),
@@ -50293,8 +50295,8 @@ var CHECKS = [
     title: t("Ulkohana ennen pakkasia", "Utekranen f\xF6re frosten", "Outdoor tap before frost"),
     coach: t(
       "Kuvaa ulkohana niin, ett\xE4 n\xE4kyy, onko siin\xE4 letku kiinni.",
-      "Fotografera utekranen s\xE5 att det syns om en slang \xE4r ansluten.",
-      "Photograph the outdoor tap so it shows whether a hose is attached."
+      "Ta en bild av utekranen s\xE5 att det syns om en slang \xE4r ansluten.",
+      "Take a photo of the outdoor tap that shows whether a hose is attached."
     ),
     criteria: [
       {
@@ -50305,15 +50307,21 @@ var CHECKS = [
       {
         id: "Z2.no_hose",
         kind: "condition",
-        text: t("Hanaan ei ole kiinnitetty letkua", "Ingen slang \xE4r ansluten", "No hose attached")
+        text: t(
+          "Hanaan ei ole kiinnitetty letkua",
+          "Ingen slang \xE4r ansluten",
+          "No hose is attached"
+        ),
+        // 5.5.4: the hose must come off "during the cold season" (COLD_SEASON_MONTHS in verdict.ts).
+        coldSeasonOnly: true
       },
       {
         id: "Z2.indoor_valve_closed",
         kind: "user",
         text: t(
-          "Suljin ulkohanan sis\xE4puolisen sulkuventtiilin",
-          "Jag st\xE4ngde inomhusventilen f\xF6r utekranen",
-          "I closed the indoor valve for the outdoor tap"
+          "Suljin ulkohanan sis\xE4puolisen sulkuventtiilin, tai hana on pakkasenkest\xE4v\xE4",
+          "Jag st\xE4ngde utekranens avst\xE4ngningsventil inomhus, eller kranen \xE4r frosts\xE4ker",
+          "I closed the indoor shut-off valve for the outdoor tap, or it is a frost-proof tap"
         )
       }
     ],
@@ -50322,9 +50330,9 @@ var CHECKS = [
     notApplicableAllowed: true,
     defaultOwner: { default: "me" },
     fixHint: t(
-      "Irrota letku, sulje sis\xE4puolinen venttiili ja avaa ulkohana, jotta vesi valuu pois.",
-      "Ta bort slangen, st\xE4ng inomhusventilen och \xF6ppna utekranen s\xE5 att vattnet rinner ut.",
-      "Remove the hose, close the indoor valve and open the outdoor tap to let the water out."
+      "Irrota letku, sulje sis\xE4puolinen sulkuventtiili ja avaa ulkohana, jotta vesi p\xE4\xE4see valumaan pois.",
+      "Ta bort slangen, st\xE4ng avst\xE4ngningsventilen inomhus och \xF6ppna utekranen s\xE5 att vattnet rinner ut.",
+      "Remove the hose, close the indoor shut-off valve and open the outdoor tap to let the water drain out."
     ),
     recheck: { kind: "frost" }
   },
@@ -50335,9 +50343,9 @@ var CHECKS = [
     homeTypes: ["house"],
     title: t("R\xE4yst\xE4skourut ja sy\xF6ksytorvet", "H\xE4ngr\xE4nnor och stupr\xF6r", "Gutters and downpipes"),
     coach: t(
-      "Kuvaa maasta k\xE4sin r\xE4yst\xE4skouru ja sy\xF6ksytorvi aina sinne asti, minne vesi menee.",
-      "Fotografera fr\xE5n marken en h\xE4ngr\xE4nna och stupr\xF6ret \xE4nda ner till d\xE4r vattnet leds.",
-      "From the ground, photograph a gutter and the downpipe down to where the water goes."
+      "Kuvaa maasta k\xE4sin r\xE4yst\xE4skouru ja sy\xF6ksytorvi aina sinne asti, minne vesi ohjautuu.",
+      "Ta en bild fr\xE5n marken av en h\xE4ngr\xE4nna och stupr\xF6ret \xE4nda ner till d\xE4r vattnet leds bort.",
+      "From the ground, take a photo of a gutter and its downpipe, all the way down to where the water goes."
     ),
     criteria: [
       {
@@ -50353,9 +50361,9 @@ var CHECKS = [
         id: "S1.clear_and_away",
         kind: "condition",
         text: t(
-          "Ei lehti\xE4, roskia eik\xE4 ylivuotoa, ja sy\xF6ksytorvi ohjaa veden pois sein\xE4n vierest\xE4",
-          "Inga l\xF6v, skr\xE4p eller \xF6verrinning, och stupr\xF6ret leder vattnet bort fr\xE5n v\xE4ggen",
-          "No leaves, debris or overflow; the downpipe leads water away from the wall"
+          "Ei lehti\xE4, roskia eik\xE4 ylivuotoa, ja sy\xF6ksytorvi ohjaa veden poisp\xE4in sein\xE4st\xE4",
+          "Inga l\xF6v, inget skr\xE4p och ingen \xF6verrinning, och stupr\xF6ret leder bort vattnet fr\xE5n v\xE4ggen",
+          "No leaves, debris or overflow, and the downpipe leads water away from the wall"
         )
       }
     ],
@@ -50366,16 +50374,16 @@ var CHECKS = [
     fixHint: t(
       "Puhdista kourut lehdist\xE4. Lis\xE4\xE4 sy\xF6ksytorveen jatke tai roiskekouru, jotta vesi valuu poisp\xE4in sein\xE4st\xE4.",
       "Rensa h\xE4ngr\xE4nnorna fr\xE5n l\xF6v. S\xE4tt en f\xF6rl\xE4ngning eller en utkastare p\xE5 stupr\xF6ret s\xE5 att vattnet rinner bort fr\xE5n v\xE4ggen.",
-      "Clear the leaves from the gutters. Add an extension or a splash block so water runs away from the wall."
+      "Clear the leaves from the gutters. Add an extension or a splash block to the downpipe so water runs away from the wall."
     ),
     recheck: { kind: "seasonal", months: [4, 10] }
   }
 ];
 var MAIN_VALVE = {
   coach: t(
-    "Etsi veden p\xE4\xE4sulkuventtiili. Se on yleens\xE4 vesimittarin vieress\xE4, miss\xE4 vesiputki tulee sis\xE4\xE4n. N\xE4yt\xE4 kahva kuvassa.",
-    "Leta upp huvudavst\xE4ngningsventilen. Den sitter oftast vid vattenm\xE4taren, d\xE4r vattenr\xF6ret kommer in. Visa handtaget.",
-    "Find the main water valve. It is usually by the water meter, where the pipe comes in. Show the handle."
+    "Etsi veden p\xE4\xE4sulkuventtiili. Se on yleens\xE4 vesimittarin vieress\xE4, siell\xE4 miss\xE4 vesijohto tulee taloon. Kuvaa se niin, ett\xE4 kahva n\xE4kyy.",
+    "Leta upp huvudavst\xE4ngningsventilen. Den sitter oftast vid vattenm\xE4taren, d\xE4r vattenledningen kommer in i huset. Ta en bild d\xE4r handtaget syns.",
+    "Find the main water shut-off valve. It is usually by the water meter, where the water pipe comes in. Take a photo with the handle in view."
   ),
   criteria: {
     "L1.valve_visible": t(
@@ -50385,9 +50393,14 @@ var MAIN_VALVE = {
     )
   },
   clauseFit: "direct",
+  relationNote: t(
+    "Ehtojen mukaan t\xE4m\xE4 venttiili suljetaan, kun koti on tyhjill\xE4\xE4n yli viikon (5.5.3).",
+    "Enligt villkoren ska den h\xE4r ventilen st\xE4ngas n\xE4r hemmet st\xE5r tomt i mer \xE4n en vecka (5.5.3).",
+    "Your terms ask you to close this valve when the home is empty for more than a week (5.5.3)."
+  ),
   fixHint: t(
-    "Jos p\xE4\xE4sulkuventtiili vuotaa tai on jumissa, tilaa putkimies. Opettele sulkemaan se ennen kuin tarvitset sit\xE4.",
-    "Om huvudventilen droppar eller sitter fast, anlita en r\xF6rmokare. L\xE4r dig st\xE4nga den innan du beh\xF6ver det.",
+    "Jos p\xE4\xE4sulkuventtiili vuotaa tai on jumissa, tilaa putkimies. Opettele sulkemaan se, ennen kuin tarvitset sit\xE4.",
+    "Om huvudventilen droppar eller sitter fast, anlita en r\xF6rmokare. L\xE4r dig st\xE4nga den innan det beh\xF6vs.",
     "If the main valve drips or is stuck, call a plumber. Learn how to close it before you need to."
   )
 };
@@ -50395,24 +50408,48 @@ var VARIANTS = {
   L1: {
     house: MAIN_VALVE,
     cottage: MAIN_VALVE,
+    // Flats and terraced houses: only the housing company uses the main and flat shut-offs (Isännöintiliitto,
+    // Yle 6 Mar 2026), and 5.5.3 is a building rule. Residents check an appliance valve. Owner stays
+    // property_manager for a dripping or stuck valve; learning the appliance valve is the resident's part.
     flat: {
       coach: t(
-        "Katso keitti\xF6n altaan alta, pesukoneen takaa tai kylpyhuoneesta. Kuvaa sulkuventtiili niin, ett\xE4 kahva n\xE4kyy.",
-        "Titta under diskb\xE4nken, bakom tv\xE4ttmaskinen eller i badrummet. Fotografera en avst\xE4ngningsventil s\xE5 att handtaget syns.",
-        "Look under the kitchen sink, behind the washing machine or in the bathroom. Photograph a shut-off valve so the handle shows."
+        "Kuvaa kodinkoneen sulkuventtiili, esimerkiksi astian- tai pyykinpesukoneen, niin ett\xE4 kahva n\xE4kyy. Kerros- ja rivitalossa p\xE4\xE4sulku ja asuntokohtainen sulku ovat taloyhti\xF6n vastuulla: \xE4l\xE4 k\xE4yt\xE4 niit\xE4.",
+        "Ta en bild av en maskins avst\xE4ngningsventil, till exempel diskmaskinens eller tv\xE4ttmaskinens, d\xE4r handtaget syns. I flerv\xE5nings- och radhus h\xF6r huvudavst\xE4ngningen och l\xE4genhetens avst\xE4ngning till husbolaget: anv\xE4nd dem inte.",
+        "Take a photo of an appliance's shut-off valve, such as the dishwasher's or washing machine's, with the handle in view. In a block of flats or terraced house, the main and flat shut-offs belong to the housing company: don't use them."
       ),
       criteria: {
         "L1.valve_visible": t(
-          "Asunnon tai kodinkoneen vesisulku n\xE4kyy",
-          "L\xE4genhetens avst\xE4ngningsventil eller en maskins egen ventil syns",
-          "The flat's water shut-off or an appliance shut-off valve is visible"
+          "Kodinkoneen sulkuventtiili n\xE4kyy",
+          "En maskins avst\xE4ngningsventil syns",
+          "An appliance's shut-off valve is visible"
+        ),
+        "L1.know_how": t(
+          "Osaan sulkea kodinkoneiden venttiilit, ja minulla on huoltoyhti\xF6n p\xE4ivystysnumero",
+          "Jag vet hur jag st\xE4nger maskinernas ventiler, och jag har servicebolagets journummer",
+          "I know how to close my appliance valves, and I have the maintenance company's emergency number"
         )
       },
-      clauseFit: "section",
+      clauseIds: [],
+      clauseFit: "none",
+      guideNote: t(
+        "Kerros- ja rivitalossa vain taloyhti\xF6 k\xE4ytt\xE4\xE4 vesisulkua. Sulje kodinkoneiden venttiilit, kun koneet eiv\xE4t ole k\xE4yt\xF6ss\xE4.",
+        "I flerv\xE5nings- och radhus \xE4r det bara husbolaget som anv\xE4nder vattenavst\xE4ngningen. St\xE4ng maskinernas ventiler n\xE4r de inte anv\xE4nds.",
+        "In a block of flats or terraced house, only the housing company uses the water shut-off. Close appliance valves when not in use."
+      ),
       fixHint: t(
-        "Jos venttiili vuotaa tai on jumissa, kerro is\xE4nn\xF6itsij\xE4lle tai huoltoyhti\xF6lle. Opettele sulkemaan se ennen kuin tarvitset sit\xE4.",
-        "Om ventilen droppar eller sitter fast, meddela disponenten eller fastighetsservicen. L\xE4r dig st\xE4nga den innan du beh\xF6ver det.",
-        "If the valve drips or is stuck, tell the property manager or maintenance company. Learn how to close it before you need to."
+        "Jos venttiili vuotaa tai on jumissa, ilmoita is\xE4nn\xF6itsij\xE4lle tai huoltoyhti\xF6lle. Opettele sulkemaan kodinkoneen venttiili.",
+        "Om ventilen droppar eller sitter fast, meddela disponenten eller servicebolaget. L\xE4r dig st\xE4nga maskinens ventil.",
+        "If the valve drips or is stuck, tell the property manager or the maintenance company. Learn how to close the appliance valve."
+      )
+    }
+  },
+  F1: {
+    // Since 1 Jan 2026 the building owner fits and maintains smoke alarms; residents report faults.
+    flat: {
+      fixHint: t(
+        "Jos palovaroitin ei piippaa, ilmoita heti taloyhti\xF6lle tai vuokranantajalle: 1.1.2026 alkaen rakennuksen omistaja hankkii ja huoltaa palovaroittimet.",
+        "Om den inte piper, meddela husbolaget eller hyresv\xE4rden genast: fr\xE5n 1.1.2026 skaffar och underh\xE5ller byggnadens \xE4gare brandvarnarna.",
+        "If it does not beep, tell your housing company or landlord at once: since 1 January 2026 the building owner fits and maintains smoke alarms."
       )
     }
   },
@@ -50423,13 +50460,13 @@ var VARIANTS = {
         "Z1.heating_on": t(
           "L\xE4mmitys on p\xE4\xE4ll\xE4 kaikissa tiloissa, joissa on vesiputkia, tai vesij\xE4rjestelm\xE4 on tyhjennetty",
           "V\xE4rmen \xE4r p\xE5 i alla rum med vattenr\xF6r, eller vattensystemet \xE4r t\xF6mt",
-          "Heating is on in every room with water pipes, or the water system is drained"
+          "The heating is on in every room with water pipes, or the water system is drained"
         )
       },
       clauseIds: ["OMA-5.5.1", "OMA-5.5.2"],
       fixHint: t(
         "Laita l\xE4mmitys p\xE4\xE4lle tiloihin, joissa on vesiputkia. Jos j\xE4t\xE4t m\xF6kin kylm\xE4ksi, tyhjenn\xE4 vesij\xE4rjestelm\xE4.",
-        "S\xE4tt p\xE5 v\xE4rmen i rum med vattenr\xF6r. Om du l\xE4mnar stugan kall, t\xF6m vattensystemet.",
+        "S\xE4tt p\xE5 v\xE4rmen i rum med vattenr\xF6r. L\xE4mnar du stugan kall, t\xF6m vattensystemet.",
         "Turn the heating on in rooms with water pipes. If you leave the cottage cold, drain the water system."
       )
     }
@@ -50441,6 +50478,8 @@ function appliesTo(check, homeType) {
 }
 function specialize(check, homeType) {
   const v = VARIANTS[check.id]?.[homeType];
+  const guideNote = v?.guideNote ?? check.guideNote;
+  const relationNote = v?.relationNote ?? check.relationNote;
   return {
     ...check,
     homeTypes: [...check.homeTypes],
@@ -50449,7 +50488,8 @@ function specialize(check, homeType) {
     criteria: check.criteria.map((c) => ({ ...c, text: { ...v?.criteria?.[c.id] ?? c.text } })),
     clauseIds: [...v?.clauseIds ?? check.clauseIds],
     clauseFit: v?.clauseFit ?? check.clauseFit,
-    ...check.guideNote ? { guideNote: { ...check.guideNote } } : {},
+    ...guideNote ? { guideNote: { ...guideNote } } : {},
+    ...relationNote ? { relationNote: { ...relationNote } } : {},
     defaultOwner: { ...check.defaultOwner },
     fixHint: { ...v?.fixHint ?? check.fixHint },
     recheck: check.recheck.kind === "seasonal" ? { kind: "seasonal", months: [...check.recheck.months] } : { ...check.recheck }
@@ -50489,7 +50529,7 @@ var CLAUSES = {
     },
     text: {
       fi: "Suojeluohjeissa rakennuksen valvonnalla tarkoitetaan k\xE4ynti\xE4 rakennuksessa v\xE4hint\xE4\xE4n kerran kuukaudessa.",
-      sv: "Egendomen ska \xF6vervakas. I s\xE4kerhetsf\xF6reskrifterna avses med \xF6vervakning av l\xF6s\xF6re st\xE4ndig uppsikt. I s\xE4kerhetsf\xF6reskrifterna avses med \xF6vervakning av byggnad bes\xF6k i byggnaden minst en g\xE5ng i m\xE5naden.",
+      sv: "I s\xE4kerhetsf\xF6reskrifterna avses med \xF6vervakning av byggnad bes\xF6k i byggnaden minst en g\xE5ng i m\xE5naden.",
       en: "Furthermore, in the precautions the surveillance of a building refers to visiting the building at least once a month."
     },
     source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
@@ -50504,7 +50544,7 @@ var CLAUSES = {
     },
     text: {
       fi: "Suojeluohjeen laiminly\xF6nti voi aiheuttaa sen, ettei korvausta makseta tai se maksetaan alennettuna yleisten sopimusehtojen kohdan 5 mukaisesti.",
-      sv: "F\xF6rs\xE4kringstagaren, den f\xF6rs\xE4krade och med honom eller henne j\xE4mst\xE4llbar person ska iaktta s\xE4kerhetsf\xF6reskrifterna. Om s\xE4kerhetsf\xF6reskrifterna f\xF6rsummas, kan detta leda till att ers\xE4ttning inte utbetalas eller att ers\xE4ttningen s\xE4nks i enlighet med punkt 5 i de allm\xE4nna avtalsvillkoren.",
+      sv: "Om s\xE4kerhetsf\xF6reskrifterna f\xF6rsummas, kan detta leda till att ers\xE4ttning inte utbetalas eller att ers\xE4ttningen s\xE4nks i enlighet med punkt 5 i de allm\xE4nna avtalsvillkoren.",
       en: "Negligence in heeding the precautions may cause the compensation to be reduced or completely denied in accordance with clause 5 of the General Terms and Conditions."
     },
     source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
@@ -50611,6 +50651,21 @@ var CLAUSES = {
       fi: "Omaisuuden kuivattaminen ja s\xE4ilytt\xE4minen saunassa on kielletty\xE4.",
       sv: "Det \xE4r f\xF6rbjudet att torka och f\xF6rvara egendom i bastun.",
       en: "Drying and storing property in the sauna is prohibited."
+    },
+    source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
+  },
+  "OMA-5.2.15": {
+    id: "OMA-5.2.15",
+    section: "5.2.15",
+    topic: {
+      fi: "Liesi ja uuni valvotusti, ei syttyvi\xE4 esineit\xE4 p\xE4\xE4ll\xE4 tai l\xE4hell\xE4",
+      sv: "Spis och ugn under uppsikt, inget br\xE4nnbart p\xE5 eller n\xE4ra",
+      en: "Stove and oven: supervise, nothing flammable on or near"
+    },
+    text: {
+      fi: "Liett\xE4, uunia, grilli\xE4, savustinta tai muuta vastaavaa tulee k\xE4ytt\xE4\xE4 valvotusti. Niiden p\xE4\xE4ll\xE4 tai v\xE4litt\xF6m\xE4ss\xE4 l\xE4heisyydess\xE4 ei saa olla syttyvi\xE4 esineit\xE4. Asunnosta poistuttaessa on varmistettava, ett\xE4 ne on sammutettu tai niist\xE4 on katkaistu virta.",
+      sv: "Spis, ugn, grill, r\xF6k eller motsvarande ska anv\xE4ndas under \xF6vervakning. P\xE5 dem eller i deras omedelbara n\xE4rhet f\xE5r inte finnas br\xE4nnbara f\xF6rem\xE5l. D\xE5 man l\xE4mnar bostaden ska man alltid f\xF6rs\xE4kra sig om att de har sl\xE4ckts eller att str\xF6mmen till dem \xE4r fr\xE5nkopplad.",
+      en: "The stove, oven, grill, smoker or similar must be operated under supervision. No flammable objects should be kept on or in the immediate vicinity of them. Make sure they are turned or switched off before you leave the dwelling."
     },
     source: "Kodin omaisuusvakuutusehdot, Ehto OMA 200.27 (voimassa 1.1.2026 alkaen)"
   },
@@ -50899,6 +50954,9 @@ function pickLang(id, lang) {
 function clauseText(id, lang) {
   return CLAUSES[id].text[pickLang(id, lang)];
 }
+function clauseRefs(check, lang) {
+  return check.clauseIds.map((id) => ({ id, text: clauseText(id, lang) }));
+}
 
 // ../packages/engine/src/dates.ts
 var DAY_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
@@ -50930,20 +50988,8 @@ function addMonths(day, months) {
   const nm = total % 12 + 1;
   return fromParts(ny, nm, Math.min(d, daysInMonth(ny, nm)));
 }
-function addDays(day, days) {
-  const [y, m, d] = parts(day);
-  return fromParts(y, m, d + days);
-}
-function daysBetween(a, b) {
-  const [ay, am, ad] = parts(a);
-  const [by, bm, bd] = parts(b);
-  return Math.round((Date.UTC(by, bm - 1, bd) - Date.UTC(ay, am - 1, ad)) / 864e5);
-}
 function minDay(a, b) {
   return a <= b ? a : b;
-}
-function maxDay(a, b) {
-  return a >= b ? a : b;
 }
 function nextMonthStart(day, months) {
   const valid = [...new Set(months)].filter((m) => Number.isInteger(m) && m >= 1 && m <= 12);
@@ -50961,40 +51007,35 @@ function nextMonthStart(day, months) {
 function nextOctoberFirst(day) {
   return nextMonthStart(day, [10]);
 }
-function lastJulyFirst(day) {
-  const [y] = parts(day);
-  const thisYear = fromParts(y, 7, 1);
-  return thisYear <= day ? thisYear : fromParts(y - 1, 7, 1);
-}
 
 // ../packages/engine/src/i18n.ts
 var t2 = (fi, sv, en) => ({ fi, sv, en });
 var PERIL_LABELS = {
-  leak: t2("Vuodot", "L\xE4ckage", "Leak"),
+  leak: t2("Vesivuoto", "L\xE4ckage", "Leak"),
   fire: t2("Tulipalo", "Brand", "Fire"),
-  freeze: t2("J\xE4\xE4tyminen", "Frysning", "Freeze"),
+  freeze: t2("J\xE4\xE4tyminen", "Frysning", "Freezing"),
   storm_water: t2("Hulevesi", "Dagvatten", "Storm water")
 };
 var OWNER_LABELS = {
   me: t2("Sin\xE4", "Du", "You"),
-  property_manager: t2("Is\xE4nn\xF6itsij\xE4", "Disponenten", "Property manager"),
+  property_manager: t2("Is\xE4nn\xF6itsij\xE4", "Disponenten", "The property manager"),
   professional: t2("Ammattilainen", "En fackman", "A professional")
 };
 var VERDICT_LABELS = {
-  verified: t2("Tarkistettu", "Kontrollerad", "Verified"),
+  verified: t2("Kunnossa", "I ordning", "Verified"),
   retake: t2("Ota uusi kuva", "Ta en ny bild", "Retake"),
   fix_first: t2("Korjaa ensin", "\xC5tg\xE4rda f\xF6rst", "Fix first"),
-  not_applicable: t2("Ei koske minua", "G\xE4ller inte mig", "Not applicable")
+  not_applicable: t2("Ei koske kotiani", "G\xE4ller inte mitt hem", "Not applicable")
 };
 var STATE_LABELS = {
-  prepared: t2("Valmis", "Klar", "Prepared"),
+  prepared: t2("Valmis", "Redo", "Prepared"),
   in_progress: t2("Kesken", "P\xE5g\xE5r", "In progress"),
   lapsed: t2("Vanhentunut", "Har g\xE5tt ut", "Lapsed"),
   not_started: t2("Ei aloitettu", "Inte p\xE5b\xF6rjad", "Not started")
 };
 var ALARM_DEVICE_LINE = t2(
-  "Omavastuuta ei v\xE4hennet\xE4, jos h\xE4lytinlaite esti vahingon tai rajoitti sit\xE4 (ehdot 6.4.1).",
-  "Ingen sj\xE4lvrisk dras av om en larmanordning f\xF6rhindrade eller begr\xE4nsade skadan (villkor 6.4.1).",
+  "Omavastuuta ei v\xE4hennet\xE4, jos h\xE4lytyslaite esti vahingon tai rajoitti sit\xE4 (ehtojen kohta 6.4.1).",
+  "Ingen sj\xE4lvrisk dras av om en larmanordning f\xF6rhindrade eller begr\xE4nsade skadan (villkorens punkt 6.4.1).",
   "No deductible if an alarm device prevented or limited the damage (terms 6.4.1)."
 );
 var DEDUCTIBLE_CONCEPT_LABEL = t2(
@@ -51003,41 +51044,51 @@ var DEDUCTIBLE_CONCEPT_LABEL = t2(
   "Concept: If decides the amount"
 );
 var DISCLAIMER = t2(
-  "Muistutus tarkistaa, ei tarkastus.",
-  "En p\xE5minnelse att kontrollera, inte en besiktning.",
-  "A prompt to check, not an inspection."
+  "Muistutus omista tarkistuksista, ei kuntotarkastus.",
+  "En p\xE5minnelse om att kontrollera, inte en besiktning.",
+  "A reminder to check, not an inspection."
 );
 var ADJUSTER_NOTE = "Cover is unchanged either way; only the deductible relief depends on the checks. A person decides.";
 var TEXT = {
   couldNotCheck: t2(
     "Kuvaa ei voitu tarkistaa. Yrit\xE4 uudelleen.",
-    "Bilden kunde inte kontrolleras. F\xF6rs\xF6k igen.",
-    "Couldn't check the photo. Try again."
+    "Det gick inte att kontrollera bilden. F\xF6rs\xF6k igen.",
+    "Could not check the photo. Try again."
   ),
   retakeVisible: t2(
     "Ota uusi kuva. Varmista: {items}.",
-    "Ta en ny bild. Se till att: {items}.",
+    "Ta en ny bild. Kontrollera: {items}.",
     "Take a new photo. Make sure: {items}."
   ),
   retakeCondition: t2(
-    "Ota l\xE4hemp\xE4\xE4 ja tarkempi kuva. Emme voineet arvioida: {items}.",
-    "Ta en n\xE4rmare och skarpare bild. Vi kunde inte bed\xF6ma: {items}.",
-    "Take a closer, sharper photo. We couldn't judge: {items}."
+    "Ota tarkempi kuva l\xE4hemp\xE4\xE4. Emme voineet arvioida: {items}.",
+    "Ta en skarpare bild p\xE5 n\xE4rmare h\xE5ll. Vi kunde inte bed\xF6ma: {items}.",
+    "Take a closer, sharper photo. We could not judge: {items}."
+  ),
+  reproduction: t2(
+    "Kuvaa itse kohde, \xE4l\xE4 n\xE4ytt\xF6\xE4 tai tulostettua kuvaa.",
+    "Fotografera sj\xE4lva f\xF6rem\xE5let, inte en sk\xE4rm eller ett utskrivet foto.",
+    "Photograph the real item, not a screen or a printed photo."
   ),
   answerPrompt: t2(
     "Vastaa kyll\xE4 tai ei: {items}.",
     "Svara ja eller nej: {items}.",
-    "Please answer yes or no: {items}."
+    "Answer yes or no: {items}."
+  ),
+  coldSeasonOnly: t2(
+    "Lasketaan vain kylm\xE4n\xE4 vuodenaikana, lokakuusta huhtikuuhun.",
+    "R\xE4knas bara under den kalla \xE5rstiden, fr\xE5n oktober till april.",
+    "Counts only in the cold season, from October to April."
   ),
   shutOffChecked: t2(
-    "Veden sulku tarkistettu {date}.",
-    "Vattenavst\xE4ngningen kontrollerad {date}.",
-    "Water shut-off checked on {date}."
+    "Sulkuventtiili tarkistettu {date}.",
+    "Avst\xE4ngningsventilen kontrollerad {date}.",
+    "Shut-off valve verified on {date}."
   ),
   shutOffFix: t2(
-    "Veden sulku l\xF6ydetty {date}, mutta se vaatii korjausta.",
-    "Vattenavst\xE4ngningen hittad {date}, men den beh\xF6ver \xE5tg\xE4rdas.",
-    "Water shut-off found on {date}, but it needs a fix."
+    "Sulkuventtiili l\xF6ytyi {date}, mutta se pit\xE4\xE4 korjata.",
+    "Avst\xE4ngningsventilen hittades {date}, men den beh\xF6ver \xE5tg\xE4rdas.",
+    "Shut-off valve found on {date}, but it needs fixing."
   ),
   yearlyOne: t2("Vuositarkistus: {title}", "\xC5rlig kontroll: {title}", "Yearly re-check: {title}"),
   yearlyMany: t2(
@@ -51046,14 +51097,14 @@ var TEXT = {
     "Yearly re-check: {n} checks"
   ),
   seasonalOne: t2(
-    "Kauden tarkistus: {title}",
+    "Kausitarkistus: {title}",
     "S\xE4songskontroll: {title}",
-    "Seasonal check: {title}"
+    "Seasonal re-check: {title}"
   ),
   seasonalMany: t2(
-    "Kauden tarkistus: {n} kohdetta",
+    "Kausitarkistus: {n} kohdetta",
     "S\xE4songskontroll: {n} kontroller",
-    "Seasonal check: {n} checks"
+    "Seasonal re-check: {n} checks"
   ),
   fixFirst: t2(
     "Korjaa ja ota uusi kuva: {title}",
@@ -51077,51 +51128,8 @@ function fill(template, vars) {
     (match, key) => key in vars ? String(vars[key]) : match
   );
 }
-function localize(template, vars) {
-  return {
-    fi: fill(template.fi, vars("fi")),
-    sv: fill(template.sv, vars("sv")),
-    en: fill(template.en, vars("en"))
-  };
-}
-var EN_MONTHS = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec"
-];
-function formatDay(day, lang) {
-  const [y, m, d] = day.split("-").map(Number);
-  if (lang === "en") return `${d} ${EN_MONTHS[m - 1]} ${y}`;
-  return `${d}.${m}.${y}`;
-}
 
-// ../packages/engine/src/rules.ts
-var DEFAULT_DEDUCTIBLES = {
-  leak: { standard: 300, prepared: 100 },
-  fire: { standard: 300, prepared: 100 },
-  freeze: { standard: 300, prepared: 100 },
-  storm_water: { standard: 300, prepared: 100 }
-};
-function deductibleConfig(overrides) {
-  return { ...DEFAULT_DEDUCTIBLES, ...overrides ?? {} };
-}
-function preview(cfg, peril, relief) {
-  const { standard, prepared } = cfg[peril];
-  return { standard, prepared, current: relief ? prepared : standard, label: "concept" };
-}
-var PERIL_GROUPS = ["leak", "fire", "freeze"];
-function perilGroup(peril) {
-  return peril === "storm_water" ? "leak" : peril;
-}
+// ../packages/engine/src/verdict.ts
 function matchCriterionId(check, rawId) {
   const ids = check.criteria.filter((c) => c.kind !== "user").map((c) => c.id);
   if (ids.includes(rawId)) return rawId;
@@ -51135,7 +51143,14 @@ function answerFor(userAnswers, check, criterionId) {
   return typeof value === "boolean" ? value : null;
 }
 var nonEmpty = (s) => typeof s === "string" && s.trim() ? s.trim() : null;
-function decideVerdict(check, a, userAnswers, lang, homeType) {
+var COLD_SEASON_MONTHS = [10, 11, 12, 1, 2, 3, 4];
+function isColdSeason(now) {
+  return COLD_SEASON_MONTHS.includes(Number(toDay(now).slice(5, 7)));
+}
+function decideVerdict(check, a, userAnswers, lang, homeType, now = /* @__PURE__ */ new Date()) {
+  const offSeason = new Set(
+    isColdSeason(now) ? [] : check.criteria.filter((c) => c.coldSeasonOnly).map((c) => c.id)
+  );
   const fromModel = /* @__PURE__ */ new Map();
   for (const c of a?.criteria ?? []) {
     const id = c && typeof c.id === "string" ? matchCriterionId(check, c.id) : null;
@@ -51147,16 +51162,10 @@ function decideVerdict(check, a, userAnswers, lang, homeType) {
   }
   const criteria = check.criteria.map((c) => {
     const text = (criterionText(check, c.id, homeType) ?? c.text)[lang];
-    if (c.kind === "user")
-      return { id: c.id, kind: c.kind, text, met: answerFor(userAnswers, check, c.id) };
-    const m = a ? fromModel.get(c.id) : void 0;
-    return {
-      id: c.id,
-      kind: c.kind,
-      text,
-      met: m?.met ?? null,
-      ...m?.note ? { note: m.note } : {}
-    };
+    const m = c.kind === "user" ? void 0 : a ? fromModel.get(c.id) : void 0;
+    const met = c.kind === "user" ? answerFor(userAnswers, check, c.id) : m?.met ?? null;
+    const note2 = offSeason.has(c.id) && met !== true ? TEXT.coldSeasonOnly[lang] : m?.note;
+    return { id: c.id, kind: c.kind, text, met, ...note2 ? { note: note2 } : {} };
   });
   const base = {
     checkId: check.id,
@@ -51171,7 +51180,9 @@ function decideVerdict(check, a, userAnswers, lang, homeType) {
     fix: null
   });
   if (!a) return retake(TEXT.couldNotCheck[lang]);
-  const of = (kind) => criteria.filter((c) => c.kind === kind);
+  if (a.reproduction === true) return retake(TEXT.reproduction[lang]);
+  const counted = criteria.filter((c) => !offSeason.has(c.id));
+  const of = (kind) => counted.filter((c) => c.kind === kind);
   const list = (items) => items.map((c) => c.text).join("; ");
   const modelHint = nonEmpty(a.retakeHint);
   const missingAnswers = of("user").filter((c) => c.met === null);
@@ -51189,7 +51200,7 @@ function decideVerdict(check, a, userAnswers, lang, homeType) {
     const photoHint = unjudged.length ? modelHint ?? fill(TEXT.retakeCondition[lang], { items: list(unjudged) }) : null;
     return retake(join2(photoHint, answerHint));
   }
-  const failed = criteria.filter(
+  const failed = counted.filter(
     (c) => (c.kind === "condition" || c.kind === "user") && c.met === false
   );
   if (failed.length) {
@@ -51201,24 +51212,6 @@ function decideVerdict(check, a, userAnswers, lang, homeType) {
     };
   }
   return { ...base, verdict: "verified", retakeHint: null, fix: null };
-}
-function notApplicableOutcome(check, lang, homeType) {
-  if (!check.notApplicableAllowed)
-    throw new Error(`Check ${check.id} cannot be marked not applicable`);
-  return {
-    checkId: check.id,
-    verdict: "not_applicable",
-    criteria: check.criteria.map((c) => ({
-      id: c.id,
-      kind: c.kind,
-      text: (criterionText(check, c.id, homeType) ?? c.text)[lang],
-      met: null
-    })),
-    retakeHint: null,
-    fix: null,
-    urgent: false,
-    boxes: []
-  };
 }
 function dueDateFor(recheck, checkedAt) {
   const day = toDay(checkedAt);
@@ -51234,7 +51227,7 @@ function dueDateFor(recheck, checkedAt) {
       return minDay(nextOctoberFirst(day), yearLater);
   }
 }
-function recordFromOutcome(homeId, outcome, checkedAt, photoSha256, homeType) {
+function recordFromOutcome(homeId, outcome, checkedAt, photoSha256, homeType, capture) {
   const check = getCheck(outcome.checkId);
   if (!appliesTo(check, homeType))
     throw new Error(`Check ${check.id} does not apply to a ${homeType}`);
@@ -51250,9 +51243,33 @@ function recordFromOutcome(homeId, outcome, checkedAt, photoSha256, homeType) {
     checkedAt: checkedAt.toISOString(),
     dueAt: current ? dueDateFor(check.recheck, checkedAt) : null,
     photoSha256: outcome.verdict === "not_applicable" ? null : nonEmpty(photoSha256)?.toLowerCase() ?? null,
-    ...Object.keys(userAnswers).length ? { userAnswers } : {}
+    ...Object.keys(userAnswers).length ? { userAnswers } : {},
+    ...capture ? { capture } : {}
   };
 }
+
+// ../packages/engine/src/status.ts
+var DEFAULT_DEDUCTIBLES = {
+  leak: { standard: 300, prepared: 100 },
+  fire: { standard: 300, prepared: 100 },
+  freeze: { standard: 300, prepared: 100 },
+  storm_water: { standard: 300, prepared: 100 }
+};
+function deductibleConfig(overrides) {
+  return { ...DEFAULT_DEDUCTIBLES, ...overrides ?? {} };
+}
+function preview(cfg, peril, relief) {
+  const { standard, prepared } = cfg[peril];
+  return { standard, prepared, current: relief ? prepared : standard, label: "concept" };
+}
+function perilGroup(peril) {
+  return peril === "storm_water" ? "leak" : peril;
+}
+function countsForRelief(record2) {
+  if (record2.capture !== "camera") return false;
+  return !REQUIRE_SECOND_ANGLE || !!record2.secondPhotoSha256;
+}
+var REQUIRE_SECOND_ANGLE = true;
 var timeOf = (r) => {
   const ms = Date.parse(r.checkedAt);
   return Number.isNaN(ms) ? 0 : ms;
@@ -51275,6 +51292,7 @@ function slotOf(record2, today) {
   if (!record2 || record2.verdict === "retake") return "missing";
   if (record2.verdict === "fix_first") return "fixFirst";
   if (today > dueOf(record2)) return "overdue";
+  if (record2.verdict === "verified" && !countsForRelief(record2)) return "notCounted";
   return record2.verdict === "verified" ? "verified" : "notApplicable";
 }
 function groupStatus(group, home, required, own, effective, today, cfg) {
@@ -51283,7 +51301,8 @@ function groupStatus(group, home, required, own, effective, today, cfg) {
     notApplicable: [],
     fixFirst: [],
     missing: [],
-    overdue: []
+    overdue: [],
+    notCounted: []
   };
   for (const id of required) lists[slotOf(effective.get(id), today)].push(id);
   const touched = own.some((r) => required.includes(r.checkId));
@@ -51309,6 +51328,7 @@ function groupStatus(group, home, required, own, effective, today, cfg) {
     fixFirst: lists.fixFirst,
     missing: lists.missing,
     overdue: lists.overdue,
+    notCounted: lists.notCounted,
     preparedUntil,
     deductible: preview(cfg, group, state === "prepared"),
     alarmDeviceLine: group === "leak" && home.hasLeakAlarm
@@ -51317,130 +51337,8 @@ function groupStatus(group, home, required, own, effective, today, cfg) {
 function requiredChecks(homeType, group) {
   return checksFor(homeType).filter((c) => perilGroup(c.peril) === group).map((c) => c.id);
 }
-function perilStatuses(home, records, now, deductibles) {
-  const today = toDay(now);
-  const cfg = deductibleConfig(deductibles);
-  const own = ownRecords(home, records);
-  const effective = effectiveRecords(own);
-  const out = [];
-  for (const group of PERIL_GROUPS) {
-    const required = requiredChecks(home.homeType, group);
-    if (required.length) out.push(groupStatus(group, home, required, own, effective, today, cfg));
-  }
-  return out;
-}
-var FIX_FIRST_REMINDER_DAYS = 7;
-var FROST_WINDOW_DAYS = 7;
-var KIND_ORDER = { frost: 0, fix_first: 1, seasonal: 2, yearly: 3 };
-function frostTrigger(frost, frostDay) {
-  const where = frost.source === "fixture" ? "FMI forecast (fixture)" : "FMI forecast";
-  return frost.minTempC === null ? `${where}: first frost on ${frostDay}` : `${where} minimum ${frost.minTempC.toFixed(1)} \xB0C on ${frostDay}`;
-}
-function reminders(home, records, now, frost) {
-  const today = toDay(now);
-  const checks = checksFor(home.homeType);
-  const effective = effectiveRecords(ownRecords(home, records));
-  const out = [];
-  const frostChecks = /* @__PURE__ */ new Set();
-  if (frost?.firstFrostDate) {
-    const frostDay = toDay(frost.firstFrostDate);
-    const daysAway = daysBetween(today, frostDay);
-    if (daysAway >= 0 && daysAway <= FROST_WINDOW_DAYS) {
-      const seasonStart = lastJulyFirst(today);
-      for (const check of checks.filter((c) => c.recheck.kind === "frost")) {
-        const rec = effective.get(check.id);
-        const doneThisSeason = rec?.verdict === "verified" && toDay(rec.checkedAt) >= seasonStart;
-        if (doneThisSeason || rec?.verdict === "not_applicable") continue;
-        frostChecks.add(check.id);
-        out.push({
-          id: `frost-${check.id}-${frostDay}`,
-          kind: "frost",
-          checkIds: [check.id],
-          dueAt: maxDay(today, addDays(frostDay, -1)),
-          title: { ...TEXT.frost },
-          trigger: frostTrigger(frost, frostDay)
-        });
-      }
-    }
-  }
-  const groups = /* @__PURE__ */ new Map();
-  for (const check of checks) {
-    if (frostChecks.has(check.id)) continue;
-    const rec = effective.get(check.id);
-    if (!rec || rec.verdict === "retake") continue;
-    if (rec.verdict === "fix_first") {
-      out.push({
-        id: `fix_first-${check.id}`,
-        kind: "fix_first",
-        checkIds: [check.id],
-        dueAt: addDays(toDay(rec.checkedAt), FIX_FIRST_REMINDER_DAYS),
-        title: localize(TEXT.fixFirst, (l) => ({ title: check.title[l] }))
-      });
-      continue;
-    }
-    const kind = check.recheck.kind === "yearly" ? "yearly" : "seasonal";
-    const dueAt = dueOf(rec);
-    const key = `${kind}|${dueAt}`;
-    const group = groups.get(key) ?? { kind, dueAt, checks: [] };
-    group.checks.push(check);
-    groups.set(key, group);
-  }
-  for (const g of groups.values()) {
-    const one = g.checks.length === 1 ? g.checks[0] : null;
-    const title = one ? localize(g.kind === "yearly" ? TEXT.yearlyOne : TEXT.seasonalOne, (l) => ({
-      title: one.title[l]
-    })) : localize(g.kind === "yearly" ? TEXT.yearlyMany : TEXT.seasonalMany, () => ({
-      n: g.checks.length
-    }));
-    out.push({
-      id: `${g.kind}-${g.dueAt}`,
-      kind: g.kind,
-      checkIds: g.checks.map((c) => c.id),
-      dueAt: g.dueAt,
-      title
-    });
-  }
-  return out.sort(
-    (x, y) => x.dueAt < y.dueAt ? -1 : x.dueAt > y.dueAt ? 1 : KIND_ORDER[x.kind] - KIND_ORDER[y.kind]
-  );
-}
-var SHA_SHORT_LENGTH = 12;
-function homeCard(home, records, now, frost, lang) {
-  const effective = effectiveRecords(ownRecords(home, records));
-  const checks = checksFor(home.homeType);
-  const cardRecords = [];
-  for (const check of checks) {
-    const rec = effective.get(check.id);
-    if (!rec || rec.verdict === "retake") continue;
-    cardRecords.push({
-      checkId: check.id,
-      verdict: rec.verdict,
-      checkedAt: rec.checkedAt,
-      photoSha256Short: rec.photoSha256 ? rec.photoSha256.slice(0, SHA_SHORT_LENGTH) : null
-    });
-  }
-  const l1 = effective.get("L1");
-  let shutOffNote = null;
-  if (l1?.verdict === "verified")
-    shutOffNote = fill(TEXT.shutOffChecked[lang], { date: formatDay(toDay(l1.checkedAt), lang) });
-  else if (l1?.verdict === "fix_first")
-    shutOffNote = fill(TEXT.shutOffFix[lang], { date: formatDay(toDay(l1.checkedAt), lang) });
-  return {
-    homeId: home.homeId,
-    label: home.label,
-    homeType: home.homeType,
-    generatedAt: now.toISOString(),
-    perils: perilStatuses(home, records, now).map((p) => ({
-      peril: p.peril,
-      state: p.state,
-      preparedUntil: p.preparedUntil
-    })),
-    records: cardRecords,
-    shutOffNote,
-    nextReminder: reminders(home, records, now, frost)[0] ?? null,
-    disclaimer: DISCLAIMER[lang]
-  };
-}
+
+// ../packages/engine/src/adjuster.ts
 var normHash = (h) => typeof h === "string" ? h.trim().toLowerCase() : "";
 function adjusterView(input, deductibles) {
   const { claimId, home, peril } = input;
@@ -51463,14 +51361,18 @@ function adjusterView(input, deductibles) {
   const listed = /* @__PURE__ */ new Set();
   const addRecord = (checkId, rec) => {
     const photos = shared.filter((s) => s.checkId === checkId);
-    const current = (rec.verdict === "verified" || rec.verdict === "not_applicable") && dueOf(rec) >= lossDay;
+    const current = (rec.verdict === "verified" || rec.verdict === "not_applicable") && dueOf(rec) >= lossDay && countsForRelief(rec);
     view.push({
       checkId,
       verdict: rec.verdict,
       checkedAt: rec.checkedAt,
       validAtLoss: current,
       photoShared: photos.length > 0,
-      hashMatches: photos.length ? photos.every((p) => !!rec.photoSha256 && normHash(p.sha256) === normHash(rec.photoSha256)) : null
+      hashMatches: photos.length ? photos.every(
+        (p) => [rec.photoSha256, rec.secondPhotoSha256].some(
+          (h) => !!h && normHash(p.sha256) === normHash(h)
+        )
+      ) : null
     });
     listed.add(checkId);
   };
@@ -51488,6 +51390,8 @@ function adjusterView(input, deductibles) {
       reasons.push(`${id} was fix_first and never re-taken before the loss date.`);
     else if (rec.verdict === "retake")
       reasons.push(`${id} had only unclear photos (retake) before the loss date.`);
+    else if (!countsForRelief(rec))
+      reasons.push(`${id} was checked with a gallery or example photo, which does not count.`);
     else if (dueOf(rec) < lossDay)
       reasons.push(`${id} was past its due date (${dueOf(rec)}) on the loss date.`);
   }
@@ -51569,13 +51473,16 @@ var DEMO_FRESH_ID = "demo-fresh";
 var DEMO_HOUSE_ID = "demo-house";
 function record(homeId, checkId, verdict, checkedAt, userAnswers) {
   const current = verdict === "verified" || verdict === "not_applicable";
+  const photo = verdict === "not_applicable" ? null : DEMO_HASHES[`${homeId}:${checkId}`] ?? null;
   return {
     homeId,
     checkId,
     verdict,
     checkedAt,
     dueAt: current ? dueDateFor(getCheck(checkId).recheck, checkedAt) : null,
-    photoSha256: verdict === "not_applicable" ? null : DEMO_HASHES[`${homeId}:${checkId}`] ?? null,
+    photoSha256: photo,
+    // Example homes behave like real in-app camera checks taken from two angles.
+    ...photo ? { capture: "camera", secondPhotoSha256: photo.split("").reverse().join("") } : {},
     ...userAnswers ? { userAnswers } : {}
   };
 }
@@ -51641,8 +51548,12 @@ function makeDemo(today = /* @__PURE__ */ new Date()) {
 }
 var DEMO = makeDemo();
 
-// src/routes/legacy.ts
+// src/routes/v1.ts
 var import_express = __toESM(require_express2(), 1);
+
+// src/samples.ts
+import { promises as fs } from "node:fs";
+import path from "node:path";
 
 // src/hash.ts
 import { createHash, randomBytes } from "node:crypto";
@@ -51707,325 +51618,7 @@ function jpegSize(buf) {
 }
 var MAX_LONG_EDGE = 2576;
 
-// src/validate.ts
-var HttpError = class extends Error {
-  constructor(status, code, message) {
-    super(message);
-    this.status = status;
-    this.code = code;
-  }
-  status;
-  code;
-};
-var bad = (message) => new HttpError(400, "bad_request", message);
-var LANGS = ["fi", "sv", "en"];
-var HOME_TYPES = ["flat", "house", "cottage"];
-var PERILS = ["leak", "fire", "freeze", "storm_water"];
-var VERDICTS = ["verified", "retake", "fix_first", "not_applicable"];
-function isRecord(v) {
-  return typeof v === "object" && v !== null && !Array.isArray(v);
-}
-function parseLang(v, fallback = "en") {
-  return typeof v === "string" && LANGS.includes(v) ? v : fallback;
-}
-function parseHomeType(v) {
-  if (typeof v === "string" && HOME_TYPES.includes(v)) return v;
-  throw bad("homeType must be flat, house or cottage");
-}
-function parseOptionalHomeType(v) {
-  if (v === void 0 || v === null || v === "") return null;
-  return parseHomeType(v);
-}
-function parsePeril(v) {
-  if (typeof v === "string" && PERILS.includes(v)) return v;
-  throw bad("peril must be leak, fire, freeze or storm_water");
-}
-var ID_RE = /^[A-Za-z0-9_-]{1,80}$/;
-function parseId(v, name) {
-  if (typeof v === "string" && ID_RE.test(v)) return v;
-  throw bad(`${name} must be 1-80 letters, digits, '-' or '_'`);
-}
-var DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
-function parseIsoDate(v, name) {
-  if (typeof v === "string" && DATE_RE.test(v) && !Number.isNaN(Date.parse(`${v}T00:00:00Z`)))
-    return v;
-  throw bad(`${name} must be an ISO date (YYYY-MM-DD)`);
-}
-function parseIsoDateTime(v, name) {
-  if (typeof v === "string" && v.length <= 40 && !Number.isNaN(Date.parse(v))) return v;
-  throw bad(`${name} must be an ISO date or datetime`);
-}
-function parseUserAnswers(v) {
-  if (v === void 0 || v === null) return {};
-  if (!isRecord(v)) throw bad("userAnswers must be an object of booleans");
-  const out = {};
-  for (const [k, val] of Object.entries(v).slice(0, 50)) {
-    if (typeof val === "boolean" && k.length <= 80) out[k] = val;
-  }
-  return out;
-}
-function parseHome(v) {
-  if (!isRecord(v)) throw bad("home must be an object");
-  const label = typeof v.label === "string" ? v.label.slice(0, 120) : "Home";
-  if (typeof v.hasLeakAlarm !== "boolean") throw bad("home.hasLeakAlarm must be a boolean");
-  const home = {
-    homeId: parseId(v.homeId, "home.homeId"),
-    homeType: parseHomeType(v.homeType),
-    label,
-    moveInDate: parseIsoDate(v.moveInDate, "home.moveInDate"),
-    hasLeakAlarm: v.hasLeakAlarm
-  };
-  if (v.demo === true) home.demo = true;
-  return home;
-}
-function parseRecord(v, homeId) {
-  if (!isRecord(v)) throw bad("each record must be an object");
-  if (typeof v.verdict !== "string" || !VERDICTS.includes(v.verdict))
-    throw bad("record.verdict is invalid");
-  const sha = v.photoSha256;
-  if (sha !== null && sha !== void 0 && !isSha256Hex(sha))
-    throw bad("record.photoSha256 must be a SHA-256 hex string or null");
-  const dueAt = v.dueAt === null || v.dueAt === void 0 ? null : parseIsoDateTime(v.dueAt, "record.dueAt");
-  const record2 = {
-    homeId,
-    checkId: parseId(v.checkId, "record.checkId"),
-    verdict: v.verdict,
-    checkedAt: parseIsoDateTime(v.checkedAt, "record.checkedAt"),
-    dueAt,
-    photoSha256: typeof sha === "string" ? sha.toLowerCase() : null
-  };
-  if (v.userAnswers !== void 0) record2.userAnswers = parseUserAnswers(v.userAnswers);
-  return record2;
-}
-function receiveImage(imageBase64, photoSha256) {
-  const bytes = decodeBase64(imageBase64);
-  if (!bytes) throw bad("imageBase64 must be a base64-encoded JPEG");
-  if (!isJpeg(bytes))
-    throw new HttpError(415, "unsupported_media_type", "Only image/jpeg is accepted");
-  const size = jpegSize(bytes);
-  if (!size) throw new HttpError(415, "unsupported_media_type", "Could not read the JPEG header");
-  if (Math.max(size.width, size.height) > MAX_LONG_EDGE) {
-    throw new HttpError(
-      413,
-      "image_too_large",
-      `Resize the photo to at most ${MAX_LONG_EDGE} px on the long edge`
-    );
-  }
-  const sha256 = sha256Hex(bytes);
-  if (photoSha256 !== void 0) {
-    if (!isSha256Hex(photoSha256)) throw bad("photoSha256 must be a SHA-256 hex string");
-    if (photoSha256.toLowerCase() !== sha256) {
-      throw new HttpError(
-        409,
-        "hash_mismatch",
-        "photoSha256 does not match the received image bytes"
-      );
-    }
-  }
-  return { base64: bytes.toString("base64"), sha256, width: size.width, height: size.height };
-}
-function hashShared(shared, max = 20) {
-  if (shared === void 0 || shared === null) return [];
-  if (!Array.isArray(shared)) throw bad("shared must be an array");
-  if (shared.length > max) throw bad(`shared may hold at most ${max} photos`);
-  return shared.map((item) => {
-    if (!isRecord(item)) throw bad("each shared item must be an object");
-    const checkId = parseId(item.checkId, "shared.checkId");
-    const bytes = decodeBase64(item.imageBase64);
-    if (!bytes) throw bad("shared.imageBase64 must be base64");
-    return { checkId, sha256: sha256Hex(bytes) };
-  });
-}
-
-// src/routes/common.ts
-function checkForHome(checkId, homeType) {
-  if (typeof checkId !== "string" || !isCheckId(checkId))
-    throw new HttpError(404, "unknown_check", "Unknown check id");
-  const check = getCheck(checkId, homeType);
-  if (!check.homeTypes.includes(homeType)) {
-    throw new HttpError(
-      400,
-      "check_not_for_home_type",
-      `Check ${check.id} does not apply to a ${homeType}`
-    );
-  }
-  return check;
-}
-function clausesFor(check, lang) {
-  return check.clauseIds.map((id) => ({ id, text: clauseText(id, lang) }));
-}
-function checksView(homeType, lang) {
-  const list = homeType ? checksFor(homeType) : CHECKS;
-  return list.map((check) => ({ ...check, clause: clausesFor(check, lang) }));
-}
-function clientKey(deps2, req) {
-  return deps2.ipHash(req.ip ?? req.socket.remoteAddress ?? "unknown");
-}
-async function runCheck(deps2, args) {
-  const started = Date.now();
-  const { check, homeId, homeType, lang, image, userAnswers } = args;
-  const result = await deps2.chain.assess({
-    check,
-    lang,
-    image: {
-      base64: image.base64,
-      mediaType: "image/jpeg",
-      width: image.width,
-      height: image.height
-    },
-    sha256: image.sha256,
-    clientKey: args.clientKey
-  });
-  const userIds = new Set(check.criteria.filter((c) => c.kind === "user").map((c) => c.id));
-  const answers = Object.fromEntries(Object.entries(userAnswers).filter(([k]) => userIds.has(k)));
-  const outcome = decideVerdict(check, result.assessment, answers, lang, homeType);
-  const record2 = recordFromOutcome(homeId, outcome, deps2.clock(), image.sha256, homeType);
-  deps2.logger.check({
-    checkId: check.id,
-    verdict: outcome.verdict,
-    source: result.source,
-    ms: Date.now() - started
-  });
-  const response = {
-    outcome,
-    record: record2,
-    source: result.source,
-    model: result.model,
-    clause: clausesFor(check, lang)
-  };
-  if (result.sourceNote) response.sourceNote = result.sourceNote;
-  return response;
-}
-async function healthBase(deps2) {
-  const keySet = deps2.chain.live !== null;
-  const cached = keySet ? 0 : await deps2.chain.cache.count();
-  const provider = keySet ? "anthropic" : cached > 0 ? "cached" : "mock";
-  const model = keySet ? deps2.chain.live.model : provider === "cached" ? "cached" : "mock";
-  return { ok: true, provider, model, keySet };
-}
-
-// src/routes/legacy.ts
-function legacyRouter(deps2, store) {
-  const r = (0, import_express.Router)();
-  const claims = /* @__PURE__ */ new Map();
-  const homeOr404 = (homeId) => {
-    const home = store.getHome(homeId);
-    if (!home) throw new HttpError(404, "unknown_home", "Unknown home id");
-    return home;
-  };
-  r.get("/health", async (_req, res) => {
-    res.json(await healthBase(deps2));
-  });
-  r.get("/checks", (req, res) => {
-    res.json(checksView(parseOptionalHomeType(req.query.homeType), parseLang(req.query.lang)));
-  });
-  r.get("/frost", async (req, res) => {
-    res.json(await deps2.frost.forecast(req.query.place));
-  });
-  r.post("/homes", async (req, res) => {
-    const body = req.body;
-    if (!isRecord(body)) throw bad("JSON body required");
-    if (typeof body.hasLeakAlarm !== "boolean") throw bad("hasLeakAlarm must be a boolean");
-    const home = {
-      homeId: deps2.newId("home"),
-      homeType: parseHomeType(body.homeType),
-      label: typeof body.label === "string" && body.label.trim() ? body.label.trim().slice(0, 120) : "My home",
-      moveInDate: parseIsoDate(body.moveInDate, "moveInDate"),
-      hasLeakAlarm: body.hasLeakAlarm
-    };
-    await store.addHome(home);
-    res.status(201).json(home);
-  });
-  r.get("/homes/:homeId/status", async (req, res) => {
-    const home = homeOr404(req.params.homeId);
-    const lang = parseLang(req.query.lang);
-    const now = deps2.clock();
-    const records = store.records(home.homeId);
-    const frost = await deps2.frost.forecast("Turku");
-    const status = {
-      home,
-      perils: perilStatuses(home, records, now),
-      reminders: reminders(home, records, now, frost),
-      homeCard: homeCard(home, records, now, frost, lang)
-    };
-    res.json(status);
-  });
-  r.post("/homes/:homeId/checks/:checkId", async (req, res) => {
-    const home = homeOr404(req.params.homeId);
-    const check = checkForHome(req.params.checkId, home.homeType);
-    const body = req.body;
-    if (!isRecord(body)) throw bad("JSON body required");
-    if (body.photoSha256 === void 0) throw bad("photoSha256 is required");
-    const image = receiveImage(body.imageBase64, body.photoSha256);
-    const result = await runCheck(deps2, {
-      check,
-      homeId: home.homeId,
-      homeType: home.homeType,
-      lang: parseLang(body.lang),
-      image,
-      userAnswers: parseUserAnswers(body.userAnswers),
-      clientKey: clientKey(deps2, req)
-    });
-    await store.putRecord(result.record);
-    res.json(result);
-  });
-  r.post("/homes/:homeId/checks/:checkId/not-applicable", async (req, res) => {
-    const home = homeOr404(req.params.homeId);
-    const check = checkForHome(req.params.checkId, home.homeType);
-    if (!check.notApplicableAllowed)
-      throw new HttpError(
-        400,
-        "not_applicable_not_allowed",
-        `Check ${check.id} can't be marked not applicable`
-      );
-    const outcome = notApplicableOutcome(check, parseLang(req.query.lang), home.homeType);
-    const record2 = recordFromOutcome(home.homeId, outcome, deps2.clock(), null, home.homeType);
-    await store.putRecord(record2);
-    res.json({ record: record2 });
-  });
-  r.post("/homes/:homeId/reset", async (req, res) => {
-    const home = homeOr404(req.params.homeId);
-    if (!home.demo) throw new HttpError(400, "not_a_demo_home", "Only demo homes can be reset");
-    await store.resetHome(home.homeId, DEMO);
-    res.json({ ok: true });
-  });
-  r.get("/demo/homes", (_req, res) => {
-    const ids = new Set(DEMO.homes.map((h) => h.homeId));
-    res.json(store.homes().filter((h) => ids.has(h.homeId)));
-  });
-  r.post("/claims", (req, res) => {
-    const body = req.body;
-    if (!isRecord(body)) throw bad("JSON body required");
-    const home = homeOr404(parseId(body.homeId, "homeId"));
-    const peril = parsePeril(body.peril);
-    const lossDate = parseIsoDate(body.lossDate, "lossDate");
-    const shared = hashShared(body.shared);
-    const view = adjusterView({
-      claimId: deps2.newId("claim"),
-      home,
-      records: store.records(home.homeId),
-      peril,
-      lossDate,
-      shared
-    });
-    claims.set(view.claimId, view);
-    if (claims.size > 500) claims.delete(claims.keys().next().value);
-    res.json(view);
-  });
-  r.get("/claims/:claimId", (req, res) => {
-    const view = claims.get(req.params.claimId);
-    if (!view) throw new HttpError(404, "unknown_claim", "Unknown claim id");
-    res.json(view);
-  });
-  return r;
-}
-
-// src/routes/v1.ts
-var import_express2 = __toESM(require_express2(), 1);
-
 // src/samples.ts
-import { promises as fs } from "node:fs";
-import path from "node:path";
 var SAMPLE_DEFS = [
   {
     id: "A07",
@@ -52177,16 +51770,231 @@ function sampleView(s, lang, recordedAt) {
   };
 }
 
+// src/validate.ts
+var HttpError = class extends Error {
+  constructor(status, code, message) {
+    super(message);
+    this.status = status;
+    this.code = code;
+  }
+  status;
+  code;
+};
+var bad = (message) => new HttpError(400, "bad_request", message);
+var LANGS = ["fi", "sv", "en"];
+var HOME_TYPES = ["flat", "house", "cottage"];
+var PERILS = ["leak", "fire", "freeze", "storm_water"];
+var VERDICTS = ["verified", "retake", "fix_first", "not_applicable"];
+function isPlainObject(v) {
+  return typeof v === "object" && v !== null && !Array.isArray(v);
+}
+function parseLang(v, fallback = "en") {
+  return typeof v === "string" && LANGS.includes(v) ? v : fallback;
+}
+function parseHomeType(v) {
+  if (typeof v === "string" && HOME_TYPES.includes(v)) return v;
+  throw bad("homeType must be flat, house or cottage");
+}
+function parseOptionalHomeType(v) {
+  if (v === void 0 || v === null || v === "") return null;
+  return parseHomeType(v);
+}
+function parsePeril(v) {
+  if (typeof v === "string" && PERILS.includes(v)) return v;
+  throw bad("peril must be leak, fire, freeze or storm_water");
+}
+var ID_RE = /^[A-Za-z0-9_-]{1,80}$/;
+function parseId(v, name) {
+  if (typeof v === "string" && ID_RE.test(v)) return v;
+  throw bad(`${name} must be 1-80 letters, digits, '-' or '_'`);
+}
+var DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+function parseIsoDate(v, name) {
+  if (typeof v === "string" && DATE_RE.test(v) && !Number.isNaN(Date.parse(`${v}T00:00:00Z`)))
+    return v;
+  throw bad(`${name} must be an ISO date (YYYY-MM-DD)`);
+}
+function parseIsoDateTime(v, name) {
+  if (typeof v === "string" && v.length <= 40 && !Number.isNaN(Date.parse(v))) return v;
+  throw bad(`${name} must be an ISO date or datetime`);
+}
+function parseUserAnswers(v) {
+  if (v === void 0 || v === null) return {};
+  if (!isPlainObject(v)) throw bad("userAnswers must be an object of booleans");
+  const out = {};
+  for (const [k, val] of Object.entries(v).slice(0, 50)) {
+    if (typeof val === "boolean" && k.length <= 80) out[k] = val;
+  }
+  return out;
+}
+function parseHome(v) {
+  if (!isPlainObject(v)) throw bad("home must be an object");
+  const label = typeof v.label === "string" ? v.label.slice(0, 120) : "Home";
+  if (typeof v.hasLeakAlarm !== "boolean") throw bad("home.hasLeakAlarm must be a boolean");
+  const home = {
+    homeId: parseId(v.homeId, "home.homeId"),
+    homeType: parseHomeType(v.homeType),
+    label,
+    moveInDate: parseIsoDate(v.moveInDate, "home.moveInDate"),
+    hasLeakAlarm: v.hasLeakAlarm
+  };
+  if (v.demo === true) home.demo = true;
+  return home;
+}
+function parseRecord(v, homeId) {
+  if (!isPlainObject(v)) throw bad("each record must be an object");
+  if (typeof v.verdict !== "string" || !VERDICTS.includes(v.verdict))
+    throw bad("record.verdict is invalid");
+  const sha = v.photoSha256;
+  if (sha !== null && sha !== void 0 && !isSha256Hex(sha))
+    throw bad("record.photoSha256 must be a SHA-256 hex string or null");
+  const dueAt = v.dueAt === null || v.dueAt === void 0 ? null : parseIsoDateTime(v.dueAt, "record.dueAt");
+  const record2 = {
+    homeId,
+    checkId: parseId(v.checkId, "record.checkId"),
+    verdict: v.verdict,
+    checkedAt: parseIsoDateTime(v.checkedAt, "record.checkedAt"),
+    dueAt,
+    photoSha256: typeof sha === "string" ? sha.toLowerCase() : null
+  };
+  if (v.userAnswers !== void 0) record2.userAnswers = parseUserAnswers(v.userAnswers);
+  if (v.capture === "camera" || v.capture === "library" || v.capture === "sample")
+    record2.capture = v.capture;
+  const second = v.secondPhotoSha256;
+  if (second !== null && second !== void 0 && !isSha256Hex(second))
+    throw bad("record.secondPhotoSha256 must be a SHA-256 hex string or null");
+  if (typeof second === "string") record2.secondPhotoSha256 = second.toLowerCase();
+  return record2;
+}
+function receiveImage(imageBase64, photoSha256) {
+  const bytes = decodeBase64(imageBase64);
+  if (!bytes) throw bad("imageBase64 must be a base64-encoded JPEG");
+  if (!isJpeg(bytes))
+    throw new HttpError(415, "unsupported_media_type", "Only image/jpeg is accepted");
+  const size = jpegSize(bytes);
+  if (!size) throw new HttpError(415, "unsupported_media_type", "Could not read the JPEG header");
+  if (Math.max(size.width, size.height) > MAX_LONG_EDGE) {
+    throw new HttpError(
+      413,
+      "image_too_large",
+      `Resize the photo to at most ${MAX_LONG_EDGE} px on the long edge`
+    );
+  }
+  const sha256 = sha256Hex(bytes);
+  if (photoSha256 !== void 0) {
+    if (!isSha256Hex(photoSha256)) throw bad("photoSha256 must be a SHA-256 hex string");
+    if (photoSha256.toLowerCase() !== sha256) {
+      throw new HttpError(
+        409,
+        "hash_mismatch",
+        "photoSha256 does not match the received image bytes"
+      );
+    }
+  }
+  return { base64: bytes.toString("base64"), sha256, width: size.width, height: size.height };
+}
+function hashShared(shared, max = 20) {
+  if (shared === void 0 || shared === null) return [];
+  if (!Array.isArray(shared)) throw bad("shared must be an array");
+  if (shared.length > max) throw bad(`shared may hold at most ${max} photos`);
+  return shared.map((item) => {
+    if (!isPlainObject(item)) throw bad("each shared item must be an object");
+    const checkId = parseId(item.checkId, "shared.checkId");
+    const bytes = decodeBase64(item.imageBase64);
+    if (!bytes) throw bad("shared.imageBase64 must be base64");
+    return { checkId, sha256: sha256Hex(bytes) };
+  });
+}
+
+// src/routes/common.ts
+function checkForHome(checkId, homeType) {
+  if (typeof checkId !== "string" || !isCheckId(checkId))
+    throw new HttpError(404, "unknown_check", "Unknown check id");
+  const check = getCheck(checkId, homeType);
+  if (!check.homeTypes.includes(homeType)) {
+    throw new HttpError(
+      400,
+      "check_not_for_home_type",
+      `Check ${check.id} does not apply to a ${homeType}`
+    );
+  }
+  return check;
+}
+function checksView(homeType, lang) {
+  const list = homeType ? checksFor(homeType) : CHECKS;
+  return list.map((check) => ({ ...check, clause: clauseRefs(check, lang) }));
+}
+function clientKey(deps2, req) {
+  return deps2.ipHash(req.ip ?? req.socket.remoteAddress ?? "unknown");
+}
+async function runCheck(deps2, args) {
+  const started = Date.now();
+  const { check, homeId, homeType, lang, image, userAnswers } = args;
+  const result = await deps2.chain.assess({
+    check,
+    lang,
+    image: {
+      base64: image.base64,
+      mediaType: "image/jpeg",
+      width: image.width,
+      height: image.height
+    },
+    ...args.secondImage ? {
+      secondImage: {
+        base64: args.secondImage.base64,
+        mediaType: "image/jpeg",
+        width: args.secondImage.width,
+        height: args.secondImage.height
+      }
+    } : {},
+    sha256: image.sha256,
+    clientKey: args.clientKey
+  });
+  const userIds = new Set(check.criteria.filter((c) => c.kind === "user").map((c) => c.id));
+  const answers = Object.fromEntries(Object.entries(userAnswers).filter(([k]) => userIds.has(k)));
+  const outcome = decideVerdict(check, result.assessment, answers, lang, homeType);
+  const record2 = recordFromOutcome(
+    homeId,
+    outcome,
+    deps2.clock(),
+    image.sha256,
+    homeType,
+    args.capture
+  );
+  if (args.secondImage) record2.secondPhotoSha256 = args.secondImage.sha256;
+  deps2.logger.check({
+    checkId: check.id,
+    verdict: outcome.verdict,
+    source: result.source,
+    ms: Date.now() - started
+  });
+  const response = {
+    outcome,
+    record: record2,
+    source: result.source,
+    model: result.model,
+    clause: clauseRefs(check, lang)
+  };
+  if (result.sourceNote) response.sourceNote = result.sourceNote;
+  return response;
+}
+async function healthBase(deps2) {
+  const keySet = deps2.chain.live !== null;
+  const cached = keySet ? 0 : await deps2.chain.cache.count();
+  const provider = keySet ? "anthropic" : cached > 0 ? "cached" : "mock";
+  const model = keySet ? deps2.chain.live.model : provider === "cached" ? "cached" : "mock";
+  return { ok: true, provider, model, keySet };
+}
+
 // src/routes/v1.ts
 function v1Router(deps2) {
-  const r = (0, import_express2.Router)();
+  const r = (0, import_express.Router)();
   r.get("/health", async (_req, res) => {
     const base = await healthBase(deps2);
     const limits = deps2.guard.snapshot();
     res.json({
       ...base,
       liveAvailable: deps2.chain.liveAvailable(),
-      storeMode: deps2.config.storeMode,
       limits: {
         perIpPer10Min: limits.perIpPer10Min,
         dailyLive: limits.dailyLive,
@@ -52215,26 +52023,29 @@ function v1Router(deps2) {
   });
   r.post("/check", async (req, res) => {
     const body = req.body;
-    if (!isRecord(body)) throw bad("JSON body required");
+    if (!isPlainObject(body)) throw bad("JSON body required");
     const homeId = parseId(body.homeId, "homeId");
     const homeType = parseHomeType(body.homeType);
     const check = checkForHome(body.checkId, homeType);
     if (body.photoSha256 === void 0) throw bad("photoSha256 is required");
     const image = receiveImage(body.imageBase64, body.photoSha256);
+    const secondImage = body.secondImageBase64 === void 0 ? void 0 : receiveImage(body.secondImageBase64, body.secondPhotoSha256);
     const result = await runCheck(deps2, {
       check,
       homeId,
       homeType,
       lang: parseLang(body.lang),
       image,
+      secondImage,
       userAnswers: parseUserAnswers(body.userAnswers),
-      clientKey: clientKey(deps2, req)
+      clientKey: clientKey(deps2, req),
+      capture: parseCapture(body.capture)
     });
     res.json(result);
   });
   r.post("/claims", (req, res) => {
     const body = req.body;
-    if (!isRecord(body)) throw bad("JSON body required");
+    if (!isPlainObject(body)) throw bad("JSON body required");
     const home = parseHome(body.home);
     if (!Array.isArray(body.records) || body.records.length > 200)
       throw bad("records must be an array (at most 200)");
@@ -52253,6 +52064,9 @@ function v1Router(deps2) {
     res.json(view);
   });
   return r;
+}
+function parseCapture(v) {
+  return v === "camera" || v === "sample" ? v : "library";
 }
 
 // src/app.ts
@@ -52283,7 +52097,7 @@ function sendPage(res, file) {
 }
 function createApp(deps2) {
   const { config: config2, logger } = deps2;
-  const app2 = (0, import_express3.default)();
+  const app2 = (0, import_express2.default)();
   app2.disable("x-powered-by");
   app2.set("trust proxy", config2.trustProxy);
   app2.set("etag", false);
@@ -52321,9 +52135,8 @@ function createApp(deps2) {
     }
     next();
   });
-  app2.use("/api", import_express3.default.json({ limit: BODY_LIMIT }));
+  app2.use("/api", import_express2.default.json({ limit: BODY_LIMIT }));
   app2.use("/api/v1", v1Router(deps2));
-  if (config2.storeMode === "file" && deps2.store) app2.use("/api", legacyRouter(deps2, deps2.store));
   app2.use("/api", (_req, res) => {
     res.status(404).json({ error: "not_found", message: "Unknown API route" });
   });
@@ -52334,6 +52147,7 @@ function createApp(deps2) {
       return;
     }
     res.setHeader("Cache-Control", "public, max-age=86400");
+    res.setHeader("Access-Control-Allow-Origin", config2.corsOrigin);
     res.type("image/jpeg");
     sendFileOr404(res, sample.path);
   });
@@ -52343,13 +52157,13 @@ function createApp(deps2) {
   const hasLanding = existsSync(landingHtml);
   const hasApp = existsSync(appHtml);
   if (hasApp) {
-    app2.use("/app", import_express3.default.static(appDir, staticOptions));
+    app2.use("/app", import_express2.default.static(appDir, staticOptions));
     app2.use("/app", (req, res) => {
       if (isPageRequest(req)) sendPage(res, appHtml);
       else notFound(res);
     });
   }
-  if (hasLanding) app2.use(import_express3.default.static(config2.webDist, staticOptions));
+  if (hasLanding) app2.use(import_express2.default.static(config2.webDist, staticOptions));
   app2.get("/robots.txt", (_req, res) => {
     res.type("text/plain").send("User-agent: *\nDisallow: /\n");
   });
@@ -52394,6 +52208,11 @@ function createApp(deps2) {
 // src/config.ts
 import path3 from "node:path";
 import { fileURLToPath } from "node:url";
+
+// src/vision/types.ts
+var VISION_EFFORTS = ["low", "medium", "high", "xhigh", "max"];
+
+// src/config.ts
 var IS_BUNDLED = true;
 function baseDir() {
   const here = path3.dirname(fileURLToPath(import.meta.url));
@@ -52412,7 +52231,6 @@ function resolvePath(env, key, devDefault, bundledDefault) {
   const value = raw && raw.trim() !== "" ? raw.trim() : IS_BUNDLED ? bundledDefault : devDefault;
   return path3.resolve(base, value);
 }
-var EFFORTS = /* @__PURE__ */ new Set(["low", "medium", "high", "xhigh", "max"]);
 function loadConfig(env = process.env) {
   const key = env.ANTHROPIC_API_KEY?.trim();
   const effort = env.VISION_EFFORT?.trim();
@@ -52424,48 +52242,24 @@ function loadConfig(env = process.env) {
   }
   return {
     port: num(env, "PORT", 8787),
-    storeMode: env.STORE_MODE?.trim() === "file" ? "file" : "stateless",
-    storePath: resolvePath(env, "STORE_PATH", "data/store.json", "./data/store.json"),
     cacheDir: resolvePath(env, "CACHE_DIR", "cache", "./cache"),
     cacheWrite: env.CACHE_WRITE?.trim() === "1",
     samplesDir: resolvePath(env, "SAMPLES_DIR", "eval/photos", "./samples"),
     webDist: resolvePath(env, "WEB_DIST", "../app/dist", "./web"),
     apiKey: key ? key : null,
     visionModel: env.VISION_MODEL?.trim() || DEFAULT_VISION_MODEL,
-    visionEffort: effort && EFFORTS.has(effort) ? effort : null,
+    visionEffort: VISION_EFFORTS.find((e) => e === effort) ?? null,
     trustProxy,
     ratePerIp10Min: num(env, "RATE_PER_IP_10MIN", 12),
     dailyLiveLimit: num(env, "DAILY_LIVE_LIMIT", 400),
     dailySpendCapUsd: num(env, "DAILY_SPEND_CAP_USD", 40),
     estCostPerCallUsd: num(env, "EST_COST_PER_CALL_USD", 0.05),
     corsOrigin: env.CORS_ORIGIN?.trim() || "*",
-    logSalt: env.LOG_SALT?.trim() || null,
-    production: env.NODE_ENV === "production"
+    logSalt: env.LOG_SALT?.trim() || null
   };
 }
 
-// src/log.ts
-function line(obj) {
-  return JSON.stringify({ t: (/* @__PURE__ */ new Date()).toISOString(), ...obj });
-}
-var consoleLogger = {
-  request: (e) => console.log(line({ kind: "req", ...e })),
-  check: (e) => console.log(line({ kind: "check", ...e })),
-  info: (message) => console.log(line({ kind: "info", message })),
-  warn: (message) => console.warn(line({ kind: "warn", message }))
-};
-var silentLogger = {
-  request: () => {
-  },
-  check: () => {
-  },
-  info: () => {
-  },
-  warn: () => {
-  }
-};
-
-// src/server.ts
+// src/deps.ts
 import { randomBytes as randomBytes2 } from "node:crypto";
 
 // src/fmiFixture.ts
@@ -52907,93 +52701,29 @@ var FrostService = class {
   }
 };
 
-// src/store.ts
-import { promises as fs2 } from "node:fs";
-import path4 from "node:path";
-var FileStore = class {
-  constructor(file) {
-    this.file = file;
-  }
-  file;
-  data = { homes: [], records: [] };
-  writing = Promise.resolve();
-  /** Loads the file if it exists. A corrupt file is kept aside (renamed), never silently overwritten. */
-  async load() {
-    let raw;
-    try {
-      raw = await fs2.readFile(this.file, "utf8");
-    } catch {
-      this.data = { homes: [], records: [] };
-      return;
-    }
-    try {
-      const parsed = JSON.parse(raw);
-      this.data = {
-        homes: Array.isArray(parsed.homes) ? parsed.homes : [],
-        records: Array.isArray(parsed.records) ? parsed.records : []
-      };
-    } catch {
-      const aside = `${this.file}.corrupt-${Date.now()}`;
-      await fs2.rename(this.file, aside);
-      this.data = { homes: [], records: [] };
-    }
-  }
-  /** Puts the demo homes and their records back to the engine's DEMO state; other homes are untouched. */
-  async seedDemo(demo) {
-    const ids = new Set(demo.homes.map((h) => h.homeId));
-    this.data.homes = [
-      ...this.data.homes.filter((h) => !ids.has(h.homeId)),
-      ...demo.homes.map((h) => ({ ...h, demo: true }))
-    ];
-    this.data.records = [
-      ...this.data.records.filter((r) => !ids.has(r.homeId)),
-      ...demo.records.filter((r) => ids.has(r.homeId))
-    ];
-    await this.save();
-  }
-  async resetHome(homeId, demo) {
-    this.data.records = [
-      ...this.data.records.filter((r) => r.homeId !== homeId),
-      ...demo.records.filter((r) => r.homeId === homeId)
-    ];
-    await this.save();
-  }
-  homes() {
-    return [...this.data.homes];
-  }
-  getHome(homeId) {
-    return this.data.homes.find((h) => h.homeId === homeId) ?? null;
-  }
-  async addHome(home) {
-    this.data.homes.push(home);
-    await this.save();
-  }
-  records(homeId) {
-    return this.data.records.filter((r) => r.homeId === homeId);
-  }
-  /**
-   * Appends to the home's history. The engine's effectiveRecords picks the record that counts
-   * (a later retake never undoes a finished result). History is capped per home.
-   */
-  async putRecord(record2, maxPerHome = 500) {
-    this.data.records.push(record2);
-    const mine = this.data.records.filter((r) => r.homeId === record2.homeId);
-    if (mine.length > maxPerHome) {
-      const drop = new Set(mine.slice(0, mine.length - maxPerHome));
-      this.data.records = this.data.records.filter((r) => !drop.has(r));
-    }
-    await this.save();
-  }
-  save() {
-    const snapshot = JSON.stringify(this.data, null, 2);
-    this.writing = this.writing.catch(() => void 0).then(async () => {
-      await fs2.mkdir(path4.dirname(this.file), { recursive: true });
-      const tmp = `${this.file}.${process.pid}.tmp`;
-      await fs2.writeFile(tmp, `${snapshot}
-`, "utf8");
-      await fs2.rename(tmp, this.file);
-    });
-    return this.writing;
+// src/log.ts
+function line(obj) {
+  return JSON.stringify({ t: (/* @__PURE__ */ new Date()).toISOString(), ...obj });
+}
+var consoleLogger = {
+  request: (e) => console.log(line({ kind: "req", ...e })),
+  check: (e) => console.log(line({ kind: "check", ...e })),
+  info: (message) => console.log(line({ kind: "info", message })),
+  warn: (message) => console.warn(line({ kind: "warn", message }))
+};
+function errorTag(err) {
+  const e = err;
+  const name = typeof e?.name === "string" ? e.name : "Error";
+  return typeof e?.status === "number" ? `${name} ${e.status}` : name;
+}
+var silentLogger = {
+  request: () => {
+  },
+  check: () => {
+  },
+  info: () => {
+  },
+  warn: () => {
   }
 };
 
@@ -53027,6 +52757,10 @@ var SYSTEM_PROMPT = [
   "- met: null when you can't tell from this photo (blurred, too dark, cut off, hidden, too far away or ambiguous).",
   "- Visibility criteria are about the right item being in frame. If the photo shows a different subject (a loose part, a product photo, a different appliance or fitting, a closed cupboard, an outdoor utility box), visibility is false.",
   "- Condition criteria are only about defects you can see: drips, water, stains, corrosion, damage, scorch marks, missing covers, exposed live parts, dust, blocked items.",
+  "- The item must be installed in place in a home (a kitchen, bathroom, utility room, hallway, living space or the outside of a house). A shop, showroom or store shelf, a product shot on a plain background, a display model, or an item that is not fitted means visibility is false.",
+  "- In or near a fuse box, bare wires, open junctions, exposed conductors or a missing cover are always a defect, even if they look tidy.",
+  "- Charging on or against a bed, sofa, cushion, blanket, clothing or other fabric is always a defect.",
+  "- Ordinary tarnish, patina, old solder or limescale on metal fittings is not corrosion or a defect. If the relevant area is visible and shows no drips, water or stains, answer true; use null for a condition only when that area itself is too dark, blurred or hidden to judge.",
   "",
   "Hard rules:",
   "- Never judge, mention or guess whether a valve, tap, lever or switch is open or closed. Lever position is never a criterion.",
@@ -53038,6 +52772,8 @@ var SYSTEM_PROMPT = [
   "- retakeHint: one short sentence on how to retake the photo when a visibility criterion is false or null, or a condition can't be judged; otherwise null.",
   "- fixSuggestion: one short, practical sentence when a condition criterion is false; otherwise null. For electrical faults, exposed parts or active leaks, say to call a professional and not to touch.",
   "- urgent: true only for an active leak or drip, or exposed live electrical parts or a removed cover. Otherwise false.",
+  "- When two photos are given, they should show the same item from two positions. Judge the criteria on both together. Also set reproduction true if they look like one flat picture seen twice (no depth or parallax between near and far parts, the same flat surface tilted) rather than a real 3D scene from two viewpoints.",
+  "- reproduction: true if this is a photo of a screen (TV, monitor, phone or tablet), a printout or another photo rather than the real item. Signs: screen bezels or edges, a pixel grid or moir\xE9 pattern, glare from glass, visible user-interface elements, paper edges. Otherwise false.",
   "- note per criterion: at most one short sentence on what you saw, or an empty string.",
   "",
   `Always answer by calling the ${TOOL_NAME} tool exactly once. Keep every sentence under 25 words.`
@@ -53091,27 +52827,29 @@ function buildTool(check) {
         },
         retakeHint: nullableString(),
         fixSuggestion: nullableString(),
-        urgent: { type: "boolean" }
+        urgent: { type: "boolean" },
+        reproduction: { type: "boolean" }
       },
-      required: ["criteria", "boxes", "retakeHint", "fixSuggestion", "urgent"],
+      required: ["criteria", "boxes", "retakeHint", "fixSuggestion", "urgent", "reproduction"],
       additionalProperties: false
     }
   };
 }
-function buildUserText(check, lang, image) {
+function buildUserText(check, lang, image, secondImage) {
   const criteria = modelCriteria(check);
   const keys = criterionKeys(criteria);
   const lines = criteria.map((c, i) => `- ${keys[i]} (${c.kind}): ${c.text.en}`);
   return [
     `Check: ${check.title.en}.`,
-    `Image size: ${image.width} x ${image.height} pixels.`,
+    secondImage ? `Two photos of the same item from two positions. Sizes: ${image.width} x ${image.height} and ${secondImage.width} x ${secondImage.height} pixels. Boxes refer to the first photo.` : `Image size: ${image.width} x ${image.height} pixels.`,
     "Criteria:",
     ...lines,
     `Write notes, retakeHint and fixSuggestion in ${LANG_NAME[lang] ?? "English"}.`,
     `Call ${TOOL_NAME} once.`
   ].join("\n");
 }
-function buildRequest(check, lang, image, opts) {
+function buildRequest(check, lang, image, opts, secondImage) {
+  const images = secondImage ? [image, secondImage] : [image];
   const params = {
     model: opts.model,
     max_tokens: opts.maxTokens ?? 16e3,
@@ -53124,11 +52862,11 @@ function buildRequest(check, lang, image, opts) {
       {
         role: "user",
         content: [
-          {
+          ...images.map((img) => ({
             type: "image",
-            source: { type: "base64", media_type: image.mediaType, data: image.base64 }
-          },
-          { type: "text", text: buildUserText(check, lang, image) }
+            source: { type: "base64", media_type: img.mediaType, data: img.base64 }
+          })),
+          { type: "text", text: buildUserText(check, lang, image, secondImage) }
         ]
       }
     ]
@@ -53143,11 +52881,9 @@ function allNull(check, model, retakeHint = null) {
     retakeHint,
     fixSuggestion: null,
     urgent: false,
+    reproduction: false,
     model
   };
-}
-function isRecord2(v) {
-  return typeof v === "object" && v !== null && !Array.isArray(v);
 }
 function cleanText(v) {
   if (typeof v !== "string") return null;
@@ -53159,7 +52895,7 @@ function cleanBoxes(raw, width, height) {
   if (!Array.isArray(raw)) return [];
   const out = [];
   for (const b of raw) {
-    if (!isRecord2(b)) continue;
+    if (!isPlainObject(b)) continue;
     const coords = [b.x0, b.y0, b.x1, b.y1];
     if (!coords.every((n) => typeof n === "number" && Number.isFinite(n))) continue;
     let [x0, y0, x1, y1] = coords.map((n) => Math.round(n));
@@ -53175,13 +52911,13 @@ function cleanBoxes(raw, width, height) {
   return out;
 }
 function parseAssessment(input, check, image, model) {
-  if (!isRecord2(input) || !isRecord2(input.criteria)) return allNull(check, model);
+  if (!isPlainObject(input) || !isPlainObject(input.criteria)) return allNull(check, model);
   const criteria = modelCriteria(check);
   const keys = criterionKeys(criteria);
   const results = [];
   for (let i = 0; i < criteria.length; i++) {
     const entry = input.criteria[keys[i]] ?? input.criteria[criteria[i].id];
-    if (!isRecord2(entry)) return allNull(check, model);
+    if (!isPlainObject(entry)) return allNull(check, model);
     const met = entry.met;
     if (met !== true && met !== false && met !== null) return allNull(check, model);
     const note2 = cleanText(entry.note);
@@ -53193,6 +52929,7 @@ function parseAssessment(input, check, image, model) {
     retakeHint: cleanText(input.retakeHint),
     fixSuggestion: cleanText(input.fixSuggestion),
     urgent: input.urgent === true,
+    reproduction: input.reproduction === true,
     model
   };
 }
@@ -53216,7 +52953,7 @@ var AnthropicVisionProvider = class {
   client;
   effort;
   constructor(opts = {}) {
-    this.model = opts.model?.trim() || process.env.VISION_MODEL?.trim() || DEFAULT_VISION_MODEL;
+    this.model = opts.model?.trim() || DEFAULT_VISION_MODEL;
     this.effort = opts.effort ?? null;
     if (opts.client) {
       this.client = opts.client;
@@ -53231,9 +52968,17 @@ var AnthropicVisionProvider = class {
   }
   /** Throws on transport/API errors (the caller treats that as "couldn't check"); malformed output becomes all-null. */
   async assess(input) {
-    const { check, lang, image } = input;
-    if (Math.max(image.width, image.height) > MAX_LONG_EDGE) throw new ImageTooLargeError();
-    const request = buildRequest(check, lang, image, { model: this.model, effort: this.effort });
+    const { check, lang, image, secondImage } = input;
+    for (const img of secondImage ? [image, secondImage] : [image]) {
+      if (Math.max(img.width, img.height) > MAX_LONG_EDGE) throw new ImageTooLargeError();
+    }
+    const request = buildRequest(
+      check,
+      lang,
+      image,
+      { model: this.model, effort: this.effort },
+      secondImage
+    );
     const message = await this.client.messages.create(request);
     const usage = message.usage ? {
       inputTokens: message.usage.input_tokens ?? 0,
@@ -53247,8 +52992,8 @@ var AnthropicVisionProvider = class {
 };
 
 // src/vision/cached.ts
-import { promises as fs7 } from "node:fs";
-import path8 from "node:path";
+import { promises as fs6 } from "node:fs";
+import path7 from "node:path";
 var CacheMissError = class extends Error {
   constructor() {
     super("No recorded assessment for this photo");
@@ -53263,7 +53008,7 @@ function isEntry(v) {
 var CachedVisionProvider = class {
   constructor(cacheDir, writable) {
     this.writable = writable;
-    this.dir = path8.join(cacheDir, "assessments");
+    this.dir = path7.join(cacheDir, "assessments");
   }
   writable;
   name = "cached";
@@ -53273,14 +53018,14 @@ var CachedVisionProvider = class {
     return this.writable;
   }
   file(sha) {
-    return path8.join(this.dir, `${sha.toLowerCase()}.json`);
+    return path7.join(this.dir, `${sha.toLowerCase()}.json`);
   }
   /** The recorded entry for this photo and check, or null on a miss (also when the photo was recorded for another check). */
   async lookup(sha, checkId) {
     if (!isSha256Hex(sha)) return null;
     let raw;
     try {
-      raw = await fs7.readFile(this.file(sha), "utf8");
+      raw = await fs6.readFile(this.file(sha), "utf8");
     } catch {
       return null;
     }
@@ -53319,17 +53064,17 @@ var CachedVisionProvider = class {
         model
       }
     };
-    await fs7.mkdir(this.dir, { recursive: true });
+    await fs6.mkdir(this.dir, { recursive: true });
     const target = this.file(sha);
     const tmp = `${target}.${process.pid}.tmp`;
-    await fs7.writeFile(tmp, `${JSON.stringify(entry, null, 2)}
+    await fs6.writeFile(tmp, `${JSON.stringify(entry, null, 2)}
 `, "utf8");
-    await fs7.rename(tmp, target);
+    await fs6.rename(tmp, target);
     return true;
   }
   async count() {
     try {
-      const names = await fs7.readdir(this.dir);
+      const names = await fs6.readdir(this.dir);
       return names.filter((n) => /^[0-9a-f]{64}\.json$/.test(n)).length;
     } catch {
       return 0;
@@ -53385,14 +53130,6 @@ var MockVisionProvider = class {
 };
 
 // src/vision/chain.ts
-function errorTag(err) {
-  if (err && typeof err === "object") {
-    const status = err.status;
-    const name = err.name;
-    return `${typeof name === "string" ? name : "Error"}${typeof status === "number" ? ` ${status}` : ""}`;
-  }
-  return "Error";
-}
 var VisionChain = class {
   cache;
   live;
@@ -53414,7 +53151,7 @@ var VisionChain = class {
   }
   async assess(input) {
     const { check, lang, sha256, clientKey: clientKey2 } = input;
-    const hit = await this.cache.lookup(sha256, check.id);
+    const hit = input.secondImage ? null : await this.cache.lookup(sha256, check.id);
     if (hit) {
       return {
         assessment: hit.assessment,
@@ -53467,7 +53204,7 @@ var VisionChain = class {
   }
 };
 
-// src/server.ts
+// src/deps.ts
 async function buildDeps(config2, opts = {}) {
   const clock = opts.clock ?? (() => /* @__PURE__ */ new Date());
   const logger = opts.logger ?? consoleLogger;
@@ -53487,19 +53224,12 @@ async function buildDeps(config2, opts = {}) {
   }) : null;
   const cache = new CachedVisionProvider(config2.cacheDir, config2.cacheWrite);
   const chain = new VisionChain({ cache, live, guard, clock, logger });
-  let store = null;
-  if (config2.storeMode === "file") {
-    store = new FileStore(config2.storePath);
-    await store.load();
-    await store.seedDemo(DEMO);
-  }
   return {
     config: config2,
     chain,
     guard,
     frost: new FrostService({ fetchImpl: opts.fetchImpl, clock }),
     samples: new SampleCatalog(config2.samplesDir),
-    store,
     logger,
     ipHash: makeIpHasher(config2.logSalt),
     clock,
@@ -53515,7 +53245,6 @@ var server = app.listen(config.port, () => {
   consoleLogger.info(
     [
       `Prepared Home server on port ${config.port}`,
-      `store=${config.storeMode}`,
       `vision=${config.apiKey ? `anthropic:${config.visionModel}` : "offline"}`,
       `cacheWrite=${config.cacheWrite ? "on" : "off"}`,
       `bundled=${IS_BUNDLED ? "yes" : "no"}`
