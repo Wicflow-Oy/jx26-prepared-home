@@ -16,7 +16,13 @@ export function WeekSection({ model }: { model: HomeModel }) {
       <WeekItem
         state={model.done > 0 ? "done" : "now"}
         when={t("today")}
-        text={model.done > 0 ? t("weekDone", { count: model.done }) : t("weekStart")}
+        text={
+          model.done === 0
+            ? t("weekStart")
+            : model.done === 1
+              ? t("weekDoneOne")
+              : t("weekDone", { count: model.done })
+        }
       />
       {fixReminder ? (
         <WeekItem

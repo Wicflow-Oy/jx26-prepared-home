@@ -17,6 +17,7 @@ const en = {
   recheckTitle: "Next re-check: {date}",
   recheckSub: "It will show in Reminders.",
   recheckCount: "{count} checks are due then.",
+  recheckCountOne: "1 check is due then.",
   alarmLine:
     "If an alarm device's working prevented or limited the damage, no deductible is deducted (terms 6.4.1). If decides whether a device qualifies.",
   needsCamera: "Take with the camera, from two angles, to count: {items}",
@@ -51,6 +52,7 @@ export const status: Area<typeof en> = {
     recheckTitle: "Seuraava uusintatarkistus: {date}",
     recheckSub: "Se näkyy Muistutuksissa.",
     recheckCount: "Silloin on vuorossa {count} tarkistusta.",
+    recheckCountOne: "Silloin on vuorossa 1 tarkistus.",
     alarmLine:
       "Jos hälytyslaitteen toiminta esti vahingon tai rajoitti sitä, omavastuuta ei vähennetä (ehtojen kohta 6.4.1). If ratkaisee, täyttääkö laite ehdon.",
     needsCamera: "Ota kameralla kahdesta kulmasta, jotta ne lasketaan: {items}",
@@ -81,6 +83,7 @@ export const status: Area<typeof en> = {
     recheckTitle: "Nästa omkontroll: {date}",
     recheckSub: "Den syns under Påminnelser.",
     recheckCount: "Då är det dags för {count} kontroller.",
+    recheckCountOne: "Då är det dags för 1 kontroll.",
     alarmLine:
       "Om en larmanordnings funktion förhindrade eller begränsade skadan dras ingen självrisk av (villkorens punkt 6.4.1). If avgör om anordningen uppfyller villkoret.",
     needsCamera: "Ta med kameran från två vinklar så att de räknas: {items}",

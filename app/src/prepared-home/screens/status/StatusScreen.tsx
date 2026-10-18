@@ -79,7 +79,9 @@ function NextRecheck({ model }: { model: HomeModel }) {
           </Txt>
           <Txt variant="caption">
             {next.checkIds.length > 2
-              ? t("recheckCount", { count: next.checkIds.length })
+              ? next.checkIds.length === 1
+                ? t("recheckCountOne")
+                : t("recheckCount", { count: next.checkIds.length })
               : `${next.checkIds.map((id) => model.checkById.get(id)?.title[lang] ?? id).join(", ")}.`}{" "}
             {t("recheckSub")}
           </Txt>
