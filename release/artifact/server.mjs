@@ -51340,6 +51340,11 @@ function requiredChecks(homeType, group) {
 
 // ../packages/engine/src/adjuster.ts
 var normHash = (h) => typeof h === "string" ? h.trim().toLowerCase() : "";
+function matchesRecord(sha256, rec) {
+  return [rec.photoSha256, rec.secondPhotoSha256].some(
+    (h) => !!h && normHash(sha256) === normHash(h)
+  );
+}
 function adjusterView(input, deductibles) {
   const { claimId, home, peril } = input;
   const lossDay = toDay(input.lossDate);
@@ -51368,11 +51373,7 @@ function adjusterView(input, deductibles) {
       checkedAt: rec.checkedAt,
       validAtLoss: current,
       photoShared: photos.length > 0,
-      hashMatches: photos.length ? photos.every(
-        (p) => [rec.photoSha256, rec.secondPhotoSha256].some(
-          (h) => !!h && normHash(p.sha256) === normHash(h)
-        )
-      ) : null
+      hashMatches: photos.length ? photos.every((p) => matchesRecord(p.sha256, rec)) : null
     });
     listed.add(checkId);
   };
@@ -51412,7 +51413,7 @@ function adjusterView(input, deductibles) {
       reasons.push(
         `The shared photo for ${s.checkId} cannot be compared: that record has no photo.`
       );
-    } else if (normHash(s.sha256) !== normHash(rec.photoSha256)) {
+    } else if (!matchesRecord(s.sha256, rec)) {
       hashesOk = false;
       reasons.push(`The shared photo for ${s.checkId} does not match the stored hash.`);
     } else {
