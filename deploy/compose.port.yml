@@ -1,6 +1,5 @@
-# Proxy case B: Caddy or nginx on the host. Publishes on 127.0.0.1 only;
-# the proxy terminates TLS and forwards to it (snippets in DEPLOY.md).
-services:
-  preparedhome:
-    ports:
-      - "127.0.0.1:${PH_PORT:-8787}:8787"
+# Migration guard: retained original is compose.port.hostinger-rollback-20261020.yml.
+# UpCloud releases use the reviewed forced publisher; see deploy/upcloud/README.md.
+# Do not start an old Hostinger writer alongside UpCloud.
+name: jx-preparedhome-migration-guard
+services: {}

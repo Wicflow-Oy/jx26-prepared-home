@@ -1,6 +1,9 @@
 # Prepared Home public demo: a copy-only image. Nothing is compiled or installed here.
 # The artifact is prebuilt on the dev PC and committed: release/artifact/{server.mjs, web/, samples/, cache/}.
 FROM node:24-alpine
+ARG VCS_REF
+LABEL org.opencontainers.image.revision=$VCS_REF \
+    com.wicflow.family=preparedhome
 
 WORKDIR /app
 

@@ -1,0 +1,6 @@
+# Proxy case B: Caddy or nginx on the host. Publishes on 127.0.0.1 only;
+# the proxy terminates TLS and forwards to it (snippets in DEPLOY.md).
+services:
+  preparedhome:
+    ports:
+      - "127.0.0.1:${PH_PORT:-8787}:8787"

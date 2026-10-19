@@ -1,0 +1,79 @@
+name: Release preparedhome to UpCloud
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: "Publish after all checks (main branch only)"
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: preparedhome-upcloud
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Require main for a public release
+        if: inputs.publish
+        run: test "$GITHUB_REF" = refs/heads/main
+      - name: Offline source and publisher checks
+        run: |
+          set -euo pipefail
+          python -m pip install pytest==9.0.3
+          python -m pytest tests/test_upcloud_publisher.py -q
+          npm run setup
+          npm run check
+      - name: Build the immutable source artifact
+        run: |
+          set -euo pipefail
+          docker build --platform linux/amd64 --build-arg VCS_REF="$GITHUB_SHA" -t "wicflow-preparedhome:$GITHUB_SHA" .
+          docker save "wicflow-preparedhome:$GITHUB_SHA" | gzip -n > image.tar.gz
+          python3 -c 'import sys;from pathlib import Path;sys.path.insert(0,"deploy/upcloud");from publish_server import validate_archive;validate_archive(Path("image.tar.gz"),"preparedhome",sys.argv[1])' "$GITHUB_SHA"
+          sha256sum image.tar.gz > image.sha256
+          echo "ARCHIVE_SHA=$(cut -d' ' -f1 image.sha256)" >> "$GITHUB_ENV"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: preparedhome-${{ github.sha }}
+          path: |
+            image.tar.gz
+            image.sha256
+          retention-days: 14
+      - name: Install the scoped key and server pin
+        if: inputs.publish
+        env:
+          DEPLOY_KEY: ${{ secrets.UPCLOUD_DEMO_SSH_KEY }}
+          HOST_PIN: ${{ secrets.UPCLOUD_DEMO_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          umask 077
+          mkdir -p ~/.ssh
+          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/demo_upcloud
+          printf '%s\n' "$HOST_PIN" > ~/.ssh/known_hosts
+          test -s ~/.ssh/demo_upcloud && test -s ~/.ssh/known_hosts
+      - name: Publish through the one-family forced command
+        if: inputs.publish
+        run: |
+          set -euo pipefail
+          ssh -F /dev/null -i ~/.ssh/demo_upcloud -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes root@87.58.148.131 "deploy $GITHUB_SHA $ARCHIVE_SHA" < image.tar.gz | tee deployment-receipt.json
+          python3 -c 'import json,os;d=json.load(open("deployment-receipt.json"));assert d["source"]==os.environ["GITHUB_SHA"] and d["state"]=="healthy"'
+      - name: Verify public health without a model call
+        if: inputs.publish
+        run: |
+          curl --fail --silent --show-error --max-time 15 "https://preparedhome.demo.wicflow.com/api/v1/health" | python3 -c 'import json,sys;assert json.load(sys.stdin)["ok"] is True'
+      - uses: actions/upload-artifact@v4
+        if: inputs.publish && always()
+        with:
+          name: preparedhome-deployment-${{ github.run_id }}
+          path: deployment-receipt.json
+          if-no-files-found: ignore
+          retention-days: 30

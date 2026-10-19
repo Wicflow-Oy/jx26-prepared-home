@@ -1,0 +1,15 @@
+# Scoped UpCloud releases
+
+The migration publisher is prepared here; target installation and activation require the final public migration receipt. The runtime owner keeps the old Hostinger copy for rollback. This repository has no automatic Hostinger deployment workflow. Existing manual Hostinger instructions and Compose files are retained with dated rollback names; their former active paths are migration guards.
+
+Use the **Release preparedhome to UpCloud** GitHub Actions workflow. Leave `publish` false for build and test only. To release, select `main` and enable `publish`. Pushes do not publish. All tests run without model credentials; the image is built in CI, labelled with the exact source SHA, checked for private files and saved as a retained artifact. Prepared Home continues to use its committed `release/artifact` build; run its existing `deploy/pack.sh` and commit that artifact when changing app code.
+
+Two secrets are scoped to this repository: `UPCLOUD_DEMO_SSH_KEY` and `UPCLOUD_DEMO_KNOWN_HOSTS`. The key's forced command can only inspect or replace this family's app image; it has no general shell, arbitrary Docker command, config upload, or access to another family's publisher. Administrator runtime policy remains root-owned. Do not paste private keys into Git, chat or logs.
+
+The receiver requires `.active` and the verified public/live backup receipt, at least 8 GiB disk reserve plus staging room, the family publish lock, and the existing network/runtime policy. It rejects confused image tags, wrong source/family/platform, embedded secret environment or private files, and oversized archives. It preserves private environment, state, videos, network and resource limits. BlueWatch updates only its public build SHA metadata alongside the image.
+
+Before replacement, the receiver temporarily blocks new edge-to-app connections in its own bridge table, drains active requests, and stops this one family unit. It performs a full encrypted backup, download, decryption and isolated restore while the writer is stopped. The gate survives container replacement. Only a healthy candidate reopens public traffic. Prior images/configs and offsite snapshots remain available; nothing is pruned by this receiver.
+
+Prepared Home's request/spend limits live in process memory and reset on the Europe/Helsinki day boundary. The receiver refuses a restart if current use or spend is nonzero. A failed candidate may be automatically rolled back only after a verified stop, zero quota, and unchanged persisted state. If state or stop is uncertain, both releases remain stopped behind the gate and the receipt requires operator recovery. Never blindly restart a Hostinger writer after target traffic or state changes.
+
+Operator runtime: `/etc/hackathon-demos/preparedhome/compose.json`, private environment and acceptance metadata; `/srv/hackathon-demos-live/preparedhome` state/videos; `/srv/hackathon-demo-releases/preparedhome` immutable image/config history. The family unit is `wicflow-demo@preparedhome.service`. Do not edit other apps or shared Caddy during a release.

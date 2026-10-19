@@ -1,38 +1,5 @@
-# Prepared Home public demo: base service. Compose project: jx-preparedhome.
-# Always combine with ONE proxy file:
-#   Traefik:      -f deploy/compose.yml -f deploy/compose.traefik.yml
-#   Caddy/nginx:  -f deploy/compose.yml -f deploy/compose.port.yml
-# Production box: act only on project jx-preparedhome. See DEPLOY.md.
-name: jx-preparedhome
-
-services:
-  preparedhome:
-    build:
-      context: ..
-      dockerfile: Dockerfile
-    image: jx-preparedhome:${PH_TAG:-live}
-    container_name: jx-preparedhome
-    restart: unless-stopped
-    mem_limit: 1g
-    cpus: 1.0
-    logging:
-      driver: json-file
-      options:
-        max-size: "10m"
-        max-file: "3"
-    env_file:
-      - path: ../.env
-        required: true
-    environment:
-      - NODE_ENV=production
-      - PORT=8787
-      - TRUST_PROXY=1
-      - WEB_DIST=/app/web
-      - SAMPLES_DIR=/app/samples
-      - CACHE_DIR=/app/cache
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8787/api/v1/health", "-T", "5"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
+# Migration guard: retained original is compose.hostinger-rollback-20261020.yml.
+# UpCloud releases use the reviewed forced publisher; see deploy/upcloud/README.md.
+# Do not start an old Hostinger writer alongside UpCloud.
+name: jx-preparedhome-migration-guard
+services: {}
