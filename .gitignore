@@ -14,3 +14,7 @@ app/dist/
 .review/
 # Large eval set: images are re-downloaded from Wikimedia Commons by server/eval/large/fetch.mjs
 server/eval/large/photos/
+
+# Local publisher checks
+__pycache__/
+*.pyc
