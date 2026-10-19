@@ -41,6 +41,21 @@ jobs:
           python3 -c 'import sys;from pathlib import Path;sys.path.insert(0,"deploy/upcloud");from publish_server import validate_archive;validate_archive(Path("image.tar.gz"),"preparedhome",sys.argv[1])' "$GITHUB_SHA"
           sha256sum image.tar.gz > image.sha256
           echo "ARCHIVE_SHA=$(cut -d' ' -f1 image.sha256)" >> "$GITHUB_ENV"
+      - name: Rehearse the image without keys or external networking
+        run: |
+          set -euo pipefail
+          trap 'docker stop --time 35 demo-private >/dev/null 2>&1 || true' EXIT
+          docker run -d --name demo-private --network none --read-only --cap-drop ALL --security-opt no-new-privileges:true --user 1000:1000 --memory 1g --tmpfs /tmp:rw,noexec,nosuid,size=256m,uid=1000,gid=1000 -e ANTHROPIC_API_KEY= -e BLUEWATCH_OFFLINE=1 "wicflow-preparedhome:$GITHUB_SHA"
+          healthy=0
+          for attempt in $(seq 1 60); do
+            if docker exec demo-private node -e "fetch('http://127.0.0.1:8787/api/v1/health',{signal:AbortSignal.timeout(3000)}).then(r=>r.json()).then(j=>process.exit(j.ok===true?0:1)).catch(()=>process.exit(1))"; then healthy=1; break; fi
+            sleep 1
+          done
+          test "$healthy" = 1
+          test "$(docker inspect -f '{{.HostConfig.NetworkMode}}' demo-private)" = none
+          docker stop --time 35 demo-private >/dev/null
+          test "$(docker inspect -f '{{.State.Running}}' demo-private)" = false
+          test "$(docker inspect -f '{{.State.ExitCode}}' demo-private)" != 137
       - uses: actions/upload-artifact@v4
         with:
           name: preparedhome-${{ github.sha }}
