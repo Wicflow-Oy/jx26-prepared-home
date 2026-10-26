@@ -158,7 +158,7 @@ export function summarizeRun(
 }
 
 const pct = (a: number, n: number) => (n ? `${((100 * a) / n).toFixed(1)}%` : "n/a");
-const cell = (s: string) => s.replace(/\|/g, "\\|").replace(/\s+/g, " ");
+const cell = (s: string) => s.replace(/\\/g, "\\\\").replace(/\|/g, "\\|").replace(/\s+/g, " ");
 
 function runMarkdown(s: RunSummary, report: EvalReport, rows: Row[]): string {
   const byFile = new Map(rows.map((r) => [r.file, r]));

@@ -97,7 +97,7 @@ export function summarize(
 }
 
 const pct = (n: number) => `${(n * 100).toFixed(1)}%`;
-const cell = (s: string) => s.replace(/\|/g, "\\|").replace(/\s+/g, " ");
+const cell = (s: string) => s.replace(/\\/g, "\\\\").replace(/\|/g, "\\|").replace(/\s+/g, " ");
 
 export function toMarkdown(report: EvalReport): string {
   const shown: Verdict[] = ["verified", "retake", "fix_first"];
