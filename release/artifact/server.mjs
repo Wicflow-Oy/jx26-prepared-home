@@ -15449,23 +15449,187 @@ var require_type_is = __commonJS({
   }
 });
 
-// node_modules/body-parser/lib/utils.js
-var require_utils = __commonJS({
-  "node_modules/body-parser/lib/utils.js"(exports, module) {
+// node_modules/body-parser/lib/read.js
+var require_read = __commonJS({
+  "node_modules/body-parser/lib/read.js"(exports, module) {
     "use strict";
-    var bytes = require_bytes();
+    var createError = require_http_errors();
+    var getBody = require_raw_body();
+    var iconv = require_lib();
+    var onFinished = require_on_finished();
+    var zlib = __require("node:zlib");
+    var hasBody = require_type_is().hasBody;
     var contentType = require_dist();
-    var typeis = require_type_is();
-    module.exports = {
-      getCharset,
-      normalizeOptions,
-      passthrough
-    };
+    module.exports = read;
+    var hasZstandardSupport = "createZstdDecompress" in zlib;
+    function read(req, res, next, parse, debug, options) {
+      if (onFinished.isFinished(req)) {
+        debug("body already parsed");
+        next();
+        return;
+      }
+      if (!("body" in req)) {
+        req.body = void 0;
+      }
+      if (!hasBody(req)) {
+        debug("skip empty body");
+        next();
+        return;
+      }
+      debug("content-type %j", req.headers["content-type"]);
+      if (!options.shouldParse(req)) {
+        debug("skip parsing");
+        next();
+        return;
+      }
+      let encoding = null;
+      if (options?.skipCharset !== true) {
+        encoding = getCharset(req) || options.defaultCharset;
+        if (!!options?.isValidCharset && !options.isValidCharset(encoding)) {
+          debug("invalid charset");
+          next(createError(415, 'unsupported charset "' + encoding.toUpperCase() + '"', {
+            charset: encoding,
+            type: "charset.unsupported"
+          }));
+          return;
+        }
+      }
+      let length;
+      let stream2;
+      const verify = options.verify;
+      if (verify && encoding !== null && !iconv.encodingExists(encoding)) {
+        return next(createError(415, 'unsupported charset "' + encoding.toUpperCase() + '"', {
+          charset: encoding.toLowerCase(),
+          type: "charset.unsupported"
+        }));
+      }
+      try {
+        const contentEncoding = (req.headers["content-encoding"] || "identity").toLowerCase();
+        debug('content-encoding "%s"', contentEncoding);
+        if (options.inflate === false && contentEncoding !== "identity") {
+          throw createError(415, "content encoding unsupported", {
+            encoding: contentEncoding,
+            type: "encoding.unsupported"
+          });
+        }
+        if (contentEncoding === "identity") {
+          length = req.headers["content-length"];
+          stream2 = req;
+        } else {
+          stream2 = createDecompressionStream(contentEncoding, debug);
+          req.pipe(stream2);
+        }
+      } catch (err) {
+        return next(err);
+      }
+      const rawBodyOptions = {
+        length,
+        encoding: verify ? null : encoding,
+        limit: options.limit
+      };
+      debug("read body");
+      getBody(stream2, rawBodyOptions, function(error, body) {
+        if (error) {
+          let _error;
+          if (error.type === "encoding.unsupported") {
+            _error = createError(415, 'unsupported charset "' + encoding.toUpperCase() + '"', {
+              charset: encoding.toLowerCase(),
+              type: "charset.unsupported"
+            });
+          } else {
+            _error = createError(400, error);
+          }
+          if (stream2 !== req) {
+            req.unpipe();
+            stream2.destroy();
+          }
+          dump(req, function onfinished() {
+            next(createError(400, _error));
+          });
+          return;
+        }
+        if (stream2 !== req) {
+          req.unpipe(stream2);
+          stream2.on("error", () => {
+          });
+          stream2.destroy();
+          req.resume();
+        }
+        if (verify) {
+          try {
+            debug("verify body");
+            verify(req, res, body, encoding);
+          } catch (err) {
+            next(createError(403, err, {
+              body,
+              type: err.type || "entity.verify.failed"
+            }));
+            return;
+          }
+        }
+        let str = body;
+        try {
+          debug("parse body");
+          str = typeof body !== "string" && encoding !== null ? iconv.decode(body, encoding) : body;
+          req.body = parse(str, encoding);
+        } catch (err) {
+          next(createError(400, err, {
+            body: str,
+            type: err.type || "entity.parse.failed"
+          }));
+          return;
+        }
+        next();
+      });
+    }
+    function createDecompressionStream(encoding, debug) {
+      switch (encoding) {
+        case "deflate":
+          debug("inflate body");
+          return zlib.createInflate();
+        case "gzip":
+          debug("gunzip body");
+          return zlib.createGunzip();
+        case "br":
+          debug("brotli decompress body");
+          return zlib.createBrotliDecompress();
+        case "zstd":
+          if (hasZstandardSupport) {
+            debug("zstd decompress body");
+            return zlib.createZstdDecompress();
+          }
+      }
+      throw createError(415, 'unsupported content encoding "' + encoding + '"', {
+        encoding,
+        type: "encoding.unsupported"
+      });
+    }
+    function dump(req, callback) {
+      if (onFinished.isFinished(req)) {
+        callback(null);
+      } else {
+        onFinished(req, callback);
+        req.resume();
+      }
+    }
     function getCharset(req) {
       const header = req.headers["content-type"];
       if (!header) return void 0;
       return contentType.parse(header).parameters.charset?.toLowerCase();
     }
+  }
+});
+
+// node_modules/body-parser/lib/utils.js
+var require_utils = __commonJS({
+  "node_modules/body-parser/lib/utils.js"(exports, module) {
+    "use strict";
+    var bytes = require_bytes();
+    var typeis = require_type_is();
+    module.exports = {
+      normalizeOptions,
+      passthrough
+    };
     function typeChecker(type) {
       return function checkType(req) {
         return Boolean(typeis(req, type));
@@ -15501,164 +15665,6 @@ var require_utils = __commonJS({
   }
 });
 
-// node_modules/body-parser/lib/read.js
-var require_read = __commonJS({
-  "node_modules/body-parser/lib/read.js"(exports, module) {
-    "use strict";
-    var createError = require_http_errors();
-    var getBody = require_raw_body();
-    var iconv = require_lib();
-    var onFinished = require_on_finished();
-    var zlib = __require("node:zlib");
-    var hasBody = require_type_is().hasBody;
-    var { getCharset } = require_utils();
-    module.exports = read;
-    function read(req, res, next, parse, debug, options) {
-      if (onFinished.isFinished(req)) {
-        debug("body already parsed");
-        next();
-        return;
-      }
-      if (!("body" in req)) {
-        req.body = void 0;
-      }
-      if (!hasBody(req)) {
-        debug("skip empty body");
-        next();
-        return;
-      }
-      debug("content-type %j", req.headers["content-type"]);
-      if (!options.shouldParse(req)) {
-        debug("skip parsing");
-        next();
-        return;
-      }
-      let encoding = null;
-      if (options?.skipCharset !== true) {
-        encoding = getCharset(req) || options.defaultCharset;
-        if (!!options?.isValidCharset && !options.isValidCharset(encoding)) {
-          debug("invalid charset");
-          next(createError(415, 'unsupported charset "' + encoding.toUpperCase() + '"', {
-            charset: encoding,
-            type: "charset.unsupported"
-          }));
-          return;
-        }
-      }
-      let length;
-      const opts = options;
-      let stream2;
-      const verify = opts.verify;
-      try {
-        stream2 = contentstream(req, debug, opts.inflate);
-        length = stream2.length;
-        stream2.length = void 0;
-      } catch (err) {
-        return next(err);
-      }
-      opts.length = length;
-      opts.encoding = verify ? null : encoding;
-      if (opts.encoding === null && encoding !== null && !iconv.encodingExists(encoding)) {
-        return next(createError(415, 'unsupported charset "' + encoding.toUpperCase() + '"', {
-          charset: encoding.toLowerCase(),
-          type: "charset.unsupported"
-        }));
-      }
-      debug("read body");
-      getBody(stream2, opts, function(error, body) {
-        if (error) {
-          let _error;
-          if (error.type === "encoding.unsupported") {
-            _error = createError(415, 'unsupported charset "' + encoding.toUpperCase() + '"', {
-              charset: encoding.toLowerCase(),
-              type: "charset.unsupported"
-            });
-          } else {
-            _error = createError(400, error);
-          }
-          if (stream2 !== req) {
-            req.unpipe();
-            stream2.destroy();
-          }
-          dump(req, function onfinished() {
-            next(createError(400, _error));
-          });
-          return;
-        }
-        if (verify) {
-          try {
-            debug("verify body");
-            verify(req, res, body, encoding);
-          } catch (err) {
-            next(createError(403, err, {
-              body,
-              type: err.type || "entity.verify.failed"
-            }));
-            return;
-          }
-        }
-        let str = body;
-        try {
-          debug("parse body");
-          str = typeof body !== "string" && encoding !== null ? iconv.decode(body, encoding) : body;
-          req.body = parse(str, encoding);
-        } catch (err) {
-          next(createError(400, err, {
-            body: str,
-            type: err.type || "entity.parse.failed"
-          }));
-          return;
-        }
-        next();
-      });
-    }
-    function contentstream(req, debug, inflate) {
-      const encoding = (req.headers["content-encoding"] || "identity").toLowerCase();
-      const length = req.headers["content-length"];
-      debug('content-encoding "%s"', encoding);
-      if (inflate === false && encoding !== "identity") {
-        throw createError(415, "content encoding unsupported", {
-          encoding,
-          type: "encoding.unsupported"
-        });
-      }
-      if (encoding === "identity") {
-        req.length = length;
-        return req;
-      }
-      const stream2 = createDecompressionStream(encoding, debug);
-      req.pipe(stream2);
-      return stream2;
-    }
-    function createDecompressionStream(encoding, debug) {
-      switch (encoding) {
-        case "deflate":
-          debug("inflate body");
-          return zlib.createInflate();
-        case "gzip":
-          debug("gunzip body");
-          return zlib.createGunzip();
-        case "br":
-          debug("brotli decompress body");
-          return zlib.createBrotliDecompress();
-        default:
-          throw createError(415, 'unsupported content encoding "' + encoding + '"', {
-            encoding,
-            type: "encoding.unsupported"
-          });
-      }
-    }
-    function dump(req, callback) {
-      if (onFinished.isFinished(req)) {
-        callback(null);
-      } else {
-        onFinished(req, callback);
-        req.resume();
-      }
-    }
-  }
-});
-
 // node_modules/body-parser/lib/types/json.js
 var require_json = __commonJS({
   "node_modules/body-parser/lib/types/json.js"(exports, module) {
@@ -15667,7 +15673,7 @@ var require_json = __commonJS({
     var read = require_read();
     var { normalizeOptions } = require_utils();
     module.exports = json;
-    var FIRST_CHAR_REGEXP = /^[\x20\x09\x0a\x0d]*([^\x20\x09\x0a\x0d])/;
+    var FIRST_NON_WHITESPACE_REGEXP = /^[\x20\x09\x0a\x0d]*([^\x20\x09\x0a\x0d]|$)/;
     var JSON_SYNTAX_CHAR = "#";
     var JSON_SYNTAX_REGEXP = /#+/g;
     function json(options) {
@@ -15690,10 +15696,12 @@ var require_json = __commonJS({
           if (body.length === 0) {
             return {};
           }
-          const first = firstchar(body);
-          if (first !== "{" && first !== "[") {
-            debug("strict violation");
-            throw createStrictSyntaxError(body, first);
+          if (body[0] !== "{" && body[0] !== "[") {
+            const first = firstNonWhitespaceChar(body);
+            if (first !== "{" && first !== "[") {
+              debug("strict violation");
+              throw createStrictSyntaxError(body, first);
+            }
           }
           try {
             debug("parse json");
@@ -15739,9 +15747,9 @@ var require_json = __commonJS({
         });
       }
     }
-    function firstchar(str) {
-      const match = FIRST_CHAR_REGEXP.exec(str);
-      return match ? match[1] : void 0;
+    function firstNonWhitespaceChar(str) {
+      const match = FIRST_NON_WHITESPACE_REGEXP.exec(str);
+      return match && match[1] ? match[1] : void 0;
     }
     function normalizeJsonSyntaxError(error, obj) {
       const keys = Object.getOwnPropertyNames(error);
