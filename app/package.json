@@ -51,5 +51,14 @@
     "export:web": "expo export --platform web",
     "lint": "expo lint"
   },
-  "private": true
+  "private": true,
+  "overrides": {
+    "glob": "^14.0.2",
+    "@expo/fingerprint": {
+      "minimatch": "^11.0.1"
+    },
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "^11.0.1"
+    }
+  }
 }
