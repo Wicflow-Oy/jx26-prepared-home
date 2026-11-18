@@ -1,5 +1,7 @@
 # Hosting the public demo
 
+> **Since 18.11.2026 the demo runs on Wicflow's Hostinger server, not UpCloud.** See [DEPLOY.md](../DEPLOY.md). Do not say "Hosted in Helsinki (UpCloud)". The rest of this page is the 17 Oct plan, kept as history.
+
 **Decided Sat 17 Oct: the team lead's UpCloud server in Helsinki**, behind the box's existing Traefik. Vercel is off.
 
 - **Runbook:** `DEPLOY.md` at the repo root, for the operator. He deploys from GitHub; nobody else SSHes in. It covers a read-only preflight, both proxy cases (Traefik labels, or Caddy/nginx with `127.0.0.1:8787`), verify and rollback.

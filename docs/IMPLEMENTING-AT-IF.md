@@ -64,6 +64,6 @@ Prepared Home is a voluntary moving-day check-up inside the home insurance app. 
 - **Gates before scaling:** keep the photo eval green on If's own labelled photos, a false-"Verified" rate of zero on the gate set, and customer feedback.
 
 ## Running it
-- **Hosting:** one container serves the web app, the landing page and the API (`DEPLOY.md`). Configuration is by environment variables only (`.env.example`). The planned host is an UpCloud server in Helsinki; the AI check runs on Anthropic's Claude API.
+- **Hosting:** one container serves the web app, the landing page and the API (`DEPLOY.md`). Configuration is by environment variables only (`.env.example`). Since 18.11.2026 the demo runs on Wicflow's Hostinger server; the AI check runs on Anthropic's Claude API.
 - **Native apps:** EAS builds for iOS (TestFlight) and Android (`docs/NATIVE-BUILDS.md`).
 - **Changing the model:** run `npm run eval -- --model <id>` and `npm run eval:gate`. The gate fails if accuracy drops or false "Verified" results rise.
