@@ -1,5 +1,7 @@
 # Scoped UpCloud releases
 
+> **Obsolete since 18.11.2026.** The demo runs on Hostinger and the UpCloud publisher, workflow and secrets are gone. Do not follow these steps; see [DEPLOY.md](../../DEPLOY.md).
+
 The migration publisher is prepared here; target installation and activation require the final public migration receipt. The runtime owner keeps the old Hostinger copy for rollback. This repository has no automatic Hostinger deployment workflow. Existing manual Hostinger instructions and Compose files are retained with dated rollback names; their former active paths are migration guards.
 
 Use the **Release preparedhome to UpCloud** GitHub Actions workflow. Leave `publish` false for build and test only. To release, select `main` and enable `publish`. Pushes do not publish. All tests run without model credentials; the image is built in CI, labelled with the exact source SHA, checked for private files and saved as a retained artifact. Prepared Home continues to use its committed `release/artifact` build; run its existing `deploy/pack.sh` and commit that artifact when changing app code.

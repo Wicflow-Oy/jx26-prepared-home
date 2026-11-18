@@ -1,3 +1,4 @@
+# Since 18.11.2026 the demo runs on Hostinger from /docker/preparedhome-demo (copy in deploy/hostinger/); see DEPLOY.md. The UpCloud lines below are obsolete.
 # Migration guard: retained original is compose.hostinger-rollback-20261020.yml.
 # UpCloud releases use the reviewed forced publisher; see deploy/upcloud/README.md.
 # Do not start an old Hostinger writer alongside UpCloud.

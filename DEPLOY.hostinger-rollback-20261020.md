@@ -1,5 +1,7 @@
 # Deploying Prepared Home (for the operator)
 
+> **Obsolete since 18.11.2026. Do not follow.** The demo already runs on Hostinger from `/docker/preparedhome-demo`; these steps would start a second container with a second route for the same address. See [DEPLOY.md](DEPLOY.md).
+
 **What it is:** a public demo for JunctionX Turku (If track). One container serves the web app and a small API at a single hostname, `preparedhome.demo.wicflow.com`.
 - **Compose project:** `jx-preparedhome`. Container: `jx-preparedhome`. Memory limit 1 GB, 1 CPU.
 - **The image only copies a prebuilt artifact** (`release/artifact/`, committed). It runs no npm install and no web build on the box, so it adds no build load next to the other internal services.
